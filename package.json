@@ -1,0 +1,35 @@
+{
+  "name": "app.christopherleemiller.me",
+  "version": "1.0.0",
+  "description": "Front End to www.christopherleemiller.me",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "test": "NODE_ENV=test jest && codecov -t e12fe338-a516-4ab5-8c7f-078f4742a9a0",
+    "analyze": "cross-env ANALYZE=1 next build && cat .next/stats.txt"
+  },
+  "author": "ChristopherLMiller",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "formik": "^2.1.5",
+    "framer-motion": "^2.5.1",
+    "graphql": "^15.3.0",
+    "graphql-tag": "^2.11.0",
+    "js-cookie": "^2.2.1",
+    "next": "^9.5.2",
+    "next-cookies": "^2.0.3",
+    "normalize.css": "^8.0.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.27",
+    "@types/react": "^16.9.46",
+    "babel-plugin-styled-components": "^1.11.1",
+    "typescript": "^3.9.7"
+  }
+}

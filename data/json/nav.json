@@ -1,0 +1,95 @@
+{
+  "items": [
+    {
+      "title": "home",
+      "activePaths": ["/"],
+      "href": "/",
+      "authState": "ANY",
+      "icon": "home"
+    },
+    {
+      "title": "My Blog",
+      "activePaths": ["/blog", "/post"],
+      "href": "/blog",
+      "authState": "ANY",
+      "icon": "archive"
+    },
+    {
+      "title": "About Me",
+      "activePaths": ["/about"],
+      "href": "/about",
+      "authState": "ANY",
+      "icon": "user-4"
+    },
+    {
+      "title": "Uses",
+      "activePaths": ["/uses"],
+      "href": "/uses",
+      "authState": "ANY",
+      "icon": "list"
+    },
+    {
+      "title": "Projects",
+      "activePaths": ["/projects"],
+      "href": "/projects",
+      "authState": "ANY",
+      "icon": "resume"
+    },
+    {
+      "title": "Models",
+      "activePaths": ["/models"],
+      "href": "/models",
+      "authState": "ANY",
+      "icon": "paper-plane-1"
+    },
+    {
+      "title": "Galleries",
+      "activePaths": ["/galleries"],
+      "href": "/galleries",
+      "authState": "ANY",
+      "icon": "albums"
+    },
+    {
+      "title": "Contact Me",
+      "activePaths": ["/contact-me"],
+      "href": "/contact-me",
+      "authState": "ANY",
+      "icon": "incoming"
+    },
+    {
+      "title": "My Account",
+      "activePaths": ["/my-account"],
+      "authState": "LOGGED_IN",
+      "href": "/my-account",
+      "icon": "id-card-5"
+    },
+    {
+      "title": "Backend",
+      "authState": "LOGGED_IN",
+      "href": "https://strapi.christopherleemiller.me/dashboard",
+      "icon": "settings-5",
+      "requiredRoles": ["ADMIN"]
+    },
+    {
+      "title": "Admin Panel",
+      "activePaths": ["/admin"],
+      "authState": "LOGGED_IN",
+      "href": "/admin",
+      "requiredRoles": ["ADMIN"],
+      "icon": "controls"
+    },
+    {
+      "title": "Login",
+      "activePaths": ["/login"],
+      "authState": "LOGGED_OUT",
+      "href": "/login",
+      "icon": "login"
+    },
+    {
+      "title": "Logout",
+      "authState": "LOGGED_IN",
+      "href": "/logout",
+      "icon": "login"
+    }
+  ]
+}
