@@ -6,6 +6,7 @@ import fetch, { addBearerToken, removeBearerToken } from "src/utils/fetch";
 import { ME_QUERY_STRING } from "src/utils/graphql/queries";
 import { LOGIN_MUTATION_STRING } from "src/utils/graphql/mutations";
 import { iUser } from "src/utils/graphql/types/user";
+import { GUEST } from "config";
 
 interface Auth {
   user: iUser;
@@ -17,6 +18,7 @@ interface Auth {
     getEmail: () => string;
     isAccountConfirmed: () => boolean;
     isAccountBlocked: () => boolean;
+    hasPermission: ([string]) => boolean;
     getRole: () => string;
   };
 }
@@ -145,7 +147,16 @@ export const AuthProvider = ({ children }) => {
   };
 
   const getRole = () => {
-    return user?.role?.name;
+    return user?.role?.name || GUEST;
+  };
+
+  const hasPermission = (roles: [string]) => {
+    if (roles) {
+      console.log(getRole().toUpperCase());
+      return roles.includes(getRole()?.toUpperCase());
+    }
+
+    return true;
   };
 
   const methods = {
@@ -156,6 +167,7 @@ export const AuthProvider = ({ children }) => {
     getRole,
     isAccountConfirmed,
     isAccountBlocked,
+    hasPermission,
   };
 
   return (

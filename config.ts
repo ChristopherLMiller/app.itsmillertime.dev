@@ -19,3 +19,7 @@ export const MODELS_PER_PAGE = 100;
 export const LOGGED_IN = "LOGGED_IN";
 export const LOGGED_OUT = "LOGGED_OUT";
 export const ANY = "ANY";
+
+// ROLES
+export const ADMIN = "ADMINISTRATOR";
+export const GUEST = "GUEST";

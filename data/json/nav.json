@@ -68,14 +68,14 @@
       "authState": "LOGGED_IN",
       "href": "https://strapi.christopherleemiller.me/dashboard",
       "icon": "settings-5",
-      "requiredRoles": ["ADMIN"]
+      "requiredRoles": ["ADMINISTRATOR"]
     },
     {
       "title": "Admin Panel",
       "activePaths": ["/admin"],
       "authState": "LOGGED_IN",
       "href": "/admin",
-      "requiredRoles": ["ADMIN"],
+      "requiredRoles": ["ADMINISTRATOR"],
       "icon": "controls"
     },
     {

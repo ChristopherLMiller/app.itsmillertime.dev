@@ -13,6 +13,7 @@ interface iNavItem {
     activePaths: [string];
     authState: string;
     icon: string;
+    requiredRoles?: [string];
   };
 }
 
@@ -80,7 +81,8 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
   const auth = useAuth();
   const isLocalUrl = !item.href.includes("http");
 
-  console.log(item.title, item.authState, auth.isAuthenticated);
+  // see if the user is authorized to view this
+  if (!auth.methods.hasPermission(item.requiredRoles)) return null;
 
   // chek the auth state of the item
   if (item.authState === LOGGED_IN && !auth.isAuthenticated) return null;
