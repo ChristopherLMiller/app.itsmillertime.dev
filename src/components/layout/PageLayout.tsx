@@ -2,6 +2,7 @@ import Header from "src/components/layout/elements/Header";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { FunctionComponent } from "react";
+import Footer from "./elements/Footer";
 
 const Main = styled(motion.main)`
   background: white;
@@ -46,20 +47,7 @@ const PageLayout: FunctionComponent<iPagelayout> = ({ meta, children }) => {
     <Content variants={contentVariants}>
       <Header meta={meta} />
       <Main>{children}</Main>
-      <footer>
-        Icons made by{" "}
-        <a
-          href="https://www.flaticon.com/authors/smashicons"
-          title="Smashicons"
-        >
-          Smashicons
-        </a>{" "}
-        from{" "}
-        <a href="https://www.flaticon.com/" title="Flaticon">
-          {" "}
-          www.flaticon.com
-        </a>
-      </footer>
+      <Footer />
     </Content>
   );
 };
