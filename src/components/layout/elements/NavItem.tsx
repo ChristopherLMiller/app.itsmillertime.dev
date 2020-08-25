@@ -36,7 +36,7 @@ const NavIconVariants = {
     scale: 1.35,
     marginTop: "10px",
     marginBottom: "10px",
-    background: "var(--color-red-transparent)",
+    background: "var(--color-red-dark)",
     boxShadow: "var(--box-shadow)",
   },
   rest: {
