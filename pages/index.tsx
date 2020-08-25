@@ -1,5 +1,10 @@
+import styled from "styled-components";
 import { useAuth } from "src/lib/AuthProvider";
 import PageLayout from "src/components/layout/PageLayout";
+
+const StyledDiv = styled.div`
+  font-size: var(--p-responsive);
+`;
 
 const IndexPage = () => {
   const auth = useAuth();
@@ -12,7 +17,7 @@ const IndexPage = () => {
         useSEO: false,
       }}
     >
-      <div>
+      <StyledDiv>
         <h1>Test Home Page</h1>
         <p>Hello, {auth.methods.getUsername()}</p>
         <p>Email: {auth.methods.getEmail()}</p>
@@ -157,7 +162,7 @@ const IndexPage = () => {
           Does your lorem ipsum text long for something a little meatier? Give
           our generator a try… it’s tasty!
         </p>
-      </div>
+      </StyledDiv>
     </PageLayout>
   );
 };

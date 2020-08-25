@@ -44,7 +44,7 @@ interface iPagelayout {
 const PageLayout: FunctionComponent<iPagelayout> = ({ meta, children }) => {
   return (
     <Content variants={contentVariants}>
-      <Header />
+      <Header meta={meta} />
       <Main>{children}</Main>
       <footer>
         Icons made by{" "}

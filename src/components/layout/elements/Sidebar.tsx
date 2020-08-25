@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const StyledSidebar = styled(motion.div)`
   background: var(--color-black);
-  height: 100%;
+  min-height: 100vh;
   z-index: 1;
 `;
 

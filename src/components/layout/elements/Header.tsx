@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FunctionComponent } from "react";
 
 const StyledHeader = styled.div`
   min-height: 350px;
@@ -17,10 +18,36 @@ const HeaderBackground = styled.div`
   opacity: 0.8;
 `;
 
-const Header = () => (
+const HeaderDescription = styled.h2`
+  font-family: var(--font-main);
+  font-weight: 100;
+  font-size: var(--h2-size);
+  padding-left: 2rem;
+  color: var(--color-white);
+  margin-bottom: 0;
+`;
+
+const HeaderTitle = styled.h1`
+  font-family: var(--font-main);
+  font-weight: 300;
+  font-size: var(--h1-responsive);
+  padding-left: 3.5rem;
+  color: var(--color-white);
+  margin-top: 0;
+`;
+
+interface iHeader {
+  meta: {
+    title: string;
+    description: string;
+  };
+}
+
+const Header: FunctionComponent<iHeader> = ({ meta }) => (
   <StyledHeader>
     <HeaderBackground />
-    <h1>Page Title</h1>
+    <HeaderDescription>{meta.description}</HeaderDescription>
+    <HeaderTitle>{meta.title}</HeaderTitle>
   </StyledHeader>
 );
 
