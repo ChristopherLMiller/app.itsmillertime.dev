@@ -1,5 +1,5 @@
 import { useAuth } from "src/lib/AuthProvider";
-import PageLayout from "src/components/layout/PageLayout";
+import PageLayout from "src/layout/PageLayout";
 import { NextPage } from "next";
 import cookies from "next-cookies";
 

@@ -1,11 +1,10 @@
-import Header from "src/components/layout/elements/Header";
+import Header from "src/layout/elements/Header";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { FunctionComponent } from "react";
 import Footer from "./elements/Footer";
 
 const Main = styled(motion.main)`
-  background: white;
   max-width: var(--max-width);
   margin: 0 auto;
 `;

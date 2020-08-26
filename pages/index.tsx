@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useAuth } from "src/lib/AuthProvider";
-import PageLayout from "src/components/layout/PageLayout";
+import PageLayout from "src/layout/PageLayout";
+import Card from "src/components/Card";
 
 const StyledDiv = styled.div`
   font-size: var(--p-responsive);
@@ -17,11 +18,12 @@ const IndexPage = () => {
         useSEO: false,
       }}
     >
-      <StyledDiv>
-        <h1>Test Home Page</h1>
+      <Card heading="Test Card">
         <p>Hello, {auth.methods.getUsername()}</p>
         <p>Email: {auth.methods.getEmail()}</p>
         <p>Authed: {auth.isAuthenticated ? "True" : "False"}</p>
+      </Card>
+      <StyledDiv>
         <p>
           Bacon ipsum dolor amet ribeye chuck meatball meatloaf capicola
           sirloin. Jowl ribeye swine kevin doner ham andouille short loin

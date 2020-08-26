@@ -1,7 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { AuthProvider } from "src/lib/AuthProvider";
 import { defaultTheme, GlobalStyles } from "@/styles/default";
-import Sidebar from "src/components/layout/elements/Sidebar";
+import Sidebar from "src/layout/elements/Sidebar";
 import styled from "styled-components";
 
 import "node_modules/normalize.css/normalize.css";

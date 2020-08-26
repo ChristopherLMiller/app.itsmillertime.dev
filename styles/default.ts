@@ -20,13 +20,14 @@ export const GlobalStyles = createGlobalStyle`
     --box-shadow: 0px 0px 22px rgba(0,0,0,0.4), 0px 0px 4px rgba(0,0,0,0.25);
     
     --color-black: rgb(0,0,0);
-    --color-white: #ECECEC;
+    --color-white: #FFFFFF;
     --color-red: #9D2929;
     --color-red-dark: #511515;
     --color-gold-transparent: rgb(101, 88, 26, 0.8);
     --color-red-transparent: #641919CC;
     --color-grey-intermediate: rgb(107, 107, 107);
     --color-grey-darker: #303030;
+    --color-grey-light: #ECECEC;
 
     --max-width: 1600px;
 
