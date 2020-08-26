@@ -1,8 +1,15 @@
 import { useAuth } from "src/lib/AuthProvider";
 import PageLayout from "src/layout/PageLayout";
 import { NextPage } from "next";
-import cookies from "next-cookies";
+import { Grid, GridItem } from "src/components/elements/Grid";
+import Card from "src/components/Card";
+import styled from "styled-components";
 
+const InformationPanel = styled.div`
+  p {
+    margin: 0;
+  }
+`;
 const MyAccount: NextPage = () => {
   const auth = useAuth();
 
@@ -14,14 +21,64 @@ const MyAccount: NextPage = () => {
         useSEO: false,
       }}
     >
+      <Grid columns={3}>
+        <img src={auth.methods.getAvatar()} alt="Avatar picture of self" />
+        <GridItem start={2} end={3}>
+          <Card heading="My Information" align="left">
+            <InformationPanel>
+              <Grid columns={2}>
+                <GridItem>
+                  <p>Username:</p>
+                </GridItem>
+                <GridItem>
+                  <p>{auth.methods.getUsername()}</p>
+                </GridItem>
+                <GridItem>
+                  <p>Email:</p>
+                </GridItem>
+                <GridItem>
+                  <p>{auth.methods.getEmail()}</p>
+                </GridItem>
+                <GridItem>
+                  <p>Birthdate: </p>
+                </GridItem>
+                <GridItem>
+                  <p>{auth.methods.getBirthdate()}</p>
+                </GridItem>
+                <GridItem>
+                  <p>Account Confirmed:</p>
+                </GridItem>
+                <GridItem>
+                  <input
+                    type="checkbox"
+                    checked={auth.methods.isAccountConfirmed()}
+                    disabled
+                  />
+                </GridItem>
+                <GridItem>
+                  <p>Account Blocked:</p>
+                </GridItem>
+                <GridItem>
+                  <p>
+                    <input
+                      type="checkbox"
+                      checked={auth.methods.isAccountBlocked()}
+                      disabled
+                    />
+                  </p>
+                </GridItem>
+                <GridItem>
+                  <p>User Role:</p>
+                </GridItem>
+                <GridItem>
+                  <p>{auth.methods.getRole()}</p>
+                </GridItem>
+              </Grid>
+            </InformationPanel>
+          </Card>
+        </GridItem>
+      </Grid>
       <div>
-        <p>Username: {auth.methods.getUsername()}</p>
-        <p>Email: {auth.methods.getEmail()}</p>
-        <p>Account Confirmed: {auth.methods.isAccountConfirmed()}</p>
-        <p>Account Status: {auth.methods.isAccountBlocked() ? "Yes" : "No"}</p>
-        <hr />
-        <p>Role: {auth.methods.getRole()}</p>
-        <hr />
         <p>
           <button onClick={() => auth.methods.logout()}>Logout</button>
         </p>

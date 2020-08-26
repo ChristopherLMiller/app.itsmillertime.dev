@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-
+import md5 from "md5";
 import Cookies from "js-cookie";
 import Router from "next/router";
 import fetch, { addBearerToken, removeBearerToken } from "src/utils/fetch";
@@ -20,6 +20,8 @@ interface Auth {
     isAccountBlocked: () => boolean;
     hasPermission: ([string]) => boolean;
     getRole: () => string;
+    getAvatar: () => string;
+    getBirthdate: () => string;
   };
 }
 
@@ -159,6 +161,14 @@ export const AuthProvider = ({ children }) => {
     return true;
   };
 
+  const getAvatar = () => {
+    return `https://www.gravatar.com/avatar/${md5(getEmail().toLowerCase())}`;
+  };
+
+  const getBirthdate = () => {
+    return user?.birthdate;
+  };
+
   const methods = {
     login,
     logout,
@@ -168,6 +178,8 @@ export const AuthProvider = ({ children }) => {
     isAccountConfirmed,
     isAccountBlocked,
     hasPermission,
+    getAvatar,
+    getBirthdate,
   };
 
   return (

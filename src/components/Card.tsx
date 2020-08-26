@@ -25,7 +25,7 @@ const variants = {
 };
 
 const StyledCard = styled.div`
-  color: black;
+  color: var(--color-black);
   font-family: var(--font-main);
   font-weight: 300;
   max-width: 1000px;
@@ -52,15 +52,16 @@ const CardHeadingSubHeading = styled.h3`
 `;
 
 interface iCardBody {
+  align: string;
   padding?: boolean;
 }
 
-const CardBody = styled.div`
+const CardBody = styled.div<iCardBody>`
   background: var(--color-grey-light);
-  padding: ${(props: iCardBody) => (props.padding ? `3% 5%` : `0`)};
+  padding: ${(props) => (props.padding ? `3% 5%` : `0`)};
   font-size: var(--p-responsive);
   letter-spacing: -1px;
-  text-align: center;
+  text-align: ${(props) => props.align};
   a {
     color: var(--color-red);
     :hover {
@@ -89,7 +90,7 @@ interface iActionLink {
 }
 
 interface CardProps {
-  children: object;
+  align?: string;
   heading?: string;
   subHeading?: string;
   padding?: boolean;
@@ -101,6 +102,7 @@ const Card: FunctionComponent<CardProps> = ({
   subHeading,
   children,
   padding = true,
+  align = "center",
   actionLinks,
 }) => (
   <motion.div variants={variants}>
@@ -114,7 +116,7 @@ const Card: FunctionComponent<CardProps> = ({
         </CardHeading>
       )}
 
-      <CardBody padding={padding}>
+      <CardBody padding={padding} align={align}>
         {children}
         {actionLinks && (
           <ActionLinks>
