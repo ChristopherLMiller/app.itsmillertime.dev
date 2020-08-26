@@ -1,7 +1,22 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(req.body);
-  res.send("Test");
+  const { event, model } = req.body;
+
+  switch (event) {
+    case "entry.create":
+      console.log(`created entry of type ${model}`);
+      break;
+    case "entry.edit":
+      console.log("edited an entry");
+      break;
+    case "entry.delete":
+      console.log("deleted entry");
+      break;
+    default:
+      console.log("shouldnt have got here");
+      break;
+  }
+
   res.end();
 };
