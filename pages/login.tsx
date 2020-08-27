@@ -18,6 +18,12 @@ const FormValidation = Yup.object().shape({
   password: Yup.string().required("We need your password please"),
 });
 
+const ForgotFormValidation = Yup.object().shape({
+  email: Yup.string()
+    .email()
+    .required("Need the email address to reset password"),
+});
+
 const LoginPage = () => {
   const auth = useAuth();
 
@@ -39,7 +45,6 @@ const LoginPage = () => {
                 values.password
               );
 
-              console.log(result);
               if (result.status === STATUS.FAIL) {
                 // todo: REACT TOAST
                 alert(result.message);
@@ -78,6 +83,39 @@ const LoginPage = () => {
               No problem! Enter your email below and a password reset email will
               be sent to you.
             </p>
+            <Formik
+              initialValues={{ email: "" }}
+              onSubmit={async (values, { setSubmitting }) => {
+                const result = await auth.methods.forgotPassword(values.email);
+
+                if (result.status === STATUS.SUCCESS) {
+                  // TODO: toast notifications
+                  alert("email has been sent");
+                } else {
+                  // TODO: toas notification
+                  alert("unable to send email");
+                }
+                setSubmitting(false);
+              }}
+              validationSchema={ForgotFormValidation}
+            >
+              {({ isSubmitting }) => (
+                <Form>
+                  <StyledForm>
+                    <Fieldset>
+                      <Label htmlFor="email">Email:</Label>
+                      <Field type="email" name="email" />
+                      <FormErrorMessage>
+                        <ErrorMessage name="email" component="div" />
+                      </FormErrorMessage>
+                    </Fieldset>
+                    <Button type="submit" disabled={isSubmitting}>
+                      Reset Password
+                    </Button>
+                  </StyledForm>
+                </Form>
+              )}
+            </Formik>
           </div>
         </Grid>
       </Card>

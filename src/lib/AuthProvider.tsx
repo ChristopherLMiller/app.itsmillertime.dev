@@ -4,7 +4,10 @@ import Cookies from "js-cookie";
 import Router from "next/router";
 import fetch, { addBearerToken, removeBearerToken } from "src/utils/fetch";
 import { ME_QUERY_STRING } from "src/utils/graphql/queries";
-import { LOGIN_MUTATION_STRING } from "src/utils/graphql/mutations";
+import {
+  LOGIN_MUTATION_STRING,
+  FORGOT_PASSWORD_MUTATION_STRING,
+} from "src/utils/graphql/mutations";
 import { iUser } from "src/utils/graphql/types/user";
 import { GUEST, STATUS } from "config";
 
@@ -25,6 +28,9 @@ interface Auth {
     getRole: () => string;
     getAvatar: () => string;
     getBirthdate: () => string;
+    forgotPassword: (
+      email: string
+    ) => Promise<{ status: string; message: string }>;
   };
 }
 
@@ -126,6 +132,28 @@ export const AuthProvider = ({ children }) => {
     return result;
   };
 
+  const forgotPassword = async (email: string) => {
+    const result = await fetch
+      .post("/graphql", {
+        variables: {
+          email: email,
+        },
+        query: FORGOT_PASSWORD_MUTATION_STRING,
+      })
+      .then(({ data }) => {
+        return {
+          status: data.data.forgotPassword.ok ? STATUS.SUCCESS : STATUS.FAIL,
+          message: "Reset Successful",
+        };
+      })
+      .catch((error) => {
+        console.error(error);
+        return { status: STATUS.FAIL, message: error };
+      });
+
+    return result;
+  };
+
   const logout = () => {
     Cookies.remove("jwt");
     Cookies.remove("user");
@@ -190,6 +218,7 @@ export const AuthProvider = ({ children }) => {
     hasPermission,
     getAvatar,
     getBirthdate,
+    forgotPassword,
   };
 
   return (
