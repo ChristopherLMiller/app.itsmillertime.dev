@@ -8,7 +8,9 @@
     "build": "next build",
     "start": "next start -p 6006",
     "test": "NODE_ENV=test jest && codecov -t e12fe338-a516-4ab5-8c7f-078f4742a9a0",
-    "analyze": "cross-env ANALYZE=1 next build && cat .next/stats.txt"
+    "analyze": "cross-env ANALYZE=1 next build && cat .next/stats.txt",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "author": "ChristopherLMiller",
   "license": "ISC",
@@ -29,9 +31,16 @@
     "styled-components": "^5.1.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.11.4",
+    "@storybook/addon-actions": "^6.0.19",
+    "@storybook/addon-essentials": "^6.0.19",
+    "@storybook/addon-links": "^6.0.19",
+    "@storybook/react": "^6.0.19",
     "@types/node": "^14.0.27",
     "@types/react": "^16.9.46",
+    "babel-loader": "^8.1.0",
     "babel-plugin-styled-components": "^1.11.1",
+    "react-is": "^16.13.1",
     "typescript": "^3.9.7"
   }
 }
