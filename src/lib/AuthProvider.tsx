@@ -15,7 +15,7 @@ interface Auth {
     login: (
       identifier: string,
       password: string
-    ) => { status: string; message: string };
+    ) => Promise<{ status: string; message: string }>;
     logout: () => void;
     getUsername: () => string;
     getEmail: () => string;
