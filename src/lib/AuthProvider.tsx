@@ -6,13 +6,16 @@ import fetch, { addBearerToken, removeBearerToken } from "src/utils/fetch";
 import { ME_QUERY_STRING } from "src/utils/graphql/queries";
 import { LOGIN_MUTATION_STRING } from "src/utils/graphql/mutations";
 import { iUser } from "src/utils/graphql/types/user";
-import { GUEST } from "config";
+import { GUEST, STATUS } from "config";
 
 interface Auth {
   user: iUser;
   isAuthenticated: boolean;
   methods: {
-    login: (identifier: string, password: string) => { message: string };
+    login: (
+      identifier: string,
+      password: string
+    ) => { status: string; message: string };
     logout: () => void;
     getUsername: () => string;
     getEmail: () => string;
@@ -62,8 +65,8 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  const login = (identifier: string, password: string) => {
-    fetch
+  const login = async (identifier: string, password: string) => {
+    const result = await fetch
       .post("/graphql", {
         variables: {
           identifier: identifier,
@@ -75,6 +78,7 @@ export const AuthProvider = ({ children }) => {
         // an error occured, request was successful, however login wasn't
         if (data.errors) {
           return {
+            status: STATUS.FAIL,
             message:
               data.errors[0].extensions.exception.data.message[0].messages[0]
                 .message,
@@ -100,19 +104,26 @@ export const AuthProvider = ({ children }) => {
               setIsAuthenticated(true);
               addBearerToken(token);
               redirectAfterLogin();
-              return { message: "successfully logged in" };
+              return {
+                status: STATUS.SUCCESS,
+                message: "successfully logged in",
+              };
             } else {
               // user was blocked for whatever reason, let them know this
-              return { message: "You have been blocked from logging in" };
+              return {
+                status: STATUS.FAIL,
+                message: "You have been blocked from logging in",
+              };
             }
           }
         }
       })
       .catch((error) => {
         console.error(error);
+        return { status: STATUS.FAIL, message: "Unable to login" };
       });
 
-    return { message: "Unable to login" };
+    return result;
   };
 
   const logout = () => {
@@ -154,7 +165,6 @@ export const AuthProvider = ({ children }) => {
 
   const hasPermission = (roles: [string]) => {
     if (roles) {
-      console.log(getRole().toUpperCase());
       return roles.includes(getRole()?.toUpperCase());
     }
 

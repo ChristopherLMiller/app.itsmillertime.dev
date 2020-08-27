@@ -23,3 +23,9 @@ export const ANY = "ANY";
 // ROLES
 export const ADMIN = "ADMINISTRATOR";
 export const GUEST = "GUEST";
+
+// CONSTANTS
+export const STATUS = {
+  FAIL: "FAIL",
+  SUCCESS: "SUCCESS",
+};

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { format } from "date-fns";
 import packageJSON from "package.json";
-import { Grid, GridItem } from "src/components/elements/Grid";
+import { Grid, GridItem } from "src/components/Grid";
 import Link from "next/link";
 
 const StyledFooter = styled.footer`

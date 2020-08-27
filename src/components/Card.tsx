@@ -70,6 +70,8 @@ const CardBody = styled.div<iCardBody>`
   }
   p {
     word-break: break-word;
+    color: var(--color-grey-darker);
+
     a {
       color: var(--color-red);
       :hover {

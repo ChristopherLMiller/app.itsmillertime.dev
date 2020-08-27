@@ -1,7 +1,7 @@
 import { useAuth } from "src/lib/AuthProvider";
 import PageLayout from "src/layout/PageLayout";
 import { NextPage } from "next";
-import { Grid, GridItem } from "src/components/elements/Grid";
+import { Grid, GridItem } from "src/components/Grid";
 import Card from "src/components/Card";
 import styled from "styled-components";
 
