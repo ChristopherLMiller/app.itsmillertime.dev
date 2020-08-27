@@ -7,7 +7,7 @@ import Footer from "./elements/Footer";
 const Main = styled(motion.main)`
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 2% 0;
+  padding: 0 2%;
 `;
 
 const Content = styled(motion.div)`
