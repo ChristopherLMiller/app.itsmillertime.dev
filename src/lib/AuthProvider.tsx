@@ -7,10 +7,10 @@ import { ME_QUERY_STRING } from "src/utils/graphql/queries";
 import {
   LOGIN_MUTATION_STRING,
   FORGOT_PASSWORD_MUTATION_STRING,
+  RESET_PASSWORD_MUTATION_STRING,
 } from "src/utils/graphql/mutations";
 import { iUser } from "src/utils/graphql/types/user";
 import { GUEST, STATUS } from "config";
-import { RESET_PASSWORD_MUTATION_STRING } from "src/utils/graphql/mutations/resetPassword";
 
 interface Auth {
   user: iUser;
