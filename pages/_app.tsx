@@ -3,6 +3,7 @@ import { AuthProvider } from "src/lib/AuthProvider";
 import { defaultTheme, GlobalStyles } from "@/styles/default";
 import Sidebar from "src/layout/elements/Sidebar";
 import styled from "styled-components";
+import { ToastProvider } from "react-toast-notifications";
 
 import "node_modules/normalize.css/normalize.css";
 import { useRouter } from "next/router";
@@ -19,20 +20,26 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
       <ThemeProvider theme={defaultTheme}>
-        <Layout>
-          <Sidebar />
-          <AnimatePresence exitBeforeEnter>
-            <motion.div
-              key={router.pathname}
-              initial="initial"
-              animate="enter"
-              exit="exit"
-            >
-              <Component {...pageProps} />
-            </motion.div>
-          </AnimatePresence>
-        </Layout>
-        <GlobalStyles />
+        <ToastProvider
+          autoDismiss
+          autoDismissTimeout={6000}
+          placement="top-right"
+        >
+          <Layout>
+            <Sidebar />
+            <AnimatePresence exitBeforeEnter>
+              <motion.div
+                key={router.pathname}
+                initial="initial"
+                animate="enter"
+                exit="exit"
+              >
+                <Component {...pageProps} />
+              </motion.div>
+            </AnimatePresence>
+          </Layout>
+          <GlobalStyles />
+        </ToastProvider>
       </ThemeProvider>
     </AuthProvider>
   );

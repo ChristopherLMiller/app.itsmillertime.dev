@@ -60,7 +60,7 @@
       "title": "My Account",
       "activePaths": ["/my-account"],
       "authState": "LOGGED_IN",
-      "href": "/my-account",
+      "href": "/account/my-account",
       "icon": "id-card-5"
     },
     {
@@ -82,13 +82,13 @@
       "title": "Login",
       "activePaths": ["/login"],
       "authState": "LOGGED_OUT",
-      "href": "/login",
+      "href": "/account/login",
       "icon": "login"
     },
     {
       "title": "Logout",
       "authState": "LOGGED_IN",
-      "href": "/logout",
+      "href": "/account/logout",
       "icon": "login"
     }
   ]

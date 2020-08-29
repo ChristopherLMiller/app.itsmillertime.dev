@@ -28,6 +28,7 @@
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-toast-notifications": "^2.4.0",
     "styled-components": "^5.1.1",
     "yup": "^0.29.3"
   },

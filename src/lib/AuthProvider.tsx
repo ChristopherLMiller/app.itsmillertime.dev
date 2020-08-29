@@ -10,6 +10,7 @@ import {
 } from "src/utils/graphql/mutations";
 import { iUser } from "src/utils/graphql/types/user";
 import { GUEST, STATUS } from "config";
+import { RESET_PASSWORD_MUTATION_STRING } from "src/utils/graphql/mutations/resetPassword";
 
 interface Auth {
   user: iUser;
@@ -30,6 +31,10 @@ interface Auth {
     getBirthdate: () => string;
     forgotPassword: (
       email: string
+    ) => Promise<{ status: string; message: string }>;
+    resetPassword: (
+      password: string,
+      code: string
     ) => Promise<{ status: string; message: string }>;
   };
 }
@@ -67,7 +72,7 @@ export const AuthProvider = ({ children }) => {
       })
       .catch((error) => {
         console.error(error);
-        //logout();
+        logout();
       });
   };
 
@@ -84,7 +89,7 @@ export const AuthProvider = ({ children }) => {
         // an error occured, request was successful, however login wasn't
         if (data.errors) {
           return {
-            status: STATUS.FAIL,
+            status: STATUS.ERROR,
             message:
               data.errors[0].extensions.exception.data.message[0].messages[0]
                 .message,
@@ -112,12 +117,12 @@ export const AuthProvider = ({ children }) => {
               redirectAfterLogin();
               return {
                 status: STATUS.SUCCESS,
-                message: "successfully logged in",
+                message: "Welcome back!  You have successfully logged in",
               };
             } else {
               // user was blocked for whatever reason, let them know this
               return {
-                status: STATUS.FAIL,
+                status: STATUS.ERROR,
                 message: "You have been blocked from logging in",
               };
             }
@@ -126,7 +131,7 @@ export const AuthProvider = ({ children }) => {
       })
       .catch((error) => {
         console.error(error);
-        return { status: STATUS.FAIL, message: "Unable to login" };
+        return { status: STATUS.ERROR, message: "Unable to login" };
       });
 
     return result;
@@ -142,13 +147,51 @@ export const AuthProvider = ({ children }) => {
       })
       .then(({ data }) => {
         return {
-          status: data.data.forgotPassword.ok ? STATUS.SUCCESS : STATUS.FAIL,
-          message: "Reset Successful",
+          status: data.data.forgotPassword.ok ? STATUS.SUCCESS : STATUS.ERROR,
+          message:
+            "An email has been sent to your email on file, check there for futher instructions.",
         };
       })
       .catch((error) => {
         console.error(error);
-        return { status: STATUS.FAIL, message: error };
+        return { status: STATUS.ERROR, message: error };
+      });
+
+    return result;
+  };
+
+  const resetPassword = async (password: string, code: string) => {
+    const result = await fetch
+      .post("/graphql", {
+        variables: {
+          password: password,
+          code: code,
+        },
+        query: RESET_PASSWORD_MUTATION_STRING,
+      })
+      .then(({ data }) => {
+        const jwt = data?.data?.resetPassword?.jwt;
+
+        if (jwt) {
+          setToken(jwt);
+          addBearerToken(jwt);
+          updateUser();
+          redirectAfterLogin();
+          return {
+            status: STATUS.SUCCESS,
+            message:
+              "Password reset successful.  You have been auto-logged in.",
+          };
+        } else {
+          return {
+            status: STATUS.ERROR,
+            message: "Unable to reset your password.  Try again.",
+          };
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        return { status: STATUS.ERROR, message: error };
       });
 
     return result;
@@ -219,6 +262,7 @@ export const AuthProvider = ({ children }) => {
     getAvatar,
     getBirthdate,
     forgotPassword,
+    resetPassword,
   };
 
   return (

@@ -12,6 +12,7 @@ import {
   FormErrorMessage,
 } from "src/components/inputs";
 import { STATUS } from "config";
+import { useToasts } from "react-toast-notifications";
 
 const FormValidation = Yup.object().shape({
   identifier: Yup.string().required("Please enter your username or email"),
@@ -26,6 +27,7 @@ const ForgotFormValidation = Yup.object().shape({
 
 const LoginPage = () => {
   const auth = useAuth();
+  const { addToast } = useToasts();
 
   return (
     <PageLayout
@@ -40,15 +42,16 @@ const LoginPage = () => {
           <Formik
             initialValues={{ identifier: "", password: "" }}
             onSubmit={async (values, { setSubmitting }) => {
+              setSubmitting(true);
               const result = await auth.methods.login(
                 values.identifier,
                 values.password
               );
 
-              if (result.status === STATUS.FAIL) {
-                // todo: REACT TOAST
-                alert(result.message);
-              }
+              addToast(result.message, {
+                appearance: result.status.toLowerCase(),
+              });
+
               setSubmitting(false);
             }}
             validationSchema={FormValidation}
@@ -86,15 +89,13 @@ const LoginPage = () => {
             <Formik
               initialValues={{ email: "" }}
               onSubmit={async (values, { setSubmitting }) => {
+                setSubmitting(true);
                 const result = await auth.methods.forgotPassword(values.email);
 
-                if (result.status === STATUS.SUCCESS) {
-                  // TODO: toast notifications
-                  alert("email has been sent");
-                } else {
-                  // TODO: toas notification
-                  alert("unable to send email");
-                }
+                addToast(result.message, {
+                  appearance: result.status.toLowerCase(),
+                });
+
                 setSubmitting(false);
               }}
               validationSchema={ForgotFormValidation}
