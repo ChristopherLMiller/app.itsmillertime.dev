@@ -4,10 +4,11 @@ import { defaultTheme, GlobalStyles } from "@/styles/default";
 import Sidebar from "src/layout/elements/Sidebar";
 import styled from "styled-components";
 import { ToastProvider } from "react-toast-notifications";
-
-import "node_modules/normalize.css/normalize.css";
 import { useRouter } from "next/router";
 import { motion, AnimatePresence } from "framer-motion";
+
+import "node_modules/normalize.css/normalize.css";
+import "node_modules/prismjs/themes/prism-tomorrow.css";
 
 const Layout = styled.div`
   display: grid;
