@@ -17,7 +17,7 @@
     {
       "title": "About Me",
       "activePaths": ["/about"],
-      "href": "/about",
+      "href": "/about-me",
       "authState": "ANY",
       "icon": "user-4"
     },

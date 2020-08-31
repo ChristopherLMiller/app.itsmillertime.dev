@@ -81,6 +81,11 @@ const CardBody = styled.div<iCardBody>`
       }
     }
   }
+
+  img {
+    max-width: 100%;
+    display: inline-block;
+  }
 `;
 
 const ActionLinks = styled.div`
