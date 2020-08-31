@@ -2,6 +2,7 @@ import { FunctionComponent } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { CLOUDINARY_URL, CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from "config";
 
 let easing = [0.175, 0.85, 0.42, 0.96];
 
@@ -58,6 +59,7 @@ interface iCardBody {
 
 const CardBody = styled.div<iCardBody>`
   background: var(--color-grey-light);
+  background-image: url('${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg');
   padding: ${(props) => (props.padding ? `3% 5%` : `0`)};
   font-size: var(--p-responsive);
   letter-spacing: -1px;
