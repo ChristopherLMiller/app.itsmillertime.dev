@@ -26,7 +26,7 @@ export const GlobalStyles = createGlobalStyle`
     --color-gold-transparent: rgb(101, 88, 26, 0.8);
     --color-red-transparent: #641919CC;
     --color-grey-intermediate: rgb(107, 107, 107);
-    --color-grey-darker: #303030;
+    --color-grey-darker: #212121;
     --color-grey-light: #ECECEC;
 
     --max-width: 1600px;
