@@ -10,12 +10,14 @@
     "test": "NODE_ENV=test jest && codecov -t e12fe338-a516-4ab5-8c7f-078f4742a9a0",
     "analyze": "cross-env ANALYZE=1 next build && cat .next/stats.txt",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "cypress:open": "cypress open"
   },
   "author": "ChristopherLMiller",
   "license": "ISC",
   "dependencies": {
     "@mapbox/rehype-prism": "^0.5.0",
+    "@mavrin/remark-typograf": "^2.1.6",
     "@mdx-js/loader": "^1.6.16",
     "@next/mdx": "^9.5.2",
     "axios": "^0.19.2",
@@ -33,6 +35,11 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-toast-notifications": "^2.4.0",
+    "remark-emoji": "^2.1.0",
+    "remark-fix-guillemets": "^1.1.0",
+    "remark-footnotes": "^2.0.0",
+    "remark-html": "^12.0.0",
+    "remark-sub-super": "^1.0.19",
     "styled-components": "^5.1.1",
     "yup": "^0.29.3"
   },
@@ -46,6 +53,8 @@
     "@types/react": "^16.9.46",
     "babel-loader": "^8.1.0",
     "babel-plugin-styled-components": "^1.11.1",
+    "cypress": "^5.0.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
     "react-is": "^16.13.1",
     "typescript": "^3.9.7"
   }

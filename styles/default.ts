@@ -54,19 +54,19 @@ export const GlobalStyles = createGlobalStyle`
     //--fontsize-responsive:calc(var(--font-min) * 1rem + ((var(--font-max)) - (var(--font-min))) * ((100vw - (var(--startwidth) * 1rem)) / (var(--endwidth) - var(--startwidth))));
     //But I needed a unit to use calc, and font-min and font-max could not be calculated without a unit. For the above to work, they needed to be unitless. Perhaps there is a way around this?
 
-    --h1-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * 1em);
+    --h1-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * 2rem);
 
-    --h2-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * 1em);
+    --h2-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * 2rem);
 
-    --h3-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * 1em);
+    --h3-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * 2rem);
 
-    --h4-size: calc(var(--modular1) * var(--modular1) * 1em);
+    --h4-size: calc(var(--modular1) * var(--modular1) * 2rem);
 
-    --h5-size: calc(var(--modular1) * 1em);
+    --h5-size: calc(var(--modular1) * 2rem);
 
-    --h6-size:calc(var(--base-min) * 1em);
+    --h6-size:calc(var(--base-min) * 2rem);
 
-    --p-size:calc(var(--base-min) * 1em);
+    --p-size:calc(var(--base-min) * 2rem);
   }
 
   html {
