@@ -1,6 +1,15 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
+require("dotenv").config();
+
 export default (req: NextApiRequest, res: NextApiResponse) => {
+  const authHeader = req.headers.authorization;
+
+  if (authHeader != `${process.env.STRAPI_WEBHOOK_KEY}`) {
+    res.status(403);
+    res.end();
+  }
+
   const { event, model } = req.body;
 
   switch (event) {
