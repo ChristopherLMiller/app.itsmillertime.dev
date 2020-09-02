@@ -13,7 +13,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 
   const { event, model } = req.body;
 
-  logger.log(req);
+  logger.log("info", req);
 
   switch (event) {
     case "entry.create":
