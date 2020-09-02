@@ -11,6 +11,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const { event, model } = req.body;
+  console.log(req.body);
 
   switch (event) {
     case "entry.create":
