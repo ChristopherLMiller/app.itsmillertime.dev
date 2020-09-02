@@ -24,6 +24,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
       break;
     default:
       console.log("shouldnt have got here");
+      console.log(event);
       break;
   }
 
