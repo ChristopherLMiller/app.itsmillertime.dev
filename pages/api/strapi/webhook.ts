@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import logger from "src/utils/logger";
 
 require("dotenv").config();
 
@@ -11,7 +12,8 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const { event, model } = req.body;
-  console.log(req.body);
+
+  logger.log(req);
 
   switch (event) {
     case "entry.create":
