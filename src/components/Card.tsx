@@ -31,6 +31,7 @@ const StyledCard = styled.div`
   font-weight: 300;
   max-width: 1000px;
   margin: 0 auto;
+  box-shadow: var(--box-shadow-elev-1);
 `;
 
 const CardHeading = styled.div`
@@ -63,6 +64,7 @@ const CardBody = styled.div<iCardBody>`
   padding: ${(props) => (props.padding ? `3% 5%` : `0`)};
   font-size: var(--p-responsive);
   letter-spacing: -1px;
+  position: relative;
   text-align: ${(props) => props.align};
   a {
     color: var(--color-red);

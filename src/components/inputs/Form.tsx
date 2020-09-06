@@ -11,6 +11,6 @@ export const StyledForm = styled.div`
     display: block;
     font-family: var(--font-main);
     font-weight: 300;
-    line-height: 2;
+    line-height: 1rem;
   }
 `;

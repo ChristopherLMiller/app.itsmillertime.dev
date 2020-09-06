@@ -1,73 +1,60 @@
-import styled from "styled-components";
 import { FunctionComponent } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
+import styled from "styled-components";
 
-export const StyledButton = styled(motion.p)`
+const StyledButton = styled(motion.button)`
   background: var(--color-red);
   padding: 10px;
   text-align: center;
   margin: 20px auto;
-  max-width: 200px;
   letter-spacing: 2px;
   cursor: pointer;
   font-size: var(--p-responsive);
   border: none;
+  color: var(--color-white);
+
+  :disabled {
+    background: var(--color-grey-intermediate);
+  }
 `;
 
 const ButtonVariants = {
-  rest: {
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      type: "tween",
-      ease: "easeIn",
-    },
-  },
   hover: {
     scale: 1.1,
-    transition: {
-      duration: 0.15,
-      type: "tween",
-      ease: "easeOut",
-    },
+    boxShadow: "var(--box-shadow-elev-1)",
+  },
+  initial: {
+    scale: 1,
+    boxShadow: "var(--box-shadow-elev-0)",
   },
 };
 
-const ButtonAnchor = styled.a`
-  color: var(--color-grey-light);
-`;
-
-const Button = styled.button`
-  background: var(--color-red);
-  padding: 10px;
-  text-align: center;
-  margin: 20px auto;
-  max-width: 200px;
-  letter-spacing: 2px;
-  cursor: pointer;
-  font-size: var(--p-responsive);
-  border: none;
-  color: var(--color-grey-light);
-`;
-
-interface ButtonTypes {
-  href: string;
-  as: string;
-  text: string;
+interface iButton {
+  isDisabled?: boolean;
+  isSubmitting?: boolean;
+  type?: string;
+  onClick?: () => any;
 }
 
-const LinkButton: FunctionComponent<ButtonTypes> = ({ href, as, text }) => (
-  <StyledButton
-    whileHover="hover"
-    animate="rest"
-    initial="rest"
-    variants={ButtonVariants}
-  >
-    <Link as={as} href={href}>
-      <ButtonAnchor>{text}</ButtonAnchor>
-    </Link>
-  </StyledButton>
-);
+const Button: FunctionComponent<iButton> = ({
+  isDisabled,
+  isSubmitting,
+  children,
+  onClick,
+  type = "button",
+}) => {
+  return (
+    <StyledButton
+      initial="initial"
+      whileHover="hover"
+      variants={ButtonVariants}
+      onClick={onClick}
+      type={type}
+      disabled={isDisabled}
+    >
+      {isSubmitting ? "Sending..." : children}
+    </StyledButton>
+  );
+};
 
-export { LinkButton, Button };
+export default Button;

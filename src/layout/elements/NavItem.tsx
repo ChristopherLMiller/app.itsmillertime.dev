@@ -37,13 +37,13 @@ const NavIconVariants = {
     marginTop: "10px",
     marginBottom: "10px",
     background: "var(--color-red-dark)",
-    boxShadow: "var(--box-shadow)",
+    boxShadow: "var(--box-shadow-elev-1)",
   },
   rest: {
     scale: 1,
     margin: "0px",
     background: "none",
-    boxShadow: "none",
+    boxShadow: "var(--box-shadow-elev-0)",
   },
 };
 
@@ -61,7 +61,7 @@ const NavHoverText = styled(motion.a)`
   top: 0;
   height: 100%;
   left: 100%;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--box-shadow-elev-1);
   background: var(--color-red);
   min-width: 200px;
   z-index: 0;

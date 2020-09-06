@@ -17,14 +17,18 @@ export const GlobalStyles = createGlobalStyle`
     --font-main: ${defaultTheme.fonts.main};
     --font-alt: ${defaultTheme.fonts.alt};
     --font-block: ${defaultTheme.fonts.block};
-    --box-shadow: 0px 0px 22px rgba(0,0,0,0.4), 0px 0px 4px rgba(0,0,0,0.25);
+
+    // box shadow
+    --box-shadow-elev-0: 0px 0px 0px rgba(0,0,0,0), 0px 0px 0px rgba(0,0,0,0);
+    --box-shadow-elev-1: 0px 0px 22px rgba(0,0,0,0.4), 0px 0px 4px rgba(0,0,0,0.25);
     
     --color-black: rgb(0,0,0);
     --color-white: #FFFFFF;
-    --color-red: #9D2929;
-    --color-red-dark: #511515;
+    --color-red: hsl(0 59% 40% / 1);
+    --color-red-transparent: hsl(0 59% 40% / .8);
+    --color-red-intermediate: hsl(0 59% 30% / 1);
+    --color-red-dark: hsl(0 59% 20% / 1);
     --color-gold-transparent: rgb(101, 88, 26, 0.8);
-    --color-red-transparent: #641919CC;
     --color-grey-intermediate: rgb(107, 107, 107);
     --color-grey-darker: #212121;
     --color-grey-light: #ECECEC;
@@ -54,17 +58,17 @@ export const GlobalStyles = createGlobalStyle`
     //--fontsize-responsive:calc(var(--font-min) * 1rem + ((var(--font-max)) - (var(--font-min))) * ((100vw - (var(--startwidth) * 1rem)) / (var(--endwidth) - var(--startwidth))));
     //But I needed a unit to use calc, and font-min and font-max could not be calculated without a unit. For the above to work, they needed to be unitless. Perhaps there is a way around this?
 
-    --h1-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * 2rem);
+    --h1-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * 1rem);
 
-    --h2-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * 2rem);
+    --h2-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * 1rem);
 
-    --h3-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * 2rem);
+    --h3-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * 1rem);
 
-    --h4-size: calc(var(--modular1) * var(--modular1) * 2rem);
+    --h4-size: calc(var(--modular1) * var(--modular1) * 1rem);
 
-    --h5-size: calc(var(--modular1) * 2rem);
+    --h5-size: calc(var(--modular1) * 1rem);
 
-    --h6-size:calc(var(--base-min) * 2rem);
+    --h6-size:calc(var(--base-min) * 1rem);
 
     --p-size:calc(var(--base-min) * 2rem);
   }
