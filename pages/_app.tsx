@@ -6,16 +6,36 @@ import styled from "styled-components";
 import { ToastProvider } from "react-toast-notifications";
 import { useRouter } from "next/router";
 import { motion, AnimatePresence } from "framer-motion";
+import getConfig from "next/config";
+import * as Sentry from "@sentry/node";
+import { RewriteFrames } from "@sentry/integrations";
 
 import "node_modules/normalize.css/normalize.css";
 import "node_modules/prismjs/themes/prism-tomorrow.css";
+
+if (process.env.NEXT_PUBLIC_SENTRY_DNS) {
+  const config = getConfig();
+  const distDir = `${config.serverRuntimeConfig.rootDir}/.next`;
+  Sentry.init({
+    enabled: process.env.NODE_ENV === "production",
+    integrations: [
+      new RewriteFrames({
+        iteratee: (frame) => {
+          frame.filename = frame.filename.replace(distDir, "app:///_next");
+          return frame;
+        },
+      }),
+    ],
+    dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  });
+}
 
 const Layout = styled.div`
   display: grid;
   grid-template-columns: auto 1fr;
 `;
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps, err }) {
   const router = useRouter();
 
   return (
@@ -35,7 +55,7 @@ export default function MyApp({ Component, pageProps }) {
                 animate="enter"
                 exit="exit"
               >
-                <Component {...pageProps} />
+                <Component {...pageProps} err={err} />
               </motion.div>
             </AnimatePresence>
           </Layout>
