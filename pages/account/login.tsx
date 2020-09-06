@@ -65,6 +65,15 @@ const TextPane = styled(motion.div)`
   h3,
   a {
     color: var(--color-white);
+    font-weight: 100;
+  }
+
+  h3 {
+    font-family: var(--font-block);
+    font-size: var(--h2-responsive);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 0;
   }
 `;
 
