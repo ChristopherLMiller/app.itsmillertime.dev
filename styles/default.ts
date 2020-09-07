@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { CLOUDINARY_URL, CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from "config";
+import { CLOUDINARY_URL, CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from "../config";
 
 export const defaultTheme = {
   colors: {
