@@ -23,7 +23,7 @@ interface Auth {
       identifier: string,
       password: string
     ) => Promise<{ status: string; message: string }>;
-    logout: () => void;
+    logout: () => { status: string; message: string };
     getUsername: () => string;
     getEmail: () => string;
     isAccountConfirmed: () => boolean;
@@ -207,6 +207,8 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     removeBearerToken();
     redirectAfterLogout();
+
+    return { status: STATUS.SUCCESS, message: "Logged out" };
   };
 
   const redirectAfterLogin = () => {

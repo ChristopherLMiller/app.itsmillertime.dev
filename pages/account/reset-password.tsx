@@ -72,7 +72,11 @@ const ResetPasswordPage = () => {
                       <ErrorMessage name="passwordConfirm" component="div" />
                     </FormErrorMessage>
                   </Fieldset>
-                  <Button type="submit" disabled={isSubmitting}>
+                  <Button
+                    type="submit"
+                    isDisabled={isSubmitting}
+                    isSubmitting={isSubmitting}
+                  >
                     Reset
                   </Button>
                 </StyledForm>

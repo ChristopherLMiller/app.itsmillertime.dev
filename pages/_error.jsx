@@ -1,12 +1,7 @@
 import NextErrorComponent from "next/error";
 import * as Sentry from "@sentry/node";
-import { NextPageContext } from "next";
 
-const MyError: NextPageContext = ({
-  statusCode,
-  hasGetInitialPropsRun,
-  err,
-}) => {
+const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
   if (!hasGetInitialPropsRun && err) {
     // getInitialProps is not called in case of
     // https://github.com/vercel/next.js/issues/8592. As a workaround, we pass
