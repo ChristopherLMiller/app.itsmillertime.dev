@@ -2,7 +2,10 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import md5 from "md5";
 import Cookies from "js-cookie";
 import Router from "next/router";
-import fetch, { addBearerToken, removeBearerToken } from "src/utils/fetch";
+import fetch, {
+  addBearerToken,
+  removeBearerToken,
+} from "src/utils/functions/fetch";
 import { ME_QUERY_STRING } from "src/utils/graphql/queries";
 import {
   LOGIN_MUTATION_STRING,

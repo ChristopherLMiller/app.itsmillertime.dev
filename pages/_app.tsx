@@ -5,10 +5,12 @@ import Sidebar from "src/layout/elements/Sidebar";
 import styled from "styled-components";
 import { ToastProvider } from "react-toast-notifications";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import getConfig from "next/config";
 import * as Sentry from "@sentry/node";
 import { RewriteFrames } from "@sentry/integrations";
+import * as gtag from "src/utils/functions/gtag";
 
 import "node_modules/normalize.css/normalize.css";
 import "node_modules/prismjs/themes/prism-tomorrow.css";
@@ -35,8 +37,20 @@ const Layout = styled.div`
   grid-template-columns: auto 1fr;
 `;
 
-export default function MyApp({ Component, pageProps, err }) {
+const App = ({ Component, pageProps, err }) => {
   const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      gtag.pageview(url);
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
     <AuthProvider>
@@ -64,4 +78,6 @@ export default function MyApp({ Component, pageProps, err }) {
       </ThemeProvider>
     </AuthProvider>
   );
-}
+};
+
+export default App;

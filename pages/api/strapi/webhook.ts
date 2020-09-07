@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import logger from "src/utils/logger";
+import logger from "src/utils/functions/logger";
 
 require("dotenv").config();
 
