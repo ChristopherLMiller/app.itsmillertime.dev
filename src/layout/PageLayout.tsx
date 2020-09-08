@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { FunctionComponent } from "react";
 import Footer from "./elements/Footer";
+import ScrollTop from "src/components/ScrollTop";
 
 const Main = styled(motion.main)`
   max-width: var(--max-width);
@@ -48,6 +49,7 @@ const PageLayout: FunctionComponent<iPagelayout> = ({ meta, children }) => {
       <Header meta={meta} />
       <Main>{children}</Main>
       <Footer />
+      <ScrollTop />
     </Content>
   );
 };
