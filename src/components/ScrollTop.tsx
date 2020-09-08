@@ -33,7 +33,6 @@ const ScrollTop = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      console.log(window.pageYOffset);
       if (window.pageYOffset >= 400) {
         setShowScrollTop(true);
       } else {
@@ -41,8 +40,14 @@ const ScrollTop = () => {
       }
     };
 
+    // add event listener for scroll events
     window.addEventListener("scroll", handleScroll);
-  });
+
+    // cleanup
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [window.pageYOffset]);
 
   const scrollToTop = () => {
     if (isClient()) {
