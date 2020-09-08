@@ -4,7 +4,7 @@ export const GA_TRACKING_ID = "104316136";
 export const pageview = (url) => {
   if (isClient()) {
     // @ts-ignore
-    windowg.tag("config", GA_TRACKING_ID, {
+    window.gtag("config", GA_TRACKING_ID, {
       page_path: url,
     });
   }
