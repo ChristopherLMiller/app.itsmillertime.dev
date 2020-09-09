@@ -6,6 +6,7 @@ const remarkSubSuper = require("remark-sub-super");
 const remarkHtml = require("remark-html");
 const remarkGuillemets = require("remark-fix-guillemets");
 const withSourceMaps = require("@zeit/next-source-maps");
+const withOffline = require("next-offline");
 const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 const {
   NEXT_PUBLIC_SENTRY_DSN: SENTRY_DSN,
@@ -86,7 +87,32 @@ const nextConfig = {
     }
     return config;
   },
+  workboxOpts: {
+    swDest: process.env.NEXT_EXPORT
+      ? "service-worker.js"
+      : "static/service-worker.js",
+    runtimeCaching: [
+      {
+        urlPattern: /^https?.*/,
+        handler: "NetworkFirst",
+        options: {
+          cacheName: "offlineCache",
+          expiration: {
+            maxEntries: 200,
+          },
+        },
+      },
+    ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/service-worker.js",
+        destination: "/_next/static/service-worker.js",
+      },
+    ];
+  },
   basePath,
 };
 
-module.exports = withSourceMaps(withMDX(nextConfig));
+module.exports = withOffline(withSourceMaps(withMDX(nextConfig)));
