@@ -25,6 +25,9 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     case "entry.delete":
       console.log("deleted entry");
       break;
+    case "trigger-test":
+      console.log("Received a test trigger of the webhook");
+      break;
     default:
       console.log("shouldnt have got here");
       console.log(event);
