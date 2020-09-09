@@ -7,6 +7,8 @@ const remarkHtml = require("remark-html");
 const remarkGuillemets = require("remark-fix-guillemets");
 const withSourceMaps = require("@zeit/next-source-maps");
 const withOffline = require("next-offline");
+
+// Sentry
 const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 const {
   NEXT_PUBLIC_SENTRY_DSN: SENTRY_DSN,
@@ -22,6 +24,7 @@ const COMMIT_SHA = VERCEL_GITHUB_COMMIT_SHA;
 process.env.SENTRY_DSN = SENTRY_DSN;
 const basePath = "";
 
+// MDX
 const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
   options: {
@@ -37,6 +40,11 @@ const withMDX = require("@next/mdx")({
   },
 });
 
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+// Config
 const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
@@ -115,4 +123,6 @@ const nextConfig = {
   basePath,
 };
 
-module.exports = withOffline(withSourceMaps(withMDX(nextConfig)));
+module.exports = withBundleAnalyzer(
+  withOffline(withSourceMaps(withMDX(nextConfig)))
+);
