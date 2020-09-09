@@ -15,6 +15,7 @@ const NavVariants = {
   visible: {
     transition: {
       delay: 2,
+      staggarChildren: 500,
     },
   },
 };
