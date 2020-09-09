@@ -108,7 +108,7 @@ const LoginPage = () => {
       meta={{
         title: "Login",
         description: "Access your account",
-        useSEO: false,
+        useSEO: true,
       }}
     >
       <Card padding={false}>

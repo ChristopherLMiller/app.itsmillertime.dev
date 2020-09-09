@@ -6,6 +6,7 @@ export const CLOUDINARY_URL = `https://res.cloudinary.com`;
 export const CLOUDINARY_CLOUD = `christopherleemiller`;
 export const CLOUDINARY_FOLDER = `clm_me`;
 
+// SEO defaults
 export const SITE_TITLE = `Christopher Lee Miller`;
 export const SITE_DEFAULT_IMAGE = `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/c_scale,w_300//${CLOUDINARY_FOLDER}/assets/logo.png`;
 export const SEPARATOR = ` - `;

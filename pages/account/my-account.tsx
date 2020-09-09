@@ -18,7 +18,7 @@ const MyAccount: NextPage = () => {
       meta={{
         title: "My Account",
         description: "Manage your account",
-        useSEO: false,
+        useSEO: true,
       }}
     >
       <Grid columns={3}>

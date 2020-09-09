@@ -17,7 +17,7 @@ const LogoutPage = () => {
       meta={{
         title: "Logout",
         description: "Logout",
-        useSEO: false,
+        useSEO: true,
       }}
     >
       <Card heading="Un-oh">

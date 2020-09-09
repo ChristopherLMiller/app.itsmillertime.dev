@@ -12,7 +12,6 @@ import * as Yup from "yup";
 import Card from "src/components/Card";
 import { Grid } from "src/components/Grid";
 import { useRouter } from "next/router";
-import { STATUS } from "config";
 import { useToasts } from "react-toast-notifications";
 
 const FormValidation = Yup.object().shape({

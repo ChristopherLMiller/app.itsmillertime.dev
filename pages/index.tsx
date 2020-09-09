@@ -7,7 +7,7 @@ const IndexPage = () => {
       meta={{
         title: "Home",
         description: "Programmer. Amateur Designer. Model Enthusiast.",
-        useSEO: false,
+        useSEO: true,
       }}
     >
       <Card heading="Welcome" align="left">
