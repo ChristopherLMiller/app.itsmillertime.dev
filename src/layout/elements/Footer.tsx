@@ -91,7 +91,7 @@ const FooterSubheading = styled.p`
 
 const Footer = () => {
   return (
-    <StyledFooter>
+    <StyledFooter role="footer">
       <FooterBackground />
       <FooterContentArea>
         <FooterContent>
@@ -102,11 +102,11 @@ const Footer = () => {
                 Be sure to see the latest and greatest
               </FooterSubheading>
               <Grid colums={5} min="60px">
-                <FooterIcon src="/svg/github.svg" />
-                <FooterIcon src="/svg/linkedin.svg" />
-                <FooterIcon src="/svg/instagram.svg" />
-                <FooterIcon src="/svg/twitter.svg" />
-                <FooterIcon src="/svg/youtube.svg" />
+                <FooterIcon src="/svg/github.svg" alt="Github" />
+                <FooterIcon src="/svg/linkedin.svg" alt="LinkedIn" />
+                <FooterIcon src="/svg/instagram.svg" alt="Instagram" />
+                <FooterIcon src="/svg/twitter.svg" alt="Twitter" />
+                <FooterIcon src="/svg/youtube.svg" alt="YouTube" />
               </Grid>
             </GridItem>
             <GridItem>

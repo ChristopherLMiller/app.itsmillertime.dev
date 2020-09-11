@@ -112,6 +112,7 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
             variants={NavIconVariants}
             initial="rest"
             animate="rest"
+            alt={`${item.title} Page Link`}
           />
         </Link>
         <Link href={item.href}>
