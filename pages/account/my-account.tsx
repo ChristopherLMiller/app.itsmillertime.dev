@@ -4,23 +4,46 @@ import { NextPage } from "next";
 import { Grid, GridItem } from "src/components/Grid";
 import Card from "src/components/Card";
 import styled from "styled-components";
+import { NextSeo } from "next-seo";
+import {
+  SITE_DEFAULT_IMAGE_FILE,
+  CLOUDINARY_CLOUD,
+  CLOUDINARY_URL,
+} from "config";
+
+const title = "My Account";
+const description = "Manage your account here";
 
 const InformationPanel = styled.div`
   p {
     margin: 0;
   }
 `;
+
 const MyAccount: NextPage = () => {
   const auth = useAuth();
 
   return (
-    <PageLayout
-      meta={{
-        title: "My Account",
-        description: "Manage your account",
-        useSEO: true,
-      }}
-    >
+    <PageLayout title={title} description={description}>
+      <NextSeo
+        nofollow={true}
+        title={title}
+        description={description}
+        openGraph={{
+          title,
+          description,
+          type: "website",
+          images: [
+            {
+              alt: "Default Site Image",
+              width: 800,
+              height: 600,
+              url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+            },
+          ],
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/my-account`,
+        }}
+      />
       <Grid columns={3}>
         <img src={auth.methods.getAvatar()} alt="Avatar picture of self" />
         <GridItem start={2} end={3}>

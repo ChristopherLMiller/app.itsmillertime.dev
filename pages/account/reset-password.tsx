@@ -8,11 +8,17 @@ import {
   Button,
   StyledForm,
 } from "src/components/inputs";
+import {
+  SITE_DEFAULT_IMAGE_FILE,
+  CLOUDINARY_CLOUD,
+  CLOUDINARY_URL,
+} from "config";
 import * as Yup from "yup";
 import Card from "src/components/Card";
 import { Grid } from "src/components/Grid";
 import { useRouter } from "next/router";
 import { useToasts } from "react-toast-notifications";
+import { NextSeo } from "next-seo";
 
 const FormValidation = Yup.object().shape({
   password: Yup.string().required("We need your password please"),
@@ -20,6 +26,9 @@ const FormValidation = Yup.object().shape({
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required("We need your new password again"),
 });
+
+const title = "Reset Password";
+const description = "Recever your account, reset your password now";
 
 const ResetPasswordPage = () => {
   const auth = useAuth();
@@ -29,13 +38,26 @@ const ResetPasswordPage = () => {
   const code = router.query["code"] as string;
 
   return (
-    <PageLayout
-      meta={{
-        title: "Reset Password",
-        useSEO: true,
-        description: "Recover your account password now",
-      }}
-    >
+    <PageLayout title={title} description={description}>
+      <NextSeo
+        nofollow={true}
+        title={title}
+        description={description}
+        openGraph={{
+          title,
+          description,
+          type: "website",
+          images: [
+            {
+              alt: "Default Site Image",
+              width: 800,
+              height: 600,
+              url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+            },
+          ],
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/reset-password`,
+        }}
+      />
       <Card>
         <Grid columns={2} gap="30px">
           <Formik

@@ -1,15 +1,36 @@
 import PageLayout from "src/layout/PageLayout";
 import Card from "src/components/Card";
+import { NextSeo } from "next-seo";
+import {
+  SITE_DEFAULT_IMAGE_FILE,
+  CLOUDINARY_CLOUD,
+  CLOUDINARY_URL,
+} from "config";
+
+const title = "Home";
+const description = "Programmer.  Amateur Designer.  Model Enthsiast.";
 
 const IndexPage = () => {
   return (
-    <PageLayout
-      meta={{
-        title: "Home",
-        description: "Programmer. Amateur Designer. Model Enthusiast.",
-        useSEO: true,
-      }}
-    >
+    <PageLayout title={title} description={description}>
+      <NextSeo
+        title={title}
+        description={description}
+        openGraph={{
+          title,
+          description,
+          type: "website",
+          images: [
+            {
+              alt: "Default Site Image",
+              width: 800,
+              height: 600,
+              url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+            },
+          ],
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}`,
+        }}
+      />
       <Card heading="Welcome" align="left">
         <p>
           Please excuse the mess while I'm remodeling. Many great things are in

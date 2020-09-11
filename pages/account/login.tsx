@@ -16,6 +16,16 @@ import { useToasts } from "react-toast-notifications";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
+import {
+  SITE_DEFAULT_IMAGE_FILE,
+  CLOUDINARY_CLOUD,
+  CLOUDINARY_URL,
+} from "config";
+import { NextSeo } from "next-seo";
+
+const title = "Login";
+const description = "Access your Account";
+
 const LoginPane = styled(motion.div)`
   padding: 3% 5%;
   display: flex;
@@ -104,13 +114,26 @@ const LoginPage = () => {
   const { addToast } = useToasts();
 
   return (
-    <PageLayout
-      meta={{
-        title: "Login",
-        description: "Access your account",
-        useSEO: true,
-      }}
-    >
+    <PageLayout title={title} description={description}>
+      <NextSeo
+        nofollow={true}
+        title={title}
+        description={description}
+        openGraph={{
+          title,
+          description,
+          type: "website",
+          images: [
+            {
+              alt: "Default Site Image",
+              width: 800,
+              height: 600,
+              url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+            },
+          ],
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/login`,
+        }}
+      />
       <Card padding={false}>
         <TextPane
           initial="login"

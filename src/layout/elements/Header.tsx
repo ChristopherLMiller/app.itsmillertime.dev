@@ -48,17 +48,15 @@ const HeaderTitle = styled.h1`
 `;
 
 interface iHeader {
-  meta: {
-    title: string;
-    description: string;
-  };
+  title: string;
+  description: string;
 }
 
-const Header: FunctionComponent<iHeader> = ({ meta }) => (
+const Header: FunctionComponent<iHeader> = ({ title, description }) => (
   <StyledHeader>
     <HeaderBackground />
-    <HeaderDescription>{meta.description}</HeaderDescription>
-    <HeaderTitle>{meta.title}</HeaderTitle>
+    <HeaderDescription>{description}</HeaderDescription>
+    <HeaderTitle>{title}</HeaderTitle>
   </StyledHeader>
 );
 

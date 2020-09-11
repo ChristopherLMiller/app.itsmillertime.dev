@@ -27,7 +27,7 @@ if (process.env.NEXT_PUBLIC_SENTRY_DNS) {
     integrations: [
       new RewriteFrames({
         iteratee: (frame) => {
-          frame.filename = frame.filename.replace(distDir, "app:///_next");
+          frame.filename = frame.filename.replace(distDir, "app://_next");
           return frame;
         },
       }),
