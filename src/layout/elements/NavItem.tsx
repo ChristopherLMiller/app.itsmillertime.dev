@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { LOGGED_IN, LOGGED_OUT } from "config";
 import { useRouter } from "next/router";
-import { NONAME } from "dns";
 
 interface iNavItem {
   item: {
@@ -25,7 +24,9 @@ interface iNavContainer {
 const NavContainer = styled(motion.div)<iNavContainer>`
   position: relative;
   background: ${(props) =>
-    props.isActive ? "var(--color-gold-transparent)" : "none"};
+    props.isActive
+      ? "var(--color-gold-transparent)"
+      : "var(--color-white-transparent)"};
   display: flex;
   justify-content: center;
   width: 100%;
@@ -42,7 +43,7 @@ const NavIconVariants = {
   rest: {
     scale: 1,
     margin: "0px",
-    background: "none",
+    background: "var(--color-white-transparent)",
     boxShadow: "var(--box-shadow-elev-0)",
   },
 };

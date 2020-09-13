@@ -22,13 +22,14 @@ export const GlobalStyles = createGlobalStyle`
     --box-shadow-elev-0: 0px 0px 0px rgba(0,0,0,0), 0px 0px 0px rgba(0,0,0,0);
     --box-shadow-elev-1: 0px 0px 22px rgba(0,0,0,0.4), 0px 0px 4px rgba(0,0,0,0.25);
     
-    --color-black: rgb(0,0,0);
-    --color-white: #FFFFFF;
-    --color-red: hsl(0 59% 40% / 1);
-    --color-red-transparent: hsl(0 59% 40% / .8);
-    --color-red-intermediate: hsl(0 59% 30% / 1);
-    --color-red-dark: hsl(0 59% 20% / 1);
-    --color-gold-transparent: rgb(101, 88, 26, 0.8);
+    --color-black: hsl(0deg 0% 0% / 1);
+    --color-white: hsl(0deg 0% 100% / 1);
+    --color-white-transparent: hsl(0deg 0% 100% / 0.0);
+    --color-red: hsl(0deg 59% 40% / 1);
+    --color-red-transparent: hsl(0deg 59% 40% / 0.8);
+    --color-red-intermediate: hsl(0deg 59% 30% / 1);
+    --color-red-dark: hsl(0deg 59% 20% / 1);
+    --color-gold-transparent: hsl(50deg 59% 25% / 0.8);
     --color-grey-intermediate: rgb(107, 107, 107);
     --color-grey-darker: #212121;
     --color-grey-light: #ECECEC;

@@ -16,7 +16,7 @@
     },
     {
       "title": "About Me",
-      "activePaths": ["/about"],
+      "activePaths": ["/about-me"],
       "href": "/about-me",
       "authState": "ANY",
       "icon": "user-4"
@@ -58,7 +58,7 @@
     },
     {
       "title": "My Account",
-      "activePaths": ["/my-account"],
+      "activePaths": ["/account/my-account"],
       "authState": "LOGGED_IN",
       "href": "/account/my-account",
       "icon": "id-card-5"
@@ -80,13 +80,14 @@
     },
     {
       "title": "Login",
-      "activePaths": ["/login"],
+      "activePaths": ["/account/login"],
       "authState": "LOGGED_OUT",
       "href": "/account/login",
       "icon": "login"
     },
     {
       "title": "Logout",
+      "activePaths": ["/account/logout"],
       "authState": "LOGGED_IN",
       "href": "/account/logout",
       "icon": "login"
