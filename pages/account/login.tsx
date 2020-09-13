@@ -61,7 +61,7 @@ const ForgotFormValidation = Yup.object().shape({
 });
 
 const TextPane = styled(motion.div)`
-  display: flex;
+  display: none;
   align-items: center;
   position: absolute;
   width: 50%;
@@ -70,6 +70,10 @@ const TextPane = styled(motion.div)`
   background: var(--color-red-intermediate);
   height: 100%;
   padding: 3% 5%;
+
+  @media (min-width: 807px) {
+    display: flex;
+  }
 
   p,
   h3,
@@ -84,6 +88,16 @@ const TextPane = styled(motion.div)`
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-top: 0;
+  }
+`;
+
+const Splitter = styled.div`
+  color: var(--color-red);
+  text-transform: uppercase;
+  font-weight: 600;
+
+  @media (min-width: 807px) {
+    display: none;
   }
 `;
 
@@ -174,7 +188,7 @@ const LoginPage = () => {
             </div>
           )}
         </TextPane>
-        <Grid columns={3}>
+        <Grid columns={2}>
           <LoginPane
             initial="login"
             variants={loginPaneVariants}
@@ -226,6 +240,7 @@ const LoginPage = () => {
               )}
             </Formik>
           </LoginPane>
+          <Splitter>Or</Splitter>
           <Resetpane>
             <Formik
               initialValues={{ email: "" }}
