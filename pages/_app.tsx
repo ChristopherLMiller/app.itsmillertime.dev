@@ -12,10 +12,13 @@ import * as Sentry from "@sentry/node";
 import { RewriteFrames } from "@sentry/integrations";
 import * as gtag from "src/utils/functions/gtag";
 import { DefaultSeo } from "next-seo";
+import NProgress from "nprogress";
+import Head from "next/head";
 
 // global CSS
 import "node_modules/normalize.css/normalize.css";
 import "node_modules/prismjs/themes/prism-tomorrow.css";
+import "node_modules/nprogress/nprogress.css";
 
 import SEO from "next-seo.config";
 
@@ -56,6 +59,31 @@ const App = ({ Component, pageProps, err }) => {
     };
   }, [router.events]);
 
+  useEffect(() => {
+    const routeChangeStart = () => {
+      NProgress.configure({ showSpinner: false });
+      NProgress.start();
+    };
+
+    const routeChangeComplete = () => {
+      NProgress.done();
+    };
+
+    const routeChangeError = () => {
+      NProgress.done();
+    };
+
+    router.events.on("routeChangeStart", routeChangeStart);
+    router.events.on("routeChangeComplete", routeChangeComplete);
+    router.events.on("routeChangeError", routeChangeError);
+
+    return () => {
+      router.events.off("routeChangeStart", routeChangeStart);
+      router.events.off("routeChangeComplete", routeChangeComplete);
+      router.events.off("routeChangeError", routeChangeError);
+    };
+  });
+
   return (
     <AuthProvider>
       <ThemeProvider theme={defaultTheme}>
@@ -64,6 +92,14 @@ const App = ({ Component, pageProps, err }) => {
           autoDismissTimeout={6000}
           placement="top-right"
         >
+          <Head>
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1"
+            />
+            <meta charSet="utf-8" />
+            <meta name="theme-color" content="#982929" />
+          </Head>
           <DefaultSeo {...SEO} />
           <Layout>
             <Sidebar />
