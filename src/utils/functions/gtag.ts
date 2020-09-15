@@ -1,5 +1,5 @@
 import { isClient } from "./isClientServer";
-export const GA_TRACKING_ID = "104316136";
+export const GA_TRACKING_ID = "UA-104316136-1";
 
 export const pageview = (url) => {
   if (isClient()) {
