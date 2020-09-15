@@ -95,11 +95,27 @@ const Footer = () => {
                 Be sure to see the latest and greatest
               </FooterSubheading>
               <Grid colums={5} min="60px">
-                <FooterIcon src="/svg/github.svg" alt="Github" />
-                <FooterIcon src="/svg/linkedin.svg" alt="LinkedIn" />
-                <FooterIcon src="/svg/instagram.svg" alt="Instagram" />
-                <FooterIcon src="/svg/twitter.svg" alt="Twitter" />
-                <FooterIcon src="/svg/youtube.svg" alt="YouTube" />
+                <FooterIcon loading="lazy" src="/svg/github.svg" alt="Github" />
+                <FooterIcon
+                  loading="lazy"
+                  src="/svg/linkedin.svg"
+                  alt="LinkedIn"
+                />
+                <FooterIcon
+                  loading="lazy"
+                  src="/svg/instagram.svg"
+                  alt="Instagram"
+                />
+                <FooterIcon
+                  loading="lazy"
+                  src="/svg/twitter.svg"
+                  alt="Twitter"
+                />
+                <FooterIcon
+                  loading="lazy"
+                  src="/svg/youtube.svg"
+                  alt="YouTube"
+                />
               </Grid>
             </GridItem>
             <GridItem>

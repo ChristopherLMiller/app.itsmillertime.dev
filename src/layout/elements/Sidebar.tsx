@@ -34,7 +34,7 @@ const Sidebar = () => {
       variants={SidebarVariants}
     >
       <SidebarInner>
-        <img src="/logo.png" width="60px" alt="logo" />
+        <img src="/logo.png" width="60px" alt="logo" loading="lazy" />
         <hr />
         <Nav />
       </SidebarInner>

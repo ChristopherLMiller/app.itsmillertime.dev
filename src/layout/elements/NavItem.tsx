@@ -114,6 +114,7 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
             initial="rest"
             animate="rest"
             alt={`${item.title} Page Link`}
+            loading="lazy"
           />
         </Link>
         <Link href={item.href}>

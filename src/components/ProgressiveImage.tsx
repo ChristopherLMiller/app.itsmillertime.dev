@@ -44,5 +44,7 @@ export default function ProgressiveImage({ preview, image, alt }) {
     };
   };
 
-  return <img style={style(isLoading)} src={currentImage} alt={alt} />;
+  return (
+    <img style={style(isLoading)} src={currentImage} alt={alt} loading="lazy" />
+  );
 }
