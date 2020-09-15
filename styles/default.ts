@@ -111,7 +111,20 @@ export const GlobalStyles = createGlobalStyle`
   h6 {
     font-size: var(--h6-responsive);
   }
-  /* cyrillic-ext */
+
+  a {
+    color: var(--color-grey-darker);
+    text-decoration: none;
+    box-shadow: inset 0 -6px 0 var(--color-red-dark);
+    transition: all 0.25s ease;
+
+    :hover {
+        box-shadow: inset 0 -30px 0 var(--color-red-dark);
+        color: var(--color-white);
+    }
+  }
+
+/* cyrillic-ext */
 @font-face {
   font-family: 'Oswald';
   font-style: normal;

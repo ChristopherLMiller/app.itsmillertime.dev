@@ -66,22 +66,14 @@ const CardBody = styled.div<iCardBody>`
   letter-spacing: -1px;
   position: relative;
   text-align: ${(props) => props.align};
-  a {
-    color: var(--color-red);
-    :hover {
-      text-decoration: underline;
-    }
-  }
+
   p {
     word-break: break-word;
-    color: var(--color-grey-darker);
+    color: var(--color-grey-dark);
+  }
 
-    a {
-      color: var(--color-red);
-      :hover {
-        text-decoration: underline;
-      }
-    }
+  strong {
+    color: var(--color-red-dark);
   }
 
   img {

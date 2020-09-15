@@ -35,12 +35,7 @@ const Nav = () => {
   });
 
   return (
-    <StyledNav
-      initial="hidden"
-      animate="visible"
-      variants={NavVariants}
-      role="nav"
-    >
+    <StyledNav initial="hidden" animate="visible" variants={NavVariants}>
       {!isLoading &&
         navLinks.map((navItem) => (
           <NavItem item={navItem} key={navItem.title} />

@@ -58,13 +58,6 @@ const FooterContent = styled.div`
   text-align: center;
   color: var(--color-grey-darker);
   font-size: 1.5rem;
-
-  a {
-    color: var(--color-white);
-    font-size: 2rem;
-    text-decoration: none;
-    font-weight: 100;
-  }
 `;
 
 const SiteInfo = styled.div`
@@ -91,7 +84,7 @@ const FooterSubheading = styled.p`
 
 const Footer = () => {
   return (
-    <StyledFooter role="footer">
+    <StyledFooter>
       <FooterBackground />
       <FooterContentArea>
         <FooterContent>

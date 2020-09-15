@@ -53,7 +53,7 @@ interface iHeader {
 }
 
 const Header: FunctionComponent<iHeader> = ({ title, description }) => (
-  <StyledHeader role="header">
+  <StyledHeader>
     <HeaderBackground />
     <HeaderDescription>{description}</HeaderDescription>
     <HeaderTitle>{title}</HeaderTitle>
