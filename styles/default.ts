@@ -85,8 +85,9 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: var(--font-main);
-    background: url('${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/background');
+    background: var(--color-grey-intermediate) url('${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/background.jpg') no-repeat;
     background-attachment: fixed;
+    background-size: cover;
   }
 
   p,a,code,ul,ol,pre {

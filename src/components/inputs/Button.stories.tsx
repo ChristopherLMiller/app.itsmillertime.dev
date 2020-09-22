@@ -1,4 +1,3 @@
-import { GlobalStyles } from "../../../styles/default";
 import Button from "./Button";
 
 export default {
@@ -6,12 +5,7 @@ export default {
   component: Button,
 };
 
-const Template = (args) => (
-  <>
-    <Button {...args} />
-    <GlobalStyles />
-  </>
-);
+const Template = (args) => <Button {...args} />;
 
 export const Normal = Template.bind({});
 

@@ -31,6 +31,7 @@ const FooterBackground = styled.div`
   transform: rotateZ(-5deg) translate(-50%, -90%);
   opacity: 0.8;
   transition: all 0.25s;
+  box-shadow: var(--box-shadow-elev-1);
 
   @media (min-width: 800px) {
     transform: rotateZ(-5deg) translate(-50%, -80%);
