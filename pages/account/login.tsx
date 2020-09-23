@@ -267,7 +267,9 @@ const LoginPage = () => {
                         <ErrorMessage name="email" component="div" />
                       </FormErrorMessage>
                     </Fieldset>
-                    <HCaptcha sitekey={process.env.HCAPTCHA_SITEKEY} />
+                    <HCaptcha
+                      sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY}
+                    />
                     <Button
                       type="submit"
                       isDisabled={!(isValid && dirty)}
