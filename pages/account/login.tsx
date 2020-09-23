@@ -22,6 +22,7 @@ import {
   CLOUDINARY_URL,
 } from "config";
 import { NextSeo } from "next-seo";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 const title = "Login";
 const description = "Access your Account";
@@ -266,6 +267,7 @@ const LoginPage = () => {
                         <ErrorMessage name="email" component="div" />
                       </FormErrorMessage>
                     </Fieldset>
+                    <HCaptcha sitekey={process.env.HCAPTCHA_SITEKEY} />
                     <Button
                       type="submit"
                       isDisabled={!(isValid && dirty)}

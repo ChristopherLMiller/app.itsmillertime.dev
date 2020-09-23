@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import packageJSON from "package.json";
 import { Grid, GridItem } from "src/components/Grid";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const StyledFooter = styled.footer`
   position: relative;
@@ -71,9 +72,18 @@ const Separator = styled.span`
   margin: 0 5px;
 `;
 
-const FooterIcon = styled.img`
+const FooterIcon = styled(motion.img)`
   max-width: 60px;
 `;
+
+const FooterIconVariants = {
+  initial: {
+    transform: "scale3d(1,1,1)",
+  },
+  hover: {
+    transform: "scale3d(1.5,1.5,1)",
+  },
+};
 
 const FooterHeading = styled.h3`
   margin-bottom: 0;
@@ -96,26 +106,40 @@ const Footer = () => {
                 Be sure to see the latest and greatest
               </FooterSubheading>
               <Grid colums={5} min="60px">
-                <FooterIcon loading="lazy" src="/svg/github.svg" alt="Github" />
+                <FooterIcon
+                  loading="lazy"
+                  src="/svg/github.svg"
+                  alt="Github"
+                  whileHover="hover"
+                  variants={FooterIconVariants}
+                />
                 <FooterIcon
                   loading="lazy"
                   src="/svg/linkedin.svg"
                   alt="LinkedIn"
+                  whileHover="hover"
+                  variants={FooterIconVariants}
                 />
                 <FooterIcon
                   loading="lazy"
                   src="/svg/instagram.svg"
                   alt="Instagram"
+                  whileHover="hover"
+                  variants={FooterIconVariants}
                 />
                 <FooterIcon
                   loading="lazy"
                   src="/svg/twitter.svg"
                   alt="Twitter"
+                  whileHover="hover"
+                  variants={FooterIconVariants}
                 />
                 <FooterIcon
                   loading="lazy"
                   src="/svg/youtube.svg"
                   alt="YouTube"
+                  whileHover="hover"
+                  variants={FooterIconVariants}
                 />
               </Grid>
             </GridItem>
