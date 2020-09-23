@@ -32,6 +32,7 @@ const StyledCard = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   box-shadow: var(--box-shadow-elev-1);
+  margin-bottom: 10rem;
 `;
 
 const CardHeading = styled.div`
