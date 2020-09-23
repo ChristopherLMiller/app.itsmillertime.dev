@@ -1,13 +1,16 @@
 import { CLOUDINARY_CLOUD, CLOUDINARY_URL } from "config";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
-import Card from "src/components/Card";
 import { Grid } from "src/components/Grid";
 import PageLayout from "src/layout/PageLayout";
 
-const RecipeMarkdown = require("data/digital_garden/recipes/italian-sausage-bake.md")
+const SausageBakeMarkdown = require("data/digital_garden/recipes/italian-sausage-bake.mdx")
   .default;
-const MeatloafMarkdown = require("data/digital_garden/recipes/meatloaf.md")
+const MeatloafMarkdown = require("data/digital_garden/recipes/meatloaf.mdx")
+  .default;
+const GAMarkdown = require("data/digital_garden/random/google_analytics.mdx")
+  .default;
+const StrapiMarkdown = require("data/digital_garden/random/strapi_suggestions.mdx")
   .default;
 
 const title = "Digital Garden";
@@ -35,15 +38,10 @@ const DigitalGardenIndexPage: NextPage = () => {
         }}
       />
       <Grid columns={5} gap="5rem">
-        <Card>
-          <RecipeMarkdown />
-        </Card>
-        <Card>
-          <MeatloafMarkdown />
-        </Card>
-        <Card>
-          <RecipeMarkdown />
-        </Card>
+        <SausageBakeMarkdown />
+        <MeatloafMarkdown />
+        <GAMarkdown />
+        <StrapiMarkdown />
       </Grid>
     </PageLayout>
   );
