@@ -2,7 +2,7 @@ import Axios from "axios";
 import Router from "next/router";
 
 const fetch = Axios.create({
-  baseURL: "https://strapi.christopherleemiller.me",
+  baseURL: process.env.NEXT_PUBLIC_STRAPI_URL,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -26,6 +26,10 @@ export const addBearerToken = (token: string) => {
 
 export const removeBearerToken = () => {
   delete fetch.defaults.headers.Authorization;
+};
+
+export const gqlQuery = (queryString: string, variables?: any) => {
+  return fetch.post("/graphql", { query: queryString }, variables);
 };
 
 export default fetch;

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { CLOUDINARY_URL, CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from "config";
+import Markdown from "./elements/Markdown";
+import Contents from "./elements/Contents";
 
 let easing = [0.175, 0.85, 0.42, 0.96];
 
@@ -99,6 +101,7 @@ interface CardProps {
   subHeading?: string;
   padding?: boolean;
   actionLinks?: Array<iActionLink>;
+  markdown?: string;
 }
 
 const Card: FunctionComponent<CardProps> = ({
@@ -108,6 +111,7 @@ const Card: FunctionComponent<CardProps> = ({
   padding = true,
   align = "center",
   actionLinks,
+  markdown,
 }) => (
   <motion.div variants={variants}>
     <StyledCard>
@@ -121,7 +125,8 @@ const Card: FunctionComponent<CardProps> = ({
       )}
 
       <CardBody padding={padding} align={align}>
-        {children}
+        {children && <Contents>{children}</Contents>}
+        {markdown && <Markdown source={markdown} />}
         {actionLinks && (
           <ActionLinks>
             {actionLinks?.map((link) => (
