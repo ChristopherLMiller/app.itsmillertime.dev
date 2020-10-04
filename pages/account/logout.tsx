@@ -1,7 +1,6 @@
 import { useAuth } from "src/lib/AuthProvider";
 import PageLayout from "src/layout/PageLayout";
 import Card from "src/components/Card";
-import { useToasts } from "react-toast-notifications";
 import { useEffect } from "react";
 import {
   SITE_DEFAULT_IMAGE_FILE,
@@ -15,11 +14,9 @@ const description = "Logout";
 
 const LogoutPage = () => {
   const auth = useAuth();
-  const { addToast } = useToasts();
 
   useEffect(() => {
-    const result = auth.methods.logout();
-    addToast(result.status, result.message);
+    auth.methods.logout();
   });
   return (
     <PageLayout title={title} description={description}>

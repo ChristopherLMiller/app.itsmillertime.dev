@@ -105,11 +105,6 @@ const MyAccount: NextPage = () => {
           </Card>
         </GridItem>
       </Grid>
-      <div>
-        <p>
-          <button onClick={() => auth.methods.logout()}>Logout</button>
-        </p>
-      </div>
     </PageLayout>
   );
 };

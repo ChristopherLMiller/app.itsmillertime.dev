@@ -11,7 +11,7 @@ export interface iMe {
 }
 
 export const ME_QUERY_STRING = `
-query ME{
+query ME {
     me {
       id
       username
