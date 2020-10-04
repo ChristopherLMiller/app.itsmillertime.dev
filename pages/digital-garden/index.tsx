@@ -3,20 +3,23 @@ import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { Grid } from "src/components/Grid";
 import PageLayout from "src/layout/PageLayout";
-
-const SausageBakeMarkdown = require("data/digital_garden/recipes/italian-sausage-bake.mdx")
-  .default;
-const MeatloafMarkdown = require("data/digital_garden/recipes/meatloaf.mdx")
-  .default;
-const GAMarkdown = require("data/digital_garden/random/google_analytics.mdx")
-  .default;
-const StrapiMarkdown = require("data/digital_garden/random/strapi_suggestions.mdx")
-  .default;
+import Card from "src/components/Card";
+import { gqlQuery } from "src/utils/functions/fetch";
+import { ALL_GARDEN_ITEMS_STRING } from "src/utils/graphql/queries";
+import { useQuery } from "react-query";
 
 const title = "Digital Garden";
 const description = "Random thoughts of me";
 
-const DigitalGardenIndexPage: NextPage = () => {
+interface iDigitalGarden {
+  directory: Array<string>;
+}
+
+const DigitalGardenIndexPage: NextPage<iDigitalGarden> = () => {
+  const { isLoading, error, data } = useQuery("digitalGarden", () =>
+    gqlQuery(ALL_GARDEN_ITEMS_STRING)
+  );
+
   return (
     <PageLayout title={title} description={description}>
       <NextSeo
@@ -37,11 +40,30 @@ const DigitalGardenIndexPage: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/digital-garden`,
         }}
       />
-      <Grid columns={5} gap="5rem">
-        <SausageBakeMarkdown />
-        <MeatloafMarkdown />
-        <GAMarkdown />
-        <StrapiMarkdown />
+      <Card heading="Digital Garden">
+        <p>
+          Welcome to my digital garden, a place for all the random thoughts in
+          my head and so on to live. Here you will find things like recipes,
+          books i want to read and so on.
+        </p>
+        {error && <p>There was an error fetching items. {error}</p>}
+      </Card>
+
+      <Grid columns="5" gap="30px">
+        {!isLoading &&
+          data.data.data.gardens.map((item) => (
+            <Card
+              heading={item.title}
+              actionLinks={[
+                {
+                  title: "View",
+                  href: `/digital-garden/${item.slug}`,
+                },
+              ]}
+              markdown={item.contents}
+              align="left"
+            />
+          ))}
       </Grid>
     </PageLayout>
   );
