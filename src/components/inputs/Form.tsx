@@ -6,7 +6,7 @@ export const StyledForm = styled.div`
   input,
   textarea {
     width: 100%;
-    font-size: var(--font-size-responsive);
+    font-size: var(--font-size-size);
     padding: 5px;
     display: block;
     font-family: var(--font-main);

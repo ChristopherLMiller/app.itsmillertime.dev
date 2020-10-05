@@ -9,9 +9,9 @@ const StyledButton = styled(motion.button)`
   margin: 20px auto;
   letter-spacing: 2px;
   cursor: pointer;
-  font-size: var(--p-responsive);
+  font-size: var(--p-size);
   border: none;
-  color: var(--color-white);
+  color: var(--color-white-100);
 
   :disabled {
     background: var(--color-grey-intermediate);

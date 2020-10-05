@@ -56,13 +56,12 @@ const TextPane = styled(motion.div)`
   p,
   h3,
   a {
-    color: var(--color-white);
+    color: var(--color-white-100);
     font-weight: 100;
   }
 
   h3 {
     font-family: var(--font-block);
-    font-size: var(--h2-responsive);
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-top: 0;
@@ -81,7 +80,7 @@ const Splitter = styled.div`
 
 const PanelLink = styled.a`
   cursor: pointer;
-  color: var(--color-white) !important;
+  color: var(--color-white-100) !important;
   text-decoration: underline;
 `;
 

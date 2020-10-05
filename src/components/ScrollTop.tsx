@@ -10,7 +10,7 @@ const ScrollTopDiv = styled(motion.div)`
   background: var(--color-red);
   width: 50px;
   height: 50px;
-  color: var(--color-white);
+  color: var(--color-white-100);
   justify-content: center;
   align-content: center;
   font-size: 6rem;

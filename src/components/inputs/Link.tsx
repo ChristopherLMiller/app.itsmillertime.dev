@@ -29,7 +29,6 @@ export const StyledButton = styled(motion.p)`
   max-width: 200px;
   letter-spacing: 2px;
   cursor: pointer;
-  font-size: var(--p-responsive);
   border: none;
 `;
 
@@ -64,7 +63,7 @@ const Button = styled.button`
   max-width: 200px;
   letter-spacing: 2px;
   cursor: pointer;
-  font-size: var(--p-responsive);
+  font-size: var(--p-size);
   border: none;
   color: var(--color-grey-light);
 `;

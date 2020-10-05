@@ -30,21 +30,19 @@ const HeaderBackground = styled.div`
   }
 `;
 
-const HeaderDescription = styled.h2`
+const HeaderDescription = styled.h4`
   font-family: var(--font-main);
   font-weight: 100;
-  font-size: var(--h2-responsive);
   padding: 0rem 2rem;
-  color: var(--color-white);
+  color: var(--color-white-100);
   margin-bottom: 0;
 `;
 
 const HeaderTitle = styled.h1`
   font-family: var(--font-main);
   font-weight: 300;
-  font-size: var(--h1-responsive);
   padding-left: 6rem;
-  color: var(--color-white);
+  color: var(--color-white-100);
   margin-top: 0;
 `;
 

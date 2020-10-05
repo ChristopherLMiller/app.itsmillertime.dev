@@ -40,7 +40,7 @@ const StyledCard = styled.div`
 const CardHeading = styled.div`
   background: var(--color-red);
   padding: 3% 5%;
-  color: var(--color-white);
+  color: var(--color-white-100);
   font-family: var(--font-main);
   text-align: center;
 `;
@@ -65,7 +65,7 @@ const CardBody = styled.div<iCardBody>`
   background: var(--color-grey-light);
   background-image: url('${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg');
   padding: ${(props) => (props.padding ? `3% 5%` : `0`)};
-  font-size: var(--p-responsive);
+  font-size: var(--p-size);
   letter-spacing: -1px;
   position: relative;
   text-align: ${(props) => props.align};
