@@ -5,7 +5,7 @@ import Sidebar from "src/layout/elements/Sidebar";
 import styled from "styled-components";
 import { ToastProvider } from "react-toast-notifications";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import getConfig from "next/config";
 import * as Sentry from "@sentry/node";
@@ -39,7 +39,7 @@ if (process.env.NEXT_PUBLIC_SENTRY_DNS) {
   });
 }
 
-const Layout = styled.div`
+const Layout = styled(motion.div)`
   display: grid;
   grid-template-columns: auto 1fr;
 `;
@@ -95,25 +95,25 @@ const App = ({ Component, pageProps, err }) => {
           <Head>
             <meta
               name="viewport"
-              content="width=device-width, initial-scale=1"
+              content="width=device-width, initial-scale=1.0"
             />
             <meta charSet="utf-8" />
             <meta name="theme-color" content="#982929" />
           </Head>
           <DefaultSeo {...SEO} />
-          <Layout>
-            <Sidebar />
-            <AnimatePresence exitBeforeEnter>
-              <motion.div
+          <AnimatePresence exitBeforeEnter>
+            <Layout>
+              <Sidebar />
+              <motion.span
                 key={router.pathname}
                 initial="initial"
                 animate="enter"
                 exit="exit"
               >
                 <Component {...pageProps} err={err} />
-              </motion.div>
-            </AnimatePresence>
-          </Layout>
+              </motion.span>
+            </Layout>
+          </AnimatePresence>
           <GlobalStyles />
         </ToastProvider>
       </ThemeProvider>

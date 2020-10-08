@@ -40,13 +40,13 @@ export const GlobalStyles = createGlobalStyle`
 
     --max-width: 1600px;
 
-    --h1-size: clamp(3.5rem, 6vw, 6rem);
-    --h2-size: clamp(3rem, 5vw, 5rem);
-    --h3-size: clamp(2.5rem, 4vw, 4rem);
-    --h4-size: clamp(2rem, 3vw, 3rem);
-    --h5-size: clamp(1.5rem, 2vw, 2rem);
-    --h6-size: clamp(1rem, 1vw, 1rem);
-    --p-size: clamp(2rem, 2vw, 3rem);
+    --h1-size: clamp(5rem, 5vw, 6.25rem);
+    --h2-size: clamp(4rem, 5vw, 5.75rem);
+    --h3-size: clamp(3.5rem, 5vw, 5rem);
+    --h4-size: clamp(3rem, 5vw, 4rem);
+    --h5-size: clamp(2.5rem, 5vw, 3rem);
+    --h6-size: clamp(2rem, 5vw, 2.5rem);
+    --p-size: clamp(2rem, 5vw, 2.5rem);
   }
 
   html {
@@ -64,6 +64,7 @@ export const GlobalStyles = createGlobalStyle`
     background: var(--color-grey-intermediate) url('${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/background.jpg') no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    color: var(--color-grey-dark);
   }
 
   p,a,code,ul,ol,pre,tr,td,span {
@@ -96,8 +97,9 @@ export const GlobalStyles = createGlobalStyle`
     transition: all 0.25s ease;
 
     :hover {
-        box-shadow: inset 0 -30px 0 var(--color-red-dark);
-        color: var(--color-white);
+        box-shadow: inset 0 -10px 0 var(--color-red-dark);
+        color: var(--color-white-100);
+        scale: 1.05;
     }
   }
 

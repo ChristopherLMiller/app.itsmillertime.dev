@@ -65,14 +65,11 @@ const CardBody = styled.div<iCardBody>`
   background: var(--color-grey-light);
   background-image: url('${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg');
   padding: ${(props) => (props.padding ? `3% 5%` : `0`)};
-  font-size: var(--p-size);
-  letter-spacing: -1px;
   position: relative;
   text-align: ${(props) => props.align};
 
   p {
     word-break: break-word;
-    color: var(--color-grey-dark);
   }
 
   strong {
@@ -83,6 +80,25 @@ const CardBody = styled.div<iCardBody>`
     max-width: 100%;
     display: inline-block;
   }
+
+  table {
+    border: 2px solid var(--color-red-dark);
+    border-collapse: collapse;
+}
+
+thead {
+    background: var(--color-red-dark);
+    color: var(--color-white-100);
+}
+
+thead th {
+    padding: 5px;
+}
+
+td {
+    border: 1px solid var(--color-gold-transparent);
+    padding: 5px
+}
 `;
 
 const ActionLinks = styled.div`
