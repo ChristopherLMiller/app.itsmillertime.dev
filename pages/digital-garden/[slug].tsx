@@ -6,14 +6,19 @@ import Card from "src/components/Card";
 import { gqlQuery } from "src/utils/functions/fetch";
 import { ALL_GARDEN_ITEMS_STRING } from "src/utils/graphql/queries";
 import { useQuery } from "react-query";
+import { useRouter } from "next/router";
 
 const title = "Digital Garden";
 const description = "Random thoughts of me";
 
 const DigitalGardenIndexPage = () => {
-  const { isLoading, error, data } = useQuery("digitalGarden", () =>
+  const router = useRouter();
+  const { slug } = router.query;
+  const { isLoading, error, data } = useQuery([`digitalGarden`, { slug }], () =>
     gqlQuery(ALL_GARDEN_ITEMS_STRING)
   );
+
+  console.log(data);
 
   return (
     <PageLayout title={title} description={description}>
@@ -46,7 +51,7 @@ const DigitalGardenIndexPage = () => {
 
       <Grid columns="5" gap="30px">
         {!isLoading &&
-          data.gardens.map((item) => (
+          data.data.data.gardens.map((item) => (
             <Card
               heading={item.title}
               actionLinks={[

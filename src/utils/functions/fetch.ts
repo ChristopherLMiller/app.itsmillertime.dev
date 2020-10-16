@@ -29,7 +29,9 @@ export const removeBearerToken = () => {
 };
 
 export const gqlQuery = (queryString: string, variables?: any) => {
-  return fetch.post("/graphql", { query: queryString }, variables);
+  return fetch
+    .post("/graphql", { query: queryString, variables })
+    .then((data) => data.data.data);
 };
 
 export default fetch;
