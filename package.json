@@ -24,7 +24,7 @@
     "@sentry/browser": "^5.22.3",
     "@sentry/integrations": "^5.22.3",
     "@sentry/node": "^5.22.3",
-    "@sentry/webpack-plugin": "^1.12.1",
+    "@sentry/webpack-plugin": "^1.13.0",
     "@types/hcaptcha__react-hcaptcha": "^0.1.2",
     "@zeit/next-source-maps": "0.0.3",
     "axios": "^0.19.2",
