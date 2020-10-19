@@ -27,7 +27,7 @@
     "@sentry/webpack-plugin": "^1.12.1",
     "@types/hcaptcha__react-hcaptcha": "^0.1.2",
     "@zeit/next-source-maps": "0.0.3",
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "date-fns": "^2.15.0",
     "formik": "^2.1.5",
     "framer-motion": "^2.5.1",
