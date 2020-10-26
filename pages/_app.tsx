@@ -21,6 +21,8 @@ import "node_modules/prismjs/themes/prism-tomorrow.css";
 import "node_modules/nprogress/nprogress.css";
 
 import SEO from "next-seo.config";
+import TopBar from "src/layout/elements/TopBar";
+import { useMedia } from "react-use";
 
 if (process.env.NEXT_PUBLIC_SENTRY_DNS) {
   const config = getConfig();
@@ -42,10 +44,12 @@ if (process.env.NEXT_PUBLIC_SENTRY_DNS) {
 const Layout = styled(motion.div)`
   display: grid;
   grid-template-columns: auto 1fr;
+  margin-top: 5rem;
 `;
 
 const App = ({ Component, pageProps, err }) => {
   const router = useRouter();
+  const isMobile = useMedia('(max-width: 600px)');
 
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -102,8 +106,10 @@ const App = ({ Component, pageProps, err }) => {
           </Head>
           <DefaultSeo {...SEO} />
           <AnimatePresence exitBeforeEnter>
+            <Fragment>
+            <TopBar />
             <Layout>
-              <Sidebar />
+              {!isMobile && <Sidebar />}
               <motion.span
                 key={router.pathname}
                 initial="initial"
@@ -113,6 +119,7 @@ const App = ({ Component, pageProps, err }) => {
                 <Component {...pageProps} err={err} />
               </motion.span>
             </Layout>
+            </Fragment>
           </AnimatePresence>
           <GlobalStyles />
         </ToastProvider>

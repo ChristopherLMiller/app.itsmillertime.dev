@@ -67,6 +67,7 @@ export const GlobalStyles = createGlobalStyle`
     color: var(--color-grey-dark);
   }
 
+  main {
   p,a,code,ul,ol,pre,tr,td,span {
     font-size: var(--p-size);
   }
@@ -102,6 +103,7 @@ export const GlobalStyles = createGlobalStyle`
         scale: 1.05;
     }
   }
+}
 
 /* cyrillic-ext */
 @font-face {

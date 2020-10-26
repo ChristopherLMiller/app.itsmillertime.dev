@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Nav from "./Nav";
+import Nav from "./nav/sidebar/Sidebar";
 import { motion } from "framer-motion";
 
 const StyledSidebar = styled(motion.div)`
@@ -19,7 +19,7 @@ const SidebarVariants = {
 
 const SidebarInner = styled(motion.div)`
   position: sticky;
-  top: 10px;
+  top: calc(5rem + 10px);
 
   li {
     color: white;
