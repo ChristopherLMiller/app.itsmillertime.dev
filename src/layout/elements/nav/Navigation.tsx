@@ -8,7 +8,7 @@ const StyledNav = styled(motion.nav)`
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   align-items: center;
   justify-content: space-around;
-  background: var(--color-red-transparent);
+  background: var(--color-gold-transparent);
   box-shadow: var(--box-shadow-elev-1);
 `;
 
