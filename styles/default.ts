@@ -21,6 +21,10 @@ export const GlobalStyles = createGlobalStyle`
     // box shadow
     --box-shadow-elev-0: 0px 0px 0px rgba(0,0,0,0), 0px 0px 0px rgba(0,0,0,0);
     --box-shadow-elev-1: 0px 0px 22px rgba(0,0,0,0.4), 0px 0px 4px rgba(0,0,0,0.25);
+    --box-shadow-inset: inset 0 0 0 var(--color-white-100);
+    --box-shadow-inset-0: inset 0 -6px 0 var(--color-red-dark);
+    --box-shadow-inset-1: inset 0 -10px 0 var(--color-red-dark);
+
     
     --color-black-0: hsl(0deg 0% 0% / 1);
     --color-black-20: hsl(0deg 0% 20% / 1);
@@ -67,7 +71,6 @@ export const GlobalStyles = createGlobalStyle`
     color: var(--color-grey-dark);
   }
 
-  main {
   p,a,code,ul,ol,pre,tr,td,span {
     font-size: var(--p-size);
   }
@@ -91,14 +94,15 @@ export const GlobalStyles = createGlobalStyle`
     font-size: var(--h6-size);
   }
 
+  main {
   a {
     color: var(--color-grey-darker);
     text-decoration: none;
-    box-shadow: inset 0 -6px 0 var(--color-red-dark);
+    box-shadow: var(--box-shadow-inset-0);
     transition: all 0.25s ease;
 
     :hover {
-        box-shadow: inset 0 -10px 0 var(--color-red-dark);
+        box-shadow: var(--box-shadow-inset-1);
         color: var(--color-white-100);
         scale: 1.05;
     }

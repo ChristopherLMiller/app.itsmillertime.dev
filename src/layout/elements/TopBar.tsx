@@ -1,36 +1,28 @@
-import { Fragment, useState } from 'react';
-import styled from 'styled-components';
-import SiteTitle from './SiteTitle';
-import { useMedia} from 'react-use';
-import { CompactButton } from 'src/components/Buttons';
-import MobileNav from './nav/mobile/Mobile';
+import { Fragment, useState } from "react";
+import styled from "styled-components";
+import SiteTitle from "./SiteTitle";
+import Nav from "./nav/Navigation";
 
 const StyledTopBar = styled.div`
-    background: var(--color-grey-darker);
-    position: fixed;
-    display: grid;
-    grid-template-columns: auto 1fr;
+  background: var(--color-grey-darker);
+  display: grid;
+  grid-template-columns: auto 1fr;
 
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1;
-    min-height: 5rem;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
 `;
 
 const TopBar = () => {
-    const [isOpen, setOpen] = useState(false);
-    const isMobile = useMedia('(max-width: 600px)');
-    
-    return (
+  return (
     <Fragment>
-        <StyledTopBar>
-            {isMobile && <CompactButton onClick={() => setOpen(!isOpen)}>{isOpen ? "Close" : "Menu"}</CompactButton>}
-            <SiteTitle />
-        </StyledTopBar> 
-        {isMobile && isOpen && <MobileNav />} 
-    </Fragment>  
-    );   
+      <StyledTopBar>
+        <SiteTitle />
+      </StyledTopBar>
+      <Nav />
+    </Fragment>
+  );
 };
 
 export default TopBar;
