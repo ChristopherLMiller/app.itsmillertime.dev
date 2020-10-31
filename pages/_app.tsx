@@ -14,6 +14,7 @@ import { DefaultSeo } from "next-seo";
 import NProgress from "nprogress";
 import Head from "next/head";
 import TopBar from "src/layout/elements/TopBar";
+import { ReactQueryDevtools } from "react-query-devtools";
 
 // global CSS
 import "node_modules/normalize.css/normalize.css";
@@ -83,6 +84,7 @@ const App = ({ Component, pageProps, err }) => {
 
   return (
     <AuthProvider>
+      <ReactQueryDevtools initialIsOpen />
       <ThemeProvider theme={defaultTheme}>
         <ToastProvider
           autoDismiss
