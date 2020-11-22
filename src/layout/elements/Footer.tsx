@@ -60,6 +60,18 @@ const FooterContent = styled.div`
   text-align: center;
   color: var(--color-grey-darker);
   font-size: 1.5rem;
+
+  a {
+    color: var(--color-white-80);
+    text-decoration: none;
+    border-bottom: 2px solid var(--color-red-80);
+    transition: all 0.25s;
+
+    &:hover {
+      color: var(--color-white-100);
+      border-bottom: 5px solid var(--color-red);
+    }
+  }
 `;
 
 const SiteInfo = styled.div`
