@@ -34,7 +34,8 @@ export const GlobalStyles = createGlobalStyle`
     --color-white-100: hsl(0deg 0% 100% / 1);
     --color-white-transparent: hsl(0deg 0% 100% / 0.0);
     --color-red: hsl(0deg 59% 40% / 1);
-    --color-red-transparent: hsl(0deg 59% 40% / 0.8);
+    --color-red-80: hsl(0deg 59% 40% / 0.8);
+    --color-red-40: hsl(0deg 59% 40% / 0.4);
     --color-red-intermediate: hsl(0deg 59% 30% / 1);
     --color-red-dark: hsl(0deg 59% 20% / 1);
     --color-gold-transparent: hsl(50deg 59% 25% / 0.8);

@@ -99,10 +99,16 @@ td {
     border: 1px solid var(--color-gold-transparent);
     padding: 5px
 }
+
+blockquote {
+  border-left: 5px solid var(--color-red-intermediate);
+  padding-left: 10px;
+  background: var(--color-red-40);
+}
 `;
 
 const ActionLinks = styled.div`
-  border-top: 2px solid var(--color-red-transparent);
+  border-top: 2px solid var(--color-red-80);
   padding: 5px;
 `;
 

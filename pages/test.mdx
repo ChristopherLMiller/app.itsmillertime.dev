@@ -1,5 +1,31 @@
+import PageLayout from "src/layout/PageLayout";
 import Card from "src/components/Card";
+import { NextSeo } from "next-seo";
+import {
+  SITE_DEFAULT_IMAGE_FILE,
+  CLOUDINARY_CLOUD,
+  CLOUDINARY_URL,
+} from "config";
 
+<PageLayout title="Test Page" description="Page to test website layout">
+<NextSeo
+title="Test Page"
+description="Page to test website layout"
+openGraph={{
+          title: "Test Page",
+          description: "Page to test website layout",
+          type: "website",
+          images: [
+            {
+              alt: "Default Site Image",
+              width: 800,
+              height: 600,
+              url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+            },
+          ],
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}`,
+        }}
+/>
 <Card align="left">
 
 ---
@@ -59,11 +85,7 @@ _This is italic text_
 
 ## Blockquotes
 
-> Blockquotes can also be nested...
->
-> > ...by using additional greater-than signs right next to each other...
-> >
-> > > ...or with spaces between arrows.
+> 'Do or do not, there is no try' - Yoda
 
 ## Lists
 
@@ -185,11 +207,7 @@ Inline footnote^[Text of inline footnote] definition.
 
 Duplicated footnote reference[^second].
 
-[^first]: Footnote **can have markup**
-
-  and multiple paragraphs.
-
-[^second]: Footnote text.
+and multiple paragraphs.
 
 ### [Definition lists](https://github.com/markdown-it/markdown-it-deflist)
 
@@ -230,3 +248,4 @@ _here be dragons_
 :::
 
 </Card>
+    </PageLayout>
