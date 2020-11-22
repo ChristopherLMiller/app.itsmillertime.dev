@@ -26,7 +26,7 @@
     "@types/hcaptcha__react-hcaptcha": "^0.1.2",
     "@zeit/next-source-maps": "0.0.3",
     "axios": "^0.20.0",
-    "date-fns": "^2.15.0",
+    "date-fns": "^2.16.1",
     "formik": "^2.1.5",
     "framer-motion": "^2.5.1",
     "graphql": "^15.3.0",
