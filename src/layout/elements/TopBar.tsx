@@ -2,12 +2,12 @@ import { Fragment, useState } from "react";
 import styled from "styled-components";
 import SiteTitle from "./SiteTitle";
 import Nav from "./nav/Navigation";
+import AccountDetails from "./AccountDetails";
 
 const StyledTopBar = styled.div`
   background: var(--color-grey-darker);
-  display: grid;
-  grid-template-columns: auto 1fr;
-
+  display: flex;
+  justify-content: space-between;
   top: 0;
   left: 0;
   width: 100%;
@@ -18,6 +18,7 @@ const TopBar = () => {
   return (
     <Fragment>
       <StyledTopBar>
+        <AccountDetails />
         <SiteTitle />
       </StyledTopBar>
       <Nav />

@@ -29,42 +29,9 @@ const NavContainer = styled(motion.div)<iNavContainer>`
       : "var(--color-white-transparent)"};
   display: flex;
   justify-content: center;
-  width: 100%;
-`;
-
-const NavIconVariants = {
-  hover: {
-    scale: 1.35,
-    marginTop: "10px",
-    marginBottom: "10px",
-    background: "var(--color-red-dark)",
-    boxShadow: "var(--box-shadow-elev-1)",
-  },
-  rest: {
-    scale: 1,
-    margin: "0px",
-    background: "var(--color-white-transparent)",
-    boxShadow: "var(--box-shadow-elev-0)",
-  },
-};
-
-const NavIcon = styled(motion.img)`
-  width: 50px;
-  padding: 5px;
-  cursor: pointer;
-`;
-
-const NavHoverText = styled(motion.a)`
-  display: flex;
   align-items: center;
-  padding-left: 10px;
-  top: 0;
-  height: 100%;
-  left: 100%;
-  box-shadow: var(--box-shadow-elev-1);
-  background: var(--color-red);
-  min-width: 200px;
-  z-index: 0;
+  padding-block-start: 10px;
+  padding-block-end: 10px;
   text-decoration: none;
   color: white;
   cursor: pointer;
@@ -72,14 +39,48 @@ const NavHoverText = styled(motion.a)`
   font-family: var(--font-block);
 `;
 
-const NavHoverTextVariants = {
+const NavContainerVariants = {
   hover: {
-    transform: "translateX(10%)",
+    boxShadow: "var(--box-shadow-inset-1)",
+    transition: {
+      duration: 0.25,
+    },
   },
   rest: {
-    transform: "translateX(-500%)",
+    boxShadow: "none",
+    transition: {
+      duration: 0.25,
+    },
   },
 };
+
+const Item = styled(motion.a)`
+  display: flex;
+  align-items: center;
+  color: var(--color-white-80);
+  box-shadow: var(--box-shadow-inset);
+`;
+
+const ItemVariants = {
+  hover: {
+    color: "var(--color-white-100)",
+  },
+  rest: {
+    color: "var(--color-white-80)",
+  },
+};
+
+const NavIcon = styled(motion.img)`
+  width: 35px;
+  padding: 5px;
+  cursor: pointer;
+`;
+
+const Text = styled.span`
+  padding-inline-start: 5px;
+  font-size: calc(var(--p-size) - 10%);
+  text-transform: capitalize;
+`;
 
 const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
   const router = useRouter();
@@ -104,22 +105,17 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
         initial="rest"
         animate="rest"
         isActive={isActive}
+        variants={NavContainerVariants}
       >
         <Link href={item.href}>
-            <Fragment>
-          <NavIcon
-            src={`/svg/${item.icon}.svg`}
-            whileHover="hover"
-            variants={NavIconVariants}
-            initial="rest"
-            animate="rest"
-            alt={`${item.title} Page Link`}
-            loading="lazy"
-          />
-          <NavHoverText variants={NavHoverTextVariants}>
-            {item.title}
-          </NavHoverText>
-          </Fragment>
+          <Item variants={ItemVariants}>
+            <NavIcon
+              src={`/svg/${item.icon}.svg`}
+              alt={`${item.title} Page Link`}
+              loading="lazy"
+            />
+            <Text>{item.title}</Text>
+          </Item>
         </Link>
       </NavContainer>
     );
@@ -130,21 +126,12 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
         initial="rest"
         animate="rest"
         isActive={isActive}
+        variants={NavContainerVariants}
       >
-        <NavIcon
-          src={`/svg/${item.icon}.svg`}
-          whileHover="hover"
-          variants={NavIconVariants}
-          initial="rest"
-          animate="rest"
-        />
-        <NavHoverText
-          href={item.href}
-          target="_blank"
-          variants={NavHoverTextVariants}
-        >
-          {item.title}
-        </NavHoverText>
+        <Item href={item.href} target="_blank" variants={ItemVariants}>
+          <NavIcon src={`/svg/${item.icon}.svg`} />
+          <Text>{item.title}</Text>
+        </Item>
       </NavContainer>
     );
   }

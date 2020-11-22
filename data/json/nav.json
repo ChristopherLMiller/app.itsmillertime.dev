@@ -21,13 +21,7 @@
       "authState": "ANY",
       "icon": "user-4"
     },
-    {
-      "title": "Uses",
-      "activePaths": ["/uses"],
-      "href": "/uses",
-      "authState": "ANY",
-      "icon": "list"
-    },
+
     {
       "title": "Projects",
       "activePaths": ["/projects"],
@@ -55,42 +49,6 @@
       "href": "/contact-me",
       "authState": "ANY",
       "icon": "incoming"
-    },
-    {
-      "title": "My Account",
-      "activePaths": ["/account/my-account"],
-      "authState": "LOGGED_IN",
-      "href": "/account/my-account",
-      "icon": "id-card-5"
-    },
-    {
-      "title": "Backend",
-      "authState": "LOGGED_IN",
-      "href": "https://strapi.christopherleemiller.me/dashboard",
-      "icon": "settings-5",
-      "requiredRoles": ["ADMINISTRATOR"]
-    },
-    {
-      "title": "Admin Panel",
-      "activePaths": ["/admin"],
-      "authState": "LOGGED_IN",
-      "href": "/admin",
-      "requiredRoles": ["ADMINISTRATOR"],
-      "icon": "controls"
-    },
-    {
-      "title": "Login",
-      "activePaths": ["/account/login"],
-      "authState": "LOGGED_OUT",
-      "href": "/account/login",
-      "icon": "login"
-    },
-    {
-      "title": "Logout",
-      "activePaths": ["/account/logout"],
-      "authState": "LOGGED_IN",
-      "href": "/account/logout",
-      "icon": "login"
     }
   ]
 }

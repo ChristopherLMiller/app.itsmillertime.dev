@@ -1,15 +1,20 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import NavItem from "../nav/sidebar/NavItem";
+import NavItem from "./NavItem";
+import { useMedia } from "react-use";
 
 const StyledNav = styled(motion.nav)`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: 1;
   align-items: center;
   justify-content: space-around;
   background: var(--color-gold-transparent);
   box-shadow: var(--box-shadow-elev-1);
+
+  @media (min-width: 500px) {
+    grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  }
 `;
 
 const NavVariants = {
@@ -25,6 +30,8 @@ const NavVariants = {
 const Nav = () => {
   const [isLoading, setLoading] = useState(true);
   const [navLinks, setNavLinks] = useState(null);
+  const isMobile = useMedia("(min-width: 500px)");
+  const isMenuOpen = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -39,6 +46,7 @@ const Nav = () => {
   return (
     <StyledNav initial="hidden" animate="visible" variants={NavVariants}>
       {!isLoading &&
+        isMenuOpen &&
         navLinks.map((navItem) => (
           <NavItem item={navItem} key={navItem.title} />
         ))}

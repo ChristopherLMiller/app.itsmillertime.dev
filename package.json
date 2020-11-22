@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start -p 6006",
     "test": "NODE_ENV=test jest && codecov -t e12fe338-a516-4ab5-8c7f-078f4742a9a0",
-    "analyze": "cross-env ANALYZE=true next build",
+    "analyze": "cross-env ANALYZE=true next build"
   },
   "author": "ChristopherLMiller",
   "license": "ISC",
