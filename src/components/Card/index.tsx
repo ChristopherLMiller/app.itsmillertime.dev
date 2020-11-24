@@ -63,7 +63,7 @@ interface iCardBody {
 
 const CardBody = styled.div<iCardBody>`
   background: var(--color-grey-light);
-  background-image: url('${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg');
+  background-image: url("${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg");
   padding: ${(props) => (props.padding ? `3% 5%` : `0`)};
   position: relative;
   text-align: ${(props) => props.align};
@@ -84,27 +84,31 @@ const CardBody = styled.div<iCardBody>`
   table {
     border: 2px solid var(--color-red-dark);
     border-collapse: collapse;
-}
+  }
 
-thead {
+  a:hover {
+    color: var(--color-black-0);
+  }
+
+  thead {
     background: var(--color-red-dark);
     color: var(--color-white-100);
-}
+  }
 
-thead th {
+  thead th {
     padding: 5px;
-}
+  }
 
-td {
+  td {
     border: 1px solid var(--color-gold-transparent);
-    padding: 5px
-}
+    padding: 5px;
+  }
 
-blockquote {
-  border-left: 5px solid var(--color-red-intermediate);
-  padding-left: 10px;
-  background: var(--color-red-40);
-}
+  blockquote {
+    border-left: 5px solid var(--color-red-intermediate);
+    padding-left: 10px;
+    background: var(--color-red-40);
+  }
 `;
 
 const ActionLinks = styled.div`
