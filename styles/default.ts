@@ -25,14 +25,22 @@ export const GlobalStyles = createGlobalStyle`
     --box-shadow-inset-0: inset 0 -6px 0 var(--color-red-dark);
     --box-shadow-inset-1: inset 0 -10px 0 var(--color-red-dark);
 
-    
-    --color-black-0: hsl(0deg 0% 0% / 1);
-    --color-black-20: hsl(0deg 0% 20% / 1);
-    --color-black-40: hsl(0deg 0% 40% / 1);
-    --color-white-60: hsl(0deg 0% 60% / 1);
-    --color-white-80: hsl(0deg 0% 80% / 1);
+    // blacks
+    --color-black-0: hsl(0deg 0% 0% / 0);
+    --color-black-20: hsl(0deg 0% 0% / 0.2);
+    --color-black-40: hsl(0deg 0% 0% / 0.4);
+    --color-black-60: hsl(0deg 0% 0% / 0.6);
+    --color-black-80: hsl(0deg 0% 0% / 0.8);
+    --color-black-100: hsl(0deg 0% 0% / 1);
+
+    // whites
+    --color-white-0: hsl(0deg 0% 100% / 0.0);
+    --color-black-20: hsl(0deg 0% 100% / 0.2);
+    --color-black-40: hsl(0deg 0% 100% / 0.4);
+    --color-white-60: hsl(0deg 0% 100% / 0.6);
+    --color-white-80: hsl(0deg 0% 100% / 0.8);
     --color-white-100: hsl(0deg 0% 100% / 1);
-    --color-white-transparent: hsl(0deg 0% 100% / 0.0);
+    
     --color-red: hsl(0deg 59% 40% / 1);
     --color-red-80: hsl(0deg 59% 40% / 0.8);
     --color-red-40: hsl(0deg 59% 40% / 0.4);
@@ -43,7 +51,7 @@ export const GlobalStyles = createGlobalStyle`
     --color-grey-darker: #212121;
     --color-grey-light: #ECECEC;
 
-    --max-width: 1600px;
+    --max-width: 1800px;
 
     --h1-size: clamp(5rem, 5vw, 6.25rem);
     --h2-size: clamp(4rem, 5vw, 5.75rem);

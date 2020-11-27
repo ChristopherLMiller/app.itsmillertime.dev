@@ -1,4 +1,10 @@
 import { useState, useEffect, useRef } from "react";
+import styled from "styled-components";
+
+const ImageStyled = styled.img`
+  width: 100%;
+  display: block;
+`;
 
 export default function ProgressiveImage({ preview, image, alt }) {
   const [currentImage, setCurrentImage] = useState(preview);
@@ -45,6 +51,11 @@ export default function ProgressiveImage({ preview, image, alt }) {
   };
 
   return (
-    <img style={style(isLoading)} src={currentImage} alt={alt} loading="lazy" />
+    <ImageStyled
+      style={style(isLoading)}
+      src={currentImage}
+      alt={alt}
+      loading="lazy"
+    />
   );
 }
