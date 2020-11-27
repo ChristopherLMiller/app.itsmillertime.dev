@@ -78,7 +78,11 @@ const ImageDefault: FunctionComponent<iImage> = ({
     >
       <ProgressiveImage
         image={image}
-        preview={preview ? preview : image}
+        preview={
+          preview
+            ? preview
+            : `${process.env.NEXT_PUBLIC_STRAPI_URL}/uploads/default.jpg`
+        }
         alt={alt}
       />
       <ImageOverlay variants={ImageOverlayVariants}>{children}</ImageOverlay>

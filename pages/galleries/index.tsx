@@ -32,8 +32,8 @@ const GalleriesIndexPage = () => {
         {!isLoading &&
           data.galleries.map((gallery) => (
             <Image
-              image={`${process.env.NEXT_PUBLIC_STRAPI_API}/${gallery.featured_image.url}`}
-              preview={`${process.env.NEXT_PUBLIC_STRAPI_API}/${gallery.featured_image.previewurl}`}
+              image={`${process.env.NEXT_PUBLIC_STRAPI_URL}${gallery.featured_image.url}`}
+              preview={`${process.env.NEXT_PUBLIC_STRAPI_URL}${gallery.featured_image.url}`}
               alt={gallery.title}
             >
               <p>{gallery.title}</p>
