@@ -32,9 +32,9 @@ const GalleriesIndexPage = () => {
         {!isLoading &&
           data.galleries.map((gallery) => (
             <Image
-              image={`http://localhost:1337${gallery.featured_image.url}`}
-              preview={`http://localhost:1337${gallery.featured_image.previewurl}`}
-              alt="title"
+              image={`${process.env.NEXT_PUBLIC_STRAPI_API}/${gallery.featured_image.url}`}
+              preview={`${process.env.NEXT_PUBLIC_STRAPI_API}/${gallery.featured_image.previewurl}`}
+              alt={gallery.title}
             >
               <p>{gallery.title}</p>
             </Image>
