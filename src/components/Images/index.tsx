@@ -81,7 +81,7 @@ const ImageDefault: FunctionComponent<iImage> = ({
         preview={
           preview
             ? preview
-            : `${process.env.NEXT_PUBLIC_STRAPI_URL}/uploads/default.jpg`
+            : `https://clm-sites-strapi.s3.us-east-2.amazonaws.com/default_958a6c7fcd.jpg`
         }
         alt={alt}
       />

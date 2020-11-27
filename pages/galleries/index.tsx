@@ -31,11 +31,7 @@ const GalleriesIndexPage = () => {
       <Grid columns="3" gap="30px" min="425px">
         {!isLoading &&
           data.galleries.map((gallery) => (
-            <Image
-              image={`${process.env.NEXT_PUBLIC_STRAPI_URL}${gallery.featured_image.url}`}
-              preview={`${process.env.NEXT_PUBLIC_STRAPI_URL}${gallery.featured_image.url}`}
-              alt={gallery.title}
-            >
+            <Image image={gallery.featured_image.url} alt={gallery.title}>
               <p>{gallery.title}</p>
             </Image>
           ))}
