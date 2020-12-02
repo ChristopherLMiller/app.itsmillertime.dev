@@ -1,10 +1,10 @@
-import { useAuth } from "src/lib/AuthProvider";
-import { Fragment, FunctionComponent } from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import styled from "styled-components";
-import { LOGGED_IN, LOGGED_OUT } from "config";
-import { useRouter } from "next/router";
+import { useAuth } from 'src/lib/AuthProvider';
+import { Fragment, FunctionComponent } from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import styled from 'styled-components';
+import { LOGGED_IN, LOGGED_OUT } from 'config';
+import { useRouter } from 'next/router';
 
 interface iNavItem {
   item: {
@@ -25,8 +25,8 @@ const NavContainer = styled(motion.div)<iNavContainer>`
   position: relative;
   background: ${(props) =>
     props.isActive
-      ? "var(--color-gold-transparent)"
-      : "var(--color-white-transparent)"};
+      ? 'var(--color-gold-transparent)'
+      : 'var(--color-white-transparent)'};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,17 +37,18 @@ const NavContainer = styled(motion.div)<iNavContainer>`
   cursor: pointer;
   font-size: 2.5rem;
   font-family: var(--font-block);
+  font-weight: 300;
 `;
 
 const NavContainerVariants = {
   hover: {
-    boxShadow: "var(--box-shadow-inset-1)",
+    boxShadow: 'var(--box-shadow-inset-1)',
     transition: {
       duration: 0.25,
     },
   },
   rest: {
-    boxShadow: "none",
+    boxShadow: 'none',
     transition: {
       duration: 0.25,
     },
@@ -63,10 +64,10 @@ const Item = styled(motion.a)`
 
 const ItemVariants = {
   hover: {
-    color: "var(--color-white-100)",
+    color: 'var(--color-white-100)',
   },
   rest: {
-    color: "var(--color-white-80)",
+    color: 'var(--color-white-80)',
   },
 };
 
@@ -85,7 +86,7 @@ const Text = styled.span`
 const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
   const router = useRouter();
   const auth = useAuth();
-  const isLocalUrl = !item.href.includes("http");
+  const isLocalUrl = !item.href.includes('http');
 
   // see if the user is authorized to view this
   if (!auth.methods.hasPermission(item.requiredRoles)) return null;
@@ -101,9 +102,9 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
   if (isLocalUrl) {
     return (
       <NavContainer
-        whileHover="hover"
-        initial="rest"
-        animate="rest"
+        whileHover='hover'
+        initial='rest'
+        animate='rest'
         isActive={isActive}
         variants={NavContainerVariants}
       >
@@ -112,7 +113,7 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
             <NavIcon
               src={`/svg/${item.icon}.svg`}
               alt={`${item.title} Page Link`}
-              loading="lazy"
+              loading='lazy'
             />
             <Text>{item.title}</Text>
           </Item>
@@ -122,13 +123,13 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
   } else {
     return (
       <NavContainer
-        whileHover="hover"
-        initial="rest"
-        animate="rest"
+        whileHover='hover'
+        initial='rest'
+        animate='rest'
         isActive={isActive}
         variants={NavContainerVariants}
       >
-        <Item href={item.href} target="_blank" variants={ItemVariants}>
+        <Item href={item.href} target='_blank' variants={ItemVariants}>
           <NavIcon src={`/svg/${item.icon}.svg`} />
           <Text>{item.title}</Text>
         </Item>

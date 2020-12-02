@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledForm = styled.div`
   display: grid;
@@ -12,5 +12,6 @@ export const StyledForm = styled.div`
     font-family: var(--font-main);
     font-weight: 300;
     line-height: 1rem;
+    font-size: var(--p-size);
   }
 `;
