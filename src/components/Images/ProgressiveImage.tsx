@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
+import { useState, useEffect, useRef } from 'react';
+import styled from 'styled-components';
 
 const ImageStyled = styled.img`
   width: 100%;
@@ -45,8 +45,8 @@ export default function ProgressiveImage({ preview, image, alt }) {
 
   const style = (isLoading) => {
     return {
-      transition: "0.5s filter linear",
-      filter: `${isLoading ? "blur(50px)" : ""}`,
+      transition: '0.5s filter linear',
+      filter: `${isLoading ? 'blur(5px)' : ''}`,
     };
   };
 
@@ -55,7 +55,7 @@ export default function ProgressiveImage({ preview, image, alt }) {
       style={style(isLoading)}
       src={currentImage}
       alt={alt}
-      loading="lazy"
+      loading='lazy'
     />
   );
 }

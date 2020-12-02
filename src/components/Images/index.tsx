@@ -1,7 +1,7 @@
-import { FunctionComponent } from "react";
-import styled from "styled-components";
-import ProgressiveImage from "../ProgressiveImage";
-import { motion } from "framer-motion";
+import { FunctionComponent } from 'react';
+import styled from 'styled-components';
+import ProgressiveImage from './ProgressiveImage';
+import { motion } from 'framer-motion';
 
 const ImageContainer = styled(motion.div)`
   border: 5px solid var(--color-red-intermediate);
@@ -13,14 +13,14 @@ const ImageContainer = styled(motion.div)`
 const ImageContainerVariants = {
   rest: {
     scale: 1,
-    boxShadow: "var(--box-shadow-elev-0)",
+    boxShadow: 'var(--box-shadow-elev-0)',
     transition: {
       duration: 0.25,
     },
   },
   hover: {
     scale: 1.05,
-    boxShadow: "var(--box-shadow-elev-1)",
+    boxShadow: 'var(--box-shadow-elev-1)',
   },
 };
 
@@ -42,18 +42,18 @@ const ImageOverlay = styled(motion.div)`
 
 const ImageOverlayVariants = {
   rest: {
-    background: "hsl(0deg 0% 0% / 0.6)",
+    background: 'hsl(0deg 0% 0% / 0.6)',
     marginBottom: 0,
     transition: {
-      type: "tween",
+      type: 'tween',
     },
   },
   hover: {
-    background: "hsl(0deg 59% 40% / 0.8)",
+    background: 'hsl(0deg 59% 40% / 0.8)',
     marginBottom: 10,
     transition: {
-      type: "tween",
-      ease: "easeOut",
+      type: 'tween',
+      ease: 'easeOut',
     },
   },
 };
@@ -73,8 +73,8 @@ const ImageDefault: FunctionComponent<iImage> = ({
   return (
     <ImageContainer
       variants={ImageContainerVariants}
-      initial="rest"
-      whileHover="hover"
+      initial='rest'
+      whileHover='hover'
     >
       <ProgressiveImage
         image={image}
