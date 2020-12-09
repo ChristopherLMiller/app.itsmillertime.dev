@@ -2,7 +2,7 @@
 
 <p align="center">
 
-[![codecov](https://codecov.io/gh/ChristopherLMiller/app.christopherleemiller.me/branch/dev/graph/badge.svg)](https://codecov.io/gh/ChristopherLMiller/app.christopherleemiller.me)
+![Build Status](https://github.com/ChristopherLMiller/app.christopherleemiller.me/workflows//Node.js%20Build/badge.svg) [![codecov](https://codecov.io/gh/ChristopherLMiller/app.christopherleemiller.me/branch/dev/graph/badge.svg)](https://codecov.io/gh/ChristopherLMiller/app.christopherleemiller.me)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/88b8b264ffe647cba0adbc9b88063775)](https://www.codacy.com/app/ChristopherLMiller/app.christopherleemiller.me?utm_source=github.com&utm_medium=referral&utm_content=ChristopherLMiller/app.christopherleemiller.me&utm_campaign=Badge_Grade)
 ![version](https://img.shields.io/badge/version-1.8.9-blue.svg)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FChristopherLMiller%2Fapp.christopherleemiller.me.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FChristopherLMiller%2Fapp.christopherleemiller.me?ref=badge_shield)
