@@ -31,7 +31,11 @@ const GalleriesIndexPage = () => {
       <Grid columns='3' gap='30px' min='425px' masonry>
         {!isLoading &&
           data.galleries.map((gallery) => (
-            <Image image={gallery.featured_image.url} alt={gallery.title}>
+            <Image
+              image={gallery.featured_image}
+              alt={gallery.title}
+              key={gallery.featured_image.url}
+            >
               <p>{gallery.title}</p>
             </Image>
           ))}

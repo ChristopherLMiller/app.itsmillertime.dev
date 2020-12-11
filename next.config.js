@@ -112,6 +112,9 @@ const nextConfig = {
       },
     ],
   },
+  images: {
+    domains: ['clm-sites-strapi.s3.us-east-2.amazonaws.com']
+  },
   async rewrites() {
     return [
       {

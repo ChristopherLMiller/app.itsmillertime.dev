@@ -10,8 +10,9 @@ query ALL_GALLERIES {
         slug
         description
         featured_image {
-            previewUrl
             url
+            width
+            height
         }
         status
         gallery_categories {

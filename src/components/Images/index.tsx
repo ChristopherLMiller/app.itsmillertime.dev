@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import ProgressiveImage from './ProgressiveImage';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const ImageContainer = styled(motion.div)`
   border: 5px solid var(--color-red-intermediate);
@@ -59,31 +59,27 @@ const ImageOverlayVariants = {
 };
 
 interface iImage {
-  image: string;
-  preview?: string;
+  image: {
+    url: string;
+    width: number;
+    height: number;
+  };
   alt: string;
 }
 
-const ImageDefault: FunctionComponent<iImage> = ({
-  image,
-  preview,
-  alt,
-  children,
-}) => {
+const ImageDefault: FunctionComponent<iImage> = ({ image, alt, children }) => {
   return (
     <ImageContainer
       variants={ImageContainerVariants}
       initial='rest'
       whileHover='hover'
     >
-      <ProgressiveImage
-        image={image}
-        preview={
-          preview
-            ? preview
-            : `https://clm-sites-strapi.s3.us-east-2.amazonaws.com/default_958a6c7fcd.jpg`
-        }
+      <Image
+        src={image.url}
         alt={alt}
+        layout='intrinsic'
+        width={image.width}
+        height={image.height}
       />
       <ImageOverlay variants={ImageOverlayVariants}>{children}</ImageOverlay>
     </ImageContainer>
