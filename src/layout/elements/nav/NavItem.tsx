@@ -129,7 +129,12 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
         isActive={isActive}
         variants={NavContainerVariants}
       >
-        <Item href={item.href} target='_blank' variants={ItemVariants}>
+        <Item
+          href={item.href}
+          target='_blank'
+          rel='noopener noreferrer'
+          variants={ItemVariants}
+        >
           <NavIcon src={`/svg/${item.icon}.svg`} />
           <Text>{item.title}</Text>
         </Item>
