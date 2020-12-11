@@ -43,6 +43,7 @@
     "prismjs": "^1.22.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-icons": "^4.1.0",
     "react-query": "^2.26.3",
     "react-toast-notifications": "^2.4.0",
     "react-use": "^15.3.4",
