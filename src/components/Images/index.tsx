@@ -8,6 +8,10 @@ const ImageContainer = styled(motion.div)`
   position: relative;
   min-height: 75px;
   height: min-content;
+
+  > div {
+    display: block !important;
+  }
 `;
 
 const ImageContainerVariants = {
