@@ -28,7 +28,7 @@ const GalleriesIndexPage = () => {
   return (
     <PageLayout title={title} description={description}>
       <NextSeo title={title} description={description} />
-      <Grid columns='3' gap='30px' min='425px' masonry>
+      <Grid gap='30px' min='425px' masonry>
         {!isLoading &&
           data?.galleries?.map((gallery) => (
             <Image
