@@ -1,14 +1,15 @@
-import PageLayout from "src/layout/PageLayout";
-import Card from "src/components/Card";
-import { NextSeo } from "next-seo";
+import PageLayout from 'src/layout/PageLayout';
+import Card from 'src/components/Card';
+import { NextSeo } from 'next-seo';
+import Link from 'next/link';
 import {
   SITE_DEFAULT_IMAGE_FILE,
   CLOUDINARY_CLOUD,
   CLOUDINARY_URL,
-} from "config";
+} from 'config';
 
-const title = "Home";
-const description = "Programmer.  Amateur Designer.  Model Enthsiast.";
+const title = 'Home';
+const description = 'Programmer.  Amateur Designer.  Model Enthsiast.';
 
 const IndexPage = () => {
   return (
@@ -19,10 +20,10 @@ const IndexPage = () => {
         openGraph={{
           title,
           description,
-          type: "website",
+          type: 'website',
           images: [
             {
-              alt: "Default Site Image",
+              alt: 'Default Site Image',
               width: 800,
               height: 600,
               url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
@@ -31,7 +32,7 @@ const IndexPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}`,
         }}
       />
-      <Card heading="Welcome" align="left">
+      <Card heading='Welcome' align='left'>
         <p>
           Please excuse the mess while I'm remodeling. Many great things are in
           progress and will appear here as they are built.
@@ -47,6 +48,16 @@ const IndexPage = () => {
           If you find any errors or problems you can submit an issue on GitHub,
           or reach me at one of the other places in the sidebar on the left.
         </p>
+        {process.env.NEXT_PUBLIC_SITE_URL === 'http://localhost:6006' && (
+          <div>
+            <Link href='/account/login'>
+              <a>Login</a>
+            </Link>
+            <Link href='/account/logout'>
+              <a>Logout</a>
+            </Link>
+          </div>
+        )}
       </Card>
     </PageLayout>
   );

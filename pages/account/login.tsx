@@ -1,19 +1,19 @@
-import PageLayout from "src/layout/PageLayout";
-import Card from "src/components/Card";
-import { Grid } from "src/components/Grid";
-import styled from "styled-components";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import PageLayout from 'src/layout/PageLayout';
+import Card from 'src/components/Card';
+import { Grid } from 'src/components/Grid';
+import styled from 'styled-components';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   SITE_DEFAULT_IMAGE_FILE,
   CLOUDINARY_CLOUD,
   CLOUDINARY_URL,
-} from "config";
-import { NextSeo } from "next-seo";
-import { LoginForm, ForgotPasswordForm } from "src/components/forms";
+} from 'config';
+import { NextSeo } from 'next-seo';
+import { LoginForm, ForgotPasswordForm } from 'src/components/forms';
 
-const title = "Login";
-const description = "Access your Account";
+const title = 'Login';
+const description = 'Access your Account';
 
 const LoginPane = styled(motion.div)`
   padding: 3% 5%;
@@ -86,21 +86,21 @@ const PanelLink = styled.a`
 
 const TextPaneVariants = {
   login: {
-    transform: "translateX(100%)",
+    transform: 'translateX(100%)',
     transition: {
-      duration: "0.25",
+      duration: '0.25',
     },
   },
   reset: {
-    transform: "translateX(0%)",
+    transform: 'translateX(0%)',
     transition: {
-      duration: ".25",
+      duration: '.25',
     },
   },
 };
 
 const LoginPage = () => {
-  const [paneState, setPaneState] = useState("login");
+  const [paneState, setPaneState] = useState('login');
 
   return (
     <PageLayout title={title} description={description}>
@@ -111,10 +111,10 @@ const LoginPage = () => {
         openGraph={{
           title,
           description,
-          type: "website",
+          type: 'website',
           images: [
             {
-              alt: "Default Site Image",
+              alt: 'Default Site Image',
               width: 800,
               height: 600,
               url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
@@ -125,11 +125,11 @@ const LoginPage = () => {
       />
       <Card padding={false}>
         <TextPane
-          initial="login"
+          initial='login'
           animate={paneState}
           variants={TextPaneVariants}
         >
-          {paneState === "login" && (
+          {paneState === 'login' && (
             <div>
               <h3>Login</h3>
               <p>Please enter your login details to gain access to the site</p>
@@ -137,7 +137,7 @@ const LoginPage = () => {
                 <PanelLink
                   onClick={(event) => {
                     event.preventDefault();
-                    setPaneState("reset");
+                    setPaneState('reset');
                   }}
                 >
                   Forgot your password?
@@ -145,7 +145,7 @@ const LoginPage = () => {
               </p>
             </div>
           )}
-          {paneState === "reset" && (
+          {paneState === 'reset' && (
             <div>
               <h3>Forgot your password?</h3>
               <p>
@@ -155,7 +155,7 @@ const LoginPage = () => {
               <PanelLink
                 onClick={(event) => {
                   event.preventDefault();
-                  setPaneState("login");
+                  setPaneState('login');
                 }}
               >
                 Login instead?
@@ -165,7 +165,7 @@ const LoginPage = () => {
         </TextPane>
         <Grid columns={2}>
           <LoginPane
-            initial="login"
+            initial='login'
             variants={loginPaneVariants}
             animate={paneState}
           >

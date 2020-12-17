@@ -30,7 +30,7 @@ const GalleriesIndexPage = () => {
       <NextSeo title={title} description={description} />
       <Grid columns='3' gap='30px' min='425px' masonry>
         {!isLoading &&
-          data?.galleries.map((gallery) => (
+          data?.galleries?.map((gallery) => (
             <Image
               image={gallery.featured_image}
               alt={gallery.title}

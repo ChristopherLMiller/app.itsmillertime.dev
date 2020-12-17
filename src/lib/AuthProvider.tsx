@@ -1,19 +1,19 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
-import md5 from "md5";
-import Cookies from "js-cookie";
-import Router from "next/router";
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import md5 from 'md5';
+import Cookies from 'js-cookie';
+import Router from 'next/router';
 import fetch, {
   addBearerToken,
   removeBearerToken,
-} from "src/utils/functions/fetch";
-import { ME_QUERY_STRING } from "src/utils/graphql/queries";
+} from 'src/utils/functions/fetch';
+import { ME_QUERY_STRING } from 'src/utils/graphql/queries';
 import {
   LOGIN_MUTATION_STRING,
   FORGOT_PASSWORD_MUTATION_STRING,
   RESET_PASSWORD_MUTATION_STRING,
-} from "src/utils/graphql/mutations";
-import { iUser } from "src/utils/graphql/types/user";
-import { GUEST, STATUS } from "config";
+} from 'src/utils/graphql/mutations';
+import { iUser } from 'src/utils/graphql/types/user';
+import { GUEST, STATUS } from 'config';
 
 interface Auth {
   user: iUser;
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const jwt = Cookies.get("jwt");
+    const jwt = Cookies.get('jwt');
     if (jwt) {
       // if the jwt token was set then we can update the state to that, and then add that to future requests
       // before we finally fetch the users data.
@@ -58,11 +58,11 @@ export const AuthProvider = ({ children }) => {
       addBearerToken(jwt);
       updateUser();
     }
-  }, []);
+  }, token);
 
   const updateUser = () => {
     fetch
-      .post("/graphql", {
+      .post('/graphql', {
         query: ME_QUERY_STRING,
       })
       .then((data) => {
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (identifier: string, password: string) => {
     const result = await fetch
-      .post("/graphql", {
+      .post('/graphql', {
         variables: {
           identifier: identifier,
           password: password,
@@ -105,7 +105,7 @@ export const AuthProvider = ({ children }) => {
           // first verify we got a jwt back, this signifies login was successful
           if (jwt) {
             // set the jwt cookie and context state for the jwt
-            Cookies.set("jwt", jwt);
+            Cookies.set('jwt', jwt);
             setToken(jwt);
 
             const user = data?.data?.login?.user as iUser;
@@ -113,20 +113,20 @@ export const AuthProvider = ({ children }) => {
             // now we check if the user was blocked (strapi backend)
             if (!user.blocked) {
               // user wasn't blocked, go ahead and finish authenticating them
-              Cookies.set("user", user);
+              Cookies.set('user', user);
               setUser(user);
               setIsAuthenticated(true);
               addBearerToken(token);
               redirectAfterLogin();
               return {
                 status: STATUS.SUCCESS,
-                message: "Welcome back!  You have successfully logged in",
+                message: 'Welcome back!  You have successfully logged in',
               };
             } else {
               // user was blocked for whatever reason, let them know this
               return {
                 status: STATUS.ERROR,
-                message: "You have been blocked from logging in",
+                message: 'You have been blocked from logging in',
               };
             }
           }
@@ -134,7 +134,7 @@ export const AuthProvider = ({ children }) => {
       })
       .catch((error) => {
         console.error(error);
-        return { status: STATUS.ERROR, message: "Unable to login" };
+        return { status: STATUS.ERROR, message: 'Unable to login' };
       });
 
     return result;
@@ -142,7 +142,7 @@ export const AuthProvider = ({ children }) => {
 
   const forgotPassword = async (email: string) => {
     const result = await fetch
-      .post("/graphql", {
+      .post('/graphql', {
         variables: {
           email: email,
         },
@@ -152,7 +152,7 @@ export const AuthProvider = ({ children }) => {
         return {
           status: data.data.forgotPassword.ok ? STATUS.SUCCESS : STATUS.ERROR,
           message:
-            "An email has been sent to your email on file, check there for futher instructions.",
+            'An email has been sent to your email on file, check there for futher instructions.',
         };
       })
       .catch((error) => {
@@ -165,7 +165,7 @@ export const AuthProvider = ({ children }) => {
 
   const resetPassword = async (password: string, code: string) => {
     const result = await fetch
-      .post("/graphql", {
+      .post('/graphql', {
         variables: {
           password: password,
           code: code,
@@ -183,12 +183,12 @@ export const AuthProvider = ({ children }) => {
           return {
             status: STATUS.SUCCESS,
             message:
-              "Password reset successful.  You have been auto-logged in.",
+              'Password reset successful.  You have been auto-logged in.',
           };
         } else {
           return {
             status: STATUS.ERROR,
-            message: "Unable to reset your password.  Try again.",
+            message: 'Unable to reset your password.  Try again.',
           };
         }
       })
@@ -201,30 +201,30 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    Cookies.remove("jwt");
-    Cookies.remove("user");
+    Cookies.remove('jwt');
+    Cookies.remove('user');
     setIsAuthenticated(false);
     setUser(null);
     removeBearerToken();
     redirectAfterLogout();
 
-    return { status: STATUS.SUCCESS, message: "Logged out" };
+    return { status: STATUS.SUCCESS, message: 'Logged out' };
   };
 
   const redirectAfterLogin = () => {
-    Router.push("/");
+    Router.push('/');
   };
 
   const redirectAfterLogout = () => {
-    Router.push("/");
+    Router.push('/');
   };
 
   const getUsername = () => {
-    return isAuthenticated ? user.username : "Guest";
+    return isAuthenticated ? user.username : 'Guest';
   };
 
   const getEmail = () => {
-    return isAuthenticated ? user.email : "N/A";
+    return isAuthenticated ? user.email : 'N/A';
   };
 
   const isAccountConfirmed = () => {
