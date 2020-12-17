@@ -1,25 +1,24 @@
 interface ButtonTypes {
   href: string;
-  as: string;
   text: string;
 }
 
-const LinkButton: FunctionComponent<ButtonTypes> = ({ href, as, text }) => (
+const LinkButton: FunctionComponent<ButtonTypes> = ({ href, text }) => (
   <StyledButton
-    whileHover="hover"
-    animate="rest"
-    initial="rest"
+    whileHover='hover'
+    animate='rest'
+    initial='rest'
     variants={ButtonVariants}
   >
-    <Link as={as} href={href}>
+    <Link href={href}>
       <ButtonAnchor>{text}</ButtonAnchor>
     </Link>
   </StyledButton>
 );
-import styled from "styled-components";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { FunctionComponent } from "react";
+import styled from 'styled-components';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { FunctionComponent } from 'react';
 
 export const StyledButton = styled(motion.p)`
   background: var(--color-red);
@@ -37,16 +36,16 @@ const ButtonVariants = {
     scale: 1,
     transition: {
       duration: 0.5,
-      type: "tween",
-      ease: "easeIn",
+      type: 'tween',
+      ease: 'easeIn',
     },
   },
   hover: {
     scale: 1.1,
     transition: {
       duration: 0.15,
-      type: "tween",
-      ease: "easeOut",
+      type: 'tween',
+      ease: 'easeOut',
     },
   },
 };
