@@ -5,6 +5,8 @@ interface iGrid {
   gap?: string;
   min?: string;
   masonry?: boolean;
+  justify?: string;
+  marginBottom?: boolean;
 }
 
 export const Grid = styled.div<iGrid>`
@@ -13,7 +15,8 @@ export const Grid = styled.div<iGrid>`
   grid-template-rows: ${(props) => (props.masonry ? 'masonry' : 'auto')};
   grid-gap: ${(props) => props.gap || '0px'};
   background: ${(props) => props.background};
-  margin-bottom: 50px;
+  ${(props) => props.justify && 'justify-items: ' + props.justify};
+  margin-bottom: ${(props) => (props.marginBottom ? '50px' : '0')};
 
   @media (min-width: ${(props) => props.min || '300'}) {
     grid-template-columns: repeat(

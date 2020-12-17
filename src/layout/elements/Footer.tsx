@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import { format } from "date-fns";
-import packageJSON from "package.json";
-import { Grid, GridItem } from "src/components/Grid";
-import Link from "next/link";
-import { motion } from "framer-motion";
+import styled from 'styled-components';
+import { format } from 'date-fns';
+import packageJSON from 'package.json';
+import { Grid, GridItem } from 'src/components/Grid';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 const StyledFooter = styled.footer`
   position: relative;
@@ -90,10 +90,10 @@ const FooterIcon = styled(motion.img)`
 
 const FooterIconVariants = {
   initial: {
-    transform: "scale3d(1,1,1)",
+    transform: 'scale3d(1,1,1)',
   },
   hover: {
-    transform: "scale3d(1.5,1.5,1)",
+    transform: 'scale3d(1.5,1.5,1)',
   },
 };
 
@@ -111,54 +111,54 @@ const Footer = () => {
       <FooterBackground />
       <FooterContentArea>
         <FooterContent>
-          <Grid columns={2} gap="50px">
+          <Grid columns={2} gap='50px' marginBottom={false}>
             <GridItem>
               <FooterHeading>Follow Me</FooterHeading>
               <FooterSubheading>
                 Be sure to see the latest and greatest
               </FooterSubheading>
-              <Grid colums={5} min="60px">
+              <Grid colums={5} min='60px' marginBottom={false} justify='center'>
                 <FooterIcon
-                  loading="lazy"
-                  src="/svg/github.svg"
-                  alt="Github"
-                  whileHover="hover"
+                  loading='lazy'
+                  src='/svg/github.svg'
+                  alt='Github'
+                  whileHover='hover'
                   variants={FooterIconVariants}
                 />
                 <FooterIcon
-                  loading="lazy"
-                  src="/svg/linkedin.svg"
-                  alt="LinkedIn"
-                  whileHover="hover"
+                  loading='lazy'
+                  src='/svg/linkedin.svg'
+                  alt='LinkedIn'
+                  whileHover='hover'
                   variants={FooterIconVariants}
                 />
                 <FooterIcon
-                  loading="lazy"
-                  src="/svg/instagram.svg"
-                  alt="Instagram"
-                  whileHover="hover"
+                  loading='lazy'
+                  src='/svg/instagram.svg'
+                  alt='Instagram'
+                  whileHover='hover'
                   variants={FooterIconVariants}
                 />
                 <FooterIcon
-                  loading="lazy"
-                  src="/svg/twitter.svg"
-                  alt="Twitter"
-                  whileHover="hover"
+                  loading='lazy'
+                  src='/svg/twitter.svg'
+                  alt='Twitter'
+                  whileHover='hover'
                   variants={FooterIconVariants}
                 />
                 <FooterIcon
-                  loading="lazy"
-                  src="/svg/youtube.svg"
-                  alt="YouTube"
-                  whileHover="hover"
+                  loading='lazy'
+                  src='/svg/youtube.svg'
+                  alt='YouTube'
+                  whileHover='hover'
                   variants={FooterIconVariants}
                 />
               </Grid>
             </GridItem>
             <GridItem>
               <p>
-                Use of this site constitues acceptance of our{" "}
-                <Link href="/privacy-policy">
+                Use of this site constitues acceptance of our{' '}
+                <Link href='/privacy-policy'>
                   <a>Privacy Policy</a>
                 </Link>
                 . The material on this site may not be reproduced, distributed,
@@ -166,7 +166,7 @@ const Footer = () => {
                 permission of Christopher Lee Miller.
               </p>
               <p>
-                Copyright © {format(new Date(), "yyyy")}
+                Copyright © {format(new Date(), 'yyyy')}
                 <Separator />v{packageJSON.version}
               </p>
             </GridItem>
