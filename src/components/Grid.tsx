@@ -12,7 +12,7 @@ interface iGrid {
 
 export const Grid = styled.div<iGrid>`
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: 1fr;
   grid-template-rows: ${(props) => (props.masonry ? 'masonry' : 'auto')};
   grid-gap: ${(props) => props.gap || '0px'};
   background: ${(props) => props.background};
@@ -26,7 +26,7 @@ export const Grid = styled.div<iGrid>`
     );
   }
 
-  @media (min-width: ${(props) => props.min || '300'}px) {
+  @media (min-width: ${(props) => props.min || '300px'}) {
     grid-template-columns: repeat(
       auto-fit,
       minmax(${(props) => props.min || '300px'}, 1fr)
