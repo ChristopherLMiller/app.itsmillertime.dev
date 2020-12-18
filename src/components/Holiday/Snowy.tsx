@@ -1,4 +1,3 @@
-import { getMonth, isWithinInterval } from "date-fns";
 import dynamic from "next/dynamic";
 import styled from "styled-components";
 
@@ -14,17 +13,11 @@ const SnowContainer = styled.div`
 `;
 
 const Snowy = () => {
-  const isDecember = getMonth(new Date()) + 1 === 12;
-
-  if (isDecember) {
-    return (
-      <SnowContainer>
-        <Snowfall snowflakeCount={1000} />
-      </SnowContainer>
-    );
-  } else {
-    return null;
-  }
+  return (
+    <SnowContainer>
+      <Snowfall snowflakeCount={1000} />
+    </SnowContainer>
+  );
 };
 
 export default Snowy;
