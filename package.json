@@ -47,6 +47,7 @@
     "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
     "react-query": "^2.26.3",
+    "react-snowfall": "^1.0.2",
     "react-toast-notifications": "^2.4.0",
     "react-use": "^15.3.4",
     "remark": "^13.0.0",
