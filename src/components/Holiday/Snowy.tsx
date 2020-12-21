@@ -36,7 +36,7 @@ const Snowy = () => {
 
   return (
     <SnowContainer>
-      <Snowfall snowflakeCount={snowFlakeCount} />
+      {enabled && <Snowfall snowflakeCount={snowFlakeCount} />}
     </SnowContainer>
   );
 };
