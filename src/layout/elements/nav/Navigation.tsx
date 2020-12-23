@@ -2,13 +2,11 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import NavItem from "./NavItem";
-import { useMedia } from "react-use";
 
 const StyledNav = styled(motion.nav)`
   display: grid;
   grid-template-columns: 1;
   align-items: center;
-  justify-content: space-around;
   background: var(--color-gold-transparent);
   box-shadow: var(--box-shadow-elev-1);
 
@@ -30,7 +28,6 @@ const NavVariants = {
 const Nav = () => {
   const [isLoading, setLoading] = useState(true);
   const [navLinks, setNavLinks] = useState(null);
-  const isMobile = useMedia("(min-width: 500px)");
   const isMenuOpen = useState(false);
 
   useEffect(() => {
