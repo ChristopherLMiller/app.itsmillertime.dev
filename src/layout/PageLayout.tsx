@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { FunctionComponent } from "react";
 import Footer from "./elements/Footer";
 import ScrollTop from "src/components/ScrollTop";
-import Snowy from "src/components/Holiday/Snowy";
 
 const Main = styled(motion.main)`
   max-width: var(--max-width);
@@ -46,7 +45,6 @@ const PageLayout: FunctionComponent<iPagelayout> = ({
 }) => {
   return (
     <ContentArea variants={contentVariants}>
-      <Snowy />
       <Header title={title} description={description} />
       <Main>{children}</Main>
       <Footer />

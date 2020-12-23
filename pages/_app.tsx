@@ -22,6 +22,7 @@ import "node_modules/prismjs/themes/prism-tomorrow.css";
 import "node_modules/nprogress/nprogress.css";
 
 import SEO from "next-seo.config";
+import Snowy from "src/components/Holiday/Snowy";
 
 if (process.env.NEXT_PUBLIC_SENTRY_DNS) {
   const config = getConfig();
@@ -100,6 +101,7 @@ const App = ({ Component, pageProps, err }) => {
             <meta name="theme-color" content="#982929" />
           </Head>
           <DefaultSeo {...SEO} />
+          <Snowy />
           <AnimatePresence exitBeforeEnter>
             <Fragment>
               <TopBar />
