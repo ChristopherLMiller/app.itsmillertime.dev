@@ -1,7 +1,7 @@
-import { FunctionComponent } from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { FunctionComponent } from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 const ImageContainer = styled(motion.div)`
   border: 5px solid var(--color-red-intermediate);
@@ -17,14 +17,14 @@ const ImageContainer = styled(motion.div)`
 const ImageContainerVariants = {
   rest: {
     scale: 1,
-    boxShadow: 'var(--box-shadow-elev-0)',
+    boxShadow: "var(--box-shadow-elev-0)",
     transition: {
       duration: 0.25,
     },
   },
   hover: {
     scale: 1.05,
-    boxShadow: 'var(--box-shadow-elev-1)',
+    boxShadow: "var(--box-shadow-elev-1)",
   },
 };
 
@@ -46,18 +46,18 @@ const ImageOverlay = styled(motion.div)`
 
 const ImageOverlayVariants = {
   rest: {
-    background: 'hsl(0deg 0% 0% / 0.6)',
+    background: "hsl(0deg 0% 0% / 0.6)",
     marginBottom: 0,
     transition: {
-      type: 'tween',
+      type: "tween",
     },
   },
   hover: {
-    background: 'hsl(0deg 59% 40% / 0.8)',
+    background: "hsl(0deg 59% 40% / 0.8)",
     marginBottom: 10,
     transition: {
-      type: 'tween',
-      ease: 'easeOut',
+      type: "tween",
+      ease: "easeOut",
     },
   },
 };
@@ -69,23 +69,32 @@ interface iImage {
     height: number;
   };
   alt: string;
+  hoverable?: boolean;
 }
 
-const ImageDefault: FunctionComponent<iImage> = ({ image, alt, children }) => {
+const ImageDefault: FunctionComponent<iImage> = ({
+  image,
+  alt,
+  hoverable,
+  children,
+}) => {
+  console.log(children !== "undefined");
   return (
     <ImageContainer
       variants={ImageContainerVariants}
-      initial='rest'
-      whileHover='hover'
+      initial="rest"
+      whileHover={hoverable ? "hover" : "rest"}
     >
       <Image
         src={image.url}
         alt={alt}
-        layout='intrinsic'
+        layout="intrinsic"
         width={image.width}
         height={image.height}
       />
-      <ImageOverlay variants={ImageOverlayVariants}>{children}</ImageOverlay>
+      {children !== undefined && (
+        <ImageOverlay variants={ImageOverlayVariants}>{children}</ImageOverlay>
+      )}
     </ImageContainer>
   );
 };
