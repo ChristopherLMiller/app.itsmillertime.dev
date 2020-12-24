@@ -29,3 +29,6 @@ export const STATUS = {
   SUCCESS: "SUCCESS",
   ERROR: "ERROR",
 };
+
+// SendGrid
+export const SENDGRID_API = 'https://api.sendgrid.com/v3/mail/send'
