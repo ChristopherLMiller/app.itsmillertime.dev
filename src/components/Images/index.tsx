@@ -78,7 +78,6 @@ const ImageDefault: FunctionComponent<iImage> = ({
   hoverable,
   children,
 }) => {
-  console.log(children !== "undefined");
   return (
     <ImageContainer
       variants={ImageContainerVariants}
