@@ -83,16 +83,18 @@ const Snowy = () => {
   return (
     <SnowContainer>
       {enabled && <Snowfall snowflakeCount={snowFlakeCount} />}
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={ModalStyles}
-      >
-        <Image
-          image={{ url: "/christmas.jpg", width: 4000, height: 2069 }}
-          alt="Merry Christmas"
-        />
-      </Modal>
+      {false && (
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={ModalStyles}
+        >
+          <Image
+            image={{ url: "/christmas.jpg", width: 4000, height: 2069 }}
+            alt="Merry Christmas"
+          />
+        </Modal>
+      )}
     </SnowContainer>
   );
 };
