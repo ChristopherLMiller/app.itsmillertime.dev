@@ -11,5 +11,5 @@ export function ContactEmailTemplate({email, message, name}) {
     </mj-section>
     `;
 
-    return EmailTemplate(markup);
+    return EmailTemplate({message: markup});
 }
