@@ -87,7 +87,7 @@ const ImageDefault: FunctionComponent<iImage> = ({
       <Image
         src={image.url}
         alt={alt}
-        layout="intrinsic"
+        layout="responsive"
         width={image.width}
         height={image.height}
       />
