@@ -49,9 +49,7 @@ const GalleriesIndexPage: NextPage = () => {
 
 GalleriesIndexPage.getInitialProps = async (ctx) => {
   const clientCookies = cookies(ctx);
-  if (clientCookies.nsfw && clientCookies.nsfw === "true") {
-    return { nsfw: true };
-  }
+  return { nsfw: clientCookies?.nsfw };
 };
 
 export default GalleriesIndexPage;
