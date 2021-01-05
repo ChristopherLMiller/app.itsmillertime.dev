@@ -6,7 +6,7 @@ import {
 import { NextSeo } from "next-seo";
 import Link from "next/link";
 import Card from "src/components/Card";
-import { ForgotPasswordForm } from "src/components/forms";
+import { ForgotPasswordForm } from "src/templates/forms";
 import { Grid } from "src/components/Grid";
 import PageLayout from "src/layout/PageLayout";
 import styled from "styled-components";
@@ -74,8 +74,8 @@ const ForgotPasswordPage = () => {
           <TextPane>
             <h3>Forgot your password?</h3>
             <p>
-              No problem! Enter your email below and a password reset email will
-              be sent to you.
+              No problem! Enter your email and an email will be sent to you with
+              instructions to reset it.
             </p>
             <Link href="/account/login">
               <PanelLink>Login instead?</PanelLink>

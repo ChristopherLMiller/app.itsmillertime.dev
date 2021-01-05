@@ -8,7 +8,7 @@ import {
   CLOUDINARY_URL,
 } from "config";
 import { NextSeo } from "next-seo";
-import { LoginForm } from "src/components/forms";
+import { LoginForm } from "src/templates/forms";
 import Link from "next/link";
 import { NextPage } from "next";
 import cookies from "next-cookies";

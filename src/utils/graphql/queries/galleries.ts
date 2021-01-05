@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const ALL_GALLERIES_STRING = `
 query ALL_GALLERIES {
-    galleries {
+    galleries(where{
         id
         createdAt
         updatedAt
@@ -15,6 +15,7 @@ query ALL_GALLERIES {
             height
         }
         status
+        nsfw
         gallery_categories {
             id
             title
