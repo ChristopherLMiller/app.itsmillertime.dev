@@ -6,15 +6,13 @@ import { ToastProvider } from "react-toast-notifications";
 import { useRouter } from "next/router";
 import { Fragment, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import getConfig from "next/config";
-import * as Sentry from "@sentry/node";
-import { RewriteFrames } from "@sentry/integrations";
 import * as gtag from "src/utils/functions/gtag";
 import { DefaultSeo } from "next-seo";
 import NProgress from "nprogress";
 import Head from "next/head";
 import TopBar from "src/layout/elements/TopBar";
 import { ReactQueryDevtools } from "react-query-devtools";
+import { init } from "src/utils/functions/sentry";
 
 // global CSS
 import "node_modules/normalize.css/normalize.css";
@@ -24,22 +22,8 @@ import "node_modules/nprogress/nprogress.css";
 import SEO from "next-seo.config";
 import Snowy from "src/components/Holiday/Snowy";
 
-if (process.env.NEXT_PUBLIC_SENTRY_DNS) {
-  const config = getConfig();
-  const distDir = `${config.serverRuntimeConfig.rootDir}/.next`;
-  Sentry.init({
-    enabled: process.env.NODE_ENV === "production",
-    integrations: [
-      new RewriteFrames({
-        iteratee: (frame) => {
-          frame.filename = frame.filename.replace(distDir, "app://_next");
-          return frame;
-        },
-      }),
-    ],
-    dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-  });
-}
+// Sentry
+init();
 
 const Content = styled(motion.div)``;
 
