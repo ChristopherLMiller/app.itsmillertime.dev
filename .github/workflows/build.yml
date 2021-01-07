@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Run ESLint
-        run: esline . --ext .js,.jsx,.ts,.tsx
+        run: eslint . --ext .js,.jsx,.ts,.tsx
 
       - name: Install Modules
         run: npm install
