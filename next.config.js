@@ -113,7 +113,10 @@ const nextConfig = {
     ],
   },
   images: {
-    domains: ['clm-sites-strapi.s3.us-east-2.amazonaws.com', 'res.cloudinary.com']
+    domains: [
+      "clm-sites-strapi.s3.us-east-2.amazonaws.com",
+      "res.cloudinary.com",
+    ],
   },
   async rewrites() {
     return [
