@@ -19,11 +19,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Run ESLint
-        run: eslint . --ext .js,.jsx,.ts,.tsx
 
       - name: Install Modules
         run: npm install
+
+      - name: Run ESLint
+        run: eslint . --ext .js,.jsx,.ts,.tsx
 
       - name: Build The Site
         run: npm run build
