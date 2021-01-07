@@ -17,5 +17,5 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Prettify Code
-        uses: creyD/perttier_action@v3.1
+        uses: creyD/prettier_action@v3.1
         env: GITHUB_TOKEN ${{ secrets.GITHUB_TOKEN }}
