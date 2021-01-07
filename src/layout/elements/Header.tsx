@@ -2,32 +2,22 @@ import styled from "styled-components";
 import { FunctionComponent } from "react";
 
 const StyledHeader = styled.div`
-  padding-bottom: 100px;
+  margin-bottom: 100px;
   position: relative;
 `;
 
 const HeaderBackground = styled.div`
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 150%;
-  min-height: 350px;
+  left: 0;
+  bottom: -3vw;
+  width: 100%;
+  min-height: calc(350px + 6vw);
   z-index: -1;
   background: var(--color-red);
-  transform: rotateZ(-5deg) translate(-50%, -100%);
   opacity: 0.8;
   transition: all 0.5s;
   box-shadow: var(--box-shadow-elev-1);
-
-  @media (min-width: 800px) {
-    transform: rotateZ(-5deg) translate(-50%, -110%);
-  }
-  @media (min-width: 1000px) {
-    transform: rotateZ(-5deg) translate(-50%, -120%);
-  }
-  @media (min-width: 1400px) {
-    transform: rotateZ(-5deg) translate(-50%, -130%);
-  }
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6vw), 0 100%);
 `;
 
 const HeaderDescription = styled.h4`
