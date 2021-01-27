@@ -20,4 +20,3 @@ jobs:
         uses: creyD/prettier_action@v3.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-P
