@@ -1,33 +1,34 @@
-import { ThemeProvider } from "styled-components";
-import { AuthProvider } from "src/lib/AuthProvider";
-import { defaultTheme, GlobalStyles } from "@/styles/default";
-import styled from "styled-components";
-import { ToastProvider } from "react-toast-notifications";
-import { useRouter } from "next/router";
-import { Fragment, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import * as gtag from "src/utils/functions/gtag";
-import { DefaultSeo } from "next-seo";
-import NProgress from "nprogress";
-import Head from "next/head";
-import TopBar from "src/layout/elements/TopBar";
-import { ReactQueryDevtools } from "react-query-devtools";
-import { init } from "src/utils/functions/sentry";
+import { ThemeProvider } from 'styled-components';
+import { AuthProvider } from 'src/lib/AuthProvider';
+import { defaultTheme, GlobalStyles } from '@/styles/default';
+import styled from 'styled-components';
+import { ToastProvider } from 'react-toast-notifications';
+import { useRouter } from 'next/router';
+import { Fragment, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import * as gtag from 'src/utils/functions/gtag';
+import { DefaultSeo } from 'next-seo';
+import NProgress from 'nprogress';
+import Head from 'next/head';
+import TopBar from 'src/layout/elements/TopBar';
+import { ReactQueryDevtools } from 'react-query-devtools';
+import { init } from 'src/utils/functions/sentry';
 
 // global CSS
-import "node_modules/normalize.css/normalize.css";
-import "node_modules/prismjs/themes/prism-tomorrow.css";
-import "node_modules/nprogress/nprogress.css";
+import 'node_modules/normalize.css/normalize.css';
+import 'node_modules/prismjs/themes/prism-tomorrow.css';
+import 'node_modules/nprogress/nprogress.css';
 
-import SEO from "next-seo.config";
-import Snowy from "src/components/Holiday/Snowy";
+import SEO from 'next-seo.config';
+import Snowy from 'src/components/Holiday/Snowy';
+import { AppComponent } from 'next/dist/next-server/lib/router/router';
 
 // Sentry
 init();
 
 const Content = styled(motion.div)``;
 
-const App = ({ Component, pageProps, err }) => {
+const App: AppComponent = ({ Component, pageProps, err }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -35,10 +36,10 @@ const App = ({ Component, pageProps, err }) => {
       gtag.pageview(url);
     };
 
-    router.events.on("routeChangeComplete", handleRouteChange);
+    router.events.on(`routeChangeComplete`, handleRouteChange);
 
     return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
+      router.events.off(`routeChangeComplete`, handleRouteChange);
     };
   }, [router.events]);
 
@@ -56,14 +57,14 @@ const App = ({ Component, pageProps, err }) => {
       NProgress.done();
     };
 
-    router.events.on("routeChangeStart", routeChangeStart);
-    router.events.on("routeChangeComplete", routeChangeComplete);
-    router.events.on("routeChangeError", routeChangeError);
+    router.events.on(`routeChangeStart`, routeChangeStart);
+    router.events.on(`routeChangeComplete`, routeChangeComplete);
+    router.events.on(`routeChangeError`, routeChangeError);
 
     return () => {
-      router.events.off("routeChangeStart", routeChangeStart);
-      router.events.off("routeChangeComplete", routeChangeComplete);
-      router.events.off("routeChangeError", routeChangeError);
+      router.events.off(`routeChangeStart`, routeChangeStart);
+      router.events.off(`routeChangeComplete`, routeChangeComplete);
+      router.events.off(`routeChangeError`, routeChangeError);
     };
   });
 

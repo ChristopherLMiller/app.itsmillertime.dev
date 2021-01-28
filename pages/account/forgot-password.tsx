@@ -2,17 +2,18 @@ import {
   CLOUDINARY_CLOUD,
   CLOUDINARY_URL,
   SITE_DEFAULT_IMAGE_FILE,
-} from "config";
-import { NextSeo } from "next-seo";
-import Link from "next/link";
-import Card from "src/components/Card";
-import { ForgotPasswordForm } from "src/templates/forms";
-import { Grid } from "src/components/Grid";
-import PageLayout from "src/layout/PageLayout";
-import styled from "styled-components";
+} from 'config';
+import { NextSeo } from 'next-seo';
+import Link from 'next/link';
+import Card from 'src/components/Card';
+import { ForgotPasswordForm } from 'src/templates/forms';
+import { Grid } from 'src/components/Grid';
+import PageLayout from 'src/layout/PageLayout';
+import styled from 'styled-components';
+import { NextPage } from 'next';
 
-const title = "Forgot Password?";
-const description = "How could you forget your password?";
+const title = `Forgot Password?`;
+const description = `How could you forget your password?`;
 
 const PanelLink = styled.a`
   cursor: pointer;
@@ -47,47 +48,45 @@ const ResetPane = styled.div`
   justify-content: center;
 `;
 
-const ForgotPasswordPage = () => {
-  return (
-    <PageLayout title={title} description={description}>
-      <NextSeo
-        nofollow={true}
-        title={title}
-        description={description}
-        openGraph={{
-          title,
-          description,
-          type: "website",
-          images: [
-            {
-              alt: "Default Site Image",
-              width: 800,
-              height: 600,
-              url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto,/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
-            },
-          ],
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/forgot-password',`,
-        }}
-      />
-      <Card padding={false}>
-        <Grid columns={2}>
-          <TextPane>
-            <h3>Forgot your password?</h3>
-            <p>
-              No problem! Enter your email and an email will be sent to you with
-              instructions to reset it.
-            </p>
-            <Link href="/account/login">
-              <PanelLink>Login instead?</PanelLink>
-            </Link>
-          </TextPane>
-          <ResetPane>
-            <ForgotPasswordForm />
-          </ResetPane>
-        </Grid>
-      </Card>
-    </PageLayout>
-  );
-};
+const ForgotPasswordPage: NextPage = () => (
+  <PageLayout title={title} description={description}>
+    <NextSeo
+      nofollow={true}
+      title={title}
+      description={description}
+      openGraph={{
+        title,
+        description,
+        type: `website`,
+        images: [
+          {
+            alt: `Default Site Image`,
+            width: 800,
+            height: 600,
+            url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto,/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+          },
+        ],
+        url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/forgot-password',`,
+      }}
+    />
+    <Card padding={false}>
+      <Grid columns={2}>
+        <TextPane>
+          <h3>Forgot your password?</h3>
+          <p>
+            No problem! Enter your email and an email will be sent to you with
+            instructions to reset it.
+          </p>
+          <Link href="/account/login">
+            <PanelLink>Login instead?</PanelLink>
+          </Link>
+        </TextPane>
+        <ResetPane>
+          <ForgotPasswordForm />
+        </ResetPane>
+      </Grid>
+    </Card>
+  </PageLayout>
+);
 
 export default ForgotPasswordPage;

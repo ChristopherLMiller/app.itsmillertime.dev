@@ -1,14 +1,14 @@
-import { createGlobalStyle } from "styled-components";
-import { CLOUDINARY_URL, CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from "../config";
+import { createGlobalStyle } from 'styled-components';
+import { CLOUDINARY_URL, CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from '../config';
 
 export const defaultTheme = {
   colors: {
-    primary: "#0070F3",
+    primary: `#0070F3`,
   },
   fonts: {
-    main: "Roboto, sans-serif",
-    alt: "Oswald, sans-serif",
-    block: "'Source Code pro', monospace",
+    main: `Roboto, sans-serif`,
+    alt: `Oswald, sans-serif`,
+    block: `'Source Code pro', monospace`,
   },
 };
 
@@ -470,41 +470,3 @@ export const GlobalStyles = createGlobalStyle`
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 `;
-
-const oldFont = `
---modular1: 1.2;
---modular2: 1.35;
-
---startwidth: 30;
---endwidth:105;
-
-//need these numbers for h6 and p without units for calc.
---base-min: 1.25;
---base-max:1.45;
-
-
---h1-responsive: calc(var(--h1-size) + ((var(--modular2) * var(--modular2) * var(--modular2) * var(--modular2) * var(--modular2)) - (var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1))) * ((100vw - (var(--startwidth) * 1em)) / (var(--endwidth) - var(--startwidth))));
---h2-responsive:calc(var(--h2-size) + ((var(--modular2) * var(--modular2) * var(--modular2) * var(--modular2)) - (var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1))) * ((100vw - (var(--startwidth) * 1em)) / (var(--endwidth) - var(--startwidth))));
---h3-responsive:calc(var(--h3-size) + ((var(--modular2) * var(--modular2) * var(--modular2)) - (var(--modular1) * var(--modular1) * var(--modular1))) * ((100vw - (var(--startwidth) * 1em)) / (var(--endwidth) - var(--startwidth))));
---h4-responsive:calc(var(--h4-size) + ((var(--modular2) * var(--modular2)) - (var(--modular1) * var(--modular1))) * ((100vw - (var(--startwidth) * 1em)) / (var(--endwidth) - var(--startwidth))));    
---h5-responsive:calc(var(--h5-size) + ((var(--modular2)) - (var(--modular1))) * ((100vw - (var(--startwidth) * 1em)) / (var(--endwidth) - var(--startwidth))));
---h6-responsive:calc(var(--h6-size) + ((var(--base-max)) - (var(--base-min))) * ((100vw - (var(--startwidth) * 1em)) / (var(--endwidth) - var(--startwidth))));
---p-responsive:calc(var(--p-size) + ((var(--base-max)) - (var(--base-min))) * ((100vw - (var(--startwidth) * 1em)) / (var(--endwidth) - var(--startwidth))));
-
-//Initially I wanted to use an expression like this, and just change the font-min and font-max for each header:
-//--fontsize-responsive:calc(var(--font-min) * 1rem + ((var(--font-max)) - (var(--font-min))) * ((100vw - (var(--startwidth) * 1rem)) / (var(--endwidth) - var(--startwidth))));
-//But I needed a unit to use calc, and font-min and font-max could not be calculated without a unit. For the above to work, they needed to be unitless. Perhaps there is a way around this?
-
---h1-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * 1rem);
-
---h2-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * var(--modular1) * 1rem);
-
---h3-size: calc(var(--modular1) * var(--modular1) * var(--modular1) * 1rem);
-
---h4-size: calc(var(--modular1) * var(--modular1) * 1rem);
-
---h5-size: calc(var(--modular1) * 1rem);
-
---h6-size:calc(var(--base-min) * 1rem);
-
---p-size:calc(var(--base-min) * 2rem);`;

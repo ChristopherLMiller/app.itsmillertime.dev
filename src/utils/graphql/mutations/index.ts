@@ -1,12 +1,12 @@
-import { LOGIN_MUTATION_STRING, LOGIN_MUTATION } from "./login";
+import { LOGIN_MUTATION_STRING, LOGIN_MUTATION } from './login';
 import {
   FORGOT_PASSWORD_MUTATION_STRING,
   FORGOT_PASSWORD_MUTATION,
-} from "./forgotPassword";
+} from './forgotPassword';
 import {
   RESET_PASSWORD_MUTATION,
   RESET_PASSWORD_MUTATION_STRING,
-} from "./resetPassword";
+} from './resetPassword';
 
 export {
   LOGIN_MUTATION_STRING,

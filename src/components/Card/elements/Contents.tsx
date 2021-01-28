@@ -1,7 +1,7 @@
-import { Fragment } from "react";
+import { Fragment, FunctionComponent } from 'react';
 
-const Contents = ({ children }) => {
-  return <Fragment>{children}</Fragment>;
-};
+const Contents: FunctionComponent = ({ children }) => (
+  <Fragment>{children}</Fragment>
+);
 
 export default Contents;

@@ -1,24 +1,24 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import Button from "src/components/inputs/Button";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import Button from 'src/components/inputs/Button';
 import {
   StyledForm,
   Fieldset,
   Label,
   FormErrorMessage,
-} from "src/components/inputs";
-import * as Yup from "yup";
-import { useToasts } from "react-toast-notifications";
-import { useAuth } from "src/lib/AuthProvider";
-import HCaptcha from "@hcaptcha/react-hcaptcha";
-import { useEffect, useRef, useState } from "react";
+} from 'src/components/inputs';
+import * as Yup from 'yup';
+import { useToasts } from 'react-toast-notifications';
+import { useAuth } from 'src/lib/AuthProvider';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
+import { FunctionComponent, useRef, useState } from 'react';
 
 const ForgotFormValidation = Yup.object().shape({
   email: Yup.string()
     .email()
-    .required("Need the email address to reset password"),
+    .required(`Need the email address to reset password`),
 });
 
-const ForgotPasswordForm = () => {
+const ForgotPasswordForm: FunctionComponent = () => {
   const { addToast } = useToasts();
   const [token, setToken] = useState(null);
   const captchaRef = useRef<HCaptcha>();
@@ -29,14 +29,14 @@ const ForgotPasswordForm = () => {
   };
 
   const onExpire = () => {
-    console.log("ForgotPasswordForm hCaptcha Token Expired");
+    console.log(`ForgotPasswordForm hCaptcha Token Expired`);
   };
 
   console.log(process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY);
 
   return (
     <Formik
-      initialValues={{ email: "" }}
+      initialValues={{ email: `` }}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
         captchaRef?.current?.resetCaptcha();

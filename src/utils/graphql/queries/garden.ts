@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const ALL_GARDEN_ITEMS_STRING = `
 query ALL_DIGITAL_GARDEN_ITEMS {

@@ -1,5 +1,5 @@
-import gql from "graphql-tag";
-import { iRole } from "../types/role";
+import gql from 'graphql-tag';
+import { iRole } from '../types/role';
 
 export interface iMe {
   id: string;

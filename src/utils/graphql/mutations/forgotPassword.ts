@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const FORGOT_PASSWORD_MUTATION_STRING = `
 mutation FORGOT_PASSWORD ($email: String!) {

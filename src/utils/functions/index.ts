@@ -1,3 +1,5 @@
-import redirectIfProd from './redirectIfProd'
+import redirectIfProd from './redirectIfProd';
+import { truncate } from './truncate';
+import { timeToRead } from './timeToRead';
 
-export { redirectIfProd }
+export { redirectIfProd, timeToRead, truncate };

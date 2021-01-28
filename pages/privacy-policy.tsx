@@ -1,18 +1,18 @@
-import PageLayout from "src/layout/PageLayout";
-import Card from "src/components/Card";
+import PageLayout from 'src/layout/PageLayout';
+import Card from 'src/components/Card';
 import {
   SITE_DEFAULT_IMAGE_FILE,
   CLOUDINARY_CLOUD,
   CLOUDINARY_URL,
-} from "config";
-import { NextSeo } from "next-seo";
+} from 'config';
+import { NextSeo } from 'next-seo';
+import { NextPage } from 'next';
+import PrivacyPolicyMarkdown from 'data/mdx/privacy-policy.mdx';
 
-const PrivacyPolicyMarkdown = require("data/mdx/privacy-policy.mdx").default;
+const title = `Privacy Policy`;
+const description = `My policies regarding your privacy and safety`;
 
-const title = "Privacy Policy";
-const description = "My policies regarding your privacy and safety";
-
-const PrivacyPolicyPage = () => (
+const PrivacyPolicyPage: NextPage = () => (
   <PageLayout title={title} description={description}>
     <NextSeo
       title={title}
@@ -20,10 +20,10 @@ const PrivacyPolicyPage = () => (
       openGraph={{
         title,
         description,
-        type: "website",
+        type: `website`,
         images: [
           {
-            alt: "Default Site Image",
+            alt: `Default Site Image`,
             width: 800,
             height: 600,
             url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,

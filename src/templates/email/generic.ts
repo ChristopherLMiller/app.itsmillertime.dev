@@ -1,6 +1,9 @@
+type EmailTemplateTypes = {
+  message: string;
+};
 
-export function EmailTemplate({message}) {
-    return `
+export function EmailTemplate({ message }: EmailTemplateTypes): string {
+  return `
         <mjml>
             <mj-body>
             <!-- Header -->

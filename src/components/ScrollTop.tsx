@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { isClient } from 'src/utils/functions/isClientServer';
-import { useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { FaArrowCircleUp } from 'react-icons/fa';
 
 const ScrollTopDiv = styled(motion.div)`
@@ -18,15 +18,15 @@ const ScrollTopDiv = styled(motion.div)`
 const ScrollTopVariants = {
   hidden: {
     opacity: 0,
-    display: 'none',
+    display: `none`,
   },
   visible: {
     opacity: 1,
-    display: 'flex',
+    display: `flex`,
   },
 };
 
-const ScrollTop = () => {
+const ScrollTop: FunctionComponent = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -39,24 +39,24 @@ const ScrollTop = () => {
     };
 
     // add event listener for scroll events
-    if (isClient()) window.addEventListener('scroll', handleScroll);
+    if (isClient()) window.addEventListener(`scroll`, handleScroll);
 
     // cleanup
     return () => {
-      if (isClient()) window.removeEventListener('scroll', handleScroll);
+      if (isClient()) window.removeEventListener(`scroll`, handleScroll);
     };
   });
 
   const scrollToTop = () => {
     if (isClient()) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: `smooth` });
     }
   };
 
   return (
     <ScrollTopDiv
-      initial='hidden'
-      animate={showScrollTop ? 'visible' : 'hidden'}
+      initial="hidden"
+      animate={showScrollTop ? `visible` : `hidden`}
       variants={ScrollTopVariants}
       onClick={scrollToTop}
     >

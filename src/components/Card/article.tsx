@@ -1,13 +1,13 @@
-import { FunctionComponent } from "react";
-import { iArticle } from "src/utils/graphql/types/article";
-import Card from ".";
-import Markdown from "./elements/Markdown";
-import styled from "styled-components";
-import ImageDefault from "../Images";
-import { formatRelative, parseISO } from "date-fns";
-import { timeToRead } from "src/utils/functions/timeToRead";
-import { countWords } from "src/utils/functions/countWords";
-import { truncate } from "src/utils/functions/truncate";
+import { FunctionComponent } from 'react';
+import { iArticle } from 'src/utils/graphql/types/article';
+import Card from '.';
+import Markdown from './elements/Markdown';
+import styled from 'styled-components';
+import ImageDefault from '../Images';
+import { formatRelative, parseISO } from 'date-fns';
+import { timeToRead } from 'src/utils/functions/timeToRead';
+import { countWords } from 'src/utils/functions/countWords';
+import { truncate } from 'src/utils/functions/truncate';
 
 const StyledArticleHead = styled.div`
   font-weight: 100;

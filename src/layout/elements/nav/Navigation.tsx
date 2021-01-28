@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
-import NavItem from "./NavItem";
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import { useState, useEffect, FunctionComponent } from 'react';
+import NavItem from './NavItem';
 
 const StyledNav = styled(motion.nav)`
   display: grid;
@@ -25,14 +25,14 @@ const NavVariants = {
   },
 };
 
-const Nav = () => {
+const Nav: FunctionComponent = () => {
   const [isLoading, setLoading] = useState(true);
   const [navLinks, setNavLinks] = useState(null);
   const isMenuOpen = useState(false);
 
   useEffect(() => {
     async function fetchData() {
-      const data = await import("@/data/json/nav.json");
+      const data = await import(`@/data/json/nav.json`);
       setNavLinks(data.items);
       setLoading(false);
     }

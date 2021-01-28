@@ -1,18 +1,18 @@
-import { useAuth } from "src/lib/AuthProvider";
-import PageLayout from "src/layout/PageLayout";
-import { NextPage } from "next";
-import { Grid, GridItem } from "src/components/Grid";
-import Card from "src/components/Card";
-import styled from "styled-components";
-import { NextSeo } from "next-seo";
+import { useAuth } from 'src/lib/AuthProvider';
+import PageLayout from 'src/layout/PageLayout';
+import { NextPage } from 'next';
+import { Grid, GridItem } from 'src/components/Grid';
+import Card from 'src/components/Card';
+import styled from 'styled-components';
+import { NextSeo } from 'next-seo';
 import {
   SITE_DEFAULT_IMAGE_FILE,
   CLOUDINARY_CLOUD,
   CLOUDINARY_URL,
-} from "config";
+} from 'config';
 
-const title = "My Account";
-const description = "Manage your account here";
+const title = `My Account`;
+const description = `Manage your account here`;
 
 const InformationPanel = styled.div`
   p {
@@ -32,10 +32,10 @@ const MyAccount: NextPage = () => {
         openGraph={{
           title,
           description,
-          type: "website",
+          type: `website`,
           images: [
             {
-              alt: "Default Site Image",
+              alt: `Default Site Image`,
               width: 800,
               height: 600,
               url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,

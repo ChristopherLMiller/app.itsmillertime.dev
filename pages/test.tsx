@@ -1,11 +1,8 @@
 import { NextPage } from 'next';
 import redirectIfProd from 'src/utils/functions/redirectIfProd';
+import TestPageMarkdown from 'data/mdx/test.mdx';
 
-const TestPageMarkdown = require('data/mdx/test.mdx').default;
-
-const TestPage: NextPage = () => {
-  return <TestPageMarkdown />;
-};
+const TestPage: NextPage = () => <TestPageMarkdown />;
 
 TestPage.getInitialProps = async ({ res }) => {
   redirectIfProd(res);

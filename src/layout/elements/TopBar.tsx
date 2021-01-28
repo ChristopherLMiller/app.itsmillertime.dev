@@ -1,8 +1,8 @@
-import { Fragment, useState } from "react";
-import styled from "styled-components";
-import SiteTitle from "./SiteTitle";
-import Nav from "./nav/Navigation";
-import AccountDetails from "./AccountDetails";
+import { Fragment, FunctionComponent } from 'react';
+import styled from 'styled-components';
+import SiteTitle from './SiteTitle';
+import Nav from './nav/Navigation';
+import AccountDetails from './AccountDetails';
 
 const StyledTopBar = styled.div`
   background: var(--color-grey-darker);
@@ -14,16 +14,14 @@ const StyledTopBar = styled.div`
   z-index: 1;
 `;
 
-const TopBar = () => {
-  return (
-    <Fragment>
-      <StyledTopBar>
-        <AccountDetails />
-        <SiteTitle />
-      </StyledTopBar>
-      <Nav />
-    </Fragment>
-  );
-};
+const TopBar: FunctionComponent = () => (
+  <Fragment>
+    <StyledTopBar>
+      <AccountDetails />
+      <SiteTitle />
+    </StyledTopBar>
+    <Nav />
+  </Fragment>
+);
 
 export default TopBar;

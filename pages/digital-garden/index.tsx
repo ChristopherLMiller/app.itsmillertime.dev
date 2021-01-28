@@ -1,17 +1,18 @@
-import { CLOUDINARY_CLOUD, CLOUDINARY_URL } from "config";
-import { NextSeo } from "next-seo";
-import { Grid } from "src/components/Grid";
-import PageLayout from "src/layout/PageLayout";
-import Card from "src/components/Card";
-import { gqlQuery } from "src/utils/functions/fetch";
-import { ALL_GARDEN_ITEMS_STRING } from "src/utils/graphql/queries";
-import { useQuery } from "react-query";
+import { CLOUDINARY_CLOUD, CLOUDINARY_URL } from 'config';
+import { NextSeo } from 'next-seo';
+import { Grid } from 'src/components/Grid';
+import PageLayout from 'src/layout/PageLayout';
+import Card from 'src/components/Card';
+import { gqlQuery } from 'src/utils/functions/fetch';
+import { ALL_GARDEN_ITEMS_STRING } from 'src/utils/graphql/queries';
+import { useQuery } from 'react-query';
+import { NextPage } from 'next';
 
-const title = "Digital Garden";
-const description = "Random thoughts of me";
+const title = `Digital Garden`;
+const description = `Random thoughts of me`;
 
-const DigitalGardenIndexPage = () => {
-  const { isLoading, error, data } = useQuery("digitalGarden", () =>
+const DigitalGardenIndexPage: NextPage = () => {
+  const { isLoading, error, data } = useQuery(`digitalGarden`, () =>
     gqlQuery(ALL_GARDEN_ITEMS_STRING)
   );
 
@@ -23,10 +24,10 @@ const DigitalGardenIndexPage = () => {
         openGraph={{
           title,
           description,
-          type: "website",
+          type: `website`,
           images: [
             {
-              alt: "Digital Garden",
+              alt: `Digital Garden`,
               width: 800,
               height: 600,
               url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/clm-new/assets/digital-garden.jpg`,
@@ -51,7 +52,7 @@ const DigitalGardenIndexPage = () => {
               heading={item.title}
               actionLinks={[
                 {
-                  title: "View",
+                  title: `View`,
                   href: `/digital-garden/${item.slug}`,
                 },
               ]}

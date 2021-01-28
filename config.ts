@@ -15,20 +15,20 @@ export const PER_PAGE = 20;
 export const MODELS_PER_PAGE = 100;
 
 // AUTH STATE CONSTANTS
-export const LOGGED_IN = "LOGGED_IN";
-export const LOGGED_OUT = "LOGGED_OUT";
-export const ANY = "ANY";
+export const LOGGED_IN = `LOGGED_IN`;
+export const LOGGED_OUT = `LOGGED_OUT`;
+export const ANY = `ANY`;
 
 // ROLES
-export const ADMIN = "ADMINISTRATOR";
-export const GUEST = "GUEST";
+export const ADMIN = `ADMINISTRATOR`;
+export const GUEST = `GUEST`;
 
 // CONSTANTS
 export const STATUS = {
-  FAIL: "FAIL",
-  SUCCESS: "SUCCESS",
-  ERROR: "ERROR",
+  FAIL: `FAIL`,
+  SUCCESS: `SUCCESS`,
+  ERROR: `ERROR`,
 };
 
 // SendGrid
-export const SENDGRID_API = 'https://api.sendgrid.com/v3/mail/send'
+export const SENDGRID_API = `https://api.sendgrid.com/v3/mail/send`;

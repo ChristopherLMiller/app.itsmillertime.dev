@@ -1,9 +1,9 @@
-import Header from "src/layout/elements/Header";
-import { motion } from "framer-motion";
-import styled from "styled-components";
-import { FunctionComponent } from "react";
-import Footer from "./elements/Footer";
-import ScrollTop from "src/components/ScrollTop";
+import Header from 'src/layout/elements/Header';
+import { motion } from 'framer-motion';
+import styled from 'styled-components';
+import { FunctionComponent } from 'react';
+import Footer from './elements/Footer';
+import ScrollTop from 'src/components/ScrollTop';
 
 const Main = styled(motion.main)`
   max-width: var(--max-width);
@@ -42,15 +42,13 @@ const PageLayout: FunctionComponent<iPagelayout> = ({
   title,
   description,
   children,
-}) => {
-  return (
-    <ContentArea variants={contentVariants}>
-      <Header title={title} description={description} />
-      <Main>{children}</Main>
-      <Footer />
-      <ScrollTop />
-    </ContentArea>
-  );
-};
+}) => (
+  <ContentArea variants={contentVariants}>
+    <Header title={title} description={description} />
+    <Main>{children}</Main>
+    <Footer />
+    <ScrollTop />
+  </ContentArea>
+);
 
 export default PageLayout;

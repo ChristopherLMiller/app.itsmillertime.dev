@@ -1,7 +1,3 @@
-export const isClient = () => {
-  return window !== undefined;
-};
+export const isClient = (): boolean => window !== undefined;
 
-export const isServer = () => {
-  return window === undefined;
-};
+export const isServer = (): boolean => window === undefined;

@@ -1,18 +1,19 @@
-import { useAuth } from "src/lib/AuthProvider";
-import PageLayout from "src/layout/PageLayout";
-import Card from "src/components/Card";
-import { useEffect } from "react";
+import { useAuth } from 'src/lib/AuthProvider';
+import PageLayout from 'src/layout/PageLayout';
+import Card from 'src/components/Card';
+import { useEffect } from 'react';
 import {
   SITE_DEFAULT_IMAGE_FILE,
   CLOUDINARY_CLOUD,
   CLOUDINARY_URL,
-} from "config";
-import { NextSeo } from "next-seo";
+} from 'config';
+import { NextSeo } from 'next-seo';
+import { NextPage } from 'next';
 
-const title = "Logout";
-const description = "Logout";
+const title = `Logout`;
+const description = `Logout`;
 
-const LogoutPage = () => {
+const LogoutPage: NextPage = () => {
   const auth = useAuth();
 
   useEffect(() => {
@@ -27,10 +28,10 @@ const LogoutPage = () => {
         openGraph={{
           title,
           description,
-          type: "website",
+          type: `website`,
           images: [
             {
-              alt: "Default Site Image",
+              alt: `Default Site Image`,
               width: 800,
               height: 600,
               url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,

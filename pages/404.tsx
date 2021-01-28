@@ -1,5 +1,6 @@
-import Error from "next/error";
+import Error from 'next/error';
+import { FunctionComponent } from 'react';
 
-const NotFoundPage = () => <Error statusCode={404} />;
+const NotFoundPage: FunctionComponent = () => <Error statusCode={404} />;
 
 export default NotFoundPage;

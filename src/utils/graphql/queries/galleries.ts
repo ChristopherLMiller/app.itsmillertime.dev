@@ -1,5 +1,3 @@
-import gql from 'graphql-tag';
-
 export const ALL_GALLERIES_STRING = `
 query ALL_GALLERIES {
     galleries {

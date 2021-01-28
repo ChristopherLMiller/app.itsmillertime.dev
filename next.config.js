@@ -1,15 +1,15 @@
-const rehypePrism = require("@mapbox/rehype-prism");
-const remarkEmoji = require("remark-emoji");
-const remarkFootnotes = require("remark-footnotes");
-const remarkTypograf = require("@mavrin/remark-typograf");
-const remarkSubSuper = require("remark-sub-super");
-const remarkHtml = require("remark-html");
-const remarkGuillemets = require("remark-fix-guillemets");
-const withSourceMaps = require("@zeit/next-source-maps");
-const withOffline = require("next-offline");
+const rehypePrism = require(`@mapbox/rehype-prism`);
+const remarkEmoji = require(`remark-emoji`);
+const remarkFootnotes = require(`remark-footnotes`);
+const remarkTypograf = require(`@mavrin/remark-typograf`);
+const remarkSubSuper = require(`remark-sub-super`);
+const remarkHtml = require(`remark-html`);
+const remarkGuillemets = require(`remark-fix-guillemets`);
+const withSourceMaps = require(`@zeit/next-source-maps`);
+const withOffline = require(`next-offline`);
 
 // Sentry
-const SentryWebpackPlugin = require("@sentry/webpack-plugin");
+const SentryWebpackPlugin = require(`@sentry/webpack-plugin`);
 const {
   NEXT_PUBLIC_SENTRY_DSN: SENTRY_DSN,
   SENTRY_AUTH_TOKEN,
@@ -22,10 +22,10 @@ const {
 const COMMIT_SHA = VERCEL_GITHUB_COMMIT_SHA;
 
 process.env.SENTRY_DSN = SENTRY_DSN;
-const basePath = "";
+const basePath = ``;
 
 // MDX
-const withMDX = require("@next/mdx")({
+const withMDX = require(`@next/mdx`)({
   extension: /\.mdx?$/,
   options: {
     rehypePlugins: [rehypePrism],
@@ -40,14 +40,14 @@ const withMDX = require("@next/mdx")({
   },
 });
 
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
+const withBundleAnalyzer = require(`@next/bundle-analyzer`)({
+  enabled: process.env.ANALYZE === `true`,
 });
 
 // Config
 const nextConfig = {
   reactStrictMode: true,
-  pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
+  pageExtensions: [`js`, `jsx`, `mdx`, `ts`, `tsx`],
   serverRuntimeConfig: {
     rootDir: __dirname,
   },
@@ -67,7 +67,7 @@ const nextConfig = {
     // So ask Webpack to replace @sentry/node imports with @sentry/browser when
     // building the browser's bundle
     if (!options.isServer) {
-      config.resolve.alias["@sentry/node"] = "@sentry/browser";
+      config.resolve.alias[`@sentry/node`] = `@sentry/browser`;
     }
 
     // When all the Sentry configuration env variables are available/configured
@@ -81,13 +81,13 @@ const nextConfig = {
       SENTRY_PROJECT &&
       SENTRY_AUTH_TOKEN &&
       COMMIT_SHA &&
-      NODE_ENV === "production"
+      NODE_ENV === `production`
     ) {
       config.plugins.push(
         new SentryWebpackPlugin({
-          include: ".next",
-          ignore: ["node_modules"],
-          stripPrefix: ["webpack://_N_E/"],
+          include: `.next`,
+          ignore: [`node_modules`],
+          stripPrefix: [`webpack://_N_E/`],
           urlPrefix: `~${basePath}/_next`,
           release: COMMIT_SHA,
         })
@@ -97,14 +97,14 @@ const nextConfig = {
   },
   workboxOpts: {
     swDest: process.env.NEXT_EXPORT
-      ? "service-worker.js"
-      : "static/service-worker.js",
+      ? `service-worker.js`
+      : `static/service-worker.js`,
     runtimeCaching: [
       {
         urlPattern: /^https?.*/,
-        handler: "NetworkFirst",
+        handler: `NetworkFirst`,
         options: {
-          cacheName: "offlineCache",
+          cacheName: `offlineCache`,
           expiration: {
             maxEntries: 200,
           },
@@ -114,15 +114,15 @@ const nextConfig = {
   },
   images: {
     domains: [
-      "clm-sites-strapi.s3.us-east-2.amazonaws.com",
-      "res.cloudinary.com",
+      `clm-sites-strapi.s3.us-east-2.amazonaws.com`,
+      `res.cloudinary.com`,
     ],
   },
   async rewrites() {
     return [
       {
-        source: "/service-worker.js",
-        destination: "/_next/static/service-worker.js",
+        source: `/service-worker.js`,
+        destination: `/_next/static/service-worker.js`,
       },
     ];
   },

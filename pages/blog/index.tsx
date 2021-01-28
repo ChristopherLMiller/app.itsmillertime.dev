@@ -1,19 +1,18 @@
-import { NextSeo } from "next-seo";
-import { useQuery } from "react-query";
-import PageLayout from "src/layout/PageLayout";
-import { gqlQuery } from "src/utils/functions/fetch";
-import Card from "src/components/Card";
-import { NextPage } from "next";
-import { ARTICLES_BRIEF_QUERY_STRING } from "src/utils/graphql/queries/articles";
-import { iArticle } from "src/utils/graphql/types/article";
-import ArticleCard from "src/components/Card/article";
+import { NextSeo } from 'next-seo';
+import { useQuery } from 'react-query';
+import PageLayout from 'src/layout/PageLayout';
+import { gqlQuery } from 'src/utils/functions/fetch';
+import Card from 'src/components/Card';
+import { NextPage } from 'next';
+import { ARTICLES_BRIEF_QUERY_STRING } from 'src/utils/graphql/queries/articles';
+import { iArticle } from 'src/utils/graphql/types/article';
+import ArticleCard from 'src/components/Card/article';
 
-const title = "From My Desk";
-const description =
-  "Archives concerning all matters web development and beyond";
+const title = `From My Desk`;
+const description = `Archives concerning all matters web development and beyond`;
 
 const BlogIndexpage: NextPage = () => {
-  const { isLoading, error, data } = useQuery("articles", () =>
+  const { isLoading, error, data } = useQuery(`articles`, () =>
     gqlQuery(ARTICLES_BRIEF_QUERY_STRING)
   );
 

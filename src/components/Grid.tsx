@@ -13,23 +13,23 @@ interface iGrid {
 export const Grid = styled.div<iGrid>`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: ${(props) => (props.masonry ? 'masonry' : 'auto')};
-  grid-gap: ${(props) => props.gap || '0px'};
+  grid-template-rows: ${(props) => (props.masonry ? `masonry` : `auto`)};
+  grid-gap: ${(props) => props.gap || `0px`};
   background: ${(props) => props.background};
-  ${(props) => props.justify && 'justify-items: ' + props.justify};
-  margin-bottom: ${(props) => (props.marginBottom ? '50px' : '0')};
+  ${(props) => props.justify && `justify-items: ` + props.justify};
+  margin-bottom: ${(props) => (props.marginBottom ? `50px` : `0`)};
 
   @media (max-width: 400px) {
     grid-template-columns: repeat(
-      ${(props) => (props.columns ? props.columns : '1')},
+      ${(props) => (props.columns ? props.columns : `1`)},
       1fr
     );
   }
 
-  @media (min-width: ${(props) => props.min || '300px'}) {
+  @media (min-width: ${(props) => props.min || `300px`}) {
     grid-template-columns: repeat(
       auto-fit,
-      minmax(${(props) => props.min || '300px'}, 1fr)
+      minmax(${(props) => props.min || `300px`}, 1fr)
     );
   }
 `;

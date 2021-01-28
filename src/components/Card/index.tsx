@@ -1,12 +1,12 @@
-import { FunctionComponent } from "react";
-import styled from "styled-components";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { CLOUDINARY_URL, CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from "config";
-import Markdown from "./elements/Markdown";
-import Contents from "./elements/Contents";
+import { FunctionComponent } from 'react';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { CLOUDINARY_URL, CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from 'config';
+import Markdown from './elements/Markdown';
+import Contents from './elements/Contents';
 
-let easing = [0.175, 0.85, 0.42, 0.96];
+const easing = [0.175, 0.85, 0.42, 0.96];
 
 const variants = {
   exit: {
@@ -63,7 +63,7 @@ interface iCardBody {
 
 const CardBody = styled.div<iCardBody>`
   background: var(--color-grey-light);
-  background-image: url("${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg");
+  background-image: url('${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg');
   padding: ${(props) => (props.padding ? `3% 5%` : `0`)};
   position: relative;
   text-align: ${(props) => props.align};
@@ -135,7 +135,7 @@ const Card: FunctionComponent<CardProps> = ({
   subHeading,
   children,
   padding = true,
-  align = "center",
+  align = `center`,
   actionLinks,
   markdown,
 }) => (

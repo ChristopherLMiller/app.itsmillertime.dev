@@ -1,6 +1,6 @@
-import { FunctionComponent } from "react";
-import { motion } from "framer-motion";
-import styled from "styled-components";
+import { FunctionComponent } from 'react';
+import { motion } from 'framer-motion';
+import styled from 'styled-components';
 
 const StyledButton = styled(motion.button)`
   background: var(--color-red);
@@ -21,11 +21,11 @@ const StyledButton = styled(motion.button)`
 const ButtonVariants = {
   hover: {
     scale: 1.1,
-    boxShadow: "var(--box-shadow-elev-1)",
+    boxShadow: `var(--box-shadow-elev-1)`,
   },
   initial: {
     scale: 1,
-    boxShadow: "var(--box-shadow-elev-0)",
+    boxShadow: `var(--box-shadow-elev-0)`,
   },
 };
 
@@ -41,20 +41,18 @@ const Button: FunctionComponent<iButton> = ({
   isSubmitting,
   children,
   onClick,
-  type = "button",
-}) => {
-  return (
-    <StyledButton
-      initial="initial"
-      whileHover="hover"
-      variants={ButtonVariants}
-      onClick={onClick}
-      type={type}
-      disabled={isDisabled}
-    >
-      {isSubmitting ? "Sending..." : children}
-    </StyledButton>
-  );
-};
+  type = `button`,
+}) => (
+  <StyledButton
+    initial="initial"
+    whileHover="hover"
+    variants={ButtonVariants}
+    onClick={onClick}
+    type={type}
+    disabled={isDisabled}
+  >
+    {isSubmitting ? `Sending...` : children}
+  </StyledButton>
+);
 
 export default Button;
