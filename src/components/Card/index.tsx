@@ -116,7 +116,7 @@ const ActionLinks = styled.div`
   padding: 5px;
 `;
 
-interface iActionLink {
+export interface iActionLink {
   href: string;
   title: string;
 }
