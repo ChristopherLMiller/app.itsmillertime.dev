@@ -32,7 +32,7 @@ const GalleriesIndexPage: NextPage = () => {
       <NextSeo
         title={title}
         description={description}
-        opengraph={{
+        openGraph={{
           title,
           description,
           type: `website`,
