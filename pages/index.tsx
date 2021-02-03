@@ -26,7 +26,7 @@ const IndexPage: NextPage = () => (
             alt: `Default Site Image`,
             width: 800,
             height: 600,
-            url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+            url: `https://clm-sites-strapi.s3.us-east-2.amazonaws.com/default_958a6c7fcd.jpg`,
           },
         ],
         url: `${process.env.NEXT_PUBLIC_SITE_URL}`,

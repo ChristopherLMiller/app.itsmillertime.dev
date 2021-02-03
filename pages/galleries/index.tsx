@@ -29,7 +29,24 @@ const GalleriesIndexPage: NextPage = () => {
 
   return (
     <PageLayout title={title} description={description}>
-      <NextSeo title={title} description={description} />
+      <NextSeo
+        title={title}
+        description={description}
+        opengraph={{
+          title,
+          description,
+          type: `website`,
+          images: [
+            {
+              alt: `Image of photo albums`,
+              width: 800,
+              height: 600,
+              url: `https://clm-sites-strapi.s3.us-east-2.amazonaws.com/default_958a6c7fcd.jpg`,
+            },
+          ],
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/galleries`,
+        }}
+      />
       <Grid gap="30px" min="425px" masonry>
         {!isLoading &&
           data?.galleries?.map((gallery) => (

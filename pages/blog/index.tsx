@@ -44,10 +44,10 @@ const BlogIndexpage: NextPage = () => {
               alt: `Blogging`,
               width: 4076,
               height: 2712,
-              url: `https://clm-sites-strapi.s3.us-east-2.amazonaws.com/glenn_carstens_peters_npx_X_Wg_Q33_ZQ_unsplash_a4ec682821.jpg`,
+              url: `https://clm-sites-strapi.s3.us-east-2.amazonaws.com/blog_20c9f525f2.jpg`,
             },
           ],
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/about-me`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/blog`,
         }}
       />
 
