@@ -22,11 +22,16 @@ import 'node_modules/nprogress/nprogress.css';
 import SEO from 'next-seo.config';
 import Snowy from 'src/components/Holiday/Snowy';
 import { AppComponent } from 'next/dist/next-server/lib/router/router';
+import CookieConsent from 'react-cookie-consent';
 
 // Sentry
 init();
 
 const Content = styled(motion.div)``;
+const CookieConsentText = styled.span`
+  font-size: 2rem;
+  font-weight: 300;
+`;
 
 const App: AppComponent = ({ Component, pageProps, err }) => {
   const router = useRouter();
@@ -87,6 +92,11 @@ const App: AppComponent = ({ Component, pageProps, err }) => {
           </Head>
           <DefaultSeo {...SEO} />
           <Snowy />
+          <CookieConsent buttonStyle={{ fontSize: `2rem` }}>
+            <CookieConsentText>
+              This website uses cookies to enhance the user experience.
+            </CookieConsentText>
+          </CookieConsent>
           <AnimatePresence exitBeforeEnter>
             <Fragment>
               <TopBar />
