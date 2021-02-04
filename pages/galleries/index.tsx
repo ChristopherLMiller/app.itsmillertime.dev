@@ -39,9 +39,9 @@ const GalleriesIndexPage: NextPage = () => {
           images: [
             {
               alt: `Image of photo albums`,
-              width: 800,
-              height: 600,
-              url: `https://clm-sites-strapi.s3.us-east-2.amazonaws.com/default_958a6c7fcd.jpg`,
+              width: 6000,
+              height: 4000,
+              url: `https://clm-sites-strapi.s3.us-east-2.amazonaws.com/galleries_c48d554971.jpg`,
             },
           ],
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/galleries`,
