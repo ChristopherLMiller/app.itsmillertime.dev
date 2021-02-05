@@ -1,5 +1,13 @@
+# *
 User-agent: *
-Allow: *
-Disallow: /admin/
+Allow: /
+Disallow: /test
+Disallow: /registry
+Disallow: /admin/*
 
-Sitemap: https://www.christopherleemiller.me/sitemap.xml
+# Host
+Host: http://localhost:6006
+
+# Sitemaps
+Sitemap: http://localhost:6006/sitemap.xml
+Sitemap: http://localhost:6006/server-sitemap.xml

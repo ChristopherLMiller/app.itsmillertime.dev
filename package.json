@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next -p 6006",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "start": "next start -p 6006",
     "test": "NODE_ENV=test jest && codecov -t e12fe338-a516-4ab5-8c7f-078f4742a9a0",
@@ -29,6 +30,7 @@
     "axios": "^0.21.1",
     "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
+    "dotenv-flow": "^3.2.0",
     "formik": "^2.2.6",
     "framer-motion": "^3.2.1",
     "graphql": "^15.5.0",
@@ -65,6 +67,7 @@
     "remark-sub-super": "^1.0.19",
     "styled-components": "^5.2.1",
     "unified": "^9.2.0",
+    "webpack": "^5.20.2",
     "winston": "^3.3.3",
     "yup": "^0.29.3"
   },
