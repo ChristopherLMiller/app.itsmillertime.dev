@@ -6,14 +6,14 @@ module.exports = {
   exclude: [`/test`, `/registry`, `/admin/*`, `/server-sitemap.xml`],
   robotsTxtOptions: {
     additionalSitemaps: [
-      `${process.env.NEXT_PUBLIC_SITE_URL}/server-sitemap.xml`
+      `${process.env.NEXT_PUBLIC_SITE_URL}/server-sitemap.xml`,
     ],
     policies: [
       {
         userAgent: `*`,
         allow: `/`,
         disallow: [`/test`, `/registry`, `/admin/*`],
-      }
+      },
     ],
   },
 };
