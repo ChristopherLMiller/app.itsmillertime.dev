@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useState,
-  useContext,
-  useEffect,
-  FunctionComponent,
-} from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import md5 from 'md5';
 import Cookies from 'js-cookie';
 import Router from 'next/router';
