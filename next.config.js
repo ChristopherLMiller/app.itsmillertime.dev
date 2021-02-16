@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const rehypePrism = require(`@mapbox/rehype-prism`);
 const remarkEmoji = require(`remark-emoji`);
 const remarkFootnotes = require(`remark-footnotes`);

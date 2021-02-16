@@ -1,4 +1,3 @@
-import { ServerResponse } from 'http';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { sendEmail } from 'src/utils/functions/sendEmail';
 

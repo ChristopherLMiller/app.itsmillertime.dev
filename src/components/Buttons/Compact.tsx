@@ -21,7 +21,7 @@ interface iCompactButton {
   isDisabled?: boolean;
   isSubmitting?: boolean;
   type?: string;
-  onClick?: () => any;
+  onClick?: () => unknown;
 }
 
 const CompactButton: FunctionComponent<iCompactButton> = ({

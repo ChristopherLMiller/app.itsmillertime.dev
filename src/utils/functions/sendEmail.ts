@@ -15,7 +15,7 @@ const sendEmail = async ({
   fromName,
   subject,
   mjmlString,
-}: sendEmailTypes): Promise<any> => {
+}: sendEmailTypes): Promise<unknown> => {
   const htmlOutput = mjml2html(mjmlString).html;
 
   return fetch(SENDGRID_API, {

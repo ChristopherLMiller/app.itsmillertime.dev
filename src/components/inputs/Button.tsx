@@ -33,7 +33,7 @@ interface iButton {
   isDisabled?: boolean;
   isSubmitting?: boolean;
   type?: string;
-  onClick?: () => any;
+  onClick?: () => unknown;
 }
 
 const Button: FunctionComponent<iButton> = ({

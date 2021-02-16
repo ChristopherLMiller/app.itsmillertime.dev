@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { getServerSideSitemap } from 'next-sitemap';
 import fetch from 'src/utils/functions/fetch';
 
@@ -26,6 +26,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return getServerSideSitemap(ctx, fields.flat(1));
 };
 
-const SiteMapPage = () => {};
+const SiteMapPage: NextPage = () => null;
 
 export default SiteMapPage;

@@ -1,4 +1,5 @@
-require('dotenv-flow').config();
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require(`dotenv-flow`).config();
 
 module.exports = {
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL,

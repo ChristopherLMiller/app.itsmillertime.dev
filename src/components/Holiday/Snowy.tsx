@@ -69,6 +69,7 @@ const Snowy: FunctionComponent = () => {
   }, []);
 
   // cause modal to open
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const openModal = () => {
     console.log(`opening modal`);
     setIsOpen(true);

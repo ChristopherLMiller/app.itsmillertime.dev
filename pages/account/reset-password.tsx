@@ -1,6 +1,6 @@
 import { useAuth } from 'src/lib/AuthProvider';
 import PageLayout from 'src/layout/PageLayout';
-import { Formik, Form, ErrorMessage, yupToFormErrors, Field } from 'formik';
+import { Formik, Form, ErrorMessage, Field } from 'formik';
 import {
   Fieldset,
   Label,
