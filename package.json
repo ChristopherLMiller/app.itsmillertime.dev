@@ -69,7 +69,7 @@
     "unified": "^9.2.0",
     "webpack": "^5.20.2",
     "winston": "^3.3.3",
-    "yup": "^0.32.8"
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
