@@ -9,3 +9,9 @@ export const truncate = (text: string, count: number): string => {
     return text;
   }
 };
+
+export const truncateWords = (text: string, count: number): string => {
+  if (!text) return text;
+
+  return text.split(` `, count).join(` `);
+};
