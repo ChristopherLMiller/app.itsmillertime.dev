@@ -21,17 +21,6 @@ const BlogIndexpage: NextPage = () => {
 
   if (error) {
     console.log(error);
-    return (
-      <Card heading="Uh Oh!">
-        <p>We were unable to fetch the data requested for whatever reason.</p>
-        <p>More specifically: {error}</p>
-      </Card>
-    );
-  }
-
-  if (isLoading) {
-    /* TODO: Add loading spinner instead of this generic text */
-    return <h1>Please Be patient articles are loading</h1>;
   }
 
   return (
@@ -55,6 +44,14 @@ const BlogIndexpage: NextPage = () => {
         }}
       />
 
+      {error && (
+        <Card heading="Uh Oh!">
+          <p>We were unable to fetch the data requested for whatever reason.</p>
+          <p>More specifically: {error}</p>
+        </Card>
+      )}
+
+      {isLoading && <h1>Please Be patient articles are loading</h1>}
       <ArticleList>
         {data?.articles?.map((article: iArticle) => (
           <ArticleListItem key={article.id} article={article} />
