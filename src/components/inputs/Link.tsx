@@ -7,7 +7,10 @@ interface ButtonTypes {
   text: string;
 }
 
-export const LinkButton: FunctionComponent<ButtonTypes> = ({ href, text }) => (
+export const LinkButton: FunctionComponent<ButtonTypes> = ({
+  href,
+  children,
+}) => (
   <StyledButton
     whileHover="hover"
     animate="rest"
@@ -15,7 +18,7 @@ export const LinkButton: FunctionComponent<ButtonTypes> = ({ href, text }) => (
     variants={ButtonVariants}
   >
     <Link href={href}>
-      <ButtonAnchor>{text}</ButtonAnchor>
+      <ButtonAnchor>{children}</ButtonAnchor>
     </Link>
   </StyledButton>
 );

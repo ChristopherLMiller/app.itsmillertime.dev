@@ -6,10 +6,13 @@ import Card from 'src/components/Card';
 import { NextPage } from 'next';
 import { ARTICLES_BRIEF_QUERY_STRING } from 'src/utils/graphql/queries/articles';
 import { iArticle } from 'src/utils/graphql/types/article';
-import ArticleCard from 'src/components/Article';
+import styled from 'styled-components';
+import ArticleListItem from 'src/components/Article/ListItem';
 
 const title = `From My Desk`;
 const description = `Archives concerning all matters web development and beyond`;
+
+const ArticleList = styled.ul``;
 
 const BlogIndexpage: NextPage = () => {
   const { isLoading, error, data } = useQuery(`articles`, () =>
@@ -27,6 +30,7 @@ const BlogIndexpage: NextPage = () => {
   }
 
   if (isLoading) {
+    /* TODO: Add loading spinner instead of this generic text */
     return <h1>Please Be patient articles are loading</h1>;
   }
 
@@ -51,9 +55,11 @@ const BlogIndexpage: NextPage = () => {
         }}
       />
 
-      {data?.articles?.map((article: iArticle) => (
-        <ArticleCard article={article} brief key={article.id} />
-      ))}
+      <ArticleList>
+        {data?.articles?.map((article: iArticle) => (
+          <ArticleListItem key={article.id} article={article} />
+        ))}
+      </ArticleList>
     </PageLayout>
   );
 };

@@ -1,4 +1,4 @@
-import { iArticleCategories } from './articleCategories';
+import { iArticleCategory } from './articleCategories';
 import { iArticleTags } from './articleTags';
 import { iUploadFile } from './uploadFile';
 import { iUser } from './user';
@@ -13,6 +13,6 @@ export interface iArticle {
   featured_image?: iUploadFile;
   slug: string;
   users_permission_user: iUser;
-  article_categories?: Array<iArticleCategories>;
+  article_categories?: Array<iArticleCategory>;
   article_tags?: Array<iArticleTags>;
 }
