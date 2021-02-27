@@ -12,7 +12,9 @@ import ArticleListItem from 'src/components/Article/ListItem';
 const title = `From My Desk`;
 const description = `Archives concerning all matters web development and beyond`;
 
-const ArticleList = styled.ul``;
+const ArticleList = styled.ul`
+  padding-inline-start: 0;
+`;
 
 const BlogIndexpage: NextPage = () => {
   const { isLoading, error, data } = useQuery(`articles`, () =>

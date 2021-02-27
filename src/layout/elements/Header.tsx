@@ -31,7 +31,7 @@ const HeaderDescription = styled.h4`
 const HeaderTitle = styled.h1`
   font-family: var(--font-main);
   font-weight: 300;
-  padding-left: 6rem;
+  padding-inline-start: 6rem;
   color: var(--color-white-100);
   margin-top: 0;
 `;

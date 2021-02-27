@@ -17,7 +17,7 @@ const StyledArticleListItem = styled(motion.div)`
   margin-block-end: 30px;
   grid-gap: 30px;
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 800px) {
     grid-template-columns: 30% 1fr;
   }
 `;
@@ -58,8 +58,6 @@ const MetaButton = styled.a`
   background: var(--color-red);
   padding: 10px;
   text-align: center;
-  margin: 20px auto;
-  max-width: 200px;
   letter-spacing: 2px;
   cursor: pointer;
   border-radius: 20px;
@@ -67,12 +65,21 @@ const MetaButton = styled.a`
 `;
 
 const List = styled.ul`
-  padding-left: 0;
+  padding-inline-start: 0;
   list-style-type: none;
   display: flex;
-  flex-direction: row;
-  gap: 10px;
-  margin-block-end: 20px;
+  flex-direction: column;
+
+  li {
+    margin-block-end: 10px;
+    margin-inline-end: 10px;
+    white-space: nowrap;
+    display: flex;
+  }
+
+  @media screen and (min-width: 500px) {
+    flex-direction: row;
+  }
 `;
 
 interface iArticleListItem {

@@ -55,7 +55,7 @@ const StyledCardBody = styled.div<iCardBody>`
 
   blockquote {
     border-left: 5px solid var(--color-red-intermediate);
-    padding-left: 10px;
+    padding-inline-start: 10px;
     background: var(--color-red-40);
   }
 `;
