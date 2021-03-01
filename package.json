@@ -67,7 +67,7 @@
     "remark-sub-super": "^1.0.19",
     "styled-components": "^5.2.1",
     "unified": "^9.2.0",
-    "webpack": "^5.20.2",
+    "webpack": "^5.24.2",
     "winston": "^3.3.3",
     "yup": "^0.32.9"
   },
