@@ -72,7 +72,7 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
+    "@babel/core": "^7.13.8",
     "@babel/eslint-parser": "^7.12.17",
     "@next/bundle-analyzer": "^10.0.7",
     "@types/gtag.js": "0.0.4",
