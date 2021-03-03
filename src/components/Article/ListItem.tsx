@@ -127,7 +127,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => (
         <List>
           {article.article_tags.map((tag: iArticleTags) => (
             <li key={tag.id}>
-              <Link href={`/blog?tag=${tag.slug}`}>
+              <Link href={`/blog?tag=${tag.slug}`} shallow>
                 <MetaButton>{tag.title}</MetaButton>
               </Link>
             </li>

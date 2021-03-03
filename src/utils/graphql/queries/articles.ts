@@ -1,3 +1,7 @@
+import { QueryResult, useQuery } from 'react-query';
+import { gql } from 'graphql-request';
+import { graphQLClient } from 'src/utils/functions/fetch';
+
 export const ARTICLES_BRIEF_QUERY_STRING = `query ARTICLES {
   articles(sort: "published_at:DESC") {
     id
@@ -29,3 +33,12 @@ export const ARTICLES_BRIEF_QUERY_STRING = `query ARTICLES {
     }
   }
 }`;
+
+export function useArticles(): QueryResult<any> {
+  return useQuery(`articles`, async () => {
+    const data = await graphQLClient.request(gql`
+      ${ARTICLES_BRIEF_QUERY_STRING}
+    `);
+    return data;
+  });
+}

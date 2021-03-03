@@ -1,13 +1,12 @@
 import { NextSeo } from 'next-seo';
-import { useQuery } from 'react-query';
 import PageLayout from 'src/layout/PageLayout';
-import { gqlQuery } from 'src/utils/functions/fetch';
 import Card from 'src/components/Card';
 import { NextPage } from 'next';
-import { ARTICLES_BRIEF_QUERY_STRING } from 'src/utils/graphql/queries/articles';
+import { useArticles } from 'src/utils/graphql/queries/articles';
 import { iArticle } from 'src/utils/graphql/types/article';
 import styled from 'styled-components';
 import ArticleListItem from 'src/components/Article/ListItem';
+import { useRouter } from 'next/router';
 
 const title = `From My Desk`;
 const description = `Archives concerning all matters web development and beyond`;
@@ -17,10 +16,10 @@ const ArticleList = styled.ul`
 `;
 
 const BlogIndexpage: NextPage = () => {
-  const { isLoading, error, data } = useQuery(`articles`, () =>
-    gqlQuery(ARTICLES_BRIEF_QUERY_STRING)
-  );
+  const router = useRouter();
+  const { data, error, isFetching } = useArticles();
 
+  console.log(router.query);
   if (error) {
     console.log(error);
   }
@@ -53,7 +52,7 @@ const BlogIndexpage: NextPage = () => {
         </Card>
       )}
 
-      {isLoading && <h1>Please Be patient articles are loading</h1>}
+      {isFetching && <h1>Please Be patient articles are loading</h1>}
       <ArticleList>
         {data?.articles?.map((article: iArticle) => (
           <ArticleListItem key={article.id} article={article} />

@@ -1,7 +1,10 @@
 import Axios from 'axios';
 import Router from 'next/router';
 import Cookies from 'js-cookie';
+import { GraphQLClient } from 'graphql-request';
 
+// All of this is the old way till you reach the bottom of the document
+// This should be considered depricated at this point
 const fetch = Axios.create({
   baseURL: process.env.NEXT_PUBLIC_STRAPI_URL,
   headers: {
@@ -43,3 +46,8 @@ export const gqlQuery = (
 };
 
 export default fetch;
+
+// New way to query data
+export const graphQLClient = new GraphQLClient(
+  `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`
+);

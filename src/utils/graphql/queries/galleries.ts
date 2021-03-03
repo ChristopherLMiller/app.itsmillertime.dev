@@ -1,3 +1,8 @@
+import { QueryResult, useQuery } from 'react-query';
+import { graphQLClient } from 'src/utils/functions/fetch';
+import { gql } from 'graphql-request';
+import { Cookies } from 'js-cookie';
+
 export const ALL_GALLERIES_STRING = `
 query ALL_GALLERIES {
     galleries {
@@ -28,3 +33,22 @@ query ALL_GALLERIES {
     }
 }
 `;
+
+export function useGalleries(): QueryResult<any> {
+  const headers = {} as Headers;
+
+  if (Cookies.get(`jwt`)) {
+    headers.append(`authorization`, `Bearer ${Cookies.get(`jwt`)}`);
+  }
+
+  return useQuery(`galleries`, async () => {
+    const data = await graphQLClient.request(
+      gql`
+        ${ALL_GALLERIES_STRING}
+      `,
+      undefined,
+      headers
+    );
+    return data;
+  });
+}

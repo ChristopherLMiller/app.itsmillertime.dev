@@ -1,9 +1,7 @@
 import { NextSeo } from 'next-seo';
-import { useQuery } from 'react-query';
 import { Grid } from 'src/components/Grid';
 import PageLayout from 'src/layout/PageLayout';
-import { gqlQuery } from 'src/utils/functions/fetch';
-import { ALL_GALLERIES_STRING } from 'src/utils/graphql/queries/galleries';
+import { useGalleries } from 'src/utils/graphql/queries/galleries';
 import Image from 'src/components/Images';
 import Card from 'src/components/Card';
 import { NextPage } from 'next';
@@ -13,9 +11,7 @@ const title = `Gallery`;
 const description = `A visual of all the things me!`;
 
 const GalleriesIndexPage: NextPage = () => {
-  const { isLoading, error, data } = useQuery(`galleries`, () =>
-    gqlQuery(ALL_GALLERIES_STRING)
-  );
+  const { isLoading, error, data } = useGalleries();
 
   if (error) {
     console.log(error);

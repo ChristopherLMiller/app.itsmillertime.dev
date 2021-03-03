@@ -63,7 +63,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   html {
-    font-size: 10px;
+    font-size: 62.5%;
     line-height: 1.5;
     min-height: 100vh;
   }
