@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import NextErrorComponent from 'next/error';
 import * as Sentry from '@sentry/node';
 

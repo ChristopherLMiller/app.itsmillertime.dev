@@ -34,6 +34,7 @@ query ALL_GALLERIES {
 }
 `;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useGalleries(): QueryResult<any> {
   const headers = {} as Headers;
 

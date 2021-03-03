@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import md5 from 'md5';
 import Cookies from 'js-cookie';
@@ -44,6 +45,7 @@ interface Auth {
 
 const AuthContext = createContext({} as Auth);
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
@@ -108,13 +110,13 @@ export const AuthProvider = ({ children }) => {
             Cookies.set(`jwt`, jwt);
             setToken(jwt);
 
-            const user = data?.data?.login?.user as iUser;
+            const loggedUser = data?.data?.login?.user as iUser;
 
             // now we check if the user was blocked (strapi backend)
-            if (!user.blocked) {
+            if (!loggedUser.blocked) {
               // user wasn't blocked, go ahead and finish authenticating them
-              Cookies.set(`user`, user);
-              setUser(user);
+              Cookies.set(`user`, loggedUser);
+              setUser(loggedUser);
               setIsAuthenticated(true);
               addBearerToken(token);
               redirectAfterLogin();
@@ -260,6 +262,7 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useAuth = () => {
   const authContext = useContext(AuthContext);
   return authContext;

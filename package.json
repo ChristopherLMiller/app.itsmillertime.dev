@@ -7,7 +7,7 @@
     "dev": "next -p 6006",
     "build": "next build",
     "postbuild": "next-sitemap",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "start": "next start -p 6006",
     "test": "NODE_ENV=test jest && codecov -t e12fe338-a516-4ab5-8c7f-078f4742a9a0",
     "analyze": "cross-env ANALYZE=true next build"

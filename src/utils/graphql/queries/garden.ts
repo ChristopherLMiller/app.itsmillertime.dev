@@ -16,6 +16,7 @@ export const ALL_GARDEN_ITEMS = gql`
   ${ALL_GARDEN_ITEMS_STRING}
 `;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useGalleries(): QueryResult<any> {
   const headers = {} as Headers;
 

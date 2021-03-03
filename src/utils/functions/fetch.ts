@@ -35,6 +35,7 @@ export const removeBearerToken = (): void => {
 export const gqlQuery = (
   queryString: string,
   variables?: Array<[string, string]>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any => {
   const jwt = Cookies.get(`jwt`);
   if (jwt) {

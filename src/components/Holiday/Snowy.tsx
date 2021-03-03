@@ -69,7 +69,6 @@ const Snowy: FunctionComponent = () => {
   }, []);
 
   // cause modal to open
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const openModal = () => {
     console.log(`opening modal`);
     setIsOpen(true);
@@ -94,6 +93,7 @@ const Snowy: FunctionComponent = () => {
             image={{ url: `/christmas.jpg`, width: 4000, height: 2069 }}
             alt="Merry Christmas"
           />
+          <button onClick={() => openModal()}>Open Modal</button>
         </Modal>
       )}
     </SnowContainer>

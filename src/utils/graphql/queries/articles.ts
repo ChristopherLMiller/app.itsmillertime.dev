@@ -34,6 +34,7 @@ export const ARTICLES_BRIEF_QUERY_STRING = `query ARTICLES {
   }
 }`;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useArticles(): QueryResult<any> {
   return useQuery(`articles`, async () => {
     const data = await graphQLClient.request(gql`
