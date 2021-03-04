@@ -1,7 +1,7 @@
 import { QueryResult, useQuery } from 'react-query';
 import { graphQLClient } from 'src/utils/functions/fetch';
 import { gql } from 'graphql-request';
-import { Cookies } from 'js-cookie';
+import Cookies from 'js-cookie';
 
 export const ALL_GALLERIES_STRING = `
 query ALL_GALLERIES {
