@@ -67,7 +67,7 @@
     "remark-react": "^8.0.0",
     "remark-sub-super": "^1.0.19",
     "styled-components": "^5.2.1",
-    "unified": "^9.2.0",
+    "unified": "^9.2.1",
     "webpack": "^5.25.1",
     "winston": "^3.3.3",
     "yup": "^0.32.9"
