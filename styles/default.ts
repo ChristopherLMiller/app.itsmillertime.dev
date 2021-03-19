@@ -3,7 +3,7 @@ import { CLOUDINARY_URL, CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from '../config';
 
 export const defaultTheme = {
   colors: {
-    primary: `#0070F3`,
+    primary: `hsl(0deg 59% 40% / 1)`,
   },
   fonts: {
     main: `Roboto, sans-serif`,
