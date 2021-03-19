@@ -7,7 +7,7 @@ import {
   FormErrorMessage,
 } from 'src/components/inputs';
 import * as Yup from 'yup';
-import { useToasts } from 'react-toast-notifications';
+import { AppearanceTypes, useToasts } from 'react-toast-notifications';
 import { useAuth } from 'src/lib/AuthProvider';
 import { FunctionComponent } from 'react';
 
@@ -31,7 +31,7 @@ const LoginForm: FunctionComponent = () => {
         );
 
         addToast(result.message, {
-          appearance: result.status.toLowerCase(),
+          appearance: result.status as AppearanceTypes,
         });
 
         setSubmitting(false);

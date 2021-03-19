@@ -17,7 +17,7 @@ import * as Yup from 'yup';
 import Card from 'src/components/Card';
 import { Grid } from 'src/components/Grid';
 import { useRouter } from 'next/router';
-import { useToasts } from 'react-toast-notifications';
+import { AppearanceTypes, useToasts } from 'react-toast-notifications';
 import { NextSeo } from 'next-seo';
 import { NextPage } from 'next';
 
@@ -71,7 +71,7 @@ const ResetPasswordPage: NextPage = () => {
               );
 
               addToast(result.message, {
-                appearance: result.status.toLowerCase(),
+                appearance: result.status as AppearanceTypes,
               });
               setSubmitting(false);
             }}

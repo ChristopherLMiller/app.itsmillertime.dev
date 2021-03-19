@@ -7,7 +7,7 @@ import {
   FormErrorMessage,
 } from 'src/components/inputs';
 import * as Yup from 'yup';
-import { useToasts } from 'react-toast-notifications';
+import { AppearanceTypes, useToasts } from 'react-toast-notifications';
 import { useAuth } from 'src/lib/AuthProvider';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { FunctionComponent, useRef, useState } from 'react';
@@ -44,7 +44,7 @@ const ForgotPasswordForm: FunctionComponent = () => {
         const result = await auth.methods.forgotPassword(values.email);
 
         addToast(result.message, {
-          appearance: result.status.toLowerCase(),
+          appearance: result.status as AppearanceTypes,
         });
 
         setSubmitting(false);

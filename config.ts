@@ -25,9 +25,9 @@ export const GUEST = `GUEST`;
 
 // CONSTANTS
 export const STATUS = {
-  FAIL: `FAIL`,
-  SUCCESS: `SUCCESS`,
-  ERROR: `ERROR`,
+  FAIL: `fail`,
+  SUCCESS: `success`,
+  ERROR: `error`,
 };
 
 // SendGrid
