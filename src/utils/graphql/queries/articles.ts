@@ -9,6 +9,7 @@ export const ARTICLES_BRIEF_QUERY_STRING = `query ARTICLES {
     createdAt
     updatedAt
     published_at
+    excerpt
     content
     featured_image {
       url

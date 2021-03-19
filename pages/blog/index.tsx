@@ -7,6 +7,7 @@ import { iArticle } from 'src/utils/graphql/types/article';
 import styled from 'styled-components';
 import ArticleListItem from 'src/components/Article/ListItem';
 import { useRouter } from 'next/router';
+import Loader from 'src/components/Loader';
 
 const title = `From My Desk`;
 const description = `Archives concerning all matters web development and beyond`;
@@ -52,7 +53,7 @@ const BlogIndexpage: NextPage = () => {
         </Card>
       )}
 
-      {isFetching && <h1>Please Be patient articles are loading</h1>}
+      {isFetching && <Loader isLoading={isFetching} />}
       <ArticleList>
         {data?.articles?.map((article: iArticle) => (
           <ArticleListItem key={article.id} article={article} />

@@ -89,6 +89,7 @@ const ImageDefault: FunctionComponent<iImage> = ({
       layout="responsive"
       width={image.width}
       height={image.height}
+      loading={`eager`}
     />
     {children !== undefined && (
       <ImageOverlay variants={ImageOverlayVariants}>{children}</ImageOverlay>

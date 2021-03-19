@@ -10,6 +10,7 @@ export interface iArticle {
   updatedAt: string;
   published_at?: string;
   content: string;
+  excerpt: string;
   featured_image?: iUploadFile;
   slug: string;
   users_permission_user: iUser;

@@ -6,12 +6,13 @@ import Image from 'src/components/Images';
 import Card from 'src/components/Card';
 import { NextPage } from 'next';
 import cookies from 'next-cookies';
+import Loader from 'src/components/Loader';
 
 const title = `Gallery`;
 const description = `A visual of all the things me!`;
 
 const GalleriesIndexPage: NextPage = () => {
-  const { isLoading, error, data } = useGalleries();
+  const { isFetching, error, data } = useGalleries();
 
   if (error) {
     console.log(error);
@@ -43,18 +44,18 @@ const GalleriesIndexPage: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/galleries`,
         }}
       />
+      {isFetching && <Loader isLoading={isFetching} />}
       <Grid gap="30px" min="425px" masonry>
-        {!isLoading &&
-          data?.galleries?.map((gallery) => (
-            <Image
-              image={gallery.featured_image}
-              alt={gallery.title}
-              key={gallery.featured_image.url}
-              hoverable
-            >
-              <p>{gallery.title}</p>
-            </Image>
-          ))}
+        {data?.galleries?.map((gallery) => (
+          <Image
+            image={gallery.featured_image}
+            alt={gallery.title}
+            key={gallery.featured_image.url}
+            hoverable
+          >
+            <p>{gallery.title}</p>
+          </Image>
+        ))}
       </Grid>
     </PageLayout>
   );

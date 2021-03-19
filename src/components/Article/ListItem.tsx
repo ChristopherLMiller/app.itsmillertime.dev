@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { FunctionComponent } from 'react';
 import { timeToRead } from 'src/utils/functions';
 import { countWords } from 'src/utils/functions/countWords';
-import { truncateWords } from 'src/utils/functions/truncate';
 import { iArticle } from 'src/utils/graphql/types/article';
 import { iArticleCategory } from 'src/utils/graphql/types/articleCategories';
 import { iArticleTags } from 'src/utils/graphql/types/articleTags';
@@ -113,7 +112,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => (
           Read: {timeToRead(countWords(article.content))}
         </h5>
       </ArticleHeader>
-      <p>{truncateWords(article.content, 50)}...</p>
+      <p>{article.excerpt}</p>
       <PostMeta>
         <List>
           {article.article_categories.map((category: iArticleCategory) => (
