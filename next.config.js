@@ -47,10 +47,14 @@ const withBundleAnalyzer = require(`@next/bundle-analyzer`)({
 
 // Config
 const nextConfig = {
+  productionBrowserSourceMaps: true,
   reactStrictMode: true,
   pageExtensions: [`js`, `jsx`, `mdx`, `ts`, `tsx`],
   serverRuntimeConfig: {
     rootDir: __dirname,
+  },
+  future: {
+    webpack5: true,
   },
   webpack: (config, options) => {
     // In `pages/_app.js`, Sentry is imported from @sentry/browser. While

@@ -4,11 +4,11 @@
   "description": "Front End to www.christopherleemiller.me",
   "main": "index.js",
   "scripts": {
-    "dev": "next -p 6006",
+    "dev": "NODE_OPTIONS='--inspect' next dev -p 6006",
     "build": "next build",
     "postbuild": "next-sitemap",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "start": "next start -p 6006",
+    "start": "NODE_OPTIONS='--max-old-space-size=1536' next start -p 6006",
     "test": "NODE_ENV=test jest && codecov -t e12fe338-a516-4ab5-8c7f-078f4742a9a0",
     "analyze": "cross-env ANALYZE=true next build"
   },
@@ -40,7 +40,7 @@
     "js-cookie": "^2.2.1",
     "md5": "^2.3.0",
     "mjml": "^4.9.0",
-    "next": "^10.0.7",
+    "next": "^10.0.9",
     "next-cookies": "^2.0.3",
     "next-offline": "^5.0.3",
     "next-seo": "^4.20.0",
