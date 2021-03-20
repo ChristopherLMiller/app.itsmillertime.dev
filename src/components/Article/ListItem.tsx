@@ -27,10 +27,6 @@ const ArticleListItemContent = styled.div`
   background: var(--color-white-60);
   color: var(--color-black-80);
   padding: 3% 5%;
-
-  p {
-    margin: 0;
-  }
 `;
 
 const ArticleHeader = styled.div`
@@ -81,6 +77,12 @@ const List = styled.ul`
   }
 `;
 
+const Excerpt = styled.p`
+  margin: 10px 0 0 0;
+  font-family: 'Special Elite';
+  font-weight: 600;
+  letter-spacing: 0.5px;
+`;
 interface iArticleListItem {
   article: iArticle;
 }
@@ -112,7 +114,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => (
           Read: {timeToRead(countWords(article.content))}
         </h5>
       </ArticleHeader>
-      <p>{article.excerpt}</p>
+      <Excerpt>{article.excerpt}</Excerpt>
       <PostMeta>
         <List>
           {article.article_categories.map((category: iArticleCategory) => (
