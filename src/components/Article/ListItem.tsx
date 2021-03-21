@@ -80,8 +80,12 @@ const List = styled.ul`
 const Excerpt = styled.p`
   margin: 10px 0 0 0;
   font-family: 'Special Elite';
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.5px;
+
+  @media screen and (min-width: 600px) {
+    font-weight: 600;
+  }
 `;
 interface iArticleListItem {
   article: iArticle;
