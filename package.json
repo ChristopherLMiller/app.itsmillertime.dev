@@ -28,7 +28,7 @@
     "@types/hcaptcha__react-hcaptcha": "^0.1.4",
     "@zeit/next-source-maps": "0.0.3",
     "axios": "^0.21.1",
-    "chalk": "^2.4.2",
+    "chalk": "^4.1.0",
     "date-fns": "^2.19.0",
     "dotenv": "^8.2.0",
     "dotenv-flow": "^3.2.0",
