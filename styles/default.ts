@@ -9,6 +9,7 @@ export const defaultTheme = {
     main: `Roboto, sans-serif`,
     alt: `Oswald, sans-serif`,
     block: `'Source Code pro', monospace`,
+    typewriter: `'Special Elite', monospace`,
   },
 };
 
@@ -17,6 +18,7 @@ export const GlobalStyles = createGlobalStyle`
     --font-main: ${defaultTheme.fonts.main};
     --font-alt: ${defaultTheme.fonts.alt};
     --font-block: ${defaultTheme.fonts.block};
+    --font-typewriter: ${defaultTheme.fonts.typewriter};
 
     // box shadow
     --box-shadow-elev-0: 0px 0px 0px rgba(0,0,0,0), 0px 0px 0px rgba(0,0,0,0);

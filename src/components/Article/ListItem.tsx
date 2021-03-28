@@ -79,7 +79,7 @@ const List = styled.ul`
 
 const Excerpt = styled.p`
   margin: 10px 0 0 0;
-  font-family: 'Special Elite';
+  font-family: var(--font-typewriter);
   font-weight: 400;
   letter-spacing: 0.5px;
 

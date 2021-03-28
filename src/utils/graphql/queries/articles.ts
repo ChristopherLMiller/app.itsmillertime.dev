@@ -16,6 +16,40 @@ export const ARTICLES_BRIEF_QUERY_STRING = `query ARTICLES {
       width
       height
       alternativeText
+      caption
+    }
+    slug
+    users_permissions_user {
+      username
+      id
+    }
+    article_tags {
+      slug
+      id
+      title
+    }
+    article_categories {
+      slug
+      id
+      title
+    }
+  }
+}`;
+
+export const ARTICLE_QUERY_STRING = `query ARTICLE($where: JSON) {
+  articles(where: $where) {
+    id
+    title
+    createdAt
+    updatedAt
+    published_at
+    content
+    featured_image {
+      url
+      width
+      height
+      alternativeText
+      caption
     }
     slug
     users_permissions_user {
@@ -41,6 +75,22 @@ export function useArticles(): QueryResult<any> {
     const data = await graphQLClient.request(gql`
       ${ARTICLES_BRIEF_QUERY_STRING}
     `);
+    return data;
+  });
+}
+
+export function useArticle(articleSlug: string): QueryResult<any> {
+  return useQuery([`article`, articleSlug], async () => {
+    const data = await graphQLClient.request(
+      gql`
+        ${ARTICLE_QUERY_STRING}
+      `,
+      {
+        where: {
+          slug: articleSlug,
+        },
+      }
+    );
     return data;
   });
 }
