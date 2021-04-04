@@ -101,7 +101,8 @@ const nextConfig = {
     return config;
   },
   workboxOpts: {
-    swDest: `static/service-worker.js`,
+    swDest: `../public/service-worker.js`,
+    offlineGoogleAnalytics: true,
     runtimeCaching: [
       {
         urlPattern: /\.(?:gif|ico|jpg|jpeg|png|svg|webp)(?:\?|$)/,
