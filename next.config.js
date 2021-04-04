@@ -110,7 +110,7 @@ const nextConfig = {
           cacheName: `image-cache`,
           expiration: {
             maxEntries: 500,
-            maxAgeSeconds: 60 * 60 * 24 * 7
+            maxAgeSeconds: 60 * 60 * 24 * 7,
           },
         },
       },
@@ -119,13 +119,13 @@ const nextConfig = {
         handler: `NetworkFirst`,
         options: {
           cacheableResponse: {
-            statuses: [0,200],
+            statuses: [0, 200],
             headers: {
               'x-test': `true`,
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     ],
   },
   images: {
