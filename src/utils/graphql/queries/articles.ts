@@ -1,4 +1,4 @@
-import { QueryResult, useQuery } from 'react-query';
+import { UseQueryResult, useQuery } from 'react-query';
 import { gql } from 'graphql-request';
 import { graphQLClient } from 'src/utils/functions/fetch';
 
@@ -70,7 +70,7 @@ export const ARTICLE_QUERY_STRING = `query ARTICLE($where: JSON) {
 }`;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useArticles(): QueryResult<any> {
+export function useArticles(): UseQueryResult<any> {
   return useQuery(`articles`, async () => {
     const data = await graphQLClient.request(gql`
       ${ARTICLES_BRIEF_QUERY_STRING}
@@ -79,7 +79,7 @@ export function useArticles(): QueryResult<any> {
   });
 }
 
-export function useArticle(articleSlug: string): QueryResult<any> {
+export function useArticle(articleSlug: string): UseQueryResult<any> {
   return useQuery([`article`, articleSlug], async () => {
     const data = await graphQLClient.request(
       gql`

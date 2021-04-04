@@ -1,6 +1,6 @@
 import { gql } from 'graphql-request';
-import { Cookies } from 'js-cookie';
-import { QueryResult, useQuery } from 'react-query';
+import Cookies from 'js-cookie';
+import { UseQueryResult, useQuery } from 'react-query';
 import { graphQLClient } from 'src/utils/functions/fetch';
 
 export const ALL_GARDEN_ITEMS_STRING = `
@@ -17,7 +17,7 @@ export const ALL_GARDEN_ITEMS = gql`
 `;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useGalleries(): QueryResult<any> {
+export function useGalleries(): UseQueryResult<any> {
   const headers = {} as Headers;
 
   if (Cookies.get(`jwt`)) {

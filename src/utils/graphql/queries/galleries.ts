@@ -1,4 +1,4 @@
-import { QueryResult, useQuery } from 'react-query';
+import { UseQueryResult, useQuery } from 'react-query';
 import { graphQLClient } from 'src/utils/functions/fetch';
 import { gql } from 'graphql-request';
 import Cookies from 'js-cookie';
@@ -35,7 +35,7 @@ query ALL_GALLERIES {
 `;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useGalleries(): QueryResult<any> {
+export function useGalleries(): UseQueryResult<any> {
   let headers = {} as Headers;
 
   if (Cookies.get(`jwt`)) {

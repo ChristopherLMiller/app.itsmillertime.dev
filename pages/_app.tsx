@@ -11,7 +11,7 @@ import { DefaultSeo } from 'next-seo';
 import NProgress from 'nprogress';
 import Head from 'next/head';
 import TopBar from 'src/layout/elements/TopBar';
-import { ReactQueryDevtools } from 'react-query-devtools';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { init } from 'src/utils/functions/sentry';
 
 // global CSS
@@ -23,6 +23,7 @@ import SEO from 'next-seo.config';
 import Snowy from 'src/components/Holiday/Snowy';
 import { AppComponent } from 'next/dist/next-server/lib/router/router';
 import CookieConsent from 'react-cookie-consent';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 // Sentry
 init();
@@ -32,6 +33,8 @@ const CookieConsentText = styled.span`
   font-size: 2rem;
   font-weight: 300;
 `;
+
+const queryClient = new QueryClient();
 
 const App: AppComponent = ({ Component, pageProps, err }) => {
   const router = useRouter();
@@ -75,46 +78,48 @@ const App: AppComponent = ({ Component, pageProps, err }) => {
 
   return (
     <AuthProvider>
-      <ReactQueryDevtools initialIsOpen />
-      <ThemeProvider theme={defaultTheme}>
-        <ToastProvider
-          autoDismiss
-          autoDismissTimeout={6000}
-          placement="top-right"
-        >
-          <Head>
-            <meta
-              name="viewport"
-              content="width=device-width, initial-scale=1.0"
-            />
-            <meta charSet="utf-8" />
-            <meta name="theme-color" content="#982929" />
-          </Head>
-          <DefaultSeo {...SEO} />
-          <Snowy />
-          <CookieConsent buttonStyle={{ fontSize: `2rem` }}>
-            <CookieConsentText>
-              This website uses cookies to enhance the user experience.
-            </CookieConsentText>
-          </CookieConsent>
-          <AnimatePresence exitBeforeEnter>
-            <Fragment>
-              <TopBar />
-              <Content>
-                <motion.div
-                  key={router.pathname}
-                  initial="initial"
-                  animate="enter"
-                  exit="exit"
-                >
-                  <Component {...pageProps} err={err} />
-                </motion.div>
-              </Content>
-            </Fragment>
-          </AnimatePresence>
-          <GlobalStyles />
-        </ToastProvider>
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen />
+        <ThemeProvider theme={defaultTheme}>
+          <ToastProvider
+            autoDismiss
+            autoDismissTimeout={6000}
+            placement="top-right"
+          >
+            <Head>
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+              />
+              <meta charSet="utf-8" />
+              <meta name="theme-color" content="#982929" />
+            </Head>
+            <DefaultSeo {...SEO} />
+            <Snowy />
+            <CookieConsent buttonStyle={{ fontSize: `2rem` }}>
+              <CookieConsentText>
+                This website uses cookies to enhance the user experience.
+              </CookieConsentText>
+            </CookieConsent>
+            <AnimatePresence exitBeforeEnter>
+              <Fragment>
+                <TopBar />
+                <Content>
+                  <motion.div
+                    key={router.pathname}
+                    initial="initial"
+                    animate="enter"
+                    exit="exit"
+                  >
+                    <Component {...pageProps} err={err} />
+                  </motion.div>
+                </Content>
+              </Fragment>
+            </AnimatePresence>
+            <GlobalStyles />
+          </ToastProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
     </AuthProvider>
   );
 };
