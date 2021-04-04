@@ -4,6 +4,7 @@ Allow: /
 Disallow: /test
 Disallow: /registry
 Disallow: /admin/*
+Disallow: /api/*
 
 # Host
 Host: http://localhost:6006

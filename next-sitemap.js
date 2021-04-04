@@ -13,7 +13,7 @@ module.exports = {
       {
         userAgent: `*`,
         allow: `/`,
-        disallow: [`/test`, `/registry`, `/admin/*`],
+        disallow: [`/test`, `/registry`, `/admin/*`, `/api/*`],
       },
     ],
   },

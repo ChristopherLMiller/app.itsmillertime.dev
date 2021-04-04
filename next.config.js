@@ -101,20 +101,31 @@ const nextConfig = {
     return config;
   },
   workboxOpts: {
-    swDest: process.env.NEXT_EXPORT
-      ? `service-worker.js`
-      : `static/service-worker.js`,
+    swDest: `static/service-worker.js`,
     runtimeCaching: [
       {
-        urlPattern: /^https?.*/,
-        handler: `NetworkFirst`,
+        urlPattern: /\.(?:gif|ico|jpg|jpeg|png|svg|webp)(?:\?|$)/,
+        handler: `CacheFirst`,
         options: {
-          cacheName: `offlineCache`,
+          cacheName: `image-cache`,
           expiration: {
-            maxEntries: 200,
+            maxEntries: 500,
+            maxAgeSeconds: 60 * 60 * 24 * 7
           },
         },
       },
+      {
+        urlPattern: /api/,
+        handler: `NetworkFirst`,
+        options: {
+          cacheableResponse: {
+            statuses: [0,200],
+            headers: {
+              'x-test': `true`,
+            }
+          }
+        }
+      }
     ],
   },
   images: {
@@ -122,14 +133,6 @@ const nextConfig = {
       `clm-sites-strapi.s3.us-east-2.amazonaws.com`,
       `res.cloudinary.com`,
     ],
-  },
-  async rewrites() {
-    return [
-      {
-        source: `/service-worker.js`,
-        destination: `/_next/static/service-worker.js`,
-      },
-    ];
   },
   basePath,
 };
