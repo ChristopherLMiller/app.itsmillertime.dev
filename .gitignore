@@ -3,3 +3,6 @@
 .env.local
 coverage/
 public/sitemap.xml
+public/robots.txt
+public/service-worker.js
+public/service-worker.js.map
