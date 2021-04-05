@@ -35,7 +35,7 @@
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "graphql-tag": "^2.11.0",
-    "jest-worker": "^24.9.0",
+    "jest-worker": "^26.6.2",
     "js-cookie": "^2.2.1",
     "md5": "^2.3.0",
     "mjml": "^4.9.0",
