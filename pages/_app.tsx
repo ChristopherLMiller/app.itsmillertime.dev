@@ -13,6 +13,7 @@ import Head from 'next/head';
 import TopBar from 'src/layout/elements/TopBar';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { init } from 'src/utils/functions/sentry';
+import ScrollTop from 'src/components/ScrollTop';
 
 // global CSS
 import 'node_modules/normalize.css/normalize.css';
@@ -29,6 +30,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 init();
 
 const Content = styled(motion.div)``;
+
 const CookieConsentText = styled.span`
   font-size: 2rem;
   font-weight: 300;
@@ -102,7 +104,7 @@ const App: AppComponent = ({ Component, pageProps, err }) => {
               </CookieConsentText>
             </CookieConsent>
             <AnimatePresence exitBeforeEnter>
-              <Fragment>
+              <Fragment key={router.pathname}>
                 <TopBar />
                 <Content>
                   <motion.div
@@ -115,6 +117,7 @@ const App: AppComponent = ({ Component, pageProps, err }) => {
                   </motion.div>
                 </Content>
               </Fragment>
+              <ScrollTop />
             </AnimatePresence>
             <GlobalStyles />
           </ToastProvider>

@@ -12,6 +12,7 @@ const StyledTopBar = styled.div`
   left: 0;
   width: 100%;
   z-index: 1;
+  height: 55px;
 `;
 
 const TopBar: FunctionComponent = () => (

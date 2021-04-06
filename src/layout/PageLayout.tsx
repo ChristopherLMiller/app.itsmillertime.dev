@@ -3,16 +3,21 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { FunctionComponent } from 'react';
 import Footer from './elements/Footer';
-import ScrollTop from 'src/components/ScrollTop';
 
 const Main = styled(motion.main)`
-  max-width: var(--max-width);
-  margin: 0 auto;
   padding: 0 2%;
+  flex-grow: 1;
+
+  @media (min-width: 800px) {
+    padding: 0 15%;
+  }
 `;
 
 const ContentArea = styled(motion.div)`
   overflow-x: hidden;
+  min-height: calc(100vh - 55px - 55px);
+  display: flex;
+  flex-direction: column;
 `;
 
 const contentVariants = {
@@ -47,7 +52,6 @@ const PageLayout: FunctionComponent<iPagelayout> = ({
     <Header title={title} description={description} />
     <Main>{children}</Main>
     <Footer />
-    <ScrollTop />
   </ContentArea>
 );
 
