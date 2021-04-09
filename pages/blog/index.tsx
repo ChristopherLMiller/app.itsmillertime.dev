@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import ArticleListItem from 'src/components/Article/ListItem';
 import { useRouter } from 'next/router';
 import Loader from 'src/components/Loader';
+import { useArticlesQuery } from 'src/utils/graphql/react-query/queries/Articles';
 
 const title = `From My Desk`;
 const description = `Archives concerning all matters web development and beyond`;
@@ -18,7 +19,7 @@ const ArticleList = styled.ul`
 
 const BlogIndexpage: NextPage = () => {
   const router = useRouter();
-  const { data, error, isFetching } = useArticles();
+  const { data, error, isFetching } = useArticlesQuery();
 
   console.log(router.query);
   if (error) {

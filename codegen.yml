@@ -1,0 +1,6 @@
+generates:
+  types-and-hooks.tsx:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
