@@ -3,9 +3,6 @@ import { NextSeo } from 'next-seo';
 import { Grid } from 'src/components/Grid';
 import PageLayout from 'src/layout/PageLayout';
 import Card from 'src/components/Card';
-import { gqlQuery } from 'src/utils/functions/fetch';
-import { ALL_GARDEN_ITEMS_STRING } from 'src/utils/graphql/queries';
-import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 
@@ -15,11 +12,11 @@ const description = `Random thoughts of me`;
 const DigitalGardenIndexPage: NextPage = () => {
   const router = useRouter();
   const { slug } = router.query;
-  const { isLoading, error, data } = useQuery([`digitalGarden`, { slug }], () =>
+  /*const { isLoading, error, data } = useQuery([`digitalGarden`, { slug }], () =>
     gqlQuery(ALL_GARDEN_ITEMS_STRING)
-  );
+  );*/
 
-  console.log(data);
+  //console.log(data);
 
   return (
     <PageLayout title={title} description={description}>
@@ -47,24 +44,21 @@ const DigitalGardenIndexPage: NextPage = () => {
           my head and so on to live. Here you will find things like recipes,
           books i want to read and so on.
         </p>
-        {error && <p>There was an error fetching items. {error}</p>}
+        {false && <p>There was an error fetching items. {false}</p>}
       </Card>
 
       <Grid columns="5" gap="30px">
-        {!isLoading &&
-          data.data.data.gardens.map((item) => (
-            <Card
-              heading={item.title}
-              actionLinks={[
-                {
-                  title: `View`,
-                  href: `/digital-garden/${item.slug}`,
-                },
-              ]}
-              markdown={item.contents}
-              align="left"
-            />
-          ))}
+        <Card
+          heading="Item Title"
+          actionLinks={[
+            {
+              title: `View`,
+              href: `/digital-garden/slug`,
+            },
+          ]}
+          markdown={`##Cotnents`}
+          align="left"
+        />
       </Grid>
     </PageLayout>
   );

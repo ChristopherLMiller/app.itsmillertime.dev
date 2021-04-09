@@ -3,18 +3,14 @@ import { NextSeo } from 'next-seo';
 import { Grid } from 'src/components/Grid';
 import PageLayout from 'src/layout/PageLayout';
 import Card from 'src/components/Card';
-import { gqlQuery } from 'src/utils/functions/fetch';
-import { ALL_GARDEN_ITEMS_STRING } from 'src/utils/graphql/queries';
-import { useQuery } from 'react-query';
 import { NextPage } from 'next';
 
 const title = `Digital Garden`;
 const description = `Random thoughts of me`;
 
 const DigitalGardenIndexPage: NextPage = () => {
-  const { isLoading, error, data } = useQuery(`digitalGarden`, () =>
-    gqlQuery(ALL_GARDEN_ITEMS_STRING)
-  );
+  // TODO: Query for gardens here
+  console.log(`gotta redo me`);
 
   return (
     <PageLayout title={title} description={description}>
@@ -42,24 +38,22 @@ const DigitalGardenIndexPage: NextPage = () => {
           my head and so on to live. Here you will find things like recipes,
           books i want to read and so on.
         </p>
-        {error && <p>There was an error fetching items. {error}</p>}
+        {false && <p>There was an error fetching items. {false}</p>}
       </Card>
 
       <Grid columns="5" gap="30px">
-        {!isLoading &&
-          data.gardens.map((item) => (
-            <Card
-              heading={item.title}
-              actionLinks={[
-                {
-                  title: `View`,
-                  href: `/digital-garden/${item.slug}`,
-                },
-              ]}
-              markdown={item.contents}
-              align="left"
-            />
-          ))}
+        // TODO: Map the items and output
+        <Card
+          heading="Garden Title"
+          actionLinks={[
+            {
+              title: `View`,
+              href: `/digital-garden/slug`,
+            },
+          ]}
+          markdown={`### Contents`}
+          align="left"
+        />
       </Grid>
     </PageLayout>
   );
