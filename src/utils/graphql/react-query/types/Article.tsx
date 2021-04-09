@@ -1,6 +1,8 @@
-import { InputId, Maybe, Scalars, UploadFile, UsersPermissionsUser } from '.';
+import { InputId, Maybe, Scalars } from '.';
 import { ArticleCategory } from './ArticleCategory';
 import { ArticleTags } from './ArticleTags';
+import { UploadFile } from './UploadFile';
+import { UsersPermissionsUser } from './UsersPermissions';
 
 export type Article = {
   __typename?: `Article`;

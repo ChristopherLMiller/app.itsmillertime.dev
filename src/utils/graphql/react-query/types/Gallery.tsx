@@ -1,8 +1,12 @@
-import { InputId, Maybe, Scalars, UploadFile, UsersPermissionsRole } from '.';
+/* eslint-disable no-unused-vars */
+import { InputId, Maybe, Scalars } from '.';
 import { GalleryCategories } from './GalleryCategory';
 import { GalleryImage } from './GalleryImage';
 import { GalleryTags } from './GalleryTag';
+import { UploadFile } from './UploadFile';
+import { UsersPermissionsRole } from './UsersPermissions';
 
+// eslint-disable-next-line no-shadow
 export enum Enum_Gallery_Status {
   Public = `PUBLIC`,
   Protected = `PROTECTED`,

@@ -2,7 +2,6 @@ import { NextSeo } from 'next-seo';
 import PageLayout from 'src/layout/PageLayout';
 import Card from 'src/components/Card';
 import { NextPage } from 'next';
-import { useArticles } from 'src/utils/graphql/queries/articles';
 import { iArticle } from 'src/utils/graphql/types/article';
 import styled from 'styled-components';
 import ArticleListItem from 'src/components/Article/ListItem';
@@ -21,6 +20,7 @@ const BlogIndexpage: NextPage = () => {
   const router = useRouter();
   const { data, error, isFetching } = useArticlesQuery();
 
+  // TODO:  Add queries to get by category, tag etc
   console.log(router.query);
   if (error) {
     console.log(error);
@@ -46,14 +46,12 @@ const BlogIndexpage: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/blog`,
         }}
       />
-
       {error && (
         <Card heading="Uh Oh!">
           <p>We were unable to fetch the data requested for whatever reason.</p>
           <p>More specifically: {error}</p>
         </Card>
       )}
-
       {isFetching && <Loader isLoading={isFetching} />}
       <ArticleList>
         {data?.articles?.map((article: iArticle) => (

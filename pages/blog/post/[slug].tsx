@@ -3,12 +3,12 @@ import PageLayout from 'src/layout/PageLayout';
 import { GetServerSideProps, NextPage } from 'next';
 import { iArticle } from 'src/utils/graphql/types/article';
 import Markdown from 'src/components/Card/elements/Markdown';
-import { useArticle } from 'src/utils/graphql/queries/articles';
 import styled from 'styled-components';
 import { formatRelative, parseISO } from 'date-fns';
 import { timeToRead } from 'src/utils/functions';
 import { countWords } from 'src/utils/functions/countWords';
 import { useRouter } from 'next/router';
+import { useArticleQuery } from 'src/utils/graphql/react-query/queries/Articles';
 
 const title = `From My Desk`;
 const description = `Archives concerning all matters web development and beyond`;
@@ -79,7 +79,9 @@ interface iBlogPost {
 
 const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
   const router = useRouter();
-  const { data, error, isLoading } = useArticle(router.query?.slug as string);
+  const { data, error, isLoading } = useArticleQuery({
+    where: { slug: router.query?.slug as string },
+  });
   const post = data?.articles[0];
 
   if (error) {
