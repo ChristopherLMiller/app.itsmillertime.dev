@@ -22,7 +22,7 @@
     "@next/mdx": "^10.0.8",
     "@sentry/browser": "^6.2.3",
     "@sentry/integrations": "^6.2.3",
-    "@sentry/node": "^6.0.3",
+    "@sentry/node": "^6.3.1",
     "@sentry/webpack-plugin": "^1.14.0",
     "@types/hcaptcha__react-hcaptcha": "^0.1.4",
     "@zeit/next-source-maps": "0.0.3",
