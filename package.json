@@ -19,7 +19,7 @@
     "@mavrin/remark-typograf": "^2.1.6",
     "@mdx-js/loader": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
-    "@next/mdx": "^10.0.8",
+    "@next/mdx": "^10.2.0",
     "@sentry/browser": "^6.2.3",
     "@sentry/integrations": "^6.2.3",
     "@sentry/node": "^6.0.3",
