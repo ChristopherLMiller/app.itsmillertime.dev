@@ -16,7 +16,7 @@
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^0.3.2",
     "@mapbox/rehype-prism": "^0.6.0",
-    "@mavrin/remark-typograf": "^2.1.6",
+    "@mavrin/remark-typograf": "^2.2.0",
     "@mdx-js/loader": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
     "@next/mdx": "^10.0.8",
