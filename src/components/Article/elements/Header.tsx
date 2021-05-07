@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { iUploadFile } from 'src/utils/graphql/types/uploadFile';
 import styled from 'styled-components';
-import ImageDefault from 'src/components/Images';
+import Image from 'src/components/Images';
 import { formatRelative, parseISO } from 'date-fns';
 
 const StyledArticleHead = styled.div`
@@ -43,12 +43,10 @@ const ArticleHead: FunctionComponent<iArticleHead> = ({
 }) => (
   <StyledArticleHead>
     {featuredImage !== null && (
-      <ImageDefault
-        image={{
-          url: featuredImage.url,
-          width: featuredImage.width,
-          height: featuredImage.height,
-        }}
+      <Image
+        public_id={`${featuredImage.provider_metadata[`public_id`]}`}
+        width={featuredImage.width}
+        height={featuredImage.height}
         alt={featuredImage.alternativeText}
       />
     )}

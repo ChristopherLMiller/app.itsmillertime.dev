@@ -38,6 +38,7 @@ const ImageOverlay = styled(motion.div)`
   color: var(--color-white-100);
   font-weight: 200;
   letter-spacing: 1px;
+  font-size: 2rem;
 
   p {
     margin: 0;
@@ -63,20 +64,23 @@ const ImageOverlayVariants = {
 };
 
 interface iImage {
-  image: {
-    url: string;
-    width: number;
-    height: number;
-  };
+  public_id: string;
+  width: number;
+  height: number;
+  layout?: any;
   alt: string;
   hoverable?: boolean;
+  caption?: string;
 }
 
 const ImageDefault: FunctionComponent<iImage> = ({
-  image,
+  public_id,
+  width,
+  height,
+  layout = 'responsive',
   alt,
   hoverable,
-  children,
+  caption,
 }) => (
   <ImageContainer
     variants={ImageContainerVariants}
@@ -84,15 +88,15 @@ const ImageDefault: FunctionComponent<iImage> = ({
     whileHover={hoverable ? `hover` : `rest`}
   >
     <Image
-      src={image.url}
+      src={public_id}
       alt={alt}
-      layout="responsive"
-      width={image.width}
-      height={image.height}
+      layout={layout}
+      width={width}
+      height={height}
       loading={`eager`}
     />
-    {children !== undefined && (
-      <ImageOverlay variants={ImageOverlayVariants}>{children}</ImageOverlay>
+    {caption && (
+      <ImageOverlay variants={ImageOverlayVariants}>{caption}</ImageOverlay>
     )}
   </ImageContainer>
 );

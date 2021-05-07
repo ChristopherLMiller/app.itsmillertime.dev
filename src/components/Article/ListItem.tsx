@@ -8,7 +8,7 @@ import { iArticle } from 'src/utils/graphql/types/article';
 import { iArticleCategory } from 'src/utils/graphql/types/articleCategories';
 import { iArticleTags } from 'src/utils/graphql/types/articleTags';
 import styled from 'styled-components';
-import ImageDefault from '../Images';
+import Image from '../Images';
 
 const StyledArticleListItem = styled(motion.div)`
   display: grid;
@@ -95,12 +95,10 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => (
   <StyledArticleListItem>
     <ArticleListItemImage>
       {article.featured_image && (
-        <ImageDefault
-          image={{
-            url: article.featured_image.provider_metadata[`public_id`],
-            width: article.featured_image.width,
-            height: article.featured_image.height,
-          }}
+        <Image
+          public_id={`${article.featured_image.provider_metadata[`public_id`]}`}
+          width={parseInt(`${article.featured_image.width}`)}
+          height={parseInt(`${article.featured_image.height}`)}
           alt={article.featured_image.alternativeText}
         />
       )}
