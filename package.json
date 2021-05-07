@@ -45,7 +45,7 @@
     "next-offline": "^5.0.3",
     "next-seo": "^4.23.0",
     "next-sitemap": "^1.6.18",
-    "nodemailer": "^6.4.17",
+    "nodemailer": "^6.6.0",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "prettier": "^2.2.1",
