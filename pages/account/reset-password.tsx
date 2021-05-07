@@ -8,11 +8,7 @@ import {
   Button,
   StyledForm,
 } from 'src/components/inputs';
-import {
-  SITE_DEFAULT_IMAGE_FILE,
-  CLOUDINARY_CLOUD,
-  CLOUDINARY_URL,
-} from 'config';
+import { SITE_DEFAULT_IMAGE_FILE, CLOUDINARY_CLOUD } from 'config';
 import * as Yup from 'yup';
 import Card from 'src/components/Card';
 import { Grid } from 'src/components/Grid';
@@ -53,7 +49,7 @@ const ResetPasswordPage: NextPage = () => {
               alt: `Default Site Image`,
               width: 800,
               height: 600,
-              url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+              url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
             },
           ],
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/reset-password`,

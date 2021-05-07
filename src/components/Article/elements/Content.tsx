@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { CLOUDINARY_URL, CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from 'config';
+import { CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from 'config';
 import { truncate } from 'src/utils/functions';
 import Markdown from 'src/components/Card/elements/Markdown';
 
@@ -11,7 +11,7 @@ interface iCardBody {
 
 const StyledCardBody = styled.div<iCardBody>`
   background: var(--color-grey-light);
-  background-image: url('${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg');
+  background-image: url('https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg');
   padding: 0;
   position: relative;
   text-align: left;
@@ -62,7 +62,7 @@ const StyledCardBody = styled.div<iCardBody>`
 const ContentArea = styled.div`
   padding: 5%;
   background: var(--color-grey-light);
-  background-image: url('${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg');
+  background-image: url('https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg');
   transition: all 0.5s;
 `;
 

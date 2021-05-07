@@ -115,6 +115,8 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
               src={`/svg/${item.icon}.svg`}
               alt={`${item.title} Page Link`}
               loading="lazy"
+              width="35px"
+              height="35px"
             />
             <Text>{item.title}</Text>
           </Item>
@@ -136,7 +138,7 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
           rel="noopener noreferrer"
           variants={ItemVariants}
         >
-          <NavIcon src={`/svg/${item.icon}.svg`} />
+          <NavIcon src={`/svg/${item.icon}.svg`} width="35px" height="35px" />
           <Text>{item.title}</Text>
         </Item>
       </NavContainer>

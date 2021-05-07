@@ -2,14 +2,20 @@ import { NextSeo } from 'next-seo';
 import { Grid } from 'src/components/Grid';
 import PageLayout from 'src/layout/PageLayout';
 import { useGalleries } from 'src/utils/graphql/queries/galleries';
-import Image from 'src/components/Images';
+//import Image from 'src/components/Images';
+import Image from 'next/image';
 import Card from 'src/components/Card';
 import { NextPage } from 'next';
 import cookies from 'next-cookies';
 import Loader from 'src/components/Loader';
+import styled from 'styled-components';
 
 const title = `Gallery`;
 const description = `A visual of all the things me!`;
+
+const Container = styled.div`
+  border: 3px solid red;
+`;
 
 const GalleriesIndexPage: NextPage = () => {
   const { isFetching, error, data } = useGalleries();
@@ -47,14 +53,15 @@ const GalleriesIndexPage: NextPage = () => {
       {isFetching && <Loader isLoading={isFetching} />}
       <Grid gap="30px" min="425px" masonry>
         {data?.galleries?.map((gallery) => (
-          <Image
-            image={gallery.featured_image}
-            alt={gallery.title}
-            key={gallery.featured_image.url}
-            hoverable
-          >
-            <p>{gallery.title}</p>
-          </Image>
+          <Container>
+            <Image
+              src={`${gallery.featured_image.provider_metadata.public_id}`}
+              layout="responsive"
+              width={gallery.featured_image.width}
+              height={gallery.featured_image.height}
+              key={gallery.slug}
+            />
+          </Container>
         ))}
       </Grid>
     </PageLayout>

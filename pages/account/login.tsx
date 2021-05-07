@@ -2,11 +2,7 @@ import PageLayout from 'src/layout/PageLayout';
 import Card from 'src/components/Card';
 import { Grid } from 'src/components/Grid';
 import styled from 'styled-components';
-import {
-  SITE_DEFAULT_IMAGE_FILE,
-  CLOUDINARY_CLOUD,
-  CLOUDINARY_URL,
-} from 'config';
+import { SITE_DEFAULT_IMAGE_FILE, CLOUDINARY_CLOUD } from 'config';
 import { NextSeo } from 'next-seo';
 import { LoginForm } from 'src/templates/forms';
 import Link from 'next/link';
@@ -64,7 +60,7 @@ const LoginPage: NextPage = () => (
             alt: `Default Site Image`,
             width: 800,
             height: 600,
-            url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+            url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
           },
         ],
         url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/login`,

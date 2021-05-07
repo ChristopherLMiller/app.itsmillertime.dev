@@ -130,6 +130,8 @@ const nextConfig = {
     ],
   },
   images: {
+    loader: `cloudinary`,
+    path: `https://res.cloudinary.com/christopherleemiller/image/upload/`,
     domains: [
       `clm-sites-strapi.s3.us-east-2.amazonaws.com`,
       `res.cloudinary.com`,

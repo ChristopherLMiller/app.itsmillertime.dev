@@ -17,6 +17,7 @@ query ALL_GALLERIES {
             width
             height
             alternativeText
+            provider_metadata
         }
         status
         nsfw

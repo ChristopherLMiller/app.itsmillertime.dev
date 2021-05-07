@@ -97,7 +97,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => (
       {article.featured_image && (
         <ImageDefault
           image={{
-            url: article.featured_image.url,
+            url: article.featured_image.provider_metadata[`public_id`],
             width: article.featured_image.width,
             height: article.featured_image.height,
           }}

@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { CLOUDINARY_URL, CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from '../config';
+import { CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from '../config';
 
 export const defaultTheme = {
   colors: {
@@ -76,7 +76,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: var(--font-main);
-    background: var(--color-grey-intermediate) url('${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/background.jpg') no-repeat;
+    background: var(--color-grey-intermediate) url('https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/background.jpg') no-repeat;
     background-attachment: fixed;
     background-size: cover;
     color: var(--color-grey-dark);

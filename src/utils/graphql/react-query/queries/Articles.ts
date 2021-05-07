@@ -135,6 +135,7 @@ export const ArticlesDocument = `
       height
       alternativeText
       caption
+      provider_metadata
     }
     slug
     users_permissions_user {
@@ -170,6 +171,7 @@ export const ArticleDocument = `
       height
       alternativeText
       caption
+      provider_metadata
     }
     slug
     users_permissions_user {

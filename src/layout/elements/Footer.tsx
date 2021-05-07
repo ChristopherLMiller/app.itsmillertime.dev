@@ -100,34 +100,40 @@ const Footer: FunctionComponent = () => (
                 alt="Github"
                 whileHover="hover"
                 variants={FooterIconVariants}
+                width="60px"
+                height="60px"
               />
               <FooterIcon
                 loading="lazy"
                 src="/svg/linkedin.svg"
                 alt="LinkedIn"
                 whileHover="hover"
-                variants={FooterIconVariants}
+                width="60px"
+                height="60px"
               />
               <FooterIcon
                 loading="lazy"
                 src="/svg/instagram.svg"
                 alt="Instagram"
                 whileHover="hover"
-                variants={FooterIconVariants}
+                width="60px"
+                height="60px"
               />
               <FooterIcon
                 loading="lazy"
                 src="/svg/twitter.svg"
                 alt="Twitter"
                 whileHover="hover"
-                variants={FooterIconVariants}
+                width="60px"
+                height="60px"
               />
               <FooterIcon
                 loading="lazy"
                 src="/svg/youtube.svg"
                 alt="YouTube"
                 whileHover="hover"
-                variants={FooterIconVariants}
+                width="60px"
+                height="60px"
               />
             </Grid>
           </GridItem>

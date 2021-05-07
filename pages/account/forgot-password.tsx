@@ -1,8 +1,4 @@
-import {
-  CLOUDINARY_CLOUD,
-  CLOUDINARY_URL,
-  SITE_DEFAULT_IMAGE_FILE,
-} from 'config';
+import { CLOUDINARY_CLOUD, SITE_DEFAULT_IMAGE_FILE } from 'config';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import Card from 'src/components/Card';
@@ -63,7 +59,7 @@ const ForgotPasswordPage: NextPage = () => (
             alt: `Default Site Image`,
             width: 800,
             height: 600,
-            url: `${CLOUDINARY_URL}/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto,/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+            url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto,/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
           },
         ],
         url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/forgot-password',`,
