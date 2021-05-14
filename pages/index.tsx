@@ -21,7 +21,7 @@ const IndexPage: NextPage = () => (
             alt: `Default Site Image`,
             width: 800,
             height: 600,
-            url: `https://clm-sites-strapi.s3.us-east-2.amazonaws.com/default_958a6c7fcd.jpg`,
+            url: `https://res.cloudinary.com/christopherleemiller/image/upload/v1620977750/clm-new/uploads/default_fb95099398.jpg`,
           },
         ],
         url: `${process.env.NEXT_PUBLIC_SITE_URL}`,
@@ -43,16 +43,16 @@ const IndexPage: NextPage = () => (
         If you find any errors or problems you can submit an issue on GitHub, or
         reach me at one of the other places in the sidebar on the left.
       </p>
-      {process.env.NEXT_PUBLIC_SITE_URL === `http://localhost:6006` && (
-        <div>
-          <Link href="/account/login">
-            <a>Login</a>
-          </Link>
-          <Link href="/account/logout">
-            <a>Logout</a>
-          </Link>
-        </div>
-      )}
+
+      <div>
+        <Link href="/account/login">
+          <a>Login</a>
+        </Link>
+        {` | `}
+        <Link href="/account/logout">
+          <a>Logout</a>
+        </Link>
+      </div>
     </Card>
   </PageLayout>
 );

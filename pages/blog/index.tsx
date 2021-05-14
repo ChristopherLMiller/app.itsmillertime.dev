@@ -40,7 +40,7 @@ const BlogIndexpage: NextPage = () => {
               alt: `Blogging`,
               width: 4076,
               height: 2712,
-              url: `https://clm-sites-strapi.s3.us-east-2.amazonaws.com/blog_20c9f525f2.jpg`,
+              url: `https://res.cloudinary.com/christopherleemiller/image/upload/v1620977613/clm-new/uploads/blog_adb6d70b97.jpg`,
             },
           ],
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/blog`,

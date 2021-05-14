@@ -21,7 +21,7 @@ const PrivacyPolicyPage: NextPage = () => (
             alt: `Default Site Image`,
             width: 800,
             height: 600,
-            url: `https://clm-sites-strapi.s3.us-east-2.amazonaws.com/default_958a6c7fcd.jpg`,
+            url: `https://res.cloudinary.com/christopherleemiller/image/upload/v1620977750/clm-new/uploads/default_fb95099398.jpg`,
           },
         ],
         url: `${process.env.NEXT_PUBLIC_SITE_URL}/about-me`,
