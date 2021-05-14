@@ -249,7 +249,12 @@ type Article {
   users_permissions_user: UsersPermissionsUser
   excerpt: String
   published_at: DateTime
-  article_categories(sort: String, limit: Int, start: Int, where: JSON): [ArticleCategory]
+  article_categories(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): [ArticleCategory]
   article_tags(sort: String, limit: Int, start: Int, where: JSON): [ArticleTags]
 }
 
@@ -393,10 +398,6 @@ type GalleryCategories {
   updatedAt: DateTime!
   title: String
   slug: String
-  image_large: String
-  image_full: String
-  image_large_watermarked: String
-  image_full_watermarked: String
 }
 
 type GalleryCategoriesConnection {
@@ -417,10 +418,6 @@ type GalleryCategoriesGroupBy {
   updatedAt: [GalleryCategoriesConnectionUpdatedAt]
   title: [GalleryCategoriesConnectionTitle]
   slug: [GalleryCategoriesConnectionSlug]
-  image_large: [GalleryCategoriesConnectionImage_large]
-  image_full: [GalleryCategoriesConnectionImage_full]
-  image_large_watermarked: [GalleryCategoriesConnectionImage_large_watermarked]
-  image_full_watermarked: [GalleryCategoriesConnectionImage_full_watermarked]
 }
 
 type GalleryCategoriesConnectionId {
@@ -453,33 +450,9 @@ type GalleryCategoriesConnectionSlug {
   connection: GalleryCategoriesConnection
 }
 
-type GalleryCategoriesConnectionImage_large {
-  key: String
-  connection: GalleryCategoriesConnection
-}
-
-type GalleryCategoriesConnectionImage_full {
-  key: String
-  connection: GalleryCategoriesConnection
-}
-
-type GalleryCategoriesConnectionImage_large_watermarked {
-  key: String
-  connection: GalleryCategoriesConnection
-}
-
-type GalleryCategoriesConnectionImage_full_watermarked {
-  key: String
-  connection: GalleryCategoriesConnection
-}
-
 input GalleryCategoryInput {
   title: String
   slug: String
-  image_large: String
-  image_full: String
-  image_large_watermarked: String
-  image_full_watermarked: String
   created_by: ID
   updated_by: ID
 }
@@ -487,10 +460,6 @@ input GalleryCategoryInput {
 input editGalleryCategoryInput {
   title: String
   slug: String
-  image_large: String
-  image_full: String
-  image_large_watermarked: String
-  image_full_watermarked: String
   created_by: ID
   updated_by: ID
 }
@@ -770,14 +739,30 @@ type Gallery {
   updatedAt: DateTime!
   title: String
   slug: String
-  description: String
   featured_image: UploadFile
   status: ENUM_GALLERY_STATUS!
   nsfw: Boolean
-  gallery_categories(sort: String, limit: Int, start: Int, where: JSON): [GalleryCategories]
+  meta: String
+  description: String
+  gallery_categories(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): [GalleryCategories]
   gallery_tags(sort: String, limit: Int, start: Int, where: JSON): [GalleryTags]
-  roles(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsRole]
-  gallery_images(sort: String, limit: Int, start: Int, where: JSON): [GalleryImage]
+  roles(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): [UsersPermissionsRole]
+  gallery_images(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): [GalleryImage]
 }
 
 type GalleryConnection {
@@ -798,10 +783,11 @@ type GalleryGroupBy {
   updatedAt: [GalleryConnectionUpdatedAt]
   title: [GalleryConnectionTitle]
   slug: [GalleryConnectionSlug]
-  description: [GalleryConnectionDescription]
   featured_image: [GalleryConnectionFeatured_image]
   status: [GalleryConnectionStatus]
   nsfw: [GalleryConnectionNsfw]
+  meta: [GalleryConnectionMeta]
+  description: [GalleryConnectionDescription]
 }
 
 type GalleryConnectionId {
@@ -834,11 +820,6 @@ type GalleryConnectionSlug {
   connection: GalleryConnection
 }
 
-type GalleryConnectionDescription {
-  key: String
-  connection: GalleryConnection
-}
-
 type GalleryConnectionFeatured_image {
   key: ID
   connection: GalleryConnection
@@ -854,10 +835,19 @@ type GalleryConnectionNsfw {
   connection: GalleryConnection
 }
 
+type GalleryConnectionMeta {
+  key: String
+  connection: GalleryConnection
+}
+
+type GalleryConnectionDescription {
+  key: String
+  connection: GalleryConnection
+}
+
 input GalleryInput {
   title: String
   slug: String
-  description: String
   featured_image: ID
   gallery_categories: [ID]
   gallery_tags: [ID]
@@ -865,6 +855,8 @@ input GalleryInput {
   gallery_images: [ID]
   status: ENUM_GALLERY_STATUS
   nsfw: Boolean
+  meta: String
+  description: String
   created_by: ID
   updated_by: ID
 }
@@ -872,7 +864,6 @@ input GalleryInput {
 input editGalleryInput {
   title: String
   slug: String
-  description: String
   featured_image: ID
   gallery_categories: [ID]
   gallery_tags: [ID]
@@ -880,6 +871,8 @@ input editGalleryInput {
   gallery_images: [ID]
   status: ENUM_GALLERY_STATUS
   nsfw: Boolean
+  meta: String
+  description: String
   created_by: ID
   updated_by: ID
 }
@@ -1253,8 +1246,18 @@ type UsersPermissionsRole {
   name: String!
   description: String
   type: String
-  permissions(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsPermission]
-  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+  permissions(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): [UsersPermissionsPermission]
+  users(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): [UsersPermissionsUser]
 }
 
 type UsersPermissionsRoleConnection {
@@ -1525,7 +1528,189 @@ input editComponentGlobalShareInput {
   instagram: Boolean
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | ArticleCategory | ArticleCategoryConnection | ArticleCategoryAggregator | ArticleCategoryGroupBy | ArticleCategoryConnectionId | ArticleCategoryConnection_id | ArticleCategoryConnectionCreatedAt | ArticleCategoryConnectionUpdatedAt | ArticleCategoryConnectionTitle | ArticleCategoryConnectionSlug | createArticleCategoryPayload | updateArticleCategoryPayload | deleteArticleCategoryPayload | ArticleTags | ArticleTagsConnection | ArticleTagsAggregator | ArticleTagsGroupBy | ArticleTagsConnectionId | ArticleTagsConnection_id | ArticleTagsConnectionCreatedAt | ArticleTagsConnectionUpdatedAt | ArticleTagsConnectionTitle | ArticleTagsConnectionSlug | createArticleTagPayload | updateArticleTagPayload | deleteArticleTagPayload | Article | ArticleConnection | ArticleAggregator | ArticleGroupBy | ArticleConnectionId | ArticleConnection_id | ArticleConnectionCreatedAt | ArticleConnectionUpdatedAt | ArticleConnectionTitle | ArticleConnectionContent | ArticleConnectionFeatured_image | ArticleConnectionSlug | ArticleConnectionUsers_permissions_user | ArticleConnectionExcerpt | ArticleConnectionPublished_at | createArticlePayload | updateArticlePayload | deleteArticlePayload | GalleryCategories | GalleryCategoriesConnection | GalleryCategoriesAggregator | GalleryCategoriesGroupBy | GalleryCategoriesConnectionId | GalleryCategoriesConnection_id | GalleryCategoriesConnectionCreatedAt | GalleryCategoriesConnectionUpdatedAt | GalleryCategoriesConnectionTitle | GalleryCategoriesConnectionSlug | GalleryCategoriesConnectionImage_large | GalleryCategoriesConnectionImage_full | GalleryCategoriesConnectionImage_large_watermarked | GalleryCategoriesConnectionImage_full_watermarked | createGalleryCategoryPayload | updateGalleryCategoryPayload | deleteGalleryCategoryPayload | GalleryImage | GalleryImageConnection | GalleryImageAggregator | GalleryImageGroupBy | GalleryImageConnectionId | GalleryImageConnection_id | GalleryImageConnectionCreatedAt | GalleryImageConnectionUpdatedAt | GalleryImageConnectionCaption | GalleryImageConnectionSlug | GalleryImageConnectionWatermarked | GalleryImageConnectionClean | GalleryImageConnectionShare | GalleryImageConnectionSell | createGalleryImagePayload | updateGalleryImagePayload | deleteGalleryImagePayload | GalleryTags | GalleryTagsConnection | GalleryTagsAggregator | GalleryTagsGroupBy | GalleryTagsConnectionId | GalleryTagsConnection_id | GalleryTagsConnectionCreatedAt | GalleryTagsConnectionUpdatedAt | GalleryTagsConnectionTitle | GalleryTagsConnectionSlug | createGalleryTagPayload | updateGalleryTagPayload | deleteGalleryTagPayload | Gallery | GalleryConnection | GalleryAggregator | GalleryGroupBy | GalleryConnectionId | GalleryConnection_id | GalleryConnectionCreatedAt | GalleryConnectionUpdatedAt | GalleryConnectionTitle | GalleryConnectionSlug | GalleryConnectionDescription | GalleryConnectionFeatured_image | GalleryConnectionStatus | GalleryConnectionNsfw | createGalleryPayload | updateGalleryPayload | deleteGalleryPayload | Gardens | GardensConnection | GardensAggregator | GardensGroupBy | GardensConnectionId | GardensConnection_id | GardensConnectionCreatedAt | GardensConnectionUpdatedAt | GardensConnectionTitle | GardensConnectionSlug | GardensConnectionContents | createGardenPayload | updateGardenPayload | deleteGardenPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | createUserPayload | updateUserPayload | deleteUserPayload | ComponentGlobalSell | ComponentGlobalShare
+union Morph =
+    UsersPermissionsMe
+  | UsersPermissionsMeRole
+  | UsersPermissionsLoginPayload
+  | UserPermissionsPasswordPayload
+  | ArticleCategory
+  | ArticleCategoryConnection
+  | ArticleCategoryAggregator
+  | ArticleCategoryGroupBy
+  | ArticleCategoryConnectionId
+  | ArticleCategoryConnection_id
+  | ArticleCategoryConnectionCreatedAt
+  | ArticleCategoryConnectionUpdatedAt
+  | ArticleCategoryConnectionTitle
+  | ArticleCategoryConnectionSlug
+  | createArticleCategoryPayload
+  | updateArticleCategoryPayload
+  | deleteArticleCategoryPayload
+  | ArticleTags
+  | ArticleTagsConnection
+  | ArticleTagsAggregator
+  | ArticleTagsGroupBy
+  | ArticleTagsConnectionId
+  | ArticleTagsConnection_id
+  | ArticleTagsConnectionCreatedAt
+  | ArticleTagsConnectionUpdatedAt
+  | ArticleTagsConnectionTitle
+  | ArticleTagsConnectionSlug
+  | createArticleTagPayload
+  | updateArticleTagPayload
+  | deleteArticleTagPayload
+  | Article
+  | ArticleConnection
+  | ArticleAggregator
+  | ArticleGroupBy
+  | ArticleConnectionId
+  | ArticleConnection_id
+  | ArticleConnectionCreatedAt
+  | ArticleConnectionUpdatedAt
+  | ArticleConnectionTitle
+  | ArticleConnectionContent
+  | ArticleConnectionFeatured_image
+  | ArticleConnectionSlug
+  | ArticleConnectionUsers_permissions_user
+  | ArticleConnectionExcerpt
+  | ArticleConnectionPublished_at
+  | createArticlePayload
+  | updateArticlePayload
+  | deleteArticlePayload
+  | GalleryCategories
+  | GalleryCategoriesConnection
+  | GalleryCategoriesAggregator
+  | GalleryCategoriesGroupBy
+  | GalleryCategoriesConnectionId
+  | GalleryCategoriesConnection_id
+  | GalleryCategoriesConnectionCreatedAt
+  | GalleryCategoriesConnectionUpdatedAt
+  | GalleryCategoriesConnectionTitle
+  | GalleryCategoriesConnectionSlug
+  | createGalleryCategoryPayload
+  | updateGalleryCategoryPayload
+  | deleteGalleryCategoryPayload
+  | GalleryImage
+  | GalleryImageConnection
+  | GalleryImageAggregator
+  | GalleryImageGroupBy
+  | GalleryImageConnectionId
+  | GalleryImageConnection_id
+  | GalleryImageConnectionCreatedAt
+  | GalleryImageConnectionUpdatedAt
+  | GalleryImageConnectionCaption
+  | GalleryImageConnectionSlug
+  | GalleryImageConnectionWatermarked
+  | GalleryImageConnectionClean
+  | GalleryImageConnectionShare
+  | GalleryImageConnectionSell
+  | createGalleryImagePayload
+  | updateGalleryImagePayload
+  | deleteGalleryImagePayload
+  | GalleryTags
+  | GalleryTagsConnection
+  | GalleryTagsAggregator
+  | GalleryTagsGroupBy
+  | GalleryTagsConnectionId
+  | GalleryTagsConnection_id
+  | GalleryTagsConnectionCreatedAt
+  | GalleryTagsConnectionUpdatedAt
+  | GalleryTagsConnectionTitle
+  | GalleryTagsConnectionSlug
+  | createGalleryTagPayload
+  | updateGalleryTagPayload
+  | deleteGalleryTagPayload
+  | Gallery
+  | GalleryConnection
+  | GalleryAggregator
+  | GalleryGroupBy
+  | GalleryConnectionId
+  | GalleryConnection_id
+  | GalleryConnectionCreatedAt
+  | GalleryConnectionUpdatedAt
+  | GalleryConnectionTitle
+  | GalleryConnectionSlug
+  | GalleryConnectionFeatured_image
+  | GalleryConnectionStatus
+  | GalleryConnectionNsfw
+  | GalleryConnectionMeta
+  | GalleryConnectionDescription
+  | createGalleryPayload
+  | updateGalleryPayload
+  | deleteGalleryPayload
+  | Gardens
+  | GardensConnection
+  | GardensAggregator
+  | GardensGroupBy
+  | GardensConnectionId
+  | GardensConnection_id
+  | GardensConnectionCreatedAt
+  | GardensConnectionUpdatedAt
+  | GardensConnectionTitle
+  | GardensConnectionSlug
+  | GardensConnectionContents
+  | createGardenPayload
+  | updateGardenPayload
+  | deleteGardenPayload
+  | UploadFile
+  | UploadFileConnection
+  | UploadFileAggregator
+  | UploadFileAggregatorSum
+  | UploadFileAggregatorAvg
+  | UploadFileAggregatorMin
+  | UploadFileAggregatorMax
+  | UploadFileGroupBy
+  | UploadFileConnectionId
+  | UploadFileConnection_id
+  | UploadFileConnectionCreatedAt
+  | UploadFileConnectionUpdatedAt
+  | UploadFileConnectionName
+  | UploadFileConnectionAlternativeText
+  | UploadFileConnectionCaption
+  | UploadFileConnectionWidth
+  | UploadFileConnectionHeight
+  | UploadFileConnectionFormats
+  | UploadFileConnectionHash
+  | UploadFileConnectionExt
+  | UploadFileConnectionMime
+  | UploadFileConnectionSize
+  | UploadFileConnectionUrl
+  | UploadFileConnectionPreviewUrl
+  | UploadFileConnectionProvider
+  | UploadFileConnectionProvider_metadata
+  | deleteFilePayload
+  | UsersPermissionsPermission
+  | UsersPermissionsRole
+  | UsersPermissionsRoleConnection
+  | UsersPermissionsRoleAggregator
+  | UsersPermissionsRoleGroupBy
+  | UsersPermissionsRoleConnectionId
+  | UsersPermissionsRoleConnection_id
+  | UsersPermissionsRoleConnectionName
+  | UsersPermissionsRoleConnectionDescription
+  | UsersPermissionsRoleConnectionType
+  | createRolePayload
+  | updateRolePayload
+  | deleteRolePayload
+  | UsersPermissionsUser
+  | UsersPermissionsUserConnection
+  | UsersPermissionsUserAggregator
+  | UsersPermissionsUserGroupBy
+  | UsersPermissionsUserConnectionId
+  | UsersPermissionsUserConnection_id
+  | UsersPermissionsUserConnectionCreatedAt
+  | UsersPermissionsUserConnectionUpdatedAt
+  | UsersPermissionsUserConnectionUsername
+  | UsersPermissionsUserConnectionEmail
+  | UsersPermissionsUserConnectionProvider
+  | UsersPermissionsUserConnectionConfirmed
+  | UsersPermissionsUserConnectionBlocked
+  | UsersPermissionsUserConnectionRole
+  | createUserPayload
+  | updateUserPayload
+  | deleteUserPayload
+  | ComponentGlobalSell
+  | ComponentGlobalShare
 
 input InputID {
   id: ID!
@@ -1545,57 +1730,193 @@ type AdminUser {
 
 type Query {
   articleCategory(id: ID!, publicationState: PublicationState): ArticleCategory
-  articleCategories(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [ArticleCategory]
-  articleCategoriesConnection(sort: String, limit: Int, start: Int, where: JSON): ArticleCategoryConnection
+  articleCategories(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [ArticleCategory]
+  articleCategoriesConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): ArticleCategoryConnection
   articleTag(id: ID!, publicationState: PublicationState): ArticleTags
-  articleTags(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [ArticleTags]
-  articleTagsConnection(sort: String, limit: Int, start: Int, where: JSON): ArticleTagsConnection
+  articleTags(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [ArticleTags]
+  articleTagsConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): ArticleTagsConnection
   article(id: ID!, publicationState: PublicationState): Article
-  articles(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Article]
-  articlesConnection(sort: String, limit: Int, start: Int, where: JSON): ArticleConnection
-  galleryCategory(id: ID!, publicationState: PublicationState): GalleryCategories
-  galleryCategories(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [GalleryCategories]
-  galleryCategoriesConnection(sort: String, limit: Int, start: Int, where: JSON): GalleryCategoriesConnection
+  articles(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [Article]
+  articlesConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): ArticleConnection
+  galleryCategory(
+    id: ID!
+    publicationState: PublicationState
+  ): GalleryCategories
+  galleryCategories(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [GalleryCategories]
+  galleryCategoriesConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): GalleryCategoriesConnection
   galleryImage(id: ID!, publicationState: PublicationState): GalleryImage
-  galleryImages(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [GalleryImage]
-  galleryImagesConnection(sort: String, limit: Int, start: Int, where: JSON): GalleryImageConnection
+  galleryImages(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [GalleryImage]
+  galleryImagesConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): GalleryImageConnection
   galleryTag(id: ID!, publicationState: PublicationState): GalleryTags
-  galleryTags(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [GalleryTags]
-  galleryTagsConnection(sort: String, limit: Int, start: Int, where: JSON): GalleryTagsConnection
+  galleryTags(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [GalleryTags]
+  galleryTagsConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): GalleryTagsConnection
   gallery(id: ID!, publicationState: PublicationState): Gallery
-  galleries(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Gallery]
-  galleriesConnection(sort: String, limit: Int, start: Int, where: JSON): GalleryConnection
+  galleries(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [Gallery]
+  galleriesConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): GalleryConnection
   garden(id: ID!, publicationState: PublicationState): Gardens
-  gardens(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Gardens]
-  gardensConnection(sort: String, limit: Int, start: Int, where: JSON): GardensConnection
-  files(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UploadFile]
-  filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
+  gardens(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [Gardens]
+  gardensConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): GardensConnection
+  files(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [UploadFile]
+  filesConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): UploadFileConnection
   role(id: ID!, publicationState: PublicationState): UsersPermissionsRole
 
   """
   Retrieve all the existing roles. You can't apply filters on this query.
   """
-  roles(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UsersPermissionsRole]
-  rolesConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsRoleConnection
+  roles(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [UsersPermissionsRole]
+  rolesConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): UsersPermissionsRoleConnection
   user(id: ID!, publicationState: PublicationState): UsersPermissionsUser
-  users(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UsersPermissionsUser]
-  usersConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsUserConnection
+  users(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [UsersPermissionsUser]
+  usersConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): UsersPermissionsUserConnection
   me: UsersPermissionsMe
 }
 
 type Mutation {
-  createArticleCategory(input: createArticleCategoryInput): createArticleCategoryPayload
-  updateArticleCategory(input: updateArticleCategoryInput): updateArticleCategoryPayload
-  deleteArticleCategory(input: deleteArticleCategoryInput): deleteArticleCategoryPayload
+  createArticleCategory(
+    input: createArticleCategoryInput
+  ): createArticleCategoryPayload
+  updateArticleCategory(
+    input: updateArticleCategoryInput
+  ): updateArticleCategoryPayload
+  deleteArticleCategory(
+    input: deleteArticleCategoryInput
+  ): deleteArticleCategoryPayload
   createArticleTag(input: createArticleTagInput): createArticleTagPayload
   updateArticleTag(input: updateArticleTagInput): updateArticleTagPayload
   deleteArticleTag(input: deleteArticleTagInput): deleteArticleTagPayload
   createArticle(input: createArticleInput): createArticlePayload
   updateArticle(input: updateArticleInput): updateArticlePayload
   deleteArticle(input: deleteArticleInput): deleteArticlePayload
-  createGalleryCategory(input: createGalleryCategoryInput): createGalleryCategoryPayload
-  updateGalleryCategory(input: updateGalleryCategoryInput): updateGalleryCategoryPayload
-  deleteGalleryCategory(input: deleteGalleryCategoryInput): deleteGalleryCategoryPayload
+  createGalleryCategory(
+    input: createGalleryCategoryInput
+  ): createGalleryCategoryPayload
+  updateGalleryCategory(
+    input: updateGalleryCategoryInput
+  ): updateGalleryCategoryPayload
+  deleteGalleryCategory(
+    input: deleteGalleryCategoryInput
+  ): deleteGalleryCategoryPayload
   createGalleryImage(input: createGalleryImageInput): createGalleryImagePayload
   updateGalleryImage(input: updateGalleryImageInput): updateGalleryImagePayload
   deleteGalleryImage(input: deleteGalleryImageInput): deleteGalleryImagePayload
@@ -1609,47 +1930,83 @@ type Mutation {
   updateGarden(input: updateGardenInput): updateGardenPayload
   deleteGarden(input: deleteGardenInput): deleteGardenPayload
 
-  """Delete one file"""
+  """
+  Delete one file
+  """
   deleteFile(input: deleteFileInput): deleteFilePayload
 
-  """Create a new role"""
+  """
+  Create a new role
+  """
   createRole(input: createRoleInput): createRolePayload
 
-  """Update an existing role"""
+  """
+  Update an existing role
+  """
   updateRole(input: updateRoleInput): updateRolePayload
 
-  """Delete an existing role"""
+  """
+  Delete an existing role
+  """
   deleteRole(input: deleteRoleInput): deleteRolePayload
 
-  """Create a new user"""
+  """
+  Create a new user
+  """
   createUser(input: createUserInput): createUserPayload
 
-  """Update an existing user"""
+  """
+  Update an existing user
+  """
   updateUser(input: updateUserInput): updateUserPayload
 
-  """Delete an existing user"""
+  """
+  Delete an existing user
+  """
   deleteUser(input: deleteUserInput): deleteUserPayload
-  upload(refId: ID, ref: String, field: String, source: String, info: FileInfoInput, file: Upload!): UploadFile!
-  multipleUpload(refId: ID, ref: String, field: String, source: String, files: [Upload]!): [UploadFile]!
+  upload(
+    refId: ID
+    ref: String
+    field: String
+    source: String
+    info: FileInfoInput
+    file: Upload!
+  ): UploadFile!
+  multipleUpload(
+    refId: ID
+    ref: String
+    field: String
+    source: String
+    files: [Upload]!
+  ): [UploadFile]!
   updateFileInfo(id: ID!, info: FileInfoInput!): UploadFile!
   login(input: UsersPermissionsLoginInput!): UsersPermissionsLoginPayload!
   register(input: UsersPermissionsRegisterInput!): UsersPermissionsLoginPayload!
   forgotPassword(email: String!): UserPermissionsPasswordPayload
-  resetPassword(password: String!, passwordConfirmation: String!, code: String!): UsersPermissionsLoginPayload
+  resetPassword(
+    password: String!
+    passwordConfirmation: String!
+    code: String!
+  ): UsersPermissionsLoginPayload
   emailConfirmation(confirmation: String!): UsersPermissionsLoginPayload
 }
 
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
-scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+scalar JSON
+  @specifiedBy(
+    url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf"
+  )
 
 """
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
 scalar DateTime
 
-"""A time string with format: HH:mm:ss.SSS"""
+"""
+A time string with format: HH:mm:ss.SSS
+"""
 scalar Time
 
 """
@@ -1657,8 +2014,12 @@ A date string, such as 2007-12-03, compliant with the `full-date` format outline
 """
 scalar Date
 
-"""The `Long` scalar type represents 52-bit integers"""
+"""
+The `Long` scalar type represents 52-bit integers
+"""
 scalar Long
 
-"""The `Upload` scalar type represents a file upload."""
+"""
+The `Upload` scalar type represents a file upload.
+"""
 scalar Upload
