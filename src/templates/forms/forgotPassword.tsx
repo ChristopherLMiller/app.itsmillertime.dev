@@ -32,8 +32,6 @@ const ForgotPasswordForm: FunctionComponent = () => {
     console.log(`ForgotPasswordForm hCaptcha Token Expired`);
   };
 
-  console.log(process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY);
-
   return (
     <Formik
       initialValues={{ email: `` }}
