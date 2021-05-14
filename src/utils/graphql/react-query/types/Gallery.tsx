@@ -27,6 +27,7 @@ export type Gallery = {
   featured_image?: Maybe<UploadFile>;
   status: Enum_Gallery_Status;
   nsfw?: Maybe<Scalars[`Boolean`]>;
+  meta?: Maybe<Scalars[`String`]>;
   gallery_categories?: Maybe<Array<Maybe<GalleryCategories>>>;
   gallery_tags?: Maybe<Array<Maybe<GalleryTags>>>;
   roles?: Maybe<Array<Maybe<UsersPermissionsRole>>>;
