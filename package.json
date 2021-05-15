@@ -39,7 +39,7 @@
     "next": "^10.2.0",
     "next-auth": "^3.23.0",
     "next-cookies": "^2.0.3",
-    "next-offline": "^5.0.3",
+    "next-offline": "^5.0.5",
     "next-seo": "^4.24.0",
     "next-sitemap": "^1.6.18",
     "normalize.css": "^8.0.1",
