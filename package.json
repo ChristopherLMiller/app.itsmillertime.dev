@@ -55,7 +55,7 @@
     "react-snowfall": "^1.0.2",
     "react-spinners": "^0.10.6",
     "react-toast-notifications": "^2.4.3",
-    "react-use": "^17.2.1",
+    "react-use": "^17.2.4",
     "remark": "^13.0.0",
     "remark-emoji": "^2.1.0",
     "remark-fix-guillemets": "^1.1.1",
@@ -64,7 +64,7 @@
     "remark-parse": "^9.0.0",
     "remark-react": "^8.0.0",
     "remark-sub-super": "^1.0.20",
-    "sharp": "^0.26.3",
+    "sharp": "^0.28.2",
     "styled-components": "^5.2.3",
     "winston": "^3.3.3",
     "yup": "^0.32.9"
