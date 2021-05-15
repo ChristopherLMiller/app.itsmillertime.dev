@@ -75,7 +75,7 @@
     "@graphql-codegen/cli": "^1.21.4",
     "@graphql-codegen/typescript": "^1.21.1",
     "@graphql-codegen/typescript-react-query": "^1.2.4",
-    "@next/bundle-analyzer": "^10.0.7",
+    "@next/bundle-analyzer": "^10.2.0",
     "@types/gtag.js": "0.0.4",
     "@types/hcaptcha__react-hcaptcha": "^0.1.4",
     "@types/node": "^15.3.0",
