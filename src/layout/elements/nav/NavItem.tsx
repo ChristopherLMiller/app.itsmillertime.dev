@@ -1,9 +1,8 @@
-import { useAuth } from 'src/lib/AuthProvider';
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
-import { LOGGED_IN, LOGGED_OUT } from 'config';
+//import { LOGGED_IN, LOGGED_OUT } from 'config';
 import { useRouter } from 'next/router';
 
 interface iNavItem {
@@ -46,7 +45,7 @@ const NavContainerVariants = {
     },
   },
   rest: {
-    boxShadow: `none`,
+    boxShadow: `var(--box-shadow-inset-0)`,
     transition: {
       duration: 0.25,
     },
@@ -86,15 +85,15 @@ const Text = styled.span`
 
 const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
   const router = useRouter();
-  const auth = useAuth();
   const isLocalUrl = !item.href.includes(`http`);
 
   // see if the user is authorized to view this
-  if (!auth.methods.hasPermission(item.requiredRoles)) return null;
+  // TODO: Fix this, for next auth
+  /*if (!auth.methods.hasPermission(item.requiredRoles)) return null;
 
   // chek the auth state of the item
-  if (item.authState === LOGGED_IN && !auth.isAuthenticated) return null;
-  if (item.authState === LOGGED_OUT && auth.isAuthenticated) return null;
+  if (item.authState === LOGGED_IN && !session.isAuthenticated) return null;
+  if (item.authState === LOGGED_OUT && auth.isAuthenticated) return null;*/
 
   // use the router to determine if this is the active path
   const isActive = item?.activePaths?.includes(router.pathname);

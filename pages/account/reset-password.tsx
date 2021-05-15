@@ -1,4 +1,3 @@
-import { useAuth } from 'src/lib/AuthProvider';
 import PageLayout from 'src/layout/PageLayout';
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import {
@@ -13,7 +12,7 @@ import * as Yup from 'yup';
 import Card from 'src/components/Card';
 import { Grid } from 'src/components/Grid';
 import { useRouter } from 'next/router';
-import { AppearanceTypes, useToasts } from 'react-toast-notifications';
+import { useToasts } from 'react-toast-notifications';
 import { NextSeo } from 'next-seo';
 import { NextPage } from 'next';
 
@@ -28,11 +27,11 @@ const title = `Reset Password`;
 const description = `Recever your account, reset your password now`;
 
 const ResetPasswordPage: NextPage = () => {
-  const auth = useAuth();
   const router = useRouter();
   const { addToast } = useToasts();
 
   const code = router.query[`code`] as string;
+  console.log(code);
 
   return (
     <PageLayout title={title} description={description}>
@@ -61,13 +60,17 @@ const ResetPasswordPage: NextPage = () => {
             initialValues={{ password: ``, passwordConfirm: `` }}
             onSubmit={async (values, { setSubmitting }) => {
               setSubmitting(true);
-              const result = await auth.methods.resetPassword(
+              /*const result = await auth.methods.resetPassword(
                 values.password,
                 code
               );
 
               addToast(result.message, {
                 appearance: result.status as AppearanceTypes,
+              });*/
+              // TODO: Fix resetting password flow
+              addToast(`This page isn't fully implemented`, {
+                appearance: `info`,
               });
               setSubmitting(false);
             }}

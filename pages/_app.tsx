@@ -1,5 +1,4 @@
 import { ThemeProvider } from 'styled-components';
-import { AuthProvider } from 'src/lib/AuthProvider';
 import { defaultTheme, GlobalStyles } from '@/styles/default';
 import styled from 'styled-components';
 import { ToastProvider } from 'react-toast-notifications';
@@ -14,6 +13,7 @@ import TopBar from 'src/layout/elements/TopBar';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { init } from 'src/utils/functions/sentry';
 import ScrollTop from 'src/components/ScrollTop';
+import { Provider } from 'next-auth/client';
 
 // global CSS
 import 'node_modules/normalize.css/normalize.css';
@@ -79,7 +79,7 @@ const App: AppComponent = ({ Component, pageProps, err }) => {
   });
 
   return (
-    <AuthProvider>
+    <Provider session={pageProps.session}>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen />
         <ThemeProvider theme={defaultTheme}>
@@ -123,7 +123,7 @@ const App: AppComponent = ({ Component, pageProps, err }) => {
           </ToastProvider>
         </ThemeProvider>
       </QueryClientProvider>
-    </AuthProvider>
+    </Provider>
   );
 };
 

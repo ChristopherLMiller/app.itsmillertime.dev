@@ -6,7 +6,8 @@ import { ForgotPasswordForm } from 'src/templates/forms';
 import { Grid } from 'src/components/Grid';
 import PageLayout from 'src/layout/PageLayout';
 import styled from 'styled-components';
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
+import { getSession } from 'next-auth/client';
 
 const title = `Forgot Password?`;
 const description = `How could you forget your password?`;
@@ -84,5 +85,21 @@ const ForgotPasswordPage: NextPage = () => (
     </Card>
   </PageLayout>
 );
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  // if the session exists redirect to the home page as the user shouldn't be able to login again.
+  if (session?.user) {
+    context.res.writeHead(302, {
+      Location: `/`,
+      'Content-Type': `text/html; chaset=utf-8`,
+    });
+    context.res.end();
+  }
+  return {
+    props: { session },
+  };
+};
 
 export default ForgotPasswordPage;

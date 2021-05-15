@@ -7,32 +7,39 @@ import {
   FormErrorMessage,
 } from 'src/components/inputs';
 import * as Yup from 'yup';
-import { AppearanceTypes, useToasts } from 'react-toast-notifications';
-import { useAuth } from 'src/lib/AuthProvider';
+import { useToasts } from 'react-toast-notifications';
 import { FunctionComponent } from 'react';
+import { signIn } from 'next-auth/client';
+import { useRouter } from 'next/router';
 
 const FormValidation = Yup.object().shape({
-  identifier: Yup.string().required(`Please enter your username or email`),
+  username: Yup.string().required(`Please enter your username or email`),
   password: Yup.string().required(`We need your password please`),
 });
 
 const LoginForm: FunctionComponent = () => {
   const { addToast } = useToasts();
-  const auth = useAuth();
+  const router = useRouter();
 
   return (
     <Formik
-      initialValues={{ identifier: ``, password: `` }}
+      initialValues={{ username: ``, password: `` }}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
-        const result = await auth.methods.login(
-          values.identifier,
-          values.password
-        );
-
-        addToast(result.message, {
-          appearance: result.status as AppearanceTypes,
+        const response = await signIn(`credentials`, {
+          redirect: false,
+          ...values,
         });
+        if (response.error) {
+          addToast(response.error, {
+            appearance: `error`,
+          });
+        } else if (response.ok) {
+          addToast(`Welcome back!  You've been logged in successfully`, {
+            appearance: `success`,
+          });
+          router.push(`/`);
+        }
 
         setSubmitting(false);
       }}
@@ -42,10 +49,10 @@ const LoginForm: FunctionComponent = () => {
         <Form>
           <StyledForm>
             <Fieldset>
-              <Label htmlFor="identifier">Username or Email:</Label>
-              <Field type="text" name="identifier" />
+              <Label htmlFor="username">Username or Email:</Label>
+              <Field type="text" name="username" />
               <FormErrorMessage>
-                <ErrorMessage name="identifier" component="div" />
+                <ErrorMessage name="username" component="div" />
               </FormErrorMessage>
             </Fieldset>
             <Fieldset>

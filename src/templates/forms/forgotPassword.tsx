@@ -7,8 +7,7 @@ import {
   FormErrorMessage,
 } from 'src/components/inputs';
 import * as Yup from 'yup';
-import { AppearanceTypes, useToasts } from 'react-toast-notifications';
-import { useAuth } from 'src/lib/AuthProvider';
+import { useToasts } from 'react-toast-notifications';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { FunctionComponent, useRef, useState } from 'react';
 
@@ -22,7 +21,7 @@ const ForgotPasswordForm: FunctionComponent = () => {
   const { addToast } = useToasts();
   const [token, setToken] = useState(null);
   const captchaRef = useRef<HCaptcha>();
-  const auth = useAuth();
+  //const auth = useAuth();
 
   const onError = (err) => {
     console.error(`ForgotPasswordForm hCaptcha Error: ${err}`);
@@ -38,12 +37,14 @@ const ForgotPasswordForm: FunctionComponent = () => {
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
         captchaRef?.current?.resetCaptcha();
+        addToast(`This page isn't implemented full`, { appearance: `info` });
 
-        const result = await auth.methods.forgotPassword(values.email);
+        // TODO: Fix forgot password form so that users can reset password!
+        //const result = await auth.methods.forgotPassword(values.email);
 
-        addToast(result.message, {
-          appearance: result.status as AppearanceTypes,
-        });
+        //addToast(result.message, {
+        //  appearance: result.status as AppearanceTypes,
+        //});
 
         setSubmitting(false);
       }}

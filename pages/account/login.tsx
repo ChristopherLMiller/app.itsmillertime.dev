@@ -6,8 +6,8 @@ import { SITE_DEFAULT_IMAGE_FILE, CLOUDINARY_CLOUD } from 'config';
 import { NextSeo } from 'next-seo';
 import { LoginForm } from 'src/templates/forms';
 import Link from 'next/link';
-import { NextPage } from 'next';
-import cookies from 'next-cookies';
+import { GetServerSideProps, NextPage } from 'next';
+import { getSession } from 'next-auth/client';
 
 const title = `Login`;
 const description = `Access your Account`;
@@ -85,18 +85,20 @@ const LoginPage: NextPage = () => (
   </PageLayout>
 );
 
-LoginPage.getInitialProps = async (ctx) => {
-  // We need to verify if the person is logged in first of all, if they are then redirect to the home page.
-  const clientCookies = cookies(ctx);
-  if (clientCookies.jwt) {
-    ctx.res.writeHead(302, {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  // if the session exists redirect to the home page as the user shouldn't be able to login again.
+  if (session?.user) {
+    context.res.writeHead(302, {
       Location: `/`,
       'Content-Type': `text/html; chaset=utf-8`,
     });
-    ctx.res.end();
-    return;
+    context.res.end();
   }
-
-  return {};
+  return {
+    props: { session },
+  };
 };
+
 export default LoginPage;

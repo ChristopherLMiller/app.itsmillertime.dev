@@ -1,4 +1,3 @@
-import { useAuth } from 'src/lib/AuthProvider';
 import PageLayout from 'src/layout/PageLayout';
 import { NextPage } from 'next';
 import { Grid, GridItem } from 'src/components/Grid';
@@ -6,6 +5,7 @@ import Card from 'src/components/Card';
 import styled from 'styled-components';
 import { NextSeo } from 'next-seo';
 import { SITE_DEFAULT_IMAGE_FILE, CLOUDINARY_CLOUD } from 'config';
+import { useSession } from 'next-auth/client';
 
 const title = `My Account`;
 const description = `Manage your account here`;
@@ -17,8 +17,8 @@ const InformationPanel = styled.div`
 `;
 
 const MyAccount: NextPage = () => {
-  const auth = useAuth();
-
+  const [session] = useSession();
+  console.log(session);
   return (
     <PageLayout title={title} description={description}>
       <NextSeo
@@ -41,11 +41,7 @@ const MyAccount: NextPage = () => {
         }}
       />
       <Grid columns={3}>
-        <img
-          src={auth.methods.getAvatar()}
-          alt="Avatar picture of self"
-          loading="lazy"
-        />
+        <img src={''} alt="Avatar picture of self" loading="lazy" />
         <GridItem start={2} end={3}>
           <Card heading="My Information" align="left">
             <InformationPanel>
@@ -54,19 +50,13 @@ const MyAccount: NextPage = () => {
                   <p>Username:</p>
                 </GridItem>
                 <GridItem>
-                  <p>{auth.methods.getUsername()}</p>
+                  <p>{session?.user?.username}</p>
                 </GridItem>
                 <GridItem>
                   <p>Email:</p>
                 </GridItem>
                 <GridItem>
-                  <p>{auth.methods.getEmail()}</p>
-                </GridItem>
-                <GridItem>
-                  <p>Birthdate: </p>
-                </GridItem>
-                <GridItem>
-                  <p>{auth.methods.getBirthdate()}</p>
+                  <p>{session?.user?.email}</p>
                 </GridItem>
                 <GridItem>
                   <p>Account Confirmed:</p>
@@ -74,7 +64,7 @@ const MyAccount: NextPage = () => {
                 <GridItem>
                   <input
                     type="checkbox"
-                    checked={auth.methods.isAccountConfirmed()}
+                    checked={session?.user?.confirmed}
                     disabled
                   />
                 </GridItem>
@@ -85,7 +75,7 @@ const MyAccount: NextPage = () => {
                   <p>
                     <input
                       type="checkbox"
-                      checked={auth.methods.isAccountBlocked()}
+                      checked={session?.user?.blocked}
                       disabled
                     />
                   </p>
@@ -94,7 +84,7 @@ const MyAccount: NextPage = () => {
                   <p>User Role:</p>
                 </GridItem>
                 <GridItem>
-                  <p>{auth.methods.getRole()}</p>
+                  <p>{session?.user?.role?.name}</p>
                 </GridItem>
               </Grid>
             </InformationPanel>
