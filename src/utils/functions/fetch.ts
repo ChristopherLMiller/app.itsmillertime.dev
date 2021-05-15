@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 
 // All of this is the old way till you reach the bottom of the document
 // This should be considered depricated at this point
+// TODO: Remove this
 const fetch = Axios.create({
   baseURL: process.env.NEXT_PUBLIC_STRAPI_URL,
   headers: {
@@ -23,14 +24,6 @@ fetch.interceptors.response.use(
     }
   }
 );
-
-export const addBearerToken = (token: string): void => {
-  fetch.defaults.headers.Authorization = `Bearer ${token}`;
-};
-
-export const removeBearerToken = (): void => {
-  delete fetch.defaults.headers.Authorization;
-};
 
 export default fetch;
 

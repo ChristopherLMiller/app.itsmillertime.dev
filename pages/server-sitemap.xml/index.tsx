@@ -1,5 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { getServerSideSitemap } from 'next-sitemap';
+// TODO: Remove this fetch for native
 import fetch from 'src/utils/functions/fetch';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
