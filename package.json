@@ -27,7 +27,7 @@
     "@zeit/next-source-maps": "0.0.3",
     "axios": "^0.21.1",
     "date-fns": "^2.21.3",
-    "dotenv": "^8.2.0",
+    "dotenv": "^9.0.2",
     "dotenv-flow": "^3.2.0",
     "formik": "^2.2.6",
     "framer-motion": "^4.1.16",
