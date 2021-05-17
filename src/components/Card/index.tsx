@@ -121,8 +121,11 @@ export interface iActionLink {
   title: string;
 }
 
+declare const VALID_ALIGNMENT: readonly [`left`, `center`, `right`];
+export declare type alignmentValue = typeof VALID_ALIGNMENT[number];
+
 interface CardProps {
-  align?: string;
+  align?: alignmentValue;
   heading?: string;
   subHeading?: string;
   padding?: boolean;
