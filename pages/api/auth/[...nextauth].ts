@@ -24,7 +24,6 @@ const options = {
               password: credentials.password,
             }
           );
-          console.log(response.data);
           if (response.data) {
             return response.data;
           } else {

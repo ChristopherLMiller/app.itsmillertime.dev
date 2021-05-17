@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import Router from 'next/router';
 import { GraphQLClient } from 'graphql-request';
-import Cookies from 'js-cookie';
+import { getSession } from 'next-auth/client';
 
 // All of this is the old way till you reach the bottom of the document
 // This should be considered depricated at this point
@@ -37,14 +37,14 @@ export function fetcher<TData, TVariables>(
   variables?: TVariables
 ) {
   return async (): Promise<TData> => {
-    const jwt = Cookies.get(`jwt`);
+    const session = await getSession();
     const requestHeaders = {
-      authorization: `Bearer ${jwt}`,
+      authorization: `Bearer ${session?.jwt}`,
     };
     return await graphQLClient.request(
       query,
       variables,
-      jwt ? requestHeaders : null
+      session ? requestHeaders : null
     );
   };
 }

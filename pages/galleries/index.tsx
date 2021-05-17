@@ -61,16 +61,18 @@ const GalleriesIndexPage: NextPage<iGalleriesIndexPage> = ({ nsfw }) => {
         }}
       />
       {isFetching && <Loader isLoading={isFetching} />}
-      <Grid gap="30px" min="425px" masonry>
+      <Grid gap="30px" min="500px" masonry>
         {data?.galleries?.map((gallery) => (
-          <Link href={`/galleries/gallery/${gallery.slug}`}>
+          <Link href={`/galleries/album/${gallery.slug}`} key={gallery.slug}>
             <Anchor>
               <Image
                 public_id={`${gallery.featured_image.provider_metadata.public_id}`}
                 width={gallery.featured_image.width}
                 height={gallery.featured_image.height}
                 alt={`${gallery.title}`}
-                caption={`${gallery.title}`}
+                caption={`${gallery.title}${
+                  gallery.status === `PUBLIC` ? `` : ` - ${gallery.status}`
+                }`}
                 hoverable
                 key={gallery.slug}
               />
