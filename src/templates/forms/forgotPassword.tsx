@@ -10,6 +10,9 @@ import * as Yup from 'yup';
 import { useToasts } from 'react-toast-notifications';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { FunctionComponent, useRef, useState } from 'react';
+import { isDev } from 'src/utils/functions/isDev';
+import { useForgotPasswordMutation } from 'src/utils/graphql/react-query/mutations/forgotPassword';
+import { useRouter } from 'next/router';
 
 const ForgotFormValidation = Yup.object().shape({
   email: Yup.string()
@@ -18,10 +21,11 @@ const ForgotFormValidation = Yup.object().shape({
 });
 
 const ForgotPasswordForm: FunctionComponent = () => {
+  const router = useRouter();
+  const mutation = useForgotPasswordMutation();
   const { addToast } = useToasts();
   const [token, setToken] = useState(null);
   const captchaRef = useRef<HCaptcha>();
-  //const auth = useAuth();
 
   const onError = (err) => {
     console.error(`ForgotPasswordForm hCaptcha Error: ${err}`);
@@ -36,17 +40,41 @@ const ForgotPasswordForm: FunctionComponent = () => {
       initialValues={{ email: `` }}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
-        captchaRef?.current?.resetCaptcha();
-        addToast(`This page isn't implemented full`, { appearance: `info` });
+        console.log(values);
+        mutation.mutate({ email: values.email });
 
-        // TODO: Fix forgot password form so that users can reset password!
-        //const result = await auth.methods.forgotPassword(values.email);
+        if (mutation.isIdle) {
+          addToast(`There is a bug, please submit the form again. Sorry`, {
+            appearance: `info`,
+          });
+        }
 
-        //addToast(result.message, {
-        //  appearance: result.status as AppearanceTypes,
-        //});
+        console.log(`executed mutation`);
 
-        setSubmitting(false);
+        // if there is an error with this let the user know
+        if (mutation.isError) {
+          const message =
+            mutation?.error?.response?.errors[0]?.extensions?.exception?.data
+              ?.message[0]?.messages[0];
+          console.error(`forgotPassword: ${message.id}`);
+          addToast(message.message, { appearance: `error` });
+          setSubmitting(false);
+        }
+
+        // If it succeeds
+        if (mutation.isSuccess) {
+          addToast(
+            `An email has been sent to your email with further instructions to reset your password`,
+            { appearance: `success` }
+          );
+          setSubmitting(false);
+          router.push(`/`);
+        }
+
+        // reset the hcaptcha field
+        if (!isDev()) {
+          captchaRef?.current?.resetCaptcha();
+        }
       }}
       validationSchema={ForgotFormValidation}
     >
@@ -60,16 +88,18 @@ const ForgotPasswordForm: FunctionComponent = () => {
                 <ErrorMessage name="email" component="div" />
               </FormErrorMessage>
             </Fieldset>
-            <HCaptcha
-              sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY}
-              onError={onError}
-              onVerify={setToken}
-              onExpire={onExpire}
-              ref={captchaRef}
-            />
+            {!isDev() && (
+              <HCaptcha
+                sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY}
+                onError={onError}
+                onVerify={setToken}
+                onExpire={onExpire}
+                ref={captchaRef}
+              />
+            )}
             <Button
               type="submit"
-              isDisabled={!(isValid && dirty && token)}
+              isDisabled={!(isValid && dirty && (isDev() || token))}
               isSubmitting={isSubmitting}
             >
               Reset Password

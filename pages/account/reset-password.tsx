@@ -60,18 +60,7 @@ const ResetPasswordPage: NextPage = () => {
             initialValues={{ password: ``, passwordConfirm: `` }}
             onSubmit={async (values, { setSubmitting }) => {
               setSubmitting(true);
-              /*const result = await auth.methods.resetPassword(
-                values.password,
-                code
-              );
-
-              addToast(result.message, {
-                appearance: result.status as AppearanceTypes,
-              });*/
-              // TODO: Fix resetting password flow
-              addToast(`This page isn't fully implemented`, {
-                appearance: `info`,
-              });
+              console.log(values);
               setSubmitting(false);
             }}
             validationSchema={FormValidation}

@@ -41,12 +41,10 @@ export function fetcher<TData, TVariables>(
     const requestHeaders = {
       authorization: `Bearer ${jwt}`,
     };
-    const res = await graphQLClient.request(
+    return await graphQLClient.request(
       query,
       variables,
       jwt ? requestHeaders : null
     );
-
-    return res;
   };
 }
