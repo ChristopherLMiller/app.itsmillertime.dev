@@ -10,7 +10,6 @@ const description = `Programmer.  Amateur Designer.  Model Enthsiast.`;
 
 const IndexPage: NextPage = () => {
   const [session] = useSession();
-  console.log(session);
   return (
     <PageLayout title={title} description={description}>
       <NextSeo

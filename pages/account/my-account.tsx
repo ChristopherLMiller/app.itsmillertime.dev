@@ -18,7 +18,6 @@ const InformationPanel = styled.div`
 
 const MyAccount: NextPage = () => {
   const [session] = useSession();
-  console.log(session);
   return (
     <PageLayout title={title} description={description}>
       <NextSeo
