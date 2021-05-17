@@ -67,7 +67,8 @@ interface iImage {
   public_id: string;
   width: number;
   height: number;
-  layout?: unknown;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  layout?: any;
   alt: string;
   hoverable?: boolean;
   caption?: string;
