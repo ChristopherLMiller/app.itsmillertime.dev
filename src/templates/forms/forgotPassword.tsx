@@ -54,7 +54,7 @@ const ForgotPasswordForm: FunctionComponent = () => {
         // if there is an error with this let the user know
         if (mutation.isError) {
           const message =
-            mutation?.error?.response?.errors[0]?.extensions?.exception?.data
+            mutation.error[`response`]?.errors[0]?.extensions?.exception?.data
               ?.message[0]?.messages[0];
           console.error(`forgotPassword: ${message.id}`);
           addToast(message.message, { appearance: `error` });

@@ -41,7 +41,7 @@ const MyAccount: NextPage = () => {
         }}
       />
       <Grid columns={3}>
-        <img src={''} alt="Avatar picture of self" loading="lazy" />
+        <img src={``} alt="Avatar picture of self" loading="lazy" />
         <GridItem start={2} end={3}>
           <Card heading="My Information" align="left">
             <InformationPanel>

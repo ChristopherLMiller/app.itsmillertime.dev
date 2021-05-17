@@ -12,6 +12,7 @@ const description = `Random thoughts of me`;
 const DigitalGardenIndexPage: NextPage = () => {
   const router = useRouter();
   const { slug } = router.query;
+  console.log(slug);
   /*const { isLoading, error, data } = useQuery([`digitalGarden`, { slug }], () =>
     gqlQuery(ALL_GARDEN_ITEMS_STRING)
   );*/

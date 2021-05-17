@@ -67,7 +67,7 @@ interface iImage {
   public_id: string;
   width: number;
   height: number;
-  layout?: any;
+  layout?: unknown;
   alt: string;
   hoverable?: boolean;
   caption?: string;
@@ -77,7 +77,7 @@ const ImageDefault: FunctionComponent<iImage> = ({
   public_id,
   width,
   height,
-  layout = 'responsive',
+  layout = `responsive`,
   alt,
   hoverable,
   caption,

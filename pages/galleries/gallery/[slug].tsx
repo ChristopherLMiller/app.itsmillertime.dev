@@ -7,7 +7,7 @@ import { useGalleriesQuery } from 'src/utils/graphql/react-query/queries/Galleri
 import { useRouter } from 'next/router';
 
 interface iGalleryPage {
-  SEO: any;
+  SEO: unknown;
 }
 const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
   const router = useRouter();
