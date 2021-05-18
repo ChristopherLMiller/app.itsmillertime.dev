@@ -10,6 +10,7 @@ import Card from 'src/components/Card';
 import Markdown from 'src/components/Card/elements/Markdown';
 import styled from 'styled-components';
 import { formatRelative } from 'date-fns';
+import { getServerSideSEO } from 'src/utils/functions/fetch';
 
 const GalleryGrid = styled.div`
   display: grid;
@@ -104,34 +105,24 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
-  if (session) {
-    const requestHeaders = new Headers({
-      Authorization: `Bearer ${session?.jwt}`,
-    });
-
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL}/galleries?slug=${
-        context.query[`slug`]
-      }`,
-      {
-        headers: session ? requestHeaders : null,
-      }
-    );
-
-    const data = await res.json();
-
+  const data = await getServerSideSEO(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/galleries?slug=${
+      context.query[`slug`]
+    }`,
+    context
+  );
+  if (data.length) {
     return {
       props: { SEO: data[0] },
     };
+  } else {
+    return {
+      redirect: {
+        destination: `/404`,
+        permanent: false,
+      },
+    };
   }
-
-  return {
-    redirect: {
-      destination: `/404`,
-      permanent: false,
-    },
-  };
 };
 
 export default GalleryPage;
