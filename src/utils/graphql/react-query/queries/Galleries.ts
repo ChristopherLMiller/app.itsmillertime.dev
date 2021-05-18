@@ -64,7 +64,7 @@ export type GalleriesQuery = { __typename?: `Query` } & {
                 Maybe<
                   { __typename?: `GalleryCategories` } & Pick<
                     GalleryCategories,
-                    `id` | `_id` | `slug`
+                    `id` | `_id` | `title` | `slug`
                   >
                 >
               >
@@ -74,7 +74,7 @@ export type GalleriesQuery = { __typename?: `Query` } & {
                 Maybe<
                   { __typename?: `GalleryTags` } & Pick<
                     GalleryTags,
-                    `id` | `_id` | `slug`
+                    `id` | `_id` | `slug` | `title`
                   >
                 >
               >
@@ -196,11 +196,13 @@ export const GalleriesDocument = `
       id
       _id
       slug
+      title
     }
     gallery_tags {
       id
       _id
       slug
+      title
     }
     gallery_images {
       id

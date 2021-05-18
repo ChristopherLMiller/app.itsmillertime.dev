@@ -9,7 +9,7 @@ const Main = styled(motion.main)`
   flex-grow: 1;
 
   @media (min-width: 800px) {
-    padding: 0 ${(props) => (props.padding ? `15%` : `1%`)};
+    padding: 0 ${(props) => (props.padding ? `15%` : `5%`)};
   }
 `;
 

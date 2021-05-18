@@ -45,6 +45,9 @@ const ImageOverlay = styled(motion.div)`
   }
 `;
 
+const Caption = styled.p``;
+const SubText = styled.span``;
+
 const ImageOverlayVariants = {
   rest: {
     background: `hsl(0deg 0% 0% / 0.6)`,
@@ -82,6 +85,7 @@ const ImageDefault: FunctionComponent<iImage> = ({
   alt,
   hoverable,
   caption,
+  children,
 }) => (
   <ImageContainer
     variants={ImageContainerVariants}
@@ -97,7 +101,10 @@ const ImageDefault: FunctionComponent<iImage> = ({
       loading={`eager`}
     />
     {caption && (
-      <ImageOverlay variants={ImageOverlayVariants}>{caption}</ImageOverlay>
+      <ImageOverlay variants={ImageOverlayVariants}>
+        <Caption>{caption}</Caption>
+        <SubText>{children}</SubText>
+      </ImageOverlay>
     )}
   </ImageContainer>
 );

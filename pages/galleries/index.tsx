@@ -9,6 +9,7 @@ import Loader from 'src/components/Loader';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useGalleriesQuery } from 'src/utils/graphql/react-query/queries/Galleries';
+import { ArrayList } from 'src/components/arrayList';
 
 const title = `Gallery`;
 const description = `A visual of all the things me!`;
@@ -21,11 +22,21 @@ const Anchor = styled.a`
     box-shadow: none;
   }
 `;
+
+const SubText = styled.div`
+  p {
+    font-size: 0.75em;
+
+    span {
+      font-size: 1em;
+    }
+  }
+`;
 interface iGalleriesIndexPage {
   nsfw: string;
 }
 const GalleriesIndexPage: NextPage<iGalleriesIndexPage> = ({ nsfw }) => {
-  const { isFetching, error, data } = useGalleriesQuery({
+  const { isLoading, error, data } = useGalleriesQuery({
     sort: `createdAt:ASC`,
     where: { nsfw },
   });
@@ -41,7 +52,7 @@ const GalleriesIndexPage: NextPage<iGalleriesIndexPage> = ({ nsfw }) => {
   }
 
   return (
-    <PageLayout title={title} description={description}>
+    <PageLayout title={title} description={description} padding={false}>
       <NextSeo
         title={title}
         description={description}
@@ -60,8 +71,8 @@ const GalleriesIndexPage: NextPage<iGalleriesIndexPage> = ({ nsfw }) => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/galleries`,
         }}
       />
-      {isFetching && <Loader isLoading={isFetching} />}
-      <Grid gap="30px" min="500px" masonry>
+      {isLoading && <Loader isLoading={isLoading} />}
+      <Grid gap="30px" columns={3} masonry>
         {data?.galleries?.map((gallery) => (
           <Link href={`/galleries/album/${gallery.slug}`} key={gallery.slug}>
             <Anchor>
@@ -75,7 +86,16 @@ const GalleriesIndexPage: NextPage<iGalleriesIndexPage> = ({ nsfw }) => {
                 }`}
                 hoverable
                 key={gallery.slug}
-              />
+              >
+                <SubText>
+                  <p>
+                    Categories: <ArrayList array={gallery.gallery_categories} />
+                  </p>
+                  <p>
+                    Tags: <ArrayList array={gallery.gallery_tags} />
+                  </p>
+                </SubText>
+              </Image>
             </Anchor>
           </Link>
         ))}

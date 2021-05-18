@@ -19,19 +19,21 @@ export const Grid = styled.div<iGrid>`
   ${(props) => props.justify && `justify-items: ` + props.justify};
   margin-bottom: ${(props) => (props.marginBottom ? `50px` : `0`)};
 
-  @media (max-width: 400px) {
-    grid-template-columns: repeat(
-      ${(props) => (props.columns ? props.columns : `1`)},
-      1fr
-    );
-  }
+  ${(props) =>
+    props.columns > 0 &&
+    `@media (min-width: 600px) {grid-template-columns: repeat(2, 1fr)}
+    @media (min-width: 800px) {grid-template-columns: repeat(${props.columns}, 1fr)
+  }`}
 
-  @media (min-width: ${(props) => props.min || `300px`}) {
+  ${(props) =>
+    props.min !== undefined &&
+    `
+  @media (min-width: ${props.min || `300px`}) {
     grid-template-columns: repeat(
       auto-fit,
-      minmax(${(props) => props.min || `300px`}, 1fr)
+      minmax(${props.min || `300px`}, 1fr)
     );
-  }
+  }`}
 `;
 
 interface iGridItem {
