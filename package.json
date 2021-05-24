@@ -71,7 +71,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.2",
-    "@babel/eslint-parser": "^7.14.2",
+    "@babel/eslint-parser": "^7.14.3",
     "@graphql-codegen/cli": "^1.21.4",
     "@graphql-codegen/typescript": "^1.21.1",
     "@graphql-codegen/typescript-react-query": "^1.2.4",
