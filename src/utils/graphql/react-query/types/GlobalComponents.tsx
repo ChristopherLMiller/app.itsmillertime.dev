@@ -16,6 +16,28 @@ export type EditComponentGlobalSellInput = {
   price?: Maybe<Scalars[`Int`]>;
 };
 
+export type ComponentGlobalSeo = {
+  __typename?: `ComponentGlobalSeo`;
+  id: Scalars[`ID`];
+  _id: Scalars[`ID`];
+  title?: Maybe<Scalars[`String`]>;
+  description?: Maybe<Scalars[`String`]>;
+  Sharing?: Maybe<ComponentGlobalShare>;
+};
+
+export type ComponentGlobalSeoInput = {
+  title?: Maybe<Scalars[`String`]>;
+  description?: Maybe<Scalars[`String`]>;
+  Sharing?: Maybe<ComponentGlobalShareInput>;
+};
+
+export type EditComponentGlobalSeoInput = {
+  id?: Maybe<Scalars[`ID`]>;
+  title?: Maybe<Scalars[`String`]>;
+  description?: Maybe<Scalars[`String`]>;
+  Sharing?: Maybe<EditComponentGlobalShareInput>;
+};
+
 export type ComponentGlobalShare = {
   __typename?: `ComponentGlobalShare`;
   id: Scalars[`ID`];

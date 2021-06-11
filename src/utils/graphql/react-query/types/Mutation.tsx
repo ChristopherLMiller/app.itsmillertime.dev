@@ -64,6 +64,38 @@ import {
   DeleteGardenInput,
 } from './Garden';
 import {
+  CreateManufacturerPayload,
+  UpdateManufacturerPayload,
+  DeleteManufacturerPayload,
+  CreateManufacturerInput,
+  UpdateManufacturerInput,
+  DeleteManufacturerInput,
+} from './Manufacturer';
+import {
+  CreateModelPayload,
+  UpdateModelPayload,
+  DeleteModelPayload,
+  CreateModelInput,
+  UpdateModelInput,
+  DeleteModelInput,
+} from './Model';
+import {
+  CreateModelTagPayload,
+  UpdateModelTagPayload,
+  DeleteModelTagPayload,
+  CreateModelTagInput,
+  UpdateModelTagInput,
+  DeleteModelTagInput,
+} from './ModelTag';
+import {
+  CreateScalePayload,
+  UpdateScalePayload,
+  DeleteScalePayload,
+  CreateScaleInput,
+  UpdateScaleInput,
+  DeleteScaleInput,
+} from './Scale';
+import {
   DeleteFilePayload,
   UploadFile,
   DeleteFileInput,
@@ -114,6 +146,18 @@ export type Mutation = {
   createGarden?: Maybe<CreateGardenPayload>;
   updateGarden?: Maybe<UpdateGardenPayload>;
   deleteGarden?: Maybe<DeleteGardenPayload>;
+  createManufacturer?: Maybe<CreateManufacturerPayload>;
+  updateManufacturer?: Maybe<UpdateManufacturerPayload>;
+  deleteManufacturer?: Maybe<DeleteManufacturerPayload>;
+  createModelTag?: Maybe<CreateModelTagPayload>;
+  updateModelTag?: Maybe<UpdateModelTagPayload>;
+  deleteModelTag?: Maybe<DeleteModelTagPayload>;
+  createModel?: Maybe<CreateModelPayload>;
+  updateModel?: Maybe<UpdateModelPayload>;
+  deleteModel?: Maybe<DeleteModelPayload>;
+  createScale?: Maybe<CreateScalePayload>;
+  updateScale?: Maybe<UpdateScalePayload>;
+  deleteScale?: Maybe<DeleteScalePayload>;
   /** Delete one file */
   deleteFile?: Maybe<DeleteFilePayload>;
   /** Create a new role */
@@ -232,6 +276,54 @@ export type MutationUpdateGardenArgs = {
 
 export type MutationDeleteGardenArgs = {
   input?: Maybe<DeleteGardenInput>;
+};
+
+export type MutationCreateManufacturerArgs = {
+  input?: Maybe<CreateManufacturerInput>;
+};
+
+export type MutationUpdateManufacturerArgs = {
+  input?: Maybe<UpdateManufacturerInput>;
+};
+
+export type MutationDeleteManufacturerArgs = {
+  input?: Maybe<DeleteManufacturerInput>;
+};
+
+export type MutationCreateModelTagArgs = {
+  input?: Maybe<CreateModelTagInput>;
+};
+
+export type MutationUpdateModelTagArgs = {
+  input?: Maybe<UpdateModelTagInput>;
+};
+
+export type MutationDeleteModelTagArgs = {
+  input?: Maybe<DeleteModelTagInput>;
+};
+
+export type MutationCreateModelArgs = {
+  input?: Maybe<CreateModelInput>;
+};
+
+export type MutationUpdateModelArgs = {
+  input?: Maybe<UpdateModelInput>;
+};
+
+export type MutationDeleteModelArgs = {
+  input?: Maybe<DeleteModelInput>;
+};
+
+export type MutationCreateScaleArgs = {
+  input?: Maybe<CreateScaleInput>;
+};
+
+export type MutationUpdateScaleArgs = {
+  input?: Maybe<UpdateScaleInput>;
+};
+
+export type MutationDeleteScaleArgs = {
+  input?: Maybe<DeleteScaleInput>;
 };
 
 export type MutationDeleteFileArgs = {

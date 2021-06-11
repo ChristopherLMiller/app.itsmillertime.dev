@@ -136,7 +136,89 @@ import {
   UpdateGardenPayload,
   DeleteGardenPayload,
 } from './Garden';
-import { ComponentGlobalSell, ComponentGlobalShare } from './GlobalComponents';
+import {
+  ComponentGlobalSell,
+  ComponentGlobalSeo,
+  ComponentGlobalShare,
+} from './GlobalComponents';
+import {
+  Manufacturer,
+  ManufacturerConnection,
+  ManufacturerAggregator,
+  ManufacturerGroupBy,
+  ManufacturerConnectionId,
+  ManufacturerConnection_Id,
+  ManufacturerConnectionCreatedAt,
+  ManufacturerConnectionUpdatedAt,
+  ManufacturerConnectionName,
+  ManufacturerConnectionSlug,
+  CreateManufacturerPayload,
+  UpdateManufacturerPayload,
+  DeleteManufacturerPayload,
+} from './Manufacturer';
+import {
+  Model,
+  ModelConnection,
+  ModelAggregator,
+  ModelAggregatorSum,
+  ModelAggregatorAvg,
+  ModelAggregatorMin,
+  ModelAggregatorMax,
+  ModelGroupBy,
+  ModelConnectionId,
+  ModelConnection_Id,
+  ModelConnectionCreatedAt,
+  ModelConnectionUpdatedAt,
+  ModelConnectionTitle,
+  ModelConnectionSlug,
+  ModelConnectionContent,
+  ModelConnectionCompleted,
+  ModelConnectionKit_Number,
+  ModelConnectionYear_Released,
+  ModelConnectionClockify_Project_Id,
+  ModelConnectionScalemates_Link,
+  ModelConnectionScale,
+  ModelConnectionManufacturer,
+  ModelConnectionFeatured_Image,
+  ModelConnectionCompleted_At,
+  ModelConnectionYoutube_Video,
+  ModelConnectionStatus,
+  ModelConnectionSeo,
+  ModelConnectionPublished_At,
+  CreateModelPayload,
+  UpdateModelPayload,
+  DeleteModelPayload,
+} from './Model';
+import {
+  ModelTags,
+  ModelTagsConnection,
+  ModelTagsAggregator,
+  ModelTagsGroupBy,
+  ModelTagsConnectionId,
+  ModelTagsConnection_Id,
+  ModelTagsConnectionCreatedAt,
+  ModelTagsConnectionUpdatedAt,
+  ModelTagsConnectionName,
+  ModelTagsConnectionSlug,
+  CreateModelTagPayload,
+  UpdateModelTagPayload,
+  DeleteModelTagPayload,
+} from './ModelTag';
+import {
+  Scale,
+  ScaleConnection,
+  ScaleAggregator,
+  ScaleGroupBy,
+  ScaleConnectionId,
+  ScaleConnection_Id,
+  ScaleConnectionCreatedAt,
+  ScaleConnectionUpdatedAt,
+  ScaleConnectionName,
+  ScaleConnectionSlug,
+  CreateScalePayload,
+  UpdateScalePayload,
+  DeleteScalePayload,
+} from './Scale';
 import {
   UploadFile,
   UploadFileConnection,
@@ -262,10 +344,6 @@ export type Morph =
   | GalleryCategoriesConnectionUpdatedAt
   | GalleryCategoriesConnectionTitle
   | GalleryCategoriesConnectionSlug
-  | GalleryCategoriesConnectionImage_Large
-  | GalleryCategoriesConnectionImage_Full
-  | GalleryCategoriesConnectionImage_Large_Watermarked
-  | GalleryCategoriesConnectionImage_Full_Watermarked
   | CreateGalleryCategoryPayload
   | UpdateGalleryCategoryPayload
   | DeleteGalleryCategoryPayload
@@ -309,10 +387,10 @@ export type Morph =
   | GalleryConnectionUpdatedAt
   | GalleryConnectionTitle
   | GalleryConnectionSlug
-  | GalleryConnectionDescription
   | GalleryConnectionFeatured_Image
   | GalleryConnectionStatus
   | GalleryConnectionNsfw
+  | GalleryConnectionDescription
   | CreateGalleryPayload
   | UpdateGalleryPayload
   | DeleteGalleryPayload
@@ -330,6 +408,76 @@ export type Morph =
   | CreateGardenPayload
   | UpdateGardenPayload
   | DeleteGardenPayload
+  | Manufacturer
+  | ManufacturerConnection
+  | ManufacturerAggregator
+  | ManufacturerGroupBy
+  | ManufacturerConnectionId
+  | ManufacturerConnection_Id
+  | ManufacturerConnectionCreatedAt
+  | ManufacturerConnectionUpdatedAt
+  | ManufacturerConnectionName
+  | ManufacturerConnectionSlug
+  | CreateManufacturerPayload
+  | UpdateManufacturerPayload
+  | DeleteManufacturerPayload
+  | ModelTags
+  | ModelTagsConnection
+  | ModelTagsAggregator
+  | ModelTagsGroupBy
+  | ModelTagsConnectionId
+  | ModelTagsConnection_Id
+  | ModelTagsConnectionCreatedAt
+  | ModelTagsConnectionUpdatedAt
+  | ModelTagsConnectionName
+  | ModelTagsConnectionSlug
+  | CreateModelTagPayload
+  | UpdateModelTagPayload
+  | DeleteModelTagPayload
+  | Model
+  | ModelConnection
+  | ModelAggregator
+  | ModelAggregatorSum
+  | ModelAggregatorAvg
+  | ModelAggregatorMin
+  | ModelAggregatorMax
+  | ModelGroupBy
+  | ModelConnectionId
+  | ModelConnection_Id
+  | ModelConnectionCreatedAt
+  | ModelConnectionUpdatedAt
+  | ModelConnectionTitle
+  | ModelConnectionSlug
+  | ModelConnectionContent
+  | ModelConnectionCompleted
+  | ModelConnectionKit_Number
+  | ModelConnectionYear_Released
+  | ModelConnectionClockify_Project_Id
+  | ModelConnectionScalemates_Link
+  | ModelConnectionScale
+  | ModelConnectionManufacturer
+  | ModelConnectionFeatured_Image
+  | ModelConnectionCompleted_At
+  | ModelConnectionYoutube_Video
+  | ModelConnectionStatus
+  | ModelConnectionSeo
+  | ModelConnectionPublished_At
+  | CreateModelPayload
+  | UpdateModelPayload
+  | DeleteModelPayload
+  | Scale
+  | ScaleConnection
+  | ScaleAggregator
+  | ScaleGroupBy
+  | ScaleConnectionId
+  | ScaleConnection_Id
+  | ScaleConnectionCreatedAt
+  | ScaleConnectionUpdatedAt
+  | ScaleConnectionName
+  | ScaleConnectionSlug
+  | CreateScalePayload
+  | UpdateScalePayload
+  | DeleteScalePayload
   | UploadFile
   | UploadFileConnection
   | UploadFileAggregator
@@ -388,4 +536,5 @@ export type Morph =
   | UpdateUserPayload
   | DeleteUserPayload
   | ComponentGlobalSell
+  | ComponentGlobalSeo
   | ComponentGlobalShare;

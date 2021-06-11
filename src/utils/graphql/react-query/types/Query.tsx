@@ -10,6 +10,10 @@ import {
 import { GalleryImage, GalleryImageConnection } from './GalleryImage';
 import { GalleryTags, GalleryTagsConnection } from './GalleryTag';
 import { Gardens, GardensConnection } from './Garden';
+import { Manufacturer, ManufacturerConnection } from './Manufacturer';
+import { Model, ModelConnection } from './Model';
+import { ModelTags, ModelTagsConnection } from './ModelTag';
+import { Scale, ScaleConnection } from './Scale';
 import { UploadFile, UploadFileConnection } from './UploadFile';
 import {
   UsersPermissionsRole,
@@ -45,6 +49,18 @@ export type Query = {
   garden?: Maybe<Gardens>;
   gardens?: Maybe<Array<Maybe<Gardens>>>;
   gardensConnection?: Maybe<GardensConnection>;
+  manufacturer?: Maybe<Manufacturer>;
+  manufacturers?: Maybe<Array<Maybe<Manufacturer>>>;
+  manufacturersConnection?: Maybe<ManufacturerConnection>;
+  modelTag?: Maybe<ModelTags>;
+  modelTags?: Maybe<Array<Maybe<ModelTags>>>;
+  modelTagsConnection?: Maybe<ModelTagsConnection>;
+  model?: Maybe<Model>;
+  models?: Maybe<Array<Maybe<Model>>>;
+  modelsConnection?: Maybe<ModelConnection>;
+  scale?: Maybe<Scale>;
+  scales?: Maybe<Array<Maybe<Scale>>>;
+  scalesConnection?: Maybe<ScaleConnection>;
   files?: Maybe<Array<Maybe<UploadFile>>>;
   filesConnection?: Maybe<UploadFileConnection>;
   role?: Maybe<UsersPermissionsRole>;
@@ -211,6 +227,86 @@ export type QueryGardensArgs = {
 };
 
 export type QueryGardensConnectionArgs = {
+  sort?: Maybe<Scalars[`String`]>;
+  limit?: Maybe<Scalars[`Int`]>;
+  start?: Maybe<Scalars[`Int`]>;
+  where?: Maybe<Scalars[`JSON`]>;
+};
+
+export type QueryManufacturerArgs = {
+  id: Scalars[`ID`];
+  publicationState?: Maybe<PublicationState>;
+};
+
+export type QueryManufacturersArgs = {
+  sort?: Maybe<Scalars[`String`]>;
+  limit?: Maybe<Scalars[`Int`]>;
+  start?: Maybe<Scalars[`Int`]>;
+  where?: Maybe<Scalars[`JSON`]>;
+  publicationState?: Maybe<PublicationState>;
+};
+
+export type QueryManufacturersConnectionArgs = {
+  sort?: Maybe<Scalars[`String`]>;
+  limit?: Maybe<Scalars[`Int`]>;
+  start?: Maybe<Scalars[`Int`]>;
+  where?: Maybe<Scalars[`JSON`]>;
+};
+
+export type QueryModelTagArgs = {
+  id: Scalars[`ID`];
+  publicationState?: Maybe<PublicationState>;
+};
+
+export type QueryModelTagsArgs = {
+  sort?: Maybe<Scalars[`String`]>;
+  limit?: Maybe<Scalars[`Int`]>;
+  start?: Maybe<Scalars[`Int`]>;
+  where?: Maybe<Scalars[`JSON`]>;
+  publicationState?: Maybe<PublicationState>;
+};
+
+export type QueryModelTagsConnectionArgs = {
+  sort?: Maybe<Scalars[`String`]>;
+  limit?: Maybe<Scalars[`Int`]>;
+  start?: Maybe<Scalars[`Int`]>;
+  where?: Maybe<Scalars[`JSON`]>;
+};
+
+export type QueryModelArgs = {
+  id: Scalars[`ID`];
+  publicationState?: Maybe<PublicationState>;
+};
+
+export type QueryModelsArgs = {
+  sort?: Maybe<Scalars[`String`]>;
+  limit?: Maybe<Scalars[`Int`]>;
+  start?: Maybe<Scalars[`Int`]>;
+  where?: Maybe<Scalars[`JSON`]>;
+  publicationState?: Maybe<PublicationState>;
+};
+
+export type QueryModelsConnectionArgs = {
+  sort?: Maybe<Scalars[`String`]>;
+  limit?: Maybe<Scalars[`Int`]>;
+  start?: Maybe<Scalars[`Int`]>;
+  where?: Maybe<Scalars[`JSON`]>;
+};
+
+export type QueryScaleArgs = {
+  id: Scalars[`ID`];
+  publicationState?: Maybe<PublicationState>;
+};
+
+export type QueryScalesArgs = {
+  sort?: Maybe<Scalars[`String`]>;
+  limit?: Maybe<Scalars[`Int`]>;
+  start?: Maybe<Scalars[`Int`]>;
+  where?: Maybe<Scalars[`JSON`]>;
+  publicationState?: Maybe<PublicationState>;
+};
+
+export type QueryScalesConnectionArgs = {
   sort?: Maybe<Scalars[`String`]>;
   limit?: Maybe<Scalars[`Int`]>;
   start?: Maybe<Scalars[`Int`]>;
