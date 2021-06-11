@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { useGalleriesQuery } from 'src/utils/graphql/react-query/queries/Galleries';
 import { ArrayList } from 'src/components/arrayList';
+import { useRouter } from 'next/router';
 
 const title = `Gallery`;
 const description = `A visual of all the things me!`;
@@ -32,13 +33,14 @@ const SubText = styled.div`
     }
   }
 `;
-interface iGalleriesIndexPage {
-  nsfw: string;
-}
-const GalleriesIndexPage: NextPage<iGalleriesIndexPage> = ({ nsfw }) => {
+
+const GalleriesIndexPage: NextPage = () => {
+  const router = useRouter();
+  const queryParams = router.query;
+  console.log(router.query);
   const { isLoading, error, data } = useGalleriesQuery({
     sort: `createdAt:ASC`,
-    where: { nsfw },
+    where: { queryParams },
   });
 
   if (error) {
@@ -102,11 +104,6 @@ const GalleriesIndexPage: NextPage<iGalleriesIndexPage> = ({ nsfw }) => {
       </Grid>
     </PageLayout>
   );
-};
-
-GalleriesIndexPage.getInitialProps = async (ctx) => {
-  const clientCookies = cookies(ctx);
-  return { nsfw: clientCookies?.nsfw };
 };
 
 export default GalleriesIndexPage;

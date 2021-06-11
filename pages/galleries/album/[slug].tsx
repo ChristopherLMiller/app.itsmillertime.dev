@@ -5,7 +5,6 @@ import PageLayout from 'src/layout/PageLayout';
 import Image from 'src/components/Images';
 import { useGalleriesQuery } from 'src/utils/graphql/react-query/queries/Galleries';
 import { useRouter } from 'next/router';
-import { getSession } from 'next-auth/client';
 import Card from 'src/components/Card';
 import Markdown from 'src/components/Card/elements/Markdown';
 import styled from 'styled-components';
@@ -14,8 +13,20 @@ import { getServerSideSEO } from 'src/utils/functions/fetch';
 
 const GalleryGrid = styled.div`
   display: grid;
-  grid-template-columns: auto 450px;
+  grid-template-columns: 1fr;
   gap: 30px;
+
+  @media screen and (min-width: 750px) {
+    grid-template-columns: auto 1fr;
+  }
+`;
+
+const Reverse = styled.div`
+  grid-row: 1;
+
+  @media screen and (min-width: 750px) {
+    grid-row: auto;
+  }
 `;
 interface iGalleryPage {
   SEO: {
@@ -79,25 +90,27 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
             ))}
           </Grid>
 
-          <Card heading="About This Gallery" align="left">
-            <p>Album Name: {gallery.title}</p>
-            <p>
-              Created On:{` `}
-              {formatRelative(
-                new Date(gallery.createdAt as string),
-                new Date()
-              )}
-            </p>
-            <p>
-              Last Updated:{` `}
-              {formatRelative(
-                new Date(gallery.updatedAt as string),
-                new Date()
-              )}
-            </p>
-            <p># Images: {gallery.gallery_images.length}</p>
-            <Markdown source={gallery?.meta} />
-          </Card>
+          <Reverse>
+            <Card heading="About This Gallery" align="left">
+              <p>Album Name: {gallery.title}</p>
+              <p>
+                Created On:{` `}
+                {formatRelative(
+                  new Date(gallery.createdAt as string),
+                  new Date()
+                )}
+              </p>
+              <p>
+                Last Updated:{` `}
+                {formatRelative(
+                  new Date(gallery.updatedAt as string),
+                  new Date()
+                )}
+              </p>
+              <p># Images: {gallery.gallery_images.length}</p>
+              <Markdown source={gallery?.meta} />
+            </Card>
+          </Reverse>
         </GalleryGrid>
       )}
     </PageLayout>
