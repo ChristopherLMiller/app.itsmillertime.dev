@@ -4,7 +4,6 @@ import PageLayout from 'src/layout/PageLayout';
 import Image from 'src/components/Images';
 import Card from 'src/components/Card';
 import { NextPage } from 'next';
-import cookies from 'next-cookies';
 import Loader from 'src/components/Loader';
 import styled from 'styled-components';
 import Link from 'next/link';

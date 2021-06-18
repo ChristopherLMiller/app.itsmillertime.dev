@@ -10,6 +10,7 @@ export const defaultTheme = {
     alt: `Oswald, sans-serif`,
     block: `'Source Code pro', monospace`,
     typewriter: `'Special Elite', monospace`,
+    permanentMarker: `'Permanent Marker', serif`,
   },
 };
 
@@ -19,6 +20,7 @@ export const GlobalStyles = createGlobalStyle`
     --font-alt: ${defaultTheme.fonts.alt};
     --font-block: ${defaultTheme.fonts.block};
     --font-typewriter: ${defaultTheme.fonts.typewriter};
+    --font-marker: ${defaultTheme.fonts.permanentMarker};
 
     // box shadow
     --box-shadow-elev-0: 0px 0px 0px rgba(0,0,0,0), 0px 0px 0px rgba(0,0,0,0);

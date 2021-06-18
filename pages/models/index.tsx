@@ -2,6 +2,8 @@ import { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import Card from 'src/components/Card';
+import { Grid } from 'src/components/Grid';
+import Polaroid from 'src/components/Polaroid';
 import PageLayout from 'src/layout/PageLayout';
 
 const title = `Models`;
@@ -33,8 +35,38 @@ const ModelsPageIndex: NextPage = () => {
         }}
       />
       <Card heading="Models">
-        <p>Models will appear here eventually</p>
+        <p>Models will appear here</p>
       </Card>
+      <Grid masonry min="400px" gap="30px">
+        <Polaroid
+          src="clm-new/uploads/thumbnail_IMG_1634_843a666db8"
+          alt="Test"
+          width={1920}
+          height={1280}
+          caption="Bonneville Mill"
+        >
+          Content Here
+        </Polaroid>
+        <Polaroid
+          src="clm-new/uploads/thumbnail_IMG_1634_843a666db8"
+          alt="Test"
+          width={1920}
+          height={1280}
+        />
+        <Polaroid
+          src="clm-new/uploads/thumbnail_IMG_1634_843a666db8"
+          alt="Test"
+          width={1920}
+          height={1280}
+          caption="Model Contest"
+        />
+        <Polaroid
+          src="clm-new/uploads/thumbnail_IMG_1634_843a666db8"
+          alt="Test"
+          width={1920}
+          height={1280}
+        />
+      </Grid>
     </PageLayout>
   );
 };

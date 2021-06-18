@@ -17,7 +17,7 @@ const GalleryGrid = styled.div`
   gap: 30px;
 
   @media screen and (min-width: 750px) {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr 25%;
   }
 `;
 

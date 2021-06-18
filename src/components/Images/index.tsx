@@ -99,6 +99,8 @@ const ImageDefault: FunctionComponent<iImage> = ({
       width={width}
       height={height}
       loading={`eager`}
+      placeholder="blur"
+      blurDataURL={`https://res.cloudinary.com/christopherleemiller/image/upload/e_blur:200/v1621611397/${public_id}`}
     />
     {caption && (
       <ImageOverlay variants={ImageOverlayVariants}>

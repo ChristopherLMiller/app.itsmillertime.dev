@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Modal from 'react-modal';
 import { getYear, isThisMonth } from 'date-fns';
 import Image from 'next/image';
+import ChristmasImage from 'public/christmas.jpg';
 
 const Snowfall = dynamic(() => import(`react-snowfall`), { ssr: false });
 
@@ -90,11 +91,10 @@ const Snowy: FunctionComponent = () => {
           style={ModalStyles}
         >
           <Image
-            src={`/christmas.jpg`}
-            width={4000}
-            height={2069}
+            src={ChristmasImage}
             alt="Merry Christmas"
             layout="responsive"
+            placeholder="blur"
           />
           <button onClick={() => openModal()}>Open Modal</button>
         </Modal>
