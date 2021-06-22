@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { FunctionComponent } from 'react';
 import Link from 'next/link';
+import { FunctionComponent } from 'react';
+import styled from 'styled-components';
 
 const Items = styled.span`
   display: inline-block;
@@ -34,10 +34,10 @@ export const ArrayList: FunctionComponent<iArrayList> = ({
         {!!index && <Splitter>{separator}</Splitter>}
         {asLinks && (
           <Link href={item.slug}>
-            <a>{item.title}</a>
+            <a>{item.title || item.name}</a>
           </Link>
         )}
-        {!asLinks && item?.title}
+        {!asLinks && (item?.title || item?.name)}
       </ItemSpan>
     ))}
     {array.length == 0 && <ItemSpan>None</ItemSpan>}

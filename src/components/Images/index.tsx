@@ -3,8 +3,12 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-const ImageContainer = styled(motion.div)`
-  border: 5px solid var(--color-red-intermediate);
+interface iImageContainer {
+  border: boolean;
+}
+const ImageContainer = styled<iImageContainer>(motion.div)`
+  ${(props) =>
+    props.border && `border: 5px solid var(--color-red-intermediate);`}
   position: relative;
   min-height: 75px;
   height: min-content;
@@ -75,22 +79,25 @@ interface iImage {
   alt: string;
   hoverable?: boolean;
   caption?: string;
+  border?: boolean;
 }
 
 const ImageDefault: FunctionComponent<iImage> = ({
-  public_id,
-  width,
-  height,
+  public_id = `clm-new/uploads/default_fb95099398`,
+  width = 1920,
+  height = 1080,
   layout = `responsive`,
-  alt,
+  alt = `Default Image`,
   hoverable,
   caption,
+  border = true,
   children,
 }) => (
   <ImageContainer
     variants={ImageContainerVariants}
     initial="rest"
     whileHover={hoverable ? `hover` : `rest`}
+    border={border}
   >
     <Image
       src={public_id}
