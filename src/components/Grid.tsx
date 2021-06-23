@@ -3,6 +3,7 @@ import styled from 'styled-components';
 interface iGrid {
   columns?: number;
   background?: string;
+  template?: string;
   gap?: string;
   min?: string;
   masonry?: boolean;

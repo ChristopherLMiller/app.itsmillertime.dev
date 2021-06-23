@@ -6,6 +6,10 @@ import ImageDefault from 'src/components/Images';
 import PageLayout from 'src/layout/PageLayout';
 import { useModelsQuery } from 'src/utils/graphql/react-query/queries/Models';
 import styled from 'styled-components';
+import Card from 'src/components/Card';
+import { Grid } from 'src/components/Grid';
+import { useState } from 'react';
+import { getBuildTime } from 'src/utils/functions/getBuildTime';
 
 const title = `Models`;
 const description = `Airplanes, Tanks, Cars, its all here`;
@@ -33,13 +37,28 @@ const InfoPanel = styled.div``;
 const InfoContent = styled.div`
   padding: 2rem;
   padding-block-start: 0;
+  font-family: var(--font-block);
+
+  p {
+    margin: 0;
+  }
+`;
+
+const ContentArea = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  @media (min-width: 700px) {
+    grid-template-columns: 15% auto;
+  }
 `;
 
 const ModelsPageIndex: NextPage = () => {
   // fetch models query here
   const router = useRouter();
+  const [sort, setSort] = useState(`updatedAt:ASC`);
   const { data, isLoading, error } = useModelsQuery({
-    sort: `updatedAt:ASC`,
+    sort: sort,
   });
 
   if (error) {
@@ -68,36 +87,72 @@ const ModelsPageIndex: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/models`,
         }}
       />
-      {!isLoading &&
-        data.models.map((model) => (
-          <ModelListing key={model.slug}>
-            <ImageDefault
-              public_id={model?.featured_image?.provider_metadata?.public_id}
-              width={model?.featured_image?.width}
-              height={model?.featured_image?.height}
-              alt={model?.featured_image?.alternativeText}
-              border={false}
-            />
-            <InfoPanel>
-              <ModelListingTitle>{model.title}</ModelListingTitle>
-              <InfoContent>
-                <p>
-                  Brand: {model.manufacturer.name}
-                  {` `}
-                  Kit Number: {model.kit_number}
-                  {` `}
-                  Year Released: {model.year_released}
-                  {` `}
-                  Scale: {model.scale.name}
-                </p>
-                <p>Completed: {model?.completed ? `Yes` : `No`}</p>
-                <p>
-                  Tags: <ArrayList array={model.model_tags} />
-                </p>
-              </InfoContent>
-            </InfoPanel>
-          </ModelListing>
-        ))}
+      <ContentArea>
+        <div>
+          <Card heading="Filters">
+            <p>
+              <Grid cols={2} gap="10px">
+                <label>Sort</label>
+                <select name="sort" onChange={(e) => setSort(e.target.value)}>
+                  <option value="title:ASC">Name A-Z</option>
+                  <option value="title:DESC">Name Z-A</option>
+                  <option value="updatedAt:ASC">Updated Recently</option>
+                  <option value="updatedAt:DESC">Updated Oldest</option>
+                </select>
+                <label htmlFor="scale">Scale</label>
+                <select name="scale">
+                  <option>All</option>
+                  <option>1/12</option>
+                  <option>1/25</option>
+                </select>
+                <label>Brand</label>
+                <select name="brand">
+                  <option>Tamiya</option>
+                </select>
+              </Grid>
+            </p>
+          </Card>
+        </div>
+        <div>
+          {!isLoading &&
+            data.models.map((model) => (
+              <ModelListing key={model.slug}>
+                <ImageDefault
+                  public_id={
+                    model?.featured_image?.provider_metadata?.public_id
+                  }
+                  width={model?.featured_image?.width}
+                  height={model?.featured_image?.height}
+                  alt={model?.featured_image?.alternativeText}
+                  border={false}
+                />
+                <InfoPanel>
+                  <ModelListingTitle>{model.title}</ModelListingTitle>
+                  <InfoContent>
+                    <p>
+                      Brand: {model.manufacturer.name}
+                      {` `}
+                      Kit Number: {model.kit_number}
+                      {` `}
+                      Year Released: {model.year_released}
+                      {` `}
+                      Scale: {model.scale.name}
+                    </p>
+                    <p>
+                      Completed: {model?.completed ? `Yes` : `No`} Build Time:
+                      {` `}
+                      {model.clockify_project_id &&
+                        console.log(getBuildTime(model?.clockify_project_id))}
+                    </p>
+                    <p>
+                      Tags: <ArrayList array={model.model_tags} />
+                    </p>
+                  </InfoContent>
+                </InfoPanel>
+              </ModelListing>
+            ))}
+        </div>
+      </ContentArea>
     </PageLayout>
   );
 };
