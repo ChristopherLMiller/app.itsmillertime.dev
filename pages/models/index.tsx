@@ -10,6 +10,7 @@ import Card from 'src/components/Card';
 import { Grid } from 'src/components/Grid';
 import { useState } from 'react';
 import { getBuildTime } from 'src/utils/functions/getBuildTime';
+import BuildTime from 'src/components/BuildTime';
 
 const title = `Models`;
 const description = `Airplanes, Tanks, Cars, its all here`;
@@ -139,10 +140,11 @@ const ModelsPageIndex: NextPage = () => {
                       Scale: {model.scale.name}
                     </p>
                     <p>
-                      Completed: {model?.completed ? `Yes` : `No`} Build Time:
-                      {` `}
-                      {model.clockify_project_id &&
-                        console.log(getBuildTime(model?.clockify_project_id))}
+                      Build Time:{` `}
+                      <BuildTime
+                        clockifyProjectId={model?.clockify_project_id}
+                      />
+                      {` `}Completed: {model?.completed ? `Yes` : `No`}
                     </p>
                     <p>
                       Tags: <ArrayList array={model.model_tags} />

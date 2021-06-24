@@ -7,5 +7,6 @@ export const getBuildTime = async (id: string): Promise<any> => {
     }),
   });
 
-  console.log(response);
+  const data = await response.json();
+  return data?.duration;
 };

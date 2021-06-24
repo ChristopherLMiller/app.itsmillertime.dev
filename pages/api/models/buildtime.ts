@@ -4,7 +4,7 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  const { project_id } = req.body;
+  const { project_id } = JSON.parse(req.body);
 
   // if the project ID isn't supplied just return
   if (!project_id) {
