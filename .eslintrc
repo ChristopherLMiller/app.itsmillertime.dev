@@ -44,11 +44,6 @@
         "props": false
       }
     ],
-    "sort-imports-es6-autofix/sort-imports-es6": [2, {
-      "ignoreCase": false,
-      "ignoreMemberSort": false,
-      "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
-    }],
     "no-console": 0,
     "import/prefer-default-export": 0,
     "import": 0,
@@ -101,5 +96,5 @@
       }
     ]
   },
-  "plugins": ["prettier", "jsx-a11y", "@typescript-eslint", "sort-imports-es6-autofix"]
+  "plugins": ["prettier", "jsx-a11y", "@typescript-eslint"]
 }

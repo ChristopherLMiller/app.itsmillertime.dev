@@ -1,30 +1,28 @@
-import { ThemeProvider } from 'styled-components';
 import { defaultTheme, GlobalStyles } from '@/styles/default';
-import styled from 'styled-components';
-import { ToastProvider } from 'react-toast-notifications';
-import { useRouter } from 'next/router';
-import { Fragment, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import * as gtag from 'src/utils/functions/gtag';
-import { DefaultSeo } from 'next-seo';
-import NProgress from 'nprogress';
-import Head from 'next/head';
-import TopBar from 'src/layout/elements/TopBar';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { init } from 'src/utils/functions/sentry';
-import ScrollTop from 'src/components/ScrollTop';
 import { Provider } from 'next-auth/client';
-
+import { DefaultSeo } from 'next-seo';
+import SEO from 'next-seo.config';
+import { AppComponent } from 'next/dist/next-server/lib/router/router';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 // global CSS
 import 'node_modules/normalize.css/normalize.css';
-import 'node_modules/prismjs/themes/prism-tomorrow.css';
 import 'node_modules/nprogress/nprogress.css';
-
-import SEO from 'next-seo.config';
-import Snowy from 'src/components/Holiday/Snowy';
-import { AppComponent } from 'next/dist/next-server/lib/router/router';
+import 'node_modules/prismjs/themes/prism-tomorrow.css';
+import NProgress from 'nprogress';
+import { Fragment, useEffect } from 'react';
 import CookieConsent from 'react-cookie-consent';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { ToastProvider } from 'react-toast-notifications';
+import Snowy from 'src/components/Holiday/Snowy';
+import ScrollTop from 'src/components/ScrollTop';
+import TopBar from 'src/layout/elements/TopBar';
+import * as gtag from 'src/utils/functions/gtag';
+import { init } from 'src/utils/functions/sentry';
+import { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 
 // Sentry
 init();

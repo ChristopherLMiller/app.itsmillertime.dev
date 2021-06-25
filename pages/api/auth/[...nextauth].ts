@@ -18,7 +18,7 @@ const options = {
       authorize: async (credentials: iCredentials) => {
         try {
           const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_STRAPI_URL}/auth/local`,
+            `${process.env.STRAPI_URL}/auth/local`,
             {
               identifier: credentials.username,
               password: credentials.password,
@@ -40,7 +40,13 @@ const options = {
   database: process.env.NEXT_PUBLIC_DATABASE_URL,
   session: {
     jwt: true,
-    signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
+    secret: process.env.JWT_SECRET,
+    signingKey: {
+      kty: `oct`,
+      kid: process.env.JWT_SIGNING_KID,
+      alg: `HS512`,
+      k: process.env.JWT_SIGNING_PRIVATE_KEY,
+    },
   },
   callbacks: {
     jwt: async (token, user) => {

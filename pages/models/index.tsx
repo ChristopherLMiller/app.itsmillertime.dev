@@ -9,7 +9,6 @@ import styled from 'styled-components';
 import Card from 'src/components/Card';
 import { Grid } from 'src/components/Grid';
 import { useState } from 'react';
-import { getBuildTime } from 'src/utils/functions/getBuildTime';
 import BuildTime from 'src/components/BuildTime';
 
 const title = `Models`;
@@ -67,6 +66,7 @@ const ModelsPageIndex: NextPage = () => {
   }
 
   console.log(data);
+  console.log(router);
 
   return (
     <PageLayout title={title} description={description} padding={false}>

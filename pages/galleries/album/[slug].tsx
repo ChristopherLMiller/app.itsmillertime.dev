@@ -119,9 +119,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const data = await getServerSideSEO(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/galleries?slug=${
-      context.query[`slug`]
-    }`,
+    `${process.env.STRAPI_URL}/galleries?slug=${context.query[`slug`]}`,
     context
   );
   if (data.length) {
