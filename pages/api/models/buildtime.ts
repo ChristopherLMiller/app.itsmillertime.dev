@@ -8,7 +8,7 @@ export default async (
 
   // if the project ID isn't supplied just return
   if (!project_id) {
-    res.status(400).send({ message: `Missing Project ID` });
+    res.status(400).send({ success: false, message: `Missing Project ID` });
     res.end();
   }
 
@@ -30,6 +30,6 @@ export default async (
 
   // If we got data base then the duration is in that
   if (data) {
-    res.send({ duration: data.duration });
+    res.send({ success: true, duration: data.duration });
   }
 };

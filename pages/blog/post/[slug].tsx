@@ -133,14 +133,16 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch(
-    `https://admin.christopherleemiller.me/articles?slug_eq=${
-      context.query[`slug`]
-    }`
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/articles/seo`,
+    {
+      method: `POST`,
+      body: JSON.stringify({ slug: context.query[`slug`] }),
+    }
   );
-  const data = await res.json();
+  const data = await response.json();
 
-  if (!data.length) {
+  if (!data.success) {
     return {
       redirect: {
         destination: `/404`,
@@ -150,7 +152,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   return {
-    props: { SEO: data[0] },
+    props: { SEO: data.article },
   };
 };
 
