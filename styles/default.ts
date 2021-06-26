@@ -52,6 +52,8 @@ export const GlobalStyles = createGlobalStyle`
     --color-red-intermediate: hsl(0deg 59% 30% / 1);
     --color-red-dark: hsl(0deg 59% 20% / 1);
     --color-gold-transparent: hsl(50deg 59% 25% / 0.8);
+    --color-gold: hsl(50deg 59% 25% / 1);
+    --color-gold-highlight: hsl(50deg 59% 35% / 1);
     --color-grey-intermediate: rgb(107, 107, 107);
     --color-grey-darker: #212121;
     --color-grey-light: #ECECEC;

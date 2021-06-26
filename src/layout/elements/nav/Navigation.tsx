@@ -7,7 +7,7 @@ const StyledNav = styled(motion.nav)`
   display: grid;
   grid-template-columns: 1;
   align-items: center;
-  background: var(--color-gold-transparent);
+  background: var(--color-gold);
   box-shadow: var(--box-shadow-elev-1);
 
   @media (min-width: 500px) {

@@ -27,7 +27,19 @@ import styled from 'styled-components';
 // Sentry
 init();
 
-const Content = styled(motion.div)``;
+const Content = styled(motion.div)`
+  margin-top: calc(55px * 8);
+
+  @media screen and (min-width: 500px) {
+    margin-top: calc(55px * 4);
+  }
+  @media screen and (min-width: 659px) {
+    margin-top: calc(55px * 3);
+  }
+  @media screen and (min-width: 1155px) {
+    margin-top: calc(55px * 2);
+  }
+`;
 
 const CookieConsentText = styled.span`
   font-size: 2rem;
@@ -101,9 +113,10 @@ const App: AppComponent = ({ Component, pageProps, err }) => {
                 This website uses cookies to enhance the user experience.
               </CookieConsentText>
             </CookieConsent>
+            <TopBar />
+
             <AnimatePresence exitBeforeEnter>
               <Fragment key={router.pathname}>
-                <TopBar />
                 <Content>
                   <motion.div
                     key={router.pathname}

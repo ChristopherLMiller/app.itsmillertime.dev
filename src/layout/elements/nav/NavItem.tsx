@@ -24,7 +24,7 @@ const NavContainer = styled(motion.div)<iNavContainer>`
   position: relative;
   background: ${(props) =>
     props.isActive
-      ? `var(--color-gold-transparent)`
+      ? `var(--color-gold-highlight)`
       : `var(--color-white-transparent)`};
   display: flex;
   justify-content: center;

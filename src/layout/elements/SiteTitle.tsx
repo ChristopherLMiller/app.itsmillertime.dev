@@ -6,7 +6,6 @@ const StyledSiteTitle = styled(motion.span)`
   color: var(--color-white-100);
   font-family: var(--font-alt);
   grid-column-start: 3;
-  padding-inline-end: 10px;
 `;
 
 const FirstLetter = styled.span`

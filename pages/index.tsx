@@ -1,9 +1,9 @@
 import PageLayout from 'src/layout/PageLayout';
 import Card from 'src/components/Card';
 import { NextSeo } from 'next-seo';
-import Link from 'next/link';
+
 import { NextPage } from 'next';
-import { signOut, useSession } from 'next-auth/client';
+import { useSession } from 'next-auth/client';
 
 const title = `Home`;
 const description = `Programmer.  Amateur Designer.  Model Enthsiast.`;
@@ -47,18 +47,6 @@ const IndexPage: NextPage = () => {
           If you find any errors or problems you can submit an issue on GitHub,
           or reach me at one of the other places in the sidebar on the left.
         </p>
-
-        {!session?.user ? (
-          <Link href="/account/login">
-            <a>Login</a>
-          </Link>
-        ) : (
-          <div>
-            <a onClick={() => signOut()}>Sign Out</a>
-            {` | `}
-            <Link href="/account/my-account">My Account</Link>
-          </div>
-        )}
       </Card>
     </PageLayout>
   );
