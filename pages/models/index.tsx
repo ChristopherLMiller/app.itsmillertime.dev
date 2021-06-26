@@ -17,8 +17,12 @@ const description = `Airplanes, Tanks, Cars, its all here`;
 const ModelListing = styled.div`
   background: var(--color-white-80);
   display: grid;
-  grid-template-columns: 20% auto;
+  grid-template-columns: 1fr;
   margin-block-end: 3rem;
+
+  @media screen and (min-width: 800px) {
+    grid-template-columns: 200px auto;
+  }
 `;
 
 const ModelListingTitle = styled.h4`
@@ -48,7 +52,7 @@ const ContentArea = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
-  @media (min-width: 700px) {
+  @media (min-width: 900px) {
     grid-template-columns: 15% auto;
   }
 `;
