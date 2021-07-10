@@ -1,14 +1,13 @@
 import { NextSeo } from 'next-seo';
 import PageLayout from 'src/layout/PageLayout';
 import { GetServerSideProps, NextPage } from 'next';
-import { iArticle } from 'src/utils/graphql/types/article';
 import Markdown from 'src/components/Card/elements/Markdown';
 import styled from 'styled-components';
 import { formatRelative, parseISO } from 'date-fns';
-import { timeToRead } from 'src/utils/functions';
-import { countWords } from 'src/utils/functions/countWords';
-import { useRouter } from 'next/router';
-import { useArticleQuery } from 'src/utils/graphql/react-query/queries/Articles';
+import { countWords, timeToRead } from 'src/utils';
+import { getServerSideSEO } from 'src/utils/getServerSideSEO';
+import { useArticleQuery } from 'src/graphql/schema/articles/article.query.generated';
+import { Article } from 'src/graphql/types';
 
 const title = `From My Desk`;
 const description = `Archives concerning all matters web development and beyond`;
@@ -74,15 +73,11 @@ const ArticleHeader = styled.div`
 `;
 
 interface iBlogPost {
-  SEO: iArticle;
+  SEO: Article;
 }
 
 const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
-  const router = useRouter();
-  const { data, error, isLoading } = useArticleQuery({
-    where: { slug: router.query?.slug as string },
-  });
-  const post = data?.articles[0];
+  const { data, error, isLoading } = useArticleQuery({ id: SEO.id });
 
   if (error) {
     console.log(error);
@@ -92,18 +87,18 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
     <PageLayout title={title} description={description}>
       <NextSeo
         title={SEO.title}
-        description={SEO.excerpt}
+        description={SEO.seo.description}
         openGraph={{
           title: `${SEO.title}`,
-          description: `${SEO.excerpt}`,
-          type: `SEO`,
+          description: `${SEO.seo.description}`,
+          type: `seo`,
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/blog/post/${SEO.slug}`,
           images: [
             {
-              url: SEO?.featured_image?.url,
-              width: SEO?.featured_image?.width,
-              height: SEO?.featured_image?.height,
-              alt: SEO?.featured_image?.alternativeText,
+              url: SEO?.seo.featured_image?.url,
+              width: SEO?.seo.featured_image?.width,
+              height: SEO?.seo.featured_image?.height,
+              alt: SEO?.seo.featured_image?.alternativeText,
             },
           ],
         }}
@@ -112,19 +107,19 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
         <StyledBlogPost>
           <ArticleHeader>
             <img
-              src={post?.featured_image?.url}
-              alt={post?.featured_image?.alternativeText}
+              src={data?.article.seo.featured_image?.url}
+              alt={data?.article.seo.featured_image?.alternativeText}
             />
-            <h2>{post.title}</h2>
+            <h2>{data.article.title}</h2>
             <h5>
               Published:{` `}
-              {formatRelative(parseISO(post?.published_at), new Date())} | Time
-              To Read:
-              {timeToRead(countWords(post?.content))}
+              {formatRelative(parseISO(data?.article.published_at), new Date())}
+              {` `}| Time To Read:
+              {timeToRead(countWords(data?.article.content))}
             </h5>
           </ArticleHeader>
           <ArticleListItemContent>
-            <Markdown source={post?.content} />
+            <Markdown source={data?.article.content} />
           </ArticleListItemContent>
         </StyledBlogPost>
       )}
@@ -133,26 +128,31 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/articles/seo`,
-    {
-      method: `POST`,
-      body: JSON.stringify({ slug: context.query[`slug`] }),
-    }
-  );
-  const data = await response.json();
+  const slug = context?.query?.slug;
 
-  if (!data.success) {
-    return {
-      redirect: {
-        destination: `/404`,
-        permanent: false,
-      },
-    };
+  if (slug) {
+    const response = await getServerSideSEO(
+      `${process.env.NEXT_PUBLIC_STRAPI_URL}/articles?slug_eq=${
+        context?.query[`slug`]
+      }`,
+      context
+    );
+
+    const data = await response.json();
+
+    if (data.length) {
+      return {
+        props: { SEO: data[0] },
+      };
+    }
   }
 
+  // default go to 404, not found for whatever reason
   return {
-    props: { SEO: data.article },
+    redirect: {
+      destination: `/404`,
+      permanent: false,
+    },
   };
 };
 

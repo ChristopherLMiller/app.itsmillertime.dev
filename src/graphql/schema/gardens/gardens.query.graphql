@@ -1,0 +1,10 @@
+query Gardens {
+  gardens {
+    title
+    contents
+    slug
+    id
+    _id
+    createdAt: updatedAt
+  }
+}

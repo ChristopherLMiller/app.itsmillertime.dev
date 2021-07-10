@@ -4,13 +4,12 @@ import { useRouter } from 'next/router';
 import { ArrayList } from 'src/components/arrayList';
 import ImageDefault from 'src/components/Images';
 import PageLayout from 'src/layout/PageLayout';
-import { useModelsQuery } from 'src/utils/graphql/react-query/queries/Models';
 import styled from 'styled-components';
 import Card from 'src/components/Card';
 import { Grid } from 'src/components/Grid';
 import { useState } from 'react';
 import BuildTime from 'src/components/BuildTime';
-
+import { useModelsQuery } from 'src/graphql/schema/models/models.query.generated';
 const title = `Models`;
 const description = `Airplanes, Tanks, Cars, its all here`;
 
@@ -124,11 +123,11 @@ const ModelsPageIndex: NextPage = () => {
               <ModelListing key={model.slug}>
                 <ImageDefault
                   public_id={
-                    model?.featured_image?.provider_metadata?.public_id
+                    model?.SEO.featured_image?.provider_metadata?.public_id
                   }
-                  width={model?.featured_image?.width}
-                  height={model?.featured_image?.height}
-                  alt={model?.featured_image?.alternativeText}
+                  width={model?.SEO.featured_image?.width}
+                  height={model?.SEO.featured_image?.height}
+                  alt={model?.SEO.featured_image?.alternativeText}
                   border={false}
                 />
                 <InfoPanel>

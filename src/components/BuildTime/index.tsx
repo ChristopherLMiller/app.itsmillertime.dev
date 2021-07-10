@@ -1,6 +1,5 @@
 import { FunctionComponent, useEffect, useState } from 'react';
-import { getBuildTime } from 'src/utils/functions/getBuildTime';
-import makeDurationFriendly from 'src/utils/functions/makeDurationFriendly';
+import { getBuildTime, makeDurationFriendly } from 'src/utils';
 
 interface iBuildTime {
   clockifyProjectId: string;

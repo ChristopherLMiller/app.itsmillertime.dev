@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from 'config';
-import { truncate } from 'src/utils/functions';
+import { truncate } from 'src/utils';
 import Markdown from 'src/components/Card/elements/Markdown';
 
 interface iCardBody {

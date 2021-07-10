@@ -19,8 +19,8 @@ import { ToastProvider } from 'react-toast-notifications';
 import Snowy from 'src/components/Holiday/Snowy';
 import ScrollTop from 'src/components/ScrollTop';
 import TopBar from 'src/layout/elements/TopBar';
-import * as gtag from 'src/utils/functions/gtag';
-import { init } from 'src/utils/functions/sentry';
+import * as gtag from 'src/lib/gtag';
+import { init } from 'src/lib/sentry';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
 
@@ -93,29 +93,29 @@ const App: AppComponent = ({ Component, pageProps, err }) => {
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen />
         <ThemeProvider theme={defaultTheme}>
-          <ToastProvider
-            autoDismiss
-            autoDismissTimeout={6000}
-            placement="top-right"
-          >
-            <Head>
-              <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1.0"
-              />
-              <meta charSet="utf-8" />
-              <meta name="theme-color" content="#982929" />
-            </Head>
-            <DefaultSeo {...SEO} />
-            <Snowy />
-            <CookieConsent buttonStyle={{ fontSize: `2rem` }}>
-              <CookieConsentText>
-                This website uses cookies to enhance the user experience.
-              </CookieConsentText>
-            </CookieConsent>
-            <TopBar />
+          <Head>
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1.0"
+            />
+            <meta charSet="utf-8" />
+            <meta name="theme-color" content="#982929" />
+          </Head>
+          <DefaultSeo {...SEO} />
+          <Snowy />
+          <CookieConsent buttonStyle={{ fontSize: `2rem` }}>
+            <CookieConsentText>
+              This website uses cookies to enhance the user experience.
+            </CookieConsentText>
+          </CookieConsent>
+          <TopBar />
 
-            <AnimatePresence exitBeforeEnter>
+          <AnimatePresence exitBeforeEnter>
+            <ToastProvider
+              autoDismiss
+              autoDismissTimeout={6000}
+              placement="top-right"
+            >
               <Fragment key={router.pathname}>
                 <Content>
                   <motion.div
@@ -129,9 +129,9 @@ const App: AppComponent = ({ Component, pageProps, err }) => {
                 </Content>
               </Fragment>
               <ScrollTop />
-            </AnimatePresence>
-            <GlobalStyles />
-          </ToastProvider>
+            </ToastProvider>
+          </AnimatePresence>
+          <GlobalStyles />
         </ThemeProvider>
       </QueryClientProvider>
     </Provider>

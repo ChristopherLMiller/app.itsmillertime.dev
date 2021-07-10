@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react';
-import { iUploadFile } from 'src/utils/graphql/types/uploadFile';
 import styled from 'styled-components';
 import Image from 'src/components/Images';
 import { formatRelative, parseISO } from 'date-fns';
+import { UploadFile } from 'src/graphql/types';
 
 const StyledArticleHead = styled.div`
   font-weight: 100;
@@ -29,7 +29,7 @@ const StyledPublishDate = styled.p`
 `;
 
 interface iArticleHead {
-  featuredImage?: iUploadFile;
+  featuredImage?: UploadFile;
   publishedDate: string;
   timeToRead: string;
   title: string;

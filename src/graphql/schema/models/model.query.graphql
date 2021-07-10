@@ -1,0 +1,62 @@
+query Model($id: ID!, $publicationState: PublicationState) {
+  model(id: $id, publicationState: $publicationState) {
+    id
+    createdAt
+    updatedAt
+    title
+    slug
+    content
+    completed
+    kit_number
+    year_released
+    clockify_project_id
+    scalemates_link
+    scale {
+      name
+      slug
+    }
+    manufacturer {
+      slug
+      name
+    }
+    completed_at
+    youtube_video
+    status
+    published_at
+    model_tags {
+      name
+      slug
+    }
+    SEO {
+      title
+      description
+      featured_image {
+        name
+        alternativeText
+        caption
+        width
+        height
+        url
+        previewUrl
+        provider
+        provider_metadata
+      }
+    }
+    sharing {
+      facebook
+      twitter
+      instagram
+    }
+    images {
+      name
+      alternativeText
+      caption
+      width
+      height
+      url
+      previewUrl
+      provider
+      provider_metadata
+    }
+  }
+}

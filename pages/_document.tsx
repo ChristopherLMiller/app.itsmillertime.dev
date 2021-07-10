@@ -6,7 +6,7 @@ import Document, {
   Main,
   NextScript,
 } from 'next/document';
-import { GA_TRACKING_ID } from 'src/utils/functions/gtag';
+import { GA_TRACKING_ID } from 'src/lib/gtag';
 import { ServerStyleSheet } from 'styled-components';
 
 export default class MyDocument extends Document {

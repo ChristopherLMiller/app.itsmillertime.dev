@@ -18,12 +18,14 @@ const options = {
       authorize: async (credentials: iCredentials) => {
         try {
           const response = await axios.post(
-            `${process.env.STRAPI_URL}/auth/local`,
+            `${process.env.NEXT_PUBLIC_STRAPI_URL}/auth/local`,
             {
               identifier: credentials.username,
               password: credentials.password,
             }
           );
+
+          console.log(response.data);
           if (response.data) {
             return response.data;
           } else {
@@ -37,16 +39,16 @@ const options = {
       },
     }),
   ],
-  database: process.env.NEXT_PUBLIC_DATABASE_URL,
+  secret: process.env.SECRET,
   session: {
     jwt: true,
     secret: process.env.JWT_SECRET,
-    signingKey: {
-      kty: `oct`,
+    signingKey: `{
+      kty: 'oct',
       kid: process.env.JWT_SIGNING_KID,
-      alg: `HS512`,
+      alg: 'HS512',
       k: process.env.JWT_SIGNING_PRIVATE_KEY,
-    },
+    }`,
   },
   callbacks: {
     jwt: async (token, user) => {

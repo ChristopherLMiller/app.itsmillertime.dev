@@ -1,18 +1,17 @@
 import { FunctionComponent, useState } from 'react';
-import { iArticle } from 'src/utils/graphql/types/article';
 import styled from 'styled-components';
-import { timeToRead } from 'src/utils/functions/timeToRead';
-import { countWords } from 'src/utils/functions/countWords';
+import { countWords, timeToRead } from 'src/utils';
 import Button from 'src/components/inputs/Button';
 import ArticleHead from './elements/Header';
 import ArticleContent from './elements/Content';
+import { Article } from 'src/graphql/types';
 
 const StyledArticle = styled.div`
   margin-bottom: 50px;
 `;
 
 interface iArticleCard {
-  article: iArticle;
+  article: Article;
   brief?: boolean;
 }
 
@@ -22,7 +21,7 @@ const ArticleCard: FunctionComponent<iArticleCard> = ({ article, brief }) => {
   return (
     <StyledArticle>
       <ArticleHead
-        featuredImage={article.featured_image}
+        featuredImage={article.seo.featured_image}
         publishedDate={article.published_at}
         timeToRead={timeToRead(countWords(article.content))}
         title={article.title}

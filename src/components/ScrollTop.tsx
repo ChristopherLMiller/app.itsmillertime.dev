@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { isClient } from 'src/utils/functions/isClientServer';
+import { isClient } from 'src/utils';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { FaArrowCircleUp } from 'react-icons/fa';
 

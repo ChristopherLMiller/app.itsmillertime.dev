@@ -1,3 +1,0 @@
-import { ALL_GARDEN_ITEMS, ALL_GARDEN_ITEMS_STRING } from './garden';
-
-export { ALL_GARDEN_ITEMS, ALL_GARDEN_ITEMS_STRING };

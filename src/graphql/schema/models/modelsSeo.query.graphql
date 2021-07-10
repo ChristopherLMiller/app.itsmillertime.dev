@@ -1,0 +1,33 @@
+query ModelsSeo(
+  $sort: String
+  $limit: Int
+  $start: Int
+  $where: JSON
+  $publicationState: PublicationState
+) {
+  models(
+    sort: $sort
+    start: $start
+    limit: $limit
+    publicationState: $publicationState
+    where: $where
+  ) {
+    id
+    slug
+    SEO {
+      title
+      description
+      featured_image {
+        name
+        alternativeText
+        caption
+        width
+        height
+        url
+        previewUrl
+        provider
+        provider_metadata
+      }
+    }
+  }
+}

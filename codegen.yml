@@ -1,6 +1,15 @@
+schema: https://raw.githubusercontent.com/ChristopherLMiller/admin.christopherleemiller.me/master/exports/graphql/schema.graphql
+documents: './src/graphql/schema/**/*.graphql'
 generates:
-  types-and-hooks.tsx:
+  src/graphql/types.ts:
+    - typescript
+  src/graphql:
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.ts
+      baseTypesPath: src/graphql/types.ts
     plugins:
-      - typescript
       - typescript-operations
-      - typescript-react-apollo
+      - typescript-react-query
+    config:
+      fetcher: 'src/utils/functions/fetch#fetcher'

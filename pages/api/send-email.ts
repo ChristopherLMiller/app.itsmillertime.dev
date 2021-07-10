@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { sendEmail } from 'src/utils/functions/sendEmail';
+import { sendEmail } from 'src/utils';
 
 export default async (
   req: NextApiRequest,

@@ -7,9 +7,9 @@ import { NextPage } from 'next';
 import Loader from 'src/components/Loader';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { useGalleriesQuery } from 'src/utils/graphql/react-query/queries/Galleries';
 import { ArrayList } from 'src/components/arrayList';
 import { useRouter } from 'next/router';
+import { useGalleriesQuery } from 'src/graphql/schema/galleries/galleries.query.generated';
 
 const title = `Gallery`;
 const description = `A visual of all the things me!`;

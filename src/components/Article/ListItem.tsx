@@ -2,11 +2,8 @@ import { formatRelative, parseISO } from 'date-fns';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
-import { timeToRead } from 'src/utils/functions';
-import { countWords } from 'src/utils/functions/countWords';
-import { iArticle } from 'src/utils/graphql/types/article';
-import { iArticleCategory } from 'src/utils/graphql/types/articleCategories';
-import { iArticleTags } from 'src/utils/graphql/types/articleTags';
+import { Article, ArticleCategory, ArticleTags } from 'src/graphql/types';
+import { countWords, timeToRead } from 'src/utils';
 import styled from 'styled-components';
 import Image from '../Images';
 
@@ -88,18 +85,20 @@ const Excerpt = styled.p`
   }
 `;
 interface iArticleListItem {
-  article: iArticle;
+  article: Article;
 }
 
 const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => (
   <StyledArticleListItem>
     <ArticleListItemImage>
-      {article.featured_image && (
+      {article?.seo?.featured_image && (
         <Image
-          public_id={`${article.featured_image.provider_metadata[`public_id`]}`}
-          width={parseInt(`${article.featured_image.width}`)}
-          height={parseInt(`${article.featured_image.height}`)}
-          alt={article.featured_image.alternativeText}
+          public_id={`${
+            article?.seo?.featured_image.provider_metadata[`public_id`]
+          }`}
+          width={parseInt(`${article?.seo?.featured_image.width}`)}
+          height={parseInt(`${article?.seo?.featured_image.height}`)}
+          alt={article?.seo?.featured_image.alternativeText}
         />
       )}
     </ArticleListItemImage>
@@ -116,10 +115,10 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => (
           Read: {timeToRead(countWords(article.content))}
         </h5>
       </ArticleHeader>
-      <Excerpt>{article.excerpt}</Excerpt>
+      <Excerpt>{article.seo.description}</Excerpt>
       <PostMeta>
         <List>
-          {article.article_categories.map((category: iArticleCategory) => (
+          {article.article_categories.map((category: ArticleCategory) => (
             <li key={category.id}>
               <Link href={`/blog?category=${category.slug}`}>
                 <MetaButton>{category.title}</MetaButton>
@@ -128,7 +127,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => (
           ))}
         </List>
         <List>
-          {article.article_tags.map((tag: iArticleTags) => (
+          {article.article_tags.map((tag: ArticleTags) => (
             <li key={tag.id}>
               <Link href={`/blog?tag=${tag.slug}`} shallow>
                 <MetaButton>{tag.title}</MetaButton>

@@ -2,12 +2,12 @@ import { NextSeo } from 'next-seo';
 import PageLayout from 'src/layout/PageLayout';
 import Card from 'src/components/Card';
 import { NextPage } from 'next';
-import { iArticle } from 'src/utils/graphql/types/article';
 import styled from 'styled-components';
 import ArticleListItem from 'src/components/Article/ListItem';
 import { useRouter } from 'next/router';
 import Loader from 'src/components/Loader';
-import { useArticlesQuery } from 'src/utils/graphql/react-query/queries/Articles';
+import { useArticlesQuery } from 'src/graphql/schema/articles/articles.query.generated';
+import { Article } from 'src/graphql/types';
 
 const title = `From My Desk`;
 const description = `Archives concerning all matters web development and beyond`;
@@ -18,7 +18,13 @@ const ArticleList = styled.ul`
 
 const BlogIndexpage: NextPage = () => {
   const router = useRouter();
-  const { data, error, isFetching } = useArticlesQuery();
+  const { data, error, isFetching } = useArticlesQuery({
+    sort: `createdAt:DESC`,
+  });
+
+  if (!isFetching) {
+    console.log(data.articles);
+  }
 
   // TODO:  Add queries to get by category, tag etc
   console.log(router.query);
@@ -52,12 +58,14 @@ const BlogIndexpage: NextPage = () => {
           <p>More specifically: {error}</p>
         </Card>
       )}
-      {isFetching && <Loader isLoading={isFetching} />}
-      <ArticleList>
-        {data?.articles?.map((article: iArticle) => (
-          <ArticleListItem key={article.id} article={article} />
-        ))}
-      </ArticleList>
+      {isFetching && <Loader isLoading={isFetching} />}(
+      {!isFetching && (
+        <ArticleList>
+          {data?.articles?.map((article) => (
+            <ArticleListItem key={article.id} article={article as Article} />
+          ))}
+        </ArticleList>
+      )}
     </PageLayout>
   );
 };

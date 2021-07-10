@@ -10,8 +10,7 @@ import * as Yup from 'yup';
 import { useToasts } from 'react-toast-notifications';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { FunctionComponent, useRef, useState } from 'react';
-import { isDev } from 'src/utils/functions/isDev';
-import { useForgotPasswordMutation } from 'src/utils/graphql/react-query/mutations/forgotPassword';
+import { isDev } from 'src/utils';
 import { useRouter } from 'next/router';
 
 const ForgotFormValidation = Yup.object().shape({

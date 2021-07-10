@@ -1,0 +1,58 @@
+query Articles(
+  $sort: String
+  $limit: Int
+  $start: Int
+  $where: JSON
+  $publicationState: PublicationState
+) {
+  articles(
+    sort: $sort
+    start: $start
+    limit: $limit
+    publicationState: $publicationState
+    where: $where
+  ) {
+    id
+    _id
+    createdAt
+    updatedAt
+    title
+    content
+    slug
+    users_permissions_user {
+      id
+      username
+      role {
+        id
+        name
+      }
+    }
+    seo {
+      id
+      title
+      description
+      featured_image {
+        name
+        alternativeText
+        caption
+        width
+        height
+        url
+        previewUrl
+        provider
+        provider_metadata
+      }
+    }
+    published_at
+    article_tags {
+      id
+      slug
+      title
+    }
+    article_categories {
+      id
+      slug
+      title
+    }
+  }
+}
