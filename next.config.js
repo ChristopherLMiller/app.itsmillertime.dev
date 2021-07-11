@@ -138,5 +138,5 @@ const nextConfig = {
 };
 
 module.exports = withBundleAnalyzer(
-  withOffline(withSourceMaps(withMDX(nextConfig)))
+  withSourceMaps(withOffline(withMDX(nextConfig)))
 );

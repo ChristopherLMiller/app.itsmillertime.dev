@@ -1,4 +1,4 @@
-import { defaultTheme, GlobalStyles } from '@/styles/default';
+import { defaultTheme, GlobalStyles } from 'styles/default';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Provider } from 'next-auth/client';
 import { DefaultSeo } from 'next-seo';

@@ -1,7 +1,7 @@
 import PageLayout from 'src/layout/PageLayout';
 import Card from 'src/components/Card';
 import { NextSeo } from 'next-seo';
-import UsesMarkdown from 'data/mdx/uses.mdx';
+import UsesMarkdown from 'fixtures/mdx/uses.mdx';
 import { NextPage } from 'next';
 
 const title = `Uses`;

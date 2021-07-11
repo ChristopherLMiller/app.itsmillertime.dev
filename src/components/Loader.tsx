@@ -1,4 +1,4 @@
-import { defaultTheme } from '@/styles/default';
+import { defaultTheme } from 'styles/default';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import SyncLoader from 'react-spinners/SyncLoader';

@@ -2,7 +2,7 @@ import PageLayout from 'src/layout/PageLayout';
 import Card from 'src/components/Card';
 import { NextSeo } from 'next-seo';
 import { NextPage } from 'next';
-import PrivacyPolicyMarkdown from 'data/mdx/privacy-policy.mdx';
+import PrivacyPolicyMarkdown from 'fixtures/mdx/privacy-policy.mdx';
 
 const title = `Privacy Policy`;
 const description = `My policies regarding your privacy and safety`;

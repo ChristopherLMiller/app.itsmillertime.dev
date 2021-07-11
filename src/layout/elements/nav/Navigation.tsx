@@ -32,7 +32,7 @@ const Nav: FunctionComponent = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await import(`@/data/json/nav.json`);
+      const data = await import(`fixtures/json/nav.json`);
       setNavLinks(data.items);
       setLoading(false);
     }
