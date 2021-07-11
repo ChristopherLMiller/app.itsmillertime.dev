@@ -3,53 +3,53 @@ import * as Types from 'src/graphql/types';
 import { useQuery, UseQueryOptions } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type ArticleQueryVariables = Types.Exact<{
-  id: Types.Scalars['ID'];
+  id: Types.Scalars[`ID`];
   publicationState?: Types.Maybe<Types.PublicationState>;
 }>;
 
-export type ArticleQuery = { __typename?: 'Query' } & {
+export type ArticleQuery = { __typename?: `Query` } & {
   article?: Types.Maybe<
-    { __typename?: 'Article' } & Pick<
+    { __typename?: `Article` } & Pick<
       Types.Article,
-      | 'id'
-      | '_id'
-      | 'createdAt'
-      | 'updatedAt'
-      | 'title'
-      | 'content'
-      | 'slug'
-      | 'published_at'
+      | `id`
+      | `_id`
+      | `createdAt`
+      | `updatedAt`
+      | `title`
+      | `content`
+      | `slug`
+      | `published_at`
     > & {
         users_permissions_user?: Types.Maybe<
-          { __typename?: 'UsersPermissionsUser' } & Pick<
+          { __typename?: `UsersPermissionsUser` } & Pick<
             Types.UsersPermissionsUser,
-            'id' | 'username'
+            `id` | `username`
           > & {
               role?: Types.Maybe<
-                { __typename?: 'UsersPermissionsRole' } & Pick<
+                { __typename?: `UsersPermissionsRole` } & Pick<
                   Types.UsersPermissionsRole,
-                  'id' | 'name'
+                  `id` | `name`
                 >
               >;
             }
         >;
         seo?: Types.Maybe<
-          { __typename?: 'ComponentGlobalSeo' } & Pick<
+          { __typename?: `ComponentGlobalSeo` } & Pick<
             Types.ComponentGlobalSeo,
-            'id' | 'title' | 'description'
+            `id` | `title` | `description`
           > & {
               featured_image?: Types.Maybe<
-                { __typename?: 'UploadFile' } & Pick<
+                { __typename?: `UploadFile` } & Pick<
                   Types.UploadFile,
-                  | 'name'
-                  | 'alternativeText'
-                  | 'caption'
-                  | 'width'
-                  | 'height'
-                  | 'url'
-                  | 'previewUrl'
-                  | 'provider'
-                  | 'provider_metadata'
+                  | `name`
+                  | `alternativeText`
+                  | `caption`
+                  | `width`
+                  | `height`
+                  | `url`
+                  | `previewUrl`
+                  | `provider`
+                  | `provider_metadata`
                 >
               >;
             }
@@ -57,9 +57,9 @@ export type ArticleQuery = { __typename?: 'Query' } & {
         article_tags?: Types.Maybe<
           Array<
             Types.Maybe<
-              { __typename?: 'ArticleTags' } & Pick<
+              { __typename?: `ArticleTags` } & Pick<
                 Types.ArticleTags,
-                'id' | 'slug' | 'title'
+                `id` | `slug` | `title`
               >
             >
           >
@@ -67,9 +67,9 @@ export type ArticleQuery = { __typename?: 'Query' } & {
         article_categories?: Types.Maybe<
           Array<
             Types.Maybe<
-              { __typename?: 'ArticleCategory' } & Pick<
+              { __typename?: `ArticleCategory` } & Pick<
                 Types.ArticleCategory,
-                'id' | 'slug' | 'title'
+                `id` | `slug` | `title`
               >
             >
           >
@@ -131,7 +131,7 @@ export const useArticleQuery = <TData = ArticleQuery, TError = unknown>(
   options?: UseQueryOptions<ArticleQuery, TError, TData>
 ) =>
   useQuery<ArticleQuery, TError, TData>(
-    ['Article', variables],
+    [`Article`, variables],
     fetcher<ArticleQuery, ArticleQueryVariables>(ArticleDocument, variables),
     options
   );

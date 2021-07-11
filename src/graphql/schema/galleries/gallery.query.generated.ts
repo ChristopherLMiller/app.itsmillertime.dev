@@ -3,54 +3,54 @@ import * as Types from 'src/graphql/types';
 import { useQuery, UseQueryOptions } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type GalleryQueryVariables = Types.Exact<{
-  id: Types.Scalars['ID'];
+  id: Types.Scalars[`ID`];
   publicationState?: Types.Maybe<Types.PublicationState>;
 }>;
 
-export type GalleryQuery = { __typename?: 'Query' } & {
+export type GalleryQuery = { __typename?: `Query` } & {
   gallery?: Types.Maybe<
-    { __typename?: 'Gallery' } & Pick<
+    { __typename?: `Gallery` } & Pick<
       Types.Gallery,
-      | 'id'
-      | '_id'
-      | 'createdAt'
-      | 'updatedAt'
-      | 'title'
-      | 'slug'
-      | 'status'
-      | 'nsfw'
-      | 'meta'
-      | 'description'
+      | `id`
+      | `_id`
+      | `createdAt`
+      | `updatedAt`
+      | `title`
+      | `slug`
+      | `status`
+      | `nsfw`
+      | `meta`
+      | `description`
     > & {
         featured_image?: Types.Maybe<
-          { __typename?: 'UploadFile' } & Pick<
+          { __typename?: `UploadFile` } & Pick<
             Types.UploadFile,
-            | 'id'
-            | '_id'
-            | 'createdAt'
-            | 'updatedAt'
-            | 'name'
-            | 'alternativeText'
-            | 'caption'
-            | 'width'
-            | 'height'
-            | 'formats'
-            | 'hash'
-            | 'ext'
-            | 'mime'
-            | 'size'
-            | 'url'
-            | 'previewUrl'
-            | 'provider'
-            | 'provider_metadata'
+            | `id`
+            | `_id`
+            | `createdAt`
+            | `updatedAt`
+            | `name`
+            | `alternativeText`
+            | `caption`
+            | `width`
+            | `height`
+            | `formats`
+            | `hash`
+            | `ext`
+            | `mime`
+            | `size`
+            | `url`
+            | `previewUrl`
+            | `provider`
+            | `provider_metadata`
           >
         >;
         gallery_categories?: Types.Maybe<
           Array<
             Types.Maybe<
-              { __typename?: 'GalleryCategories' } & Pick<
+              { __typename?: `GalleryCategories` } & Pick<
                 Types.GalleryCategories,
-                'id' | '_id' | 'slug' | 'title'
+                `id` | `_id` | `slug` | `title`
               >
             >
           >
@@ -58,9 +58,9 @@ export type GalleryQuery = { __typename?: 'Query' } & {
         gallery_tags?: Types.Maybe<
           Array<
             Types.Maybe<
-              { __typename?: 'GalleryTags' } & Pick<
+              { __typename?: `GalleryTags` } & Pick<
                 Types.GalleryTags,
-                'id' | '_id' | 'slug' | 'title'
+                `id` | `_id` | `slug` | `title`
               >
             >
           >
@@ -68,66 +68,66 @@ export type GalleryQuery = { __typename?: 'Query' } & {
         gallery_images?: Types.Maybe<
           Array<
             Types.Maybe<
-              { __typename?: 'GalleryImage' } & Pick<
+              { __typename?: `GalleryImage` } & Pick<
                 Types.GalleryImage,
-                'id' | '_id' | 'createdAt' | 'updatedAt' | 'caption' | 'slug'
+                `id` | `_id` | `createdAt` | `updatedAt` | `caption` | `slug`
               > & {
                   watermarked?: Types.Maybe<
-                    { __typename?: 'UploadFile' } & Pick<
+                    { __typename?: `UploadFile` } & Pick<
                       Types.UploadFile,
-                      | 'id'
-                      | '_id'
-                      | 'createdAt'
-                      | 'updatedAt'
-                      | 'name'
-                      | 'alternativeText'
-                      | 'caption'
-                      | 'width'
-                      | 'height'
-                      | 'formats'
-                      | 'hash'
-                      | 'ext'
-                      | 'mime'
-                      | 'size'
-                      | 'url'
-                      | 'previewUrl'
-                      | 'provider'
-                      | 'provider_metadata'
+                      | `id`
+                      | `_id`
+                      | `createdAt`
+                      | `updatedAt`
+                      | `name`
+                      | `alternativeText`
+                      | `caption`
+                      | `width`
+                      | `height`
+                      | `formats`
+                      | `hash`
+                      | `ext`
+                      | `mime`
+                      | `size`
+                      | `url`
+                      | `previewUrl`
+                      | `provider`
+                      | `provider_metadata`
                     >
                   >;
                   clean?: Types.Maybe<
-                    { __typename?: 'UploadFile' } & Pick<
+                    { __typename?: `UploadFile` } & Pick<
                       Types.UploadFile,
-                      | 'id'
-                      | '_id'
-                      | 'createdAt'
-                      | 'updatedAt'
-                      | 'name'
-                      | 'alternativeText'
-                      | 'caption'
-                      | 'width'
-                      | 'height'
-                      | 'formats'
-                      | 'hash'
-                      | 'ext'
-                      | 'mime'
-                      | 'size'
-                      | 'url'
-                      | 'previewUrl'
-                      | 'provider'
-                      | 'provider_metadata'
+                      | `id`
+                      | `_id`
+                      | `createdAt`
+                      | `updatedAt`
+                      | `name`
+                      | `alternativeText`
+                      | `caption`
+                      | `width`
+                      | `height`
+                      | `formats`
+                      | `hash`
+                      | `ext`
+                      | `mime`
+                      | `size`
+                      | `url`
+                      | `previewUrl`
+                      | `provider`
+                      | `provider_metadata`
                     >
                   >;
                   share?: Types.Maybe<
-                    { __typename?: 'ComponentGlobalShare' } & Pick<
+                    { __typename?: `ComponentGlobalShare` } & Pick<
                       Types.ComponentGlobalShare,
-                      'id' | '_id' | 'facebook' | 'twitter' | 'instagram'
+                      `id` | `_id` | `facebook` | `twitter` | `instagram`
                     >
                   >;
                   sell?: Types.Maybe<
-                    { __typename?: 'ComponentGlobalSell' } & Pick<
+                    { __typename?: `ComponentGlobalSell` } & Pick<
                       Types.ComponentGlobalSell,
-                      'id' | '_id' | 'price'
+                      `id` | `_id` | `price`
                     >
                   >;
                 }
@@ -251,7 +251,7 @@ export const useGalleryQuery = <TData = GalleryQuery, TError = unknown>(
   options?: UseQueryOptions<GalleryQuery, TError, TData>
 ) =>
   useQuery<GalleryQuery, TError, TData>(
-    ['Gallery', variables],
+    [`Gallery`, variables],
     fetcher<GalleryQuery, GalleryQueryVariables>(GalleryDocument, variables),
     options
   );

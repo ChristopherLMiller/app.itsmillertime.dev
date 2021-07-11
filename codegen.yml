@@ -12,4 +12,4 @@ generates:
       - typescript-operations
       - typescript-react-query
     config:
-      fetcher: 'src/utils/functions/fetch#fetcher'
+      fetcher: 'src/lib/fetch#fetcher'

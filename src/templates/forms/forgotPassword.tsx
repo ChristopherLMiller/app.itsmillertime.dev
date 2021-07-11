@@ -12,6 +12,7 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { FunctionComponent, useRef, useState } from 'react';
 import { isDev } from 'src/utils';
 import { useRouter } from 'next/router';
+import { useForgotPasswordMutation } from 'src/graphql/schema/auth/forgotPassword.mutation.generated';
 
 const ForgotFormValidation = Yup.object().shape({
   email: Yup.string()
