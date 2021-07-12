@@ -21,7 +21,7 @@
     "@mdx-js/loader": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
     "@next/mdx": "^11.0.1",
-    "@sentry/browser": "^6.5.1",
+    "@sentry/browser": "^6.9.0",
     "@sentry/integrations": "^6.5.1",
     "@sentry/node": "^6.9.0",
     "@sentry/webpack-plugin": "^1.15.1",
