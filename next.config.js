@@ -72,6 +72,11 @@ const nextConfig = {
       config.resolve.alias[`@sentry/node`] = `@sentry/browser`;
     }
 
+    // Fixes npm packages that depend on `fs` module
+    //if (!options.isServer) {
+    //  config.resolve.fallback.fs = false;
+    //}
+
     // When all the Sentry configuration env variables are available/configured
     // The Sentry webpack plugin gets pushed to the webpack plugins to build
     // and upload the source maps to sentry.

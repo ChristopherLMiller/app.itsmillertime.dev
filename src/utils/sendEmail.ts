@@ -1,4 +1,4 @@
-import mjml2html from 'mjml';
+//import mjml2html from 'mjml';
 
 const SENDGRID_API = `https://api.sendgrid.com/v3/mail/send`;
 
@@ -16,7 +16,7 @@ const sendEmail = async ({
   subject,
   mjmlString,
 }: sendEmailTypes): Promise<unknown> => {
-  const htmlOutput = mjml2html(mjmlString).html;
+  const htmlOutput = `<h1>Test</h1>`; //mjml2html(mjmlString).html;
 
   return fetch(SENDGRID_API, {
     method: `POST`,
