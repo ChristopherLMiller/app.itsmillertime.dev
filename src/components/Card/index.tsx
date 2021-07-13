@@ -109,6 +109,16 @@ const CardBody = styled.div<iCardBody>`
     padding-inline-start: 10px;
     background: var(--color-red-40);
   }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-red-intermediate);
+    margin: 0;
+  }
 `;
 
 const ActionLinks = styled.div`
