@@ -19,14 +19,6 @@ query Articles(
     title
     content
     slug
-    users_permissions_user {
-      id
-      username
-      role {
-        id
-        name
-      }
-    }
     seo {
       id
       title

@@ -25,19 +25,6 @@ export type ArticlesQuery = { __typename?: `Query` } & {
           | `slug`
           | `published_at`
         > & {
-            users_permissions_user?: Types.Maybe<
-              { __typename?: `UsersPermissionsUser` } & Pick<
-                Types.UsersPermissionsUser,
-                `id` | `username`
-              > & {
-                  role?: Types.Maybe<
-                    { __typename?: `UsersPermissionsRole` } & Pick<
-                      Types.UsersPermissionsRole,
-                      `id` | `name`
-                    >
-                  >;
-                }
-            >;
             seo?: Types.Maybe<
               { __typename?: `ComponentGlobalSeo` } & Pick<
                 Types.ComponentGlobalSeo,
@@ -101,14 +88,6 @@ export const ArticlesDocument = `
     title
     content
     slug
-    users_permissions_user {
-      id
-      username
-      role {
-        id
-        name
-      }
-    }
     seo {
       id
       title
