@@ -9,6 +9,7 @@ import { isDev } from './isDev';
 import makeDurationFriendly from './makeDurationFriendly';
 import { timeToRead } from './timeToRead';
 import redirectIfProd from './redirectIfProd';
+import { isAdmin } from './auth';
 
 export {
   countWords,
@@ -24,4 +25,5 @@ export {
   timeToRead,
   truncate,
   truncateWords,
+  isAdmin,
 };

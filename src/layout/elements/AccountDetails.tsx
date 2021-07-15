@@ -1,8 +1,13 @@
 import { signOut, useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import { FunctionComponent } from 'react';
-import { IoPersonCircleOutline } from 'react-icons/io5';
-import { MdAccountBox } from 'react-icons/md';
+import {
+  IoIosLogIn,
+  IoIosLogOut,
+  IoIosArchive,
+  IoMdContact,
+} from 'react-icons/io';
+import { isAdmin } from 'src/utils';
 import styled from 'styled-components';
 
 const Item = styled.span`
@@ -17,18 +22,28 @@ const AccountDetails: FunctionComponent = () => {
 
   return (
     <div>
+      {session?.user && (
+        <Item onClick={() => router.push(`/account/my-account`)}>
+          <IoMdContact />
+        </Item>
+      )}
+      {isAdmin(session?.user) && (
+        <Item
+          onClick={() =>
+            router.push(`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin`)
+          }
+        >
+          <IoIosArchive />
+        </Item>
+      )}
       <Item
         onClick={() =>
           session?.user ? signOut() : router.push(`/account/login`)
         }
       >
-        <IoPersonCircleOutline />
+        {session?.user && <IoIosLogOut />}
+        {!session?.user && <IoIosLogIn />}
       </Item>
-      {session?.user && (
-        <Item onClick={() => router.push(`/account/my-account`)}>
-          <MdAccountBox />
-        </Item>
-      )}
     </div>
   );
 };
