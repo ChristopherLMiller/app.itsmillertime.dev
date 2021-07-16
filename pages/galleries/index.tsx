@@ -37,7 +37,7 @@ const GalleriesIndexPage: NextPage = () => {
   const router = useRouter();
   const queryParams = router.query;
   console.log(router.query);
-  const { isFetching, isLoading, error, data } = useGalleriesQuery({
+  const { isLoading, error, data, isSuccess } = useGalleriesQuery({
     sort: `createdAt:ASC`,
     where: { queryParams },
   });
@@ -54,7 +54,7 @@ const GalleriesIndexPage: NextPage = () => {
 
   return (
     <PageLayout title={title} description={description} padding={false}>
-      {isFetching && <Loader isLoading={isFetching} />}
+      {isLoading && <Loader isLoading={isLoading} />}
       <NextSeo
         title={title}
         description={description}
@@ -75,7 +75,7 @@ const GalleriesIndexPage: NextPage = () => {
       />
 
       <Grid gap="30px" columns={3} masonry>
-        {!isLoading &&
+        {isSuccess &&
           data?.galleries?.map((gallery) => (
             <Link href={`/galleries/album/${gallery.slug}`} key={gallery.slug}>
               <Anchor>
@@ -92,7 +92,7 @@ const GalleriesIndexPage: NextPage = () => {
                 >
                   <SubText>
                     <p>
-                      Categories:{' '}
+                      Categories:{` `}
                       <ArrayList array={gallery.gallery_categories} />
                     </p>
                     <p>

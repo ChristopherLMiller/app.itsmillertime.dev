@@ -5,9 +5,10 @@ import { NextPage } from 'next';
 import styled from 'styled-components';
 import ArticleListItem from 'src/components/Article/ListItem';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/client';
 import Loader from 'src/components/Loader';
 import { useArticlesQuery } from 'src/graphql/schema/articles/articles.query.generated';
-import { Article } from 'src/graphql/types';
+import { Article, PublicationState } from 'src/graphql/types';
 
 const title = `From My Desk`;
 const description = `Archives concerning all matters web development and beyond`;
@@ -17,9 +18,13 @@ const ArticleList = styled.ul`
 `;
 
 const BlogIndexpage: NextPage = () => {
+  const [session] = useSession();
   const router = useRouter();
-  const { data, error, isFetching, isLoading } = useArticlesQuery({
+  const { data, error, isLoading, isSuccess } = useArticlesQuery({
     sort: `createdAt:DESC`,
+    publicationState: session
+      ? PublicationState.Preview
+      : PublicationState.Live,
   });
 
   // TODO:  Add queries to get by category, tag etc
@@ -31,7 +36,7 @@ const BlogIndexpage: NextPage = () => {
 
   return (
     <PageLayout title={title} description={description}>
-      {isFetching && <Loader isLoading={isFetching} />}
+      {isLoading && <Loader isLoading={isLoading} />}
       <NextSeo
         title={title}
         description={description}
@@ -57,7 +62,7 @@ const BlogIndexpage: NextPage = () => {
         </Card>
       )}
 
-      {!isLoading && (
+      {isSuccess && (
         <ArticleList>
           {data?.articles?.map((article) => (
             <ArticleListItem key={article.id} article={article as Article} />

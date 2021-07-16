@@ -61,7 +61,7 @@ const ModelsPageIndex: NextPage = () => {
   // fetch models query here
   const router = useRouter();
   const [sort, setSort] = useState(`updatedAt:ASC`);
-  const { data, isLoading, isFetching, error } = useModelsQuery({
+  const { data, isLoading, isSuccess, error } = useModelsQuery({
     sort: sort,
   });
 
@@ -73,7 +73,7 @@ const ModelsPageIndex: NextPage = () => {
 
   return (
     <PageLayout title={title} description={description} padding={false}>
-      {isFetching && <Loader isLoading={isFetching} />}
+      {isLoading && <Loader isLoading={isLoading} />}
       <NextSeo
         title={title}
         description={description}
@@ -119,7 +119,7 @@ const ModelsPageIndex: NextPage = () => {
           </Card>
         </div>
         <div>
-          {!isLoading &&
+          {isSuccess &&
             data.models.map((model) => (
               <ModelListing key={model.slug}>
                 <ImageDefault
