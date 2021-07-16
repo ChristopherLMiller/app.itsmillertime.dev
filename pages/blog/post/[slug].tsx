@@ -80,7 +80,7 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
   const { data, error, isLoading } = useArticleQuery({ id: SEO.id });
 
   if (error) {
-    console.log(error);
+    console.error(error);
   }
 
   return (

@@ -28,10 +28,10 @@ const BlogIndexpage: NextPage = () => {
   });
 
   // TODO:  Add queries to get by category, tag etc
-  console.log(router.query);
+  console.debug(router.query);
 
   if (error) {
-    console.log(error);
+    console.error(error);
   }
 
   return (

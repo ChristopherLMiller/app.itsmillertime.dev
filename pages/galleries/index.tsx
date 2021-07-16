@@ -36,14 +36,13 @@ const SubText = styled.div`
 const GalleriesIndexPage: NextPage = () => {
   const router = useRouter();
   const queryParams = router.query;
-  console.log(router.query);
   const { isLoading, error, data, isSuccess } = useGalleriesQuery({
     sort: `createdAt:ASC`,
     where: { queryParams },
   });
 
   if (error) {
-    console.log(error);
+    console.error(error);
     return (
       <Card heading="Uh Oh!">
         <p>We were unable to fetch the data requested for whatever reason.</p>

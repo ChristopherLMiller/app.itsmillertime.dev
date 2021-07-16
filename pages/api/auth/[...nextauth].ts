@@ -25,7 +25,6 @@ const options = {
             }
           );
 
-          console.log(response.data);
           if (response.data) {
             return response.data;
           } else {

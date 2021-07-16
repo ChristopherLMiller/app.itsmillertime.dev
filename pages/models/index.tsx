@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
-import { useRouter } from 'next/router';
 import { ArrayList } from 'src/components/arrayList';
 import ImageDefault from 'src/components/Images';
 import PageLayout from 'src/layout/PageLayout';
@@ -59,17 +58,14 @@ const ContentArea = styled.div`
 
 const ModelsPageIndex: NextPage = () => {
   // fetch models query here
-  const router = useRouter();
   const [sort, setSort] = useState(`updatedAt:ASC`);
   const { data, isLoading, isSuccess, error } = useModelsQuery({
     sort: sort,
   });
 
   if (error) {
-    console.log(error);
+    console.error(error);
   }
-
-  console.log(router);
 
   return (
     <PageLayout title={title} description={description} padding={false}>

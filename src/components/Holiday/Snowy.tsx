@@ -71,13 +71,13 @@ const Snowy: FunctionComponent = () => {
 
   // cause modal to open
   const openModal = () => {
-    console.log(`opening modal`);
+    console.debug(`opening modal`);
     setIsOpen(true);
   };
 
   // cause modal to close
   const closeModal = () => {
-    console.log(`closing modal`);
+    console.debug(`closing modal`);
     setIsOpen(false);
   };
 

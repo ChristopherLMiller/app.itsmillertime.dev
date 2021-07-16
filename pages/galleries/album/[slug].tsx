@@ -37,7 +37,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
   });
 
   if (error) {
-    console.log(error);
+    console.error(error);
   }
 
   return (
