@@ -10,6 +10,7 @@ import { Grid } from 'src/components/Grid';
 import { useState } from 'react';
 import BuildTime from 'src/components/BuildTime';
 import { useModelsQuery } from 'src/graphql/schema/models/models.query.generated';
+import Loader from 'src/components/Loader';
 const title = `Models`;
 const description = `Airplanes, Tanks, Cars, its all here`;
 
@@ -60,7 +61,7 @@ const ModelsPageIndex: NextPage = () => {
   // fetch models query here
   const router = useRouter();
   const [sort, setSort] = useState(`updatedAt:ASC`);
-  const { data, isLoading, error } = useModelsQuery({
+  const { data, isLoading, isFetching, error } = useModelsQuery({
     sort: sort,
   });
 
@@ -68,11 +69,11 @@ const ModelsPageIndex: NextPage = () => {
     console.log(error);
   }
 
-  console.log(data);
   console.log(router);
 
   return (
     <PageLayout title={title} description={description} padding={false}>
+      {isFetching && <Loader isLoading={isFetching} />}
       <NextSeo
         title={title}
         description={description}

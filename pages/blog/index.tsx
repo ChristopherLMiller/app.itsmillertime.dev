@@ -18,22 +18,20 @@ const ArticleList = styled.ul`
 
 const BlogIndexpage: NextPage = () => {
   const router = useRouter();
-  const { data, error, isFetching } = useArticlesQuery({
+  const { data, error, isFetching, isLoading } = useArticlesQuery({
     sort: `createdAt:DESC`,
   });
 
-  if (!isFetching) {
-    console.log(data.articles);
-  }
-
   // TODO:  Add queries to get by category, tag etc
   console.log(router.query);
+
   if (error) {
     console.log(error);
   }
 
   return (
     <PageLayout title={title} description={description}>
+      {isFetching && <Loader isLoading={isFetching} />}
       <NextSeo
         title={title}
         description={description}
@@ -58,8 +56,8 @@ const BlogIndexpage: NextPage = () => {
           <p>More specifically: {error}</p>
         </Card>
       )}
-      {isFetching && <Loader isLoading={isFetching} />}(
-      {!isFetching && (
+
+      {!isLoading && (
         <ArticleList>
           {data?.articles?.map((article) => (
             <ArticleListItem key={article.id} article={article as Article} />

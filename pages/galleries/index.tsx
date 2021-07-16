@@ -37,7 +37,7 @@ const GalleriesIndexPage: NextPage = () => {
   const router = useRouter();
   const queryParams = router.query;
   console.log(router.query);
-  const { isLoading, error, data } = useGalleriesQuery({
+  const { isFetching, isLoading, error, data } = useGalleriesQuery({
     sort: `createdAt:ASC`,
     where: { queryParams },
   });
@@ -54,6 +54,7 @@ const GalleriesIndexPage: NextPage = () => {
 
   return (
     <PageLayout title={title} description={description} padding={false}>
+      {isFetching && <Loader isLoading={isFetching} />}
       <NextSeo
         title={title}
         description={description}
@@ -72,34 +73,36 @@ const GalleriesIndexPage: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/galleries`,
         }}
       />
-      {isLoading && <Loader isLoading={isLoading} />}
+
       <Grid gap="30px" columns={3} masonry>
-        {data?.galleries?.map((gallery) => (
-          <Link href={`/galleries/album/${gallery.slug}`} key={gallery.slug}>
-            <Anchor>
-              <Image
-                public_id={`${gallery.featured_image.provider_metadata.public_id}`}
-                width={gallery.featured_image.width}
-                height={gallery.featured_image.height}
-                alt={`${gallery.title}`}
-                caption={`${gallery.title}${
-                  gallery.status === `PUBLIC` ? `` : ` - ${gallery.status}`
-                }`}
-                hoverable
-                key={gallery.slug}
-              >
-                <SubText>
-                  <p>
-                    Categories: <ArrayList array={gallery.gallery_categories} />
-                  </p>
-                  <p>
-                    Tags: <ArrayList array={gallery.gallery_tags} />
-                  </p>
-                </SubText>
-              </Image>
-            </Anchor>
-          </Link>
-        ))}
+        {!isLoading &&
+          data?.galleries?.map((gallery) => (
+            <Link href={`/galleries/album/${gallery.slug}`} key={gallery.slug}>
+              <Anchor>
+                <Image
+                  public_id={`${gallery.featured_image.provider_metadata.public_id}`}
+                  width={gallery.featured_image.width}
+                  height={gallery.featured_image.height}
+                  alt={`${gallery.title}`}
+                  caption={`${gallery.title}${
+                    gallery.status === `PUBLIC` ? `` : ` - ${gallery.status}`
+                  }`}
+                  hoverable
+                  key={gallery.slug}
+                >
+                  <SubText>
+                    <p>
+                      Categories:{' '}
+                      <ArrayList array={gallery.gallery_categories} />
+                    </p>
+                    <p>
+                      Tags: <ArrayList array={gallery.gallery_tags} />
+                    </p>
+                  </SubText>
+                </Image>
+              </Anchor>
+            </Link>
+          ))}
       </Grid>
     </PageLayout>
   );
