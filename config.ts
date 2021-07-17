@@ -6,7 +6,7 @@ export const CLOUDINARY_FOLDER = `clm-new`;
 export const SITE_TITLE = `Christopher Lee Miller`;
 export const SITE_DEFAULT_IMAGE = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/c_scale,w_300/${CLOUDINARY_FOLDER}/assets/logo.png`;
 export const SEPARATOR = ` - `;
-export const SITE_DEFAULT_IMAGE_FILE = `clm-new/assets/default`;
+export const SITE_DEFAULT_IMAGE_FILE = `clm-new/assets/default.jpg`;
 
 export const DISQUS_SHORTNAME = `christopherleemiller-me`;
 export const PER_PAGE = 20;

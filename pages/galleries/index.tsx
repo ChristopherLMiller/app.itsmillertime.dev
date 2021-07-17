@@ -11,6 +11,7 @@ import { ArrayList } from 'src/components/arrayList';
 import { useRouter } from 'next/router';
 import { useGalleriesQuery } from 'src/graphql/schema/galleries/galleries.query.generated';
 import { formatRelative, parseISO } from 'date-fns';
+import { SITE_DEFAULT_IMAGE_FILE } from 'config';
 
 const title = `Gallery`;
 const description = `A visual of all the things me!`;
@@ -82,9 +83,12 @@ const GalleriesIndexPage: NextPage = () => {
             <Link href={`/galleries/album/${gallery.slug}`} key={gallery.slug}>
               <Anchor>
                 <Image
-                  public_id={`${gallery.featured_image.provider_metadata.public_id}`}
-                  width={gallery.featured_image.width}
-                  height={gallery.featured_image.height}
+                  public_id={`${
+                    gallery?.featured_image?.provider_metadata?.public_id ||
+                    SITE_DEFAULT_IMAGE_FILE
+                  }`}
+                  width={gallery?.featured_image?.width || 900}
+                  height={gallery?.featured_image?.height || 450}
                   alt={`${gallery.title}`}
                   caption={`${gallery.title}${
                     gallery.status === `PUBLIC` ? `` : ` - ${gallery.status}`
@@ -98,7 +102,7 @@ const GalleriesIndexPage: NextPage = () => {
                       {formatRelative(parseISO(gallery.createdAt), new Date())}
                       {` - Updated: `}
                       {formatRelative(parseISO(gallery.updatedAt), new Date())}
-                      {` - Image Count: ${gallery.gallery_images.length}`}
+                      {` - Image Count: ${gallery?.gallery_images?.length}`}
                     </p>
                     <p>
                       Categories:{` `}
