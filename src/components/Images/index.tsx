@@ -47,10 +47,16 @@ const ImageOverlay = styled(motion.div)`
   p {
     margin: 0;
   }
+
+  hr {
+    border-color: var(--color-white-60);
+  }
 `;
 
 const Caption = styled.p``;
-const SubText = styled.span``;
+const SubText = styled.span`
+  font-size: 1em;
+`;
 
 const ImageOverlayVariants = {
   rest: {
@@ -112,6 +118,7 @@ const ImageDefault: FunctionComponent<iImage> = ({
     {caption && (
       <ImageOverlay variants={ImageOverlayVariants}>
         <Caption>{caption}</Caption>
+        {caption && <hr />}
         <SubText>{children}</SubText>
       </ImageOverlay>
     )}

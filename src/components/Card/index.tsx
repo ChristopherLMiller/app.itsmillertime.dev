@@ -116,8 +116,18 @@ const CardBody = styled.div<iCardBody>`
   h4,
   h5,
   h6 {
-    color: var(--color-red-intermediate);
+    font-family: var(--font-alt);
+    -webkit-letter-spacing: normal;
+    -moz-letter-spacing: normal;
+    -ms-letter-spacing: normal;
+    letter-spacing: normal;
+    text-transform: uppercase;
     margin: 0;
+    padding-inline-start: 5px;
+    color: var(--color-red-dark);
+    border-bottom: 5px solid var(--color-gold-transparent);
+    border-left: 3px solid var(--color-grey-intermediate);
+    opacity: 0.7;
   }
 `;
 

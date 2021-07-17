@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { ArrayList } from 'src/components/arrayList';
 import { useRouter } from 'next/router';
 import { useGalleriesQuery } from 'src/graphql/schema/galleries/galleries.query.generated';
+import { formatRelative, parseISO } from 'date-fns';
 
 const title = `Gallery`;
 const description = `A visual of all the things me!`;
@@ -92,6 +93,13 @@ const GalleriesIndexPage: NextPage = () => {
                   key={gallery.slug}
                 >
                   <SubText>
+                    <p>
+                      Added:{` `}
+                      {formatRelative(parseISO(gallery.createdAt), new Date())}
+                      {` - Updated: `}
+                      {formatRelative(parseISO(gallery.updatedAt), new Date())}
+                      {` - Image Count: ${gallery.gallery_images.length}`}
+                    </p>
                     <p>
                       Categories:{` `}
                       <ArrayList array={gallery.gallery_categories} />

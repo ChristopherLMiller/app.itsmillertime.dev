@@ -25,15 +25,17 @@ const HeaderDescription = styled.h4`
   font-weight: 100;
   padding: 0rem 2rem;
   color: var(--color-white-100);
-  margin-bottom: 0;
+  margin-block-end: 0;
+  margin-block-start: 2rem;
 `;
 
 const HeaderTitle = styled.h1`
-  font-family: var(--font-main);
+  font-family: var(--font-alt);
   font-weight: 300;
   padding-inline-start: 6rem;
   color: var(--color-white-100);
-  margin-top: 0;
+  margin-block-start: 0;
+  text-transform: uppercase;
 `;
 
 interface iHeader {
