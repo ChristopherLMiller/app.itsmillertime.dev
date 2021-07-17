@@ -3,7 +3,7 @@ import PageLayout from 'src/layout/PageLayout';
 import { NextSeo } from 'next-seo';
 import * as Yup from 'yup';
 import Card from 'src/components/Card';
-import { ErrorMessage, Field, Formik } from 'formik';
+import { ErrorMessage, Field, Formik, Form } from 'formik';
 import React from 'react';
 import {
   StyledForm,
@@ -16,14 +16,6 @@ import styled from 'styled-components';
 
 const title = `Contact Me`;
 const description = `Reach me with any needs`;
-
-const ContactValidation = Yup.object().shape({
-  email: Yup.string()
-    .email(`I need a valid email to reach you at`)
-    .required(`Best Contact Email?`),
-  name: Yup.string().required(`What is your name?`),
-  message: Yup.string().required(`What do you need help with?`),
-});
 
 const ContactGrid = styled.div`
   display: grid;
@@ -58,6 +50,15 @@ const ContactColumn = styled.div`
       color: var(--color-red-intermediate);
     }
   }
+
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-alt);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
 `;
 
 const StyledContactForm = styled.div`
@@ -87,6 +88,14 @@ const ContactFormEmailList = styled.ul`
     color: var(--main-color);
   }
 `;
+
+const ContactValidation = Yup.object().shape({
+  email: Yup.string()
+    .email(`I need a valid email to reach you at`)
+    .required(`Best Contact Email?`),
+  name: Yup.string().required(`What is your name?`),
+  message: Yup.string().required(`What do you need help with?`),
+});
 
 const ContactPage = () => {
   const { addToast } = useToasts();
@@ -120,53 +129,64 @@ const ContactPage = () => {
           <ContactColumn>
             <Formik
               initialValues={{ email: ``, name: ``, message: `` }}
-              onSubmit={(values, { setSubmitting }) => {
+              onSubmit={async (values, { setSubmitting }) => {
                 setSubmitting(true);
-                addToast(`Hooray it sent`, { appearance: `success` });
-                console.log(values);
+                const response = await fetch(`/api/send-email`, {
+                  body: JSON.stringify(values),
+                  method: `POST`,
+                });
+                const data = await response.json();
+                if (response.status !== 200) {
+                  addToast(`Unable to send email`, { appearance: `error` });
+                  console.log(await response);
+                  setSubmitting(false);
+                }
+
+                console.log(data);
               }}
               validationSchema={ContactValidation}
             >
               {({ isSubmitting, isValid, dirty }) => (
-                <StyledForm>
-                  <StyledContactForm>
-                    <Fieldset>
-                      <Label htmlFor="name">Name:{` `}</Label>
-                      <Field type="text" name="name" />
-                      <FormErrorMessage>
-                        <ErrorMessage name="name" component="span" />
-                      </FormErrorMessage>
-                    </Fieldset>
-                    <Fieldset>
-                      <Label htmlFor="email">Email:{` `}</Label>
-                      <Field type="email" name="email" />
-                      <FormErrorMessage>
-                        <ErrorMessage name="email" component="span" />
-                      </FormErrorMessage>
-                    </Fieldset>
+                <Form>
+                  <StyledForm>
+                    <StyledContactForm>
+                      <Fieldset>
+                        <Label htmlFor="name">Name:{` `}</Label>
+                        <Field type="text" name="name" />
+                        <FormErrorMessage>
+                          <ErrorMessage name="name" component="span" />
+                        </FormErrorMessage>
+                      </Fieldset>
+                      <Fieldset>
+                        <Label htmlFor="email">Email:{` `}</Label>
+                        <Field type="text" name="email" />
+                        <FormErrorMessage>
+                          <ErrorMessage name="email" component="span" />
+                        </FormErrorMessage>
+                      </Fieldset>
 
-                    <StyledContactFormFullWidth>
-                      <Label htmlFor="message">Message:</Label>
-                      <Field component="textarea" name="message" rows="5" />
-                      <FormErrorMessage>
-                        <ErrorMessage name="message" component="span" />
-                      </FormErrorMessage>
-                    </StyledContactFormFullWidth>
-                  </StyledContactForm>
-                  <Button
-                    type="submit"
-                    isDisabled={!(isValid && dirty)}
-                    aria-disabled={isSubmitting}
-                  >
-                    Send It!
-                  </Button>
-                </StyledForm>
+                      <StyledContactFormFullWidth>
+                        <Label htmlFor="message">Message:</Label>
+                        <Field component="textarea" name="message" rows="5" />
+                        <FormErrorMessage>
+                          <ErrorMessage name="message" component="span" />
+                        </FormErrorMessage>
+                      </StyledContactFormFullWidth>
+                    </StyledContactForm>
+                    <Button
+                      type="submit"
+                      isDisabled={!(isValid && dirty)}
+                      aria-disabled={isSubmitting}
+                    >
+                      Send It!
+                    </Button>
+                  </StyledForm>
+                </Form>
               )}
             </Formik>
           </ContactColumn>
           <ContactColumn>
-            <h4>Alternate Ways</h4>
-            <h5>Email</h5>
+            <h4>Alternate Emails</h4>
             <ContactFormEmailList>
               <li>
                 <a
