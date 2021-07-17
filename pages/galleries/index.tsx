@@ -36,9 +36,11 @@ const SubText = styled.div`
 const GalleriesIndexPage: NextPage = () => {
   const router = useRouter();
   const queryParams = router.query;
+
+  console.log(queryParams);
   const { isLoading, error, data, isSuccess } = useGalleriesQuery({
     sort: `createdAt:ASC`,
-    where: { queryParams },
+    where: queryParams,
   });
 
   if (error) {
