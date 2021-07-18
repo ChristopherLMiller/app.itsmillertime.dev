@@ -8,7 +8,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 // global CSS
 import 'node_modules/normalize.css/normalize.css';
-import 'node_modules/nprogress/nprogress.css';
+import '../public/nprogress.css';
 import 'node_modules/prismjs/themes/prism-tomorrow.css';
 import NProgress from 'nprogress';
 import { Fragment, useEffect } from 'react';
