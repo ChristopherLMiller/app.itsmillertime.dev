@@ -52,7 +52,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
           title: `${SEO.title}`,
           description: `${SEO.description}`,
           type: `SEO`,
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/galleries/gallery/${SEO.slug}`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/galleries/album/${SEO.slug}`,
           images: [
             {
               url: SEO.featured_image?.url,
@@ -81,7 +81,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
           <Reverse>
             <Card heading="About This Gallery" align="left">
               <ShareButtons
-                url={`${process.env.NEXT_PUBLIC_SITE_URL}/galleries/gallery/${SEO.slug}`}
+                url={`${process.env.NEXT_PUBLIC_SITE_URL}/galleries/album/${SEO.slug}`}
                 media={SEO.featured_image?.url}
                 title={SEO?.title}
               />
