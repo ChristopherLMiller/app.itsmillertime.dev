@@ -4,10 +4,14 @@ import { GetServerSideProps, NextPage } from 'next';
 import Markdown from 'src/components/Card/elements/Markdown';
 import styled from 'styled-components';
 import { formatRelative, parseISO } from 'date-fns';
-import { countWords, timeToRead } from 'src/utils';
+
+import { countWords, isAdmin, timeToRead } from 'src/utils';
 import { getServerSideSEO } from 'src/utils/getServerSideSEO';
 import { useArticleQuery } from 'src/graphql/schema/articles/article.query.generated';
 import { Article } from 'src/graphql/types';
+import ShareButtons from 'src/components/ShareButtons';
+import Loader from 'src/components/Loader';
+import { useSession } from 'next-auth/client';
 
 const title = `From My Desk`;
 const description = `Archives concerning all matters web development and beyond`;
@@ -32,7 +36,9 @@ const ArticleListItemContent = styled.div`
 
   p {
     break-inside: avoid;
-    padding-block-start: 20px;
+    padding-block-end: 10px;
+    padding-block-start: 10px;
+    text-indent: 2em;
   }
 
   h3,
@@ -48,6 +54,16 @@ const ArticleListItemContent = styled.div`
     border-bottom: 5px solid var(--color-gold-transparent);
     border-left: 3px solid var(--color-grey-intermediate);
     opacity: 0.7;
+  }
+
+  a {
+    color: var(--color-red-intermediate);
+    box-shadow: var(--box-shadow-inset-0);
+
+    :hover {
+      color: var(--color-gold-transparent);
+      box-shadow: var(--box-shadow-inset-2);
+    }
   }
 `;
 
@@ -69,6 +85,10 @@ const ArticleHeader = styled.div`
     text-transform: uppercase;
     letter-spacing: 0.5px;
     padding: 0 5%;
+
+    a {
+      color: var(--color-white-100);
+    }
   }
 `;
 
@@ -77,7 +97,9 @@ interface iBlogPost {
 }
 
 const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
-  const { data, error, isLoading } = useArticleQuery({ id: SEO.id });
+  const [session] = useSession();
+  const { data, error, isLoading, isSuccess } = useArticleQuery({ id: SEO.id });
+  const article = data?.article;
 
   if (error) {
     console.error(error);
@@ -85,41 +107,59 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
 
   return (
     <PageLayout title={title} description={description}>
+      {isLoading && <Loader isLoading={isLoading} />}
       <NextSeo
-        title={SEO.title}
-        description={SEO.seo.description}
+        title={SEO?.title}
+        description={SEO?.seo?.description}
         openGraph={{
-          title: `${SEO.title}`,
-          description: `${SEO.seo.description}`,
+          title: `${SEO?.title}`,
+          description: `${SEO?.seo?.description}`,
           type: `seo`,
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/blog/post/${SEO.slug}`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/blog/post/${SEO?.slug}`,
           images: [
             {
-              url: SEO?.seo.featured_image?.url,
-              width: SEO?.seo.featured_image?.width,
-              height: SEO?.seo.featured_image?.height,
-              alt: SEO?.seo.featured_image?.alternativeText,
+              url: SEO?.seo?.featured_image?.url,
+              width: SEO?.seo?.featured_image?.width,
+              height: SEO?.seo?.featured_image?.height,
+              alt: SEO?.seo?.featured_image?.alternativeText,
             },
           ],
         }}
       />
-      {!isLoading && (
+
+      {isSuccess && (
         <StyledBlogPost>
           <ArticleHeader>
             <img
-              src={data?.article.seo.featured_image?.url}
-              alt={data?.article.seo.featured_image?.alternativeText}
+              src={article.seo.featured_image?.url}
+              alt={article.seo.featured_image?.alternativeText}
             />
-            <h2>{data.article.title}</h2>
+            <h2>{article.title}</h2>
             <h5>
               Published:{` `}
-              {formatRelative(parseISO(data?.article.published_at), new Date())}
+              {formatRelative(parseISO(article.published_at), new Date())}
               {` `}| Time To Read:
-              {timeToRead(countWords(data?.article.content))}
+              {timeToRead(countWords(article.content))}
             </h5>
+            {isAdmin(session?.user) && (
+              <h5>
+                <a
+                  href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
+                  target="_blank"
+                  rel="noopener norefer"
+                >
+                  Edit
+                </a>
+              </h5>
+            )}
           </ArticleHeader>
+          <ShareButtons
+            url={`${process.env.NEXT_PUBLIC_SITE_URL}/blog/post/${SEO?.slug}`}
+            media={SEO?.seo.featured_image?.url}
+            title={SEO?.title}
+          />
           <ArticleListItemContent>
-            <Markdown source={data?.article.content} />
+            <Markdown source={article.content} />
           </ArticleListItemContent>
         </StyledBlogPost>
       )}

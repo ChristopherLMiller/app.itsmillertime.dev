@@ -7,9 +7,11 @@ import Card from 'src/components/Card';
 import Markdown from 'src/components/Card/elements/Markdown';
 import styled from 'styled-components';
 import { formatRelative } from 'date-fns';
-import { getServerSideSEO } from 'src/utils';
+import { getServerSideSEO, isAdmin } from 'src/utils';
 import { useGalleryQuery } from 'src/graphql/schema/galleries/gallery.query.generated';
 import { Gallery } from 'src/graphql/types';
+import { useSession } from 'next-auth/client';
+import ShareButtons from 'src/components/ShareButtons';
 
 const GalleryGrid = styled.div`
   display: grid;
@@ -32,6 +34,7 @@ interface iGalleryPage {
   SEO: Gallery;
 }
 const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
+  const [session] = useSession();
   const { data, error, isLoading } = useGalleryQuery({
     id: SEO.id,
   });
@@ -77,6 +80,20 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
 
           <Reverse>
             <Card heading="About This Gallery" align="left">
+              <ShareButtons
+                url={`${process.env.NEXT_PUBLIC_SITE_URL}/galleries/gallery/${SEO.slug}`}
+                media={SEO.featured_image?.url}
+                title={SEO?.title}
+              />
+              {isAdmin(session?.user) && (
+                <a
+                  href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${data.gallery.id}`}
+                  target="_blank"
+                  rel="noopener norefer"
+                >
+                  Edit
+                </a>
+              )}
               <p>Album Name: {data.gallery.title}</p>
               <p>
                 Created On:{` `}

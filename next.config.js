@@ -6,6 +6,7 @@ const remarkTypograf = require(`@mavrin/remark-typograf`);
 const remarkSubSuper = require(`remark-sub-super`);
 const remarkHtml = require(`remark-html`);
 const remarkGuillemets = require(`remark-fix-guillemets`);
+const remarkUnwrapImages = require(`remark-unwrap-images`);
 const withSourceMaps = require(`@zeit/next-source-maps`);
 const withOffline = require(`next-offline`);
 
@@ -37,6 +38,7 @@ const withMDX = require(`@next/mdx`)({
       remarkSubSuper,
       remarkHtml,
       remarkGuillemets,
+      remarkUnwrapImages,
     ],
   },
 });

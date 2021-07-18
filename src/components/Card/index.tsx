@@ -87,7 +87,7 @@ const CardBody = styled.div<iCardBody>`
   }
 
   a:hover {
-    color: var(--color-black-0);
+    color: var(--color-black-100);
   }
 
   thead {

@@ -39,7 +39,7 @@ const NavContainer = styled(motion.div)<iNavContainer>`
 
 const NavContainerVariants = {
   hover: {
-    boxShadow: `var(--box-shadow-inset-1)`,
+    boxShadow: `var(--box-shadow-inset-2)`,
     transition: {
       duration: 0.25,
     },

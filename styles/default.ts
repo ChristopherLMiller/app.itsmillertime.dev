@@ -26,7 +26,7 @@ export const GlobalStyles = createGlobalStyle`
     --box-shadow-elev-0: 0px 0px 0px rgba(0,0,0,0), 0px 0px 0px rgba(0,0,0,0);
     --box-shadow-elev-1: 0px 0px 22px rgba(0,0,0,0.4), 0px 0px 4px rgba(0,0,0,0.25);
     --box-shadow-inset: inset 0 0 0 var(--color-white-100);
-    --box-shadow-inset-0: inset 0 0px 0 var(--color-red-dark);
+    --box-shadow-inset-0: inset 0 -2px 0 var(--color-red-dark);
     --box-shadow-inset-1: inset 0 -6px 0 var(--color-red-dark);
     --box-shadow-inset-2: inset 0 -10px 0 var(--color-red-dark);
 

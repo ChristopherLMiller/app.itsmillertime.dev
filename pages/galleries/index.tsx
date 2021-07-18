@@ -12,6 +12,8 @@ import { useRouter } from 'next/router';
 import { useGalleriesQuery } from 'src/graphql/schema/galleries/galleries.query.generated';
 import { formatRelative, parseISO } from 'date-fns';
 import { SITE_DEFAULT_IMAGE_FILE } from 'config';
+import { isAdmin } from 'src/utils';
+import { useSession } from 'next-auth/client';
 
 const title = `Gallery`;
 const description = `A visual of all the things me!`;
@@ -37,6 +39,7 @@ const SubText = styled.div`
 
 const GalleriesIndexPage: NextPage = () => {
   const router = useRouter();
+  const [session] = useSession();
   const queryParams = router.query;
 
   console.log(queryParams);
@@ -111,6 +114,15 @@ const GalleriesIndexPage: NextPage = () => {
                     <p>
                       Tags: <ArrayList array={gallery.gallery_tags} />
                     </p>
+                    {isAdmin(session?.user) && (
+                      <a
+                        href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${gallery.id}`}
+                        target="_blank"
+                        rel="noopener norefer"
+                      >
+                        Edit
+                      </a>
+                    )}
                   </SubText>
                 </Image>
               </Anchor>
