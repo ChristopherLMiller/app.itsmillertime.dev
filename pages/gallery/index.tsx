@@ -1,19 +1,19 @@
-import { NextSeo } from 'next-seo';
-import { Grid } from 'src/components/Grid';
-import PageLayout from 'src/layout/PageLayout';
-import Image from 'src/components/Images';
-import Card from 'src/components/Card';
-import { NextPage } from 'next';
-import Loader from 'src/components/Loader';
-import styled from 'styled-components';
-import Link from 'next/link';
-import { ArrayList } from 'src/components/arrayList';
-import { useRouter } from 'next/router';
-import { useGalleriesQuery } from 'src/graphql/schema/galleries/galleries.query.generated';
-import { formatRelative, parseISO } from 'date-fns';
-import { SITE_DEFAULT_IMAGE_FILE } from 'config';
-import { isAdmin } from 'src/utils';
-import { useSession } from 'next-auth/client';
+import { NextSeo } from "next-seo";
+import { Grid } from "src/components/Grid";
+import PageLayout from "src/layout/PageLayout";
+import Image from "src/components/Images";
+import Card from "src/components/Card";
+import { NextPage } from "next";
+import Loader from "src/components/Loader";
+import styled from "styled-components";
+import Link from "next/link";
+import { ArrayList } from "src/components/arrayList";
+import { useRouter } from "next/router";
+import { useGalleriesQuery } from "src/graphql/schema/galleries/galleries.query.generated";
+import { formatRelative, parseISO } from "date-fns";
+import { SITE_DEFAULT_IMAGE_FILE } from "config";
+import { isAdmin } from "src/utils";
+import { useSession } from "next-auth/client";
 
 const title = `Gallery`;
 const description = `A visual of all the things me!`;
@@ -76,7 +76,7 @@ const GalleriesIndexPage: NextPage = () => {
               url: `https://res.cloudinary.com/christopherleemiller/image/upload/v1620977270/clm-new/uploads/galleries_be8f339ef5.jpg`,
             },
           ],
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/galleries`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/gallery`,
         }}
       />
 

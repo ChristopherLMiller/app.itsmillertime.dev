@@ -80,21 +80,8 @@
       }
     ],
     "quotes": [
-      2,
-      "backtick",
-      {
-        "avoidEscape": true,
-        "allowTemplateLiterals": true
-      }
-    ],
-    "prettier/prettier": [
       "error",
-      {
-        "trailingComma": "es5",
-        "singleQuote": true,
-        "printWidth": 80,
-        "indent": 2
-      }
+      "backtick"
     ]
   },
   "plugins": ["prettier", "jsx-a11y", "@typescript-eslint"]

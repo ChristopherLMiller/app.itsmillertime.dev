@@ -1,17 +1,17 @@
-import { GetServerSideProps, NextPage } from 'next';
-import { NextSeo } from 'next-seo';
-import { Grid } from 'src/components/Grid';
-import PageLayout from 'src/layout/PageLayout';
-import Image from 'src/components/Images';
-import Card from 'src/components/Card';
-import Markdown from 'src/components/Card/elements/Markdown';
-import styled from 'styled-components';
-import { formatRelative } from 'date-fns';
-import { getServerSideSEO, isAdmin } from 'src/utils';
-import { useGalleryQuery } from 'src/graphql/schema/galleries/gallery.query.generated';
-import { Gallery } from 'src/graphql/types';
-import { useSession } from 'next-auth/client';
-import ShareButtons from 'src/components/ShareButtons';
+import { GetServerSideProps, NextPage } from "next";
+import { NextSeo } from "next-seo";
+import { Grid } from "src/components/Grid";
+import PageLayout from "src/layout/PageLayout";
+import Image from "src/components/Images";
+import Card from "src/components/Card";
+import Markdown from "src/components/Card/elements/Markdown";
+import styled from "styled-components";
+import { formatRelative } from "date-fns";
+import { getServerSideSEO, isAdmin } from "src/utils";
+import { useGalleryQuery } from "src/graphql/schema/galleries/gallery.query.generated";
+import { Gallery } from "src/graphql/types";
+import { useSession } from "next-auth/client";
+import ShareButtons from "src/components/ShareButtons";
 
 const GalleryGrid = styled.div`
   display: grid;
@@ -52,7 +52,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
           title: `${SEO.title}`,
           description: `${SEO.description}`,
           type: `SEO`,
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/galleries/album/${SEO.slug}`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/gallery/album/${SEO.slug}`,
           images: [
             {
               url: SEO.featured_image?.url,
