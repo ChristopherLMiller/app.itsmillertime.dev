@@ -51,7 +51,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
         openGraph={{
           title: `${SEO.title}`,
           description: `${SEO.description}`,
-          type: `SEO`,
+          type: `website`,
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/gallery/album/${SEO.slug}`,
           images: [
             {
