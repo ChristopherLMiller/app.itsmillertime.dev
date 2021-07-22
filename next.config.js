@@ -60,7 +60,7 @@ const nextConfig = {
           cacheableResponse: {
             statuses: [0, 200],
             headers: {
-              'x-test': `true`,
+              "x-test": `true`,
             },
           },
         },
@@ -90,5 +90,5 @@ const SentryWebpackPluginOptions = {
 };
 
 module.exports = withBundleAnalyzer(
-  withOffline(withMDX(withSentryConfig(nextConfig, SentryWebpackPluginOptions))
-));
+  withOffline(withMDX(withSentryConfig(nextConfig, SentryWebpackPluginOptions)))
+);
