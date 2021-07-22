@@ -83,7 +83,7 @@ const GalleriesIndexPage: NextPage = () => {
       <Grid gap="30px" columns={3} masonry>
         {isSuccess &&
           data?.galleries?.map((gallery) => (
-            <Link href={`/galleries/album/${gallery.slug}`} key={gallery.slug}>
+            <Link href={`/gallery/album/${gallery.slug}`} key={gallery.slug}>
               <Anchor>
                 <Image
                   public_id={`${
