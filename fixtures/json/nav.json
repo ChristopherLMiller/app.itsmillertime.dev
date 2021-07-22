@@ -38,8 +38,8 @@
     },
     {
       "title": "Galleries",
-      "activePaths": ["/galleries"],
-      "href": "/galleries",
+      "activePaths": ["/gallery"],
+      "href": "/gallery",
       "authState": "ANY",
       "icon": "albums"
     },

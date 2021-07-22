@@ -81,7 +81,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
           <Reverse>
             <Card heading="About This Gallery" align="left">
               <ShareButtons
-                url={`${process.env.NEXT_PUBLIC_SITE_URL}/galleries/album/${SEO.slug}`}
+                url={`${process.env.NEXT_PUBLIC_SITE_URL}/gallery/album/${SEO.slug}`}
                 media={SEO.featured_image?.url}
                 title={SEO?.title}
               />
@@ -124,7 +124,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (slug) {
     const response = await getServerSideSEO(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL}/galleries?slug=${
+      `${process.env.NEXT_PUBLIC_STRAPI_URL}/gallery?slug=${
         context.query[`slug`]
       }`,
       context
