@@ -124,7 +124,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   if (slug) {
     const response = await getServerSideSEO(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL}/gallery?slug=${
+      `${process.env.NEXT_PUBLIC_STRAPI_URL}/galleries?slug=${
         context.query[`slug`]
       }`,
       context
