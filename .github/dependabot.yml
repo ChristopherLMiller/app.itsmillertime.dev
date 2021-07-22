@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: npm
-    directory: '/'
+    directory: "/"
     schedule:
       interval: weekly
     open-pull-requests-limit: 10
@@ -15,15 +15,6 @@ updates:
         versions:
           - 2.17.0
           - 2.20.1
-      - dependency-name: '@sentry/node'
-        versions:
-          - 6.2.5
-      - dependency-name: '@sentry/integrations'
-        versions:
-          - 6.2.5
-      - dependency-name: '@sentry/browser'
-        versions:
-          - 6.2.5
       - dependency-name: webpack
         versions:
           - 5.24.2
@@ -40,7 +31,7 @@ updates:
       - dependency-name: eslint
         versions:
           - 7.22.0
-      - dependency-name: '@typescript-eslint/eslint-plugin'
+      - dependency-name: "@typescript-eslint/eslint-plugin"
         versions:
           - 4.14.2
           - 4.15.2
@@ -48,22 +39,22 @@ updates:
       - dependency-name: typescript
         versions:
           - 4.2.2
-      - dependency-name: '@babel/core'
+      - dependency-name: "@babel/core"
         versions:
           - 7.12.13
           - 7.13.8
       - dependency-name: mjml
         versions:
           - 4.8.1
-      - dependency-name: '@next/mdx'
+      - dependency-name: "@next/mdx"
         versions:
           - 10.0.7
       - dependency-name: react-use
         versions:
           - 17.1.0
-      - dependency-name: '@types/node'
+      - dependency-name: "@types/node"
         versions:
           - 14.14.25
-      - dependency-name: '@types/react'
+      - dependency-name: "@types/react"
         versions:
           - 17.0.1
