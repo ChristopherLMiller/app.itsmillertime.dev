@@ -1,15 +1,17 @@
-import { NextPage } from 'next';
-import { NextSeo } from 'next-seo';
-import { ArrayList } from 'src/components/arrayList';
-import ImageDefault from 'src/components/Images';
-import PageLayout from 'src/layout/PageLayout';
-import styled from 'styled-components';
-import Card from 'src/components/Card';
-import { Grid } from 'src/components/Grid';
-import { useState } from 'react';
-import BuildTime from 'src/components/BuildTime';
-import { useModelsQuery } from 'src/graphql/schema/models/models.query.generated';
-import Loader from 'src/components/Loader';
+import { NextPage } from "next";
+import { NextSeo } from "next-seo";
+import { ArrayList } from "src/components/arrayList";
+import ImageDefault from "src/components/Images";
+import PageLayout from "src/layout/PageLayout";
+import styled from "styled-components";
+import Card from "src/components/Card";
+import { Grid } from "src/components/Grid";
+import React, { useState } from "react";
+import BuildTime from "src/components/BuildTime";
+import { useModelsQuery } from "src/graphql/schema/models/models.query.generated";
+import Loader from "src/components/Loader";
+import Link from "next/link";
+
 const title = `Models`;
 const description = `Airplanes, Tanks, Cars, its all here`;
 
@@ -128,7 +130,11 @@ const ModelsPageIndex: NextPage = () => {
                   border={false}
                 />
                 <InfoPanel>
-                  <ModelListingTitle>{model.title}</ModelListingTitle>
+                  <ModelListingTitle>
+                    <Link href={`/models/model/${model.slug}`}>
+                      <a>{model.title}</a>
+                    </Link>
+                  </ModelListingTitle>
                   <InfoContent>
                     <p>
                       Brand: {model.manufacturer.name}
