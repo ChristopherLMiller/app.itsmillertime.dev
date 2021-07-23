@@ -27,10 +27,6 @@ const withMDX = require(`@next/mdx`)({
   },
 });
 
-const withBundleAnalyzer = require(`@next/bundle-analyzer`)({
-  enabled: process.env.ANALYZE === `true`,
-});
-
 // Config
 const nextConfig = {
   reactStrictMode: true,
@@ -89,6 +85,5 @@ const SentryWebpackPluginOptions = {
   // https://github.com/getsentry/sentry-webpack-plugin#options.
 };
 
-module.exports = withBundleAnalyzer(
-  withOffline(withMDX(withSentryConfig(nextConfig, SentryWebpackPluginOptions)))
-);
+module.exports = 
+  withOffline(withMDX(withSentryConfig(nextConfig, SentryWebpackPluginOptions)));
