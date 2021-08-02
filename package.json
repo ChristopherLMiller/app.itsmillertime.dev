@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
-    "@babel/eslint-parser": "^7.14.4",
+    "@babel/eslint-parser": "^7.14.9",
     "@graphql-codegen/cli": "^1.21.7",
     "@graphql-codegen/near-operation-file-preset": "^1.18.5",
     "@graphql-codegen/typescript": "^1.22.4",
