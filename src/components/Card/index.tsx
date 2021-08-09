@@ -1,10 +1,10 @@
-import { FunctionComponent } from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from 'config';
-import Markdown from './elements/Markdown';
-import Contents from './elements/Contents';
+import { FunctionComponent } from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from "config";
+import Markdown from "./elements/Markdown";
+import Contents from "./elements/Contents";
 
 const easing = [0.175, 0.85, 0.42, 0.96];
 
@@ -63,7 +63,7 @@ interface iCardBody {
 
 const CardBody = styled.div<iCardBody>`
   background: var(--color-grey-light);
-  background-image: url('https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg');
+  background-image: var(--linen-paper);
   padding: ${(props) => (props.padding ? `3% 5%` : `0`)};
   position: relative;
   text-align: ${(props) => props.align};

@@ -11,6 +11,7 @@ import BuildTime from "src/components/BuildTime";
 import { useModelsQuery } from "src/graphql/schema/models/models.query.generated";
 import Loader from "src/components/Loader";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const title = `Models`;
 const description = `Airplanes, Tanks, Cars, its all here`;
@@ -36,10 +37,26 @@ const ModelListingTitle = styled.h4`
   text-transform: uppercase;
   font-weight: 100;
   letter-spacing: 0.5px;
+
+  a {
+    color: var(--color-white-100);
+    font-size: 1em;
+    text-decoration: none;
+    box-shadow: var(--box-shadow-inset-0);
+    transition: all 0.25s ease;
+
+    :hover {
+      box-shadow: var(--box-shadow-inset-1);
+      color: var(--color-white-80);
+      scale: 1.05;
+    }
+  }
 `;
 
 const InfoPanel = styled.div``;
 const InfoContent = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto;
   padding: 2rem;
   padding-block-start: 0;
   font-family: var(--font-block);
@@ -58,16 +75,47 @@ const ContentArea = styled.div`
   }
 `;
 
+const List = styled.ul`
+  padding-inline-start: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+
+  li {
+    margin-block-end: 10px;
+    margin-inline-end: 10px;
+    white-space: nowrap;
+    display: flex;
+  }
+
+  @media screen and (min-width: 500px) {
+    flex-direction: row;
+  }
+`;
+
+const MetaButton = styled.a`
+  background: var(--color-red);
+  padding: 10px;
+  text-align: center;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 20px;
+  color: var(--color-white-100);
+`;
+
 const ModelsPageIndex: NextPage = () => {
-  // fetch models query here
+  const router = useRouter();
   const [sort, setSort] = useState(`updatedAt:ASC`);
   const { data, isLoading, isSuccess, error } = useModelsQuery({
     sort: sort,
+    where: router.query ? router.query : null,
   });
 
   if (error) {
     console.error(error);
   }
+
+  console.log(router.query);
 
   return (
     <PageLayout title={title} description={description} padding={false}>
@@ -136,26 +184,32 @@ const ModelsPageIndex: NextPage = () => {
                     </Link>
                   </ModelListingTitle>
                   <InfoContent>
-                    <p>
-                      Brand: {model.manufacturer.name}
-                      {` `}
-                      Kit Number: {model.kit_number}
-                      {` `}
-                      Year Released: {model.year_released}
-                      {` `}
-                      Scale: {model.scale.name}
-                    </p>
-                    <p>
-                      Build Time:{` `}
-                      <BuildTime
-                        clockifyProjectId={model?.clockify_project_id}
-                      />
-                      {` `}Completed: {model?.completed ? `Yes` : `No`}
-                    </p>
-                    <p>
-                      Tags: <ArrayList array={model.model_tags} />
-                    </p>
+                    <p>Brand:</p>
+                    <p>{model.manufacturer.name}</p>
+                    <p>Kit Number:</p>
+                    <p>{model.kit_number}</p>
+                    <p>Year Released:</p>
+                    <p>{model.year_released}</p>
+                    <p>Scale:</p>
+                    <p>{model.scale.name}</p>
                   </InfoContent>
+                  <p>
+                    Build Time:{` `}
+                    <BuildTime clockifyProjectId={model?.clockify_project_id} />
+                    {` `}Completed: {model?.completed ? `Yes` : `No`}
+                  </p>
+                  <List>
+                    {model.model_tags.map((tag) => (
+                      <li key={tag.slug}>
+                        <Link
+                          href={`/models?model_tag.slug=${tag.slug}`}
+                          shallow
+                        >
+                          <MetaButton>{tag.name}</MetaButton>
+                        </Link>
+                      </li>
+                    ))}
+                  </List>
                 </InfoPanel>
               </ModelListing>
             ))}
