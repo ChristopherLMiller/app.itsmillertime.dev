@@ -58,7 +58,7 @@
     "remark-fix-guillemets": "^1.1.1",
     "remark-footnotes": "^3.0.0",
     "remark-html": "^14.0.0",
-    "remark-parse": "^9.0.0",
+    "remark-parse": "^10.0.0",
     "remark-react": "^8.0.0",
     "remark-sub-super": "^1.0.20",
     "remark-unwrap-images": "^3.0.0",
