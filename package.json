@@ -29,7 +29,7 @@
     "formik": "^2.2.8",
     "framer-motion": "^4.1.16",
     "graphql": "^15.5.0",
-    "graphql-request": "^3.4.0",
+    "graphql-request": "^3.5.0",
     "graphql-tag": "^2.12.4",
     "md5": "^2.3.0",
     "next": "^11.0.1",
