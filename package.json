@@ -33,7 +33,7 @@
     "graphql-tag": "^2.12.4",
     "md5": "^2.3.0",
     "next": "^11.1.0",
-    "next-auth": "^3.23.0",
+    "next-auth": "^3.29.0",
     "next-cookies": "^2.0.3",
     "next-offline": "^5.0.5",
     "next-seo": "^4.25.1",
