@@ -7,7 +7,7 @@ import { countWords, timeToRead } from "src/utils";
 import styled from "styled-components";
 import { useSession } from "next-auth/client";
 import { isAdmin } from "src/utils";
-import Image from "../Images";
+import Image from "src/components/Images";
 
 const StyledArticleListItem = styled(motion.div)`
   display: grid;
@@ -118,9 +118,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
       <ArticleListItemImage>
         {article?.seo?.featured_image && (
           <Image
-            public_id={`${
-              article?.seo?.featured_image.provider_metadata[`public_id`]
-            }`}
+            public_id={`${article?.seo?.featured_image.url}`}
             width={parseInt(`${article?.seo?.featured_image.width}`)}
             height={parseInt(`${article?.seo?.featured_image.height}`)}
             alt={article?.seo?.featured_image.alternativeText}
