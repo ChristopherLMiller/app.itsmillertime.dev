@@ -112,6 +112,8 @@ const ImageDefault: FunctionComponent<iImage> = ({
       width={width}
       height={height}
       loading={`eager`}
+      placeholder="blur"
+      blurDataURL={`${public_id}`}
     />
     {caption && (
       <ImageOverlay variants={ImageOverlayVariants}>

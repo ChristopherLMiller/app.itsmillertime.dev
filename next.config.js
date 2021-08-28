@@ -1,15 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const rehypePrism = require(`@mapbox/rehype-prism`);
-const remarkFootnotes = require('remark-footnotes');
-const remarkTypograf = require('@mavrin/remark-typograf');
-const remarkSubSuper = require('remark-sub-super');
-const remarkHtml = require('remark-html');
-const remarkGuillemets = reuqire('remark-fix-guillemets');
-const remarkUnwrapImages = require('remark-unwrap-images');
 const withOffline = require(`next-offline`);
 const { withSentryConfig } = require(`@sentry/nextjs`);
 
-import emoji from 'remark-emoji';
+//import emoji from 'remark-emoji';
 
 // MDX
 const withMDX = require(`@next/mdx`)({
@@ -17,13 +11,12 @@ const withMDX = require(`@next/mdx`)({
   options: {
     rehypePlugins: [rehypePrism],
     remarkPlugins: [
-      emoji,
-      remarkFootnotes,
-      remarkTypograf,
-      remarkSubSuper,
-      remarkHtml,
-      remarkGuillemets,
-      remarkUnwrapImages,
+      //      emoji,
+      //      remarkFootnotes,
+      //      remarkTypograf,
+      //      remarkSubSuper,
+      //      remarkGuillemets,
+      //      remarkUnwrapImages,
     ],
   },
 });
@@ -31,7 +24,7 @@ const withMDX = require(`@next/mdx`)({
 // Config
 const nextConfig = {
   experimental: {
-    esmExternals: true
+    esmExternals: "loose"
   },
   reactStrictMode: true,
   pageExtensions: [`js`, `jsx`, `mdx`, `ts`, `tsx`],

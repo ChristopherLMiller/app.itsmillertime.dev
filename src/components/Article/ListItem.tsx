@@ -118,7 +118,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
       <ArticleListItemImage>
         {article?.seo?.featured_image && (
           <Image
-            public_id={`${article?.seo?.featured_image.url}`}
+            public_id={`${article?.seo?.featured_image.provider_metadata.public_id}`}
             width={parseInt(`${article?.seo?.featured_image.width}`)}
             height={parseInt(`${article?.seo?.featured_image.height}`)}
             alt={article?.seo?.featured_image.alternativeText}
