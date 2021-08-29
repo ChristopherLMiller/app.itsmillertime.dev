@@ -1,9 +1,14 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const rehypePrism = require(`@mapbox/rehype-prism`);
 const withOffline = require(`next-offline`);
 const { withSentryConfig } = require(`@sentry/nextjs`);
 
-//import emoji from 'remark-emoji';
+const rehypePrism = require(`@mapbox/rehype-prism`);
+const remarkTypograf = require('@mavrin/remark-typograf');
+const remarkEmoji = require('next-transpile-modules')(['remark-emoji']);
+const remarkFootnotes = require('next-transpile-modules')(['remark-footnotes']);
+const remarkSubSuper = require('next-transpile-modules')(['remark-sub-super']);
+const remarkGuillemets = require('next-transpile-modules')(['remark-fix-guillemets']);
+const remarkUnwrapImages = require('next-transpile-modules')(['remark-unwrap-images']);
 
 // MDX
 const withMDX = require(`@next/mdx`)({
@@ -11,12 +16,12 @@ const withMDX = require(`@next/mdx`)({
   options: {
     rehypePlugins: [rehypePrism],
     remarkPlugins: [
-      //      emoji,
-      //      remarkFootnotes,
-      //      remarkTypograf,
-      //      remarkSubSuper,
-      //      remarkGuillemets,
-      //      remarkUnwrapImages,
+            remarkEmoji,
+            remarkFootnotes,
+            remarkTypograf,
+            remarkSubSuper,
+            remarkGuillemets,
+            remarkUnwrapImages,
     ],
   },
 });

@@ -1,31 +1,25 @@
-import { Fragment, FunctionComponent, createElement } from "react";
+import { createElement, Fragment, FunctionComponent } from "react";
 import { remark } from "remark";
-import parse from "remark-parse";
+import remarkParse from "remark-parse";
 import rehypeReact from "rehype-react";
-import remarkHtml from "remark-html";
-import remarkFootnotes from "remark-footnotes";
-import remarkTypograf from "@mavrin/remark-typograf";
-import remarkSubSuper from "remark-sub-super";
-import remarkGuillemets from "remark-fix-guillemets";
-import remarkUnwrapImages from "remark-unwrap-images";
+import remarkRehype from "remark-rehype";
+
+const processor = remark()
+  .use(remarkParse)
+  .use(remarkRehype)
+  .use(rehypeReact, { createElement: createElement });
 
 interface iMarkdown {
   source: string;
 }
 const Markdown: FunctionComponent<iMarkdown> = ({ source }) => {
-  const output = remark()
-    /*   .use(parse)
-    .use(remarkHtml)
-    .use(remarkFootnotes)
-    .use(remarkTypograf)
-    .use(remarkGuillemets)
-    .use(remarkUnwrapImages)
-    .use(rehypeReact, { createElement: createElement })*/
-    .processSync(source).result;
+  console.log(processor.processSync(source));
 
-  console.log(source);
-
-  return <Fragment>{output}</Fragment>;
+  return (
+    <Fragment>
+      <p>{processor.processSync(source).result}</p>
+    </Fragment>
+  );
 };
 
 export default Markdown;
