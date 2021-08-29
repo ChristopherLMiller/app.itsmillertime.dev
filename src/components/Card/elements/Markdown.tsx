@@ -12,14 +12,10 @@ const processor = remark()
 interface iMarkdown {
   source: string;
 }
-const Markdown: FunctionComponent<iMarkdown> = ({ source }) => {
-  console.log(processor.processSync(source));
-
-  return (
-    <Fragment>
-      <p>{processor.processSync(source).result}</p>
-    </Fragment>
-  );
-};
+const Markdown: FunctionComponent<iMarkdown> = ({ source }) => (
+  <Fragment>
+    <p>{processor.processSync(source).result}</p>
+  </Fragment>
+);
 
 export default Markdown;
