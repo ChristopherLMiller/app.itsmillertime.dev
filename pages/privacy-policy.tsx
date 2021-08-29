@@ -1,8 +1,8 @@
-import PageLayout from 'src/layout/PageLayout';
-import Card from 'src/components/Card';
-import { NextSeo } from 'next-seo';
-import { NextPage } from 'next';
-import PrivacyPolicyMarkdown from 'fixtures/mdx/privacy-policy.mdx';
+import PageLayout from "src/layout/PageLayout";
+import { NextSeo } from "next-seo";
+import { NextPage } from "next";
+import PrivacyPolicyMarkdown from "fixtures/mdx/privacy-policy.mdx";
+import Panel from "src/components/Panel";
 
 const title = `Privacy Policy`;
 const description = `My policies regarding your privacy and safety`;
@@ -27,9 +27,9 @@ const PrivacyPolicyPage: NextPage = () => (
         url: `${process.env.NEXT_PUBLIC_SITE_URL}/privacy-policy`,
       }}
     />
-    <Card align="left">
+    <Panel>
       <PrivacyPolicyMarkdown />
-    </Card>
+    </Panel>
   </PageLayout>
 );
 

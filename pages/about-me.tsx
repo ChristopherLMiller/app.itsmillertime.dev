@@ -1,8 +1,8 @@
-import PageLayout from 'src/layout/PageLayout';
-import Card from 'src/components/Card';
-import { NextSeo } from 'next-seo';
-import AboutMeMarkdown from 'fixtures/mdx/about-me.mdx';
-import { NextPage } from 'next';
+import PageLayout from "src/layout/PageLayout";
+import { NextSeo } from "next-seo";
+import AboutMeMarkdown from "fixtures/mdx/about-me.mdx";
+import { NextPage } from "next";
+import Panel from "src/components/Panel";
 
 const title = `About Me`;
 const description = `Where I came from and where I am now`;
@@ -27,9 +27,9 @@ const PrivacyPolicyPage: NextPage = () => (
         url: `${process.env.NEXT_PUBLIC_SITE_URL}/about-me`,
       }}
     />
-    <Card align="left">
+    <Panel>
       <AboutMeMarkdown />
-    </Card>
+    </Panel>
   </PageLayout>
 );
 
