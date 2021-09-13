@@ -79,7 +79,7 @@
     "@types/hcaptcha__react-hcaptcha": "^0.1.4",
     "@types/node": "^16.6.0",
     "@types/react": "^17.0.17",
-    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.29.1",
     "airbnb": "0.0.2",
     "babel-loader": "^8.2.2",
