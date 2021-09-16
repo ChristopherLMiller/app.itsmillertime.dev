@@ -1,8 +1,8 @@
-import PageLayout from 'src/layout/PageLayout';
-import Card from 'src/components/Card';
-import { NextSeo } from 'next-seo';
-import UsesMarkdown from 'fixtures/mdx/uses.mdx';
-import { NextPage } from 'next';
+import PageLayout from "src/layout/PageLayout";
+import { NextSeo } from "next-seo";
+import UsesMarkdown from "fixtures/mdx/uses.mdx";
+import { NextPage } from "next";
+import Panel from "src/components/Panel";
 
 const title = `Uses`;
 const description = `The tech and tools that I use`;
@@ -27,9 +27,9 @@ const PrivacyPolicyPage: NextPage = () => (
         url: `${process.env.NEXT_PUBLIC_SITE_URL}/uses`,
       }}
     />
-    <Card align="left">
+    <Panel>
       <UsesMarkdown />
-    </Card>
+    </Panel>
   </PageLayout>
 );
 
