@@ -3,12 +3,16 @@ const withOffline = require(`next-offline`);
 const { withSentryConfig } = require(`@sentry/nextjs`);
 
 const rehypePrism = require(`@mapbox/rehype-prism`);
-const remarkTypograf = require('@mavrin/remark-typograf');
-const remarkEmoji = require('next-transpile-modules')(['remark-emoji']);
-const remarkFootnotes = require('next-transpile-modules')(['remark-footnotes']);
-const remarkSubSuper = require('next-transpile-modules')(['remark-sub-super']);
-const remarkGuillemets = require('next-transpile-modules')(['remark-fix-guillemets']);
-const remarkUnwrapImages = require('next-transpile-modules')(['remark-unwrap-images']);
+const remarkTypograf = require("@mavrin/remark-typograf");
+const remarkEmoji = require("next-transpile-modules")(["remark-emoji"]);
+const remarkFootnotes = require("next-transpile-modules")(["remark-footnotes"]);
+const remarkSubSuper = require("next-transpile-modules")(["remark-sub-super"]);
+const remarkGuillemets = require("next-transpile-modules")([
+  "remark-fix-guillemets",
+]);
+const remarkUnwrapImages = require("next-transpile-modules")([
+  "remark-unwrap-images",
+]);
 
 // MDX
 const withMDX = require(`@next/mdx`)({
@@ -16,12 +20,12 @@ const withMDX = require(`@next/mdx`)({
   options: {
     rehypePlugins: [rehypePrism],
     remarkPlugins: [
-            remarkEmoji,
-            remarkFootnotes,
-            remarkTypograf,
-            remarkSubSuper,
-            remarkGuillemets,
-            remarkUnwrapImages,
+      remarkEmoji,
+      remarkFootnotes,
+      remarkTypograf,
+      remarkSubSuper,
+      remarkGuillemets,
+      remarkUnwrapImages,
     ],
   },
 });
@@ -29,7 +33,7 @@ const withMDX = require(`@next/mdx`)({
 // Config
 const nextConfig = {
   experimental: {
-    esmExternals: "loose"
+    esmExternals: "loose",
   },
   reactStrictMode: true,
   pageExtensions: [`js`, `jsx`, `mdx`, `ts`, `tsx`],
@@ -68,9 +72,7 @@ const nextConfig = {
   images: {
     loader: `cloudinary`,
     path: `https://res.cloudinary.com/christopherleemiller/image/upload`,
-    domains: [
-      `res.cloudinary.com`,
-    ],
+    domains: [`res.cloudinary.com`],
   },
 };
 
