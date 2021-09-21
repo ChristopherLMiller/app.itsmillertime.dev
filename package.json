@@ -57,7 +57,7 @@
     "remark-emoji": "^3.0.1",
     "remark-fix-guillemets": "^1.1.1",
     "remark-footnotes": "^4.0.1",
-    "remark-html": "^14.0.0",
+    "remark-html": "^14.0.1",
     "remark-parse": "^10.0.0",
     "remark-react": "^9.0.1",
     "remark-sub-super": "^1.0.20",
