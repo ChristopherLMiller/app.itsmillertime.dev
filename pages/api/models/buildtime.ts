@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (
   req: NextApiRequest,
@@ -15,8 +15,8 @@ export default async (
   // Setup headers to fetch from clockify
   const headers = {
     Accept: `application/json`,
-    'Content-Type': `application/json`,
-    'X-Api-Key': process.env.CLOCKIFY_API_KEY,
+    "Content-Type": `application/json`,
+    "X-Api-Key": process.env.CLOCKIFY_API_KEY,
   };
 
   // now fetch the data

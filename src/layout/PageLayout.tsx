@@ -1,15 +1,15 @@
-import Header from 'src/layout/elements/Header';
-import { motion } from 'framer-motion';
-import styled from 'styled-components';
-import { FunctionComponent } from 'react';
-import Footer from './elements/Footer';
+import Header from "src/layout/elements/Header";
+import { motion } from "framer-motion";
+import styled from "styled-components";
+import { FunctionComponent } from "react";
+import Footer from "./elements/Footer";
 
 const Main = styled(motion.main)`
   padding: 0 2%;
   flex-grow: 1;
 
   @media (min-width: 800px) {
-    padding: 0 ${(props) => (props.padding ? `15%` : `5%`)};
+    padding: 0 ${(props) => (props.padding ? `10%` : `5%`)};
   }
 `;
 

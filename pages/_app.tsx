@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Provider } from "next-auth/client";
 import { DefaultSeo } from "next-seo";
 import SEO from "next-seo.config";
-import { AppComponent } from "next/dist/next-server/lib/router/router";
 import Head from "next/head";
 import { useRouter } from "next/router";
 // global CSS
@@ -44,7 +43,7 @@ const CookieConsentText = styled.span`
 
 const queryClient = new QueryClient();
 
-const App: AppComponent = ({ Component, pageProps, err }) => {
+const App = ({ Component, pageProps, err }) => {
   const router = useRouter();
 
   useEffect(() => {

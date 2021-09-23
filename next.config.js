@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const rehypePrism = require(`@mapbox/rehype-prism`);
-const remarkEmoji = require(`remark-emoji`);
-const remarkFootnotes = require(`remark-footnotes`);
-const remarkTypograf = require(`@mavrin/remark-typograf`);
-const remarkSubSuper = require(`remark-sub-super`);
-const remarkHtml = require(`remark-html`);
-const remarkGuillemets = require(`remark-fix-guillemets`);
-const remarkUnwrapImages = require(`remark-unwrap-images`);
 const withOffline = require(`next-offline`);
 const { withSentryConfig } = require(`@sentry/nextjs`);
+
+const rehypePrism = require(`@mapbox/rehype-prism`);
+const remarkTypograf = require("@mavrin/remark-typograf");
+const remarkEmoji = require("next-transpile-modules")(["remark-emoji"]);
+const remarkFootnotes = require("next-transpile-modules")(["remark-footnotes"]);
+const remarkSubSuper = require("next-transpile-modules")(["remark-sub-super"]);
+const remarkGuillemets = require("next-transpile-modules")([
+  "remark-fix-guillemets",
+]);
+const remarkUnwrapImages = require("next-transpile-modules")([
+  "remark-unwrap-images",
+]);
 
 // MDX
 const withMDX = require(`@next/mdx`)({
@@ -20,7 +24,6 @@ const withMDX = require(`@next/mdx`)({
       remarkFootnotes,
       remarkTypograf,
       remarkSubSuper,
-      remarkHtml,
       remarkGuillemets,
       remarkUnwrapImages,
     ],
@@ -29,6 +32,9 @@ const withMDX = require(`@next/mdx`)({
 
 // Config
 const nextConfig = {
+  experimental: {
+    esmExternals: "loose",
+  },
   reactStrictMode: true,
   pageExtensions: [`js`, `jsx`, `mdx`, `ts`, `tsx`],
   serverRuntimeConfig: {
@@ -65,11 +71,8 @@ const nextConfig = {
   },
   images: {
     loader: `cloudinary`,
-    path: `https://res.cloudinary.com/christopherleemiller/image/upload/`,
-    domains: [
-      `clm-sites-strapi.s3.us-east-2.amazonaws.com`,
-      `res.cloudinary.com`,
-    ],
+    path: `https://res.cloudinary.com/christopherleemiller/image/upload`,
+    domains: [`res.cloudinary.com`],
   },
 };
 

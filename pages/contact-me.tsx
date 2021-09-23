@@ -1,18 +1,18 @@
-import { useToasts } from 'react-toast-notifications';
-import PageLayout from 'src/layout/PageLayout';
-import { NextSeo } from 'next-seo';
-import * as Yup from 'yup';
-import Card from 'src/components/Card';
-import { ErrorMessage, Field, Formik, Form } from 'formik';
-import React from 'react';
+import { useToasts } from "react-toast-notifications";
+import PageLayout from "src/layout/PageLayout";
+import { NextSeo } from "next-seo";
+import * as Yup from "yup";
+import Panel from "src/components/Panel";
+import { ErrorMessage, Field, Formik, Form } from "formik";
+import React from "react";
 import {
   StyledForm,
   Fieldset,
   Label,
   FormErrorMessage,
-} from 'src/components/inputs';
-import Button from 'src/components/inputs/Button';
-import styled from 'styled-components';
+} from "src/components/inputs";
+import Button from "src/components/inputs/Button";
+import styled from "styled-components";
 
 const title = `Contact Me`;
 const description = `Reach me with any needs`;
@@ -35,7 +35,7 @@ const ContactGrid = styled.div`
     }
   }
   @media (min-width: 1100px) {
-    grid-template-columns: auto 400px;
+    grid-template-columns: auto 700px;
   }
 `;
 
@@ -120,10 +120,7 @@ const ContactPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/contact-me`,
         }}
       />
-      <Card
-        heading="Send me a message"
-        subHeading="Got a question?  Looking for some work to be done?  I'd love to hear from you.  Send me a message and I'll reply as soon as possible."
-        padding={false}
+      <Panel padding={false}>
       >
         <ContactGrid>
           <ContactColumn>
@@ -186,6 +183,11 @@ const ContactPage = () => {
             </Formik>
           </ContactColumn>
           <ContactColumn>
+            <h4>Send me a message</h4>
+            <p>
+              Got a question? Looking for some work to be done? I'd love to hear
+              from you. Send me a message and I'll reply as soon as possible.
+            </p>
             <h4>Alternate Emails</h4>
             <ContactFormEmailList>
               <li>
@@ -228,7 +230,7 @@ const ContactPage = () => {
             </p>
           </ContactColumn>
         </ContactGrid>
-      </Card>
+      </Panel>
     </PageLayout>
   );
 };

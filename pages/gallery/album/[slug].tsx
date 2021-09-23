@@ -12,6 +12,7 @@ import { useGalleryQuery } from "src/graphql/schema/galleries/gallery.query.gene
 import { Gallery } from "src/graphql/types";
 import { useSession } from "next-auth/client";
 import ShareButtons from "src/components/ShareButtons";
+import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 
 const GalleryGrid = styled.div`
   display: grid;
@@ -65,19 +66,25 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
       />
       {!isLoading && (
         <GalleryGrid>
-          <Grid gap="30px" min="425px" masonry>
-            {data.gallery.gallery_images?.map((image) => (
-              <Image
-                public_id={`${image.watermarked.provider_metadata.public_id}`}
-                width={image.watermarked.width}
-                height={image.watermarked.height}
-                alt={`${image.caption}`}
-                caption={`${image.caption}`}
-                key={image.slug}
-              />
-            ))}
-          </Grid>
-
+          <SimpleReactLightbox>
+            <SRLWrapper>
+              <Grid gap="30px" min="425px" masonry>
+                {data.gallery.gallery_images?.map((image) => (
+                  <a key={image.slug} href={image.watermarked.url}>
+                    <Image
+                      public_id={`${image.watermarked.provider_metadata.public_id}`}
+                      width={image.watermarked.width}
+                      height={image.watermarked.height}
+                      alt={`${image.caption}`}
+                      caption={`${image.caption}`}
+                      key={image.slug}
+                      srl_gallery_image="true"
+                    />
+                  </a>
+                ))}
+              </Grid>
+            </SRLWrapper>
+          </SimpleReactLightbox>
           <Reverse>
             <Card heading="About This Gallery" align="left">
               <ShareButtons

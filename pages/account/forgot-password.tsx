@@ -1,49 +1,14 @@
-import { CLOUDINARY_CLOUD, SITE_DEFAULT_IMAGE_FILE } from 'config';
-import { NextSeo } from 'next-seo';
-import Link from 'next/link';
-import Card from 'src/components/Card';
-import { ForgotPasswordForm } from 'src/templates/forms';
-import { Grid } from 'src/components/Grid';
-import PageLayout from 'src/layout/PageLayout';
-import styled from 'styled-components';
-import { GetServerSideProps, NextPage } from 'next';
-import { getSession } from 'next-auth/client';
+import { CLOUDINARY_CLOUD, SITE_DEFAULT_IMAGE_FILE } from "config";
+import { NextSeo } from "next-seo";
+import Link from "next/link";
+import { ForgotPasswordForm } from "src/templates/forms";
+import PageLayout from "src/layout/PageLayout";
+import { GetServerSideProps, NextPage } from "next";
+import { getSession } from "next-auth/client";
+import { ContentPane, SplitPane, TextPane } from "src/components/SplitPane";
 
 const title = `Forgot Password?`;
 const description = `How could you forget your password?`;
-
-const PanelLink = styled.a`
-  cursor: pointer;
-  color: var(--color-white-100) !important;
-  text-decoration: underline;
-`;
-
-const TextPane = styled.div`
-  align-items: center;
-  background: var(--color-red-intermediate);
-  padding: 3% 5%;
-
-  p,
-  h3,
-  a {
-    color: var(--color-white-100);
-    font-weight: 100;
-  }
-
-  h3 {
-    font-family: var(--font-block);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-top: 0;
-  }
-`;
-
-const ResetPane = styled.div`
-  padding: 3% 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
 
 const ForgotPasswordPage: NextPage = () => (
   <PageLayout title={title} description={description}>
@@ -66,23 +31,21 @@ const ForgotPasswordPage: NextPage = () => (
         url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/forgot-password',`,
       }}
     />
-    <Card padding={false}>
-      <Grid columns={2}>
-        <TextPane>
-          <h3>Forgot your password?</h3>
-          <p>
-            No problem! Enter your email and an email will be sent to you with
-            instructions to reset it.
-          </p>
-          <Link href="/account/login">
-            <PanelLink>Login instead?</PanelLink>
-          </Link>
-        </TextPane>
-        <ResetPane>
-          <ForgotPasswordForm />
-        </ResetPane>
-      </Grid>
-    </Card>
+    <SplitPane>
+      <TextPane>
+        <h3>We Understand</h3>
+        <p>
+          Things happen, we get it. Enter your email and link will be sent to
+          you to reset it.
+        </p>
+        <Link href="/account/login">
+          <a>Login instead?</a>
+        </Link>
+      </TextPane>
+      <ContentPane>
+        <ForgotPasswordForm />
+      </ContentPane>
+    </SplitPane>
   </PageLayout>
 );
 
@@ -93,7 +56,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (session?.user) {
     context.res.writeHead(302, {
       Location: `/`,
-      'Content-Type': `text/html; chaset=utf-8`,
+      "Content-Type": `text/html; chaset=utf-8`,
     });
     context.res.end();
   }

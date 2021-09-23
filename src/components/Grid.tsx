@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface iGrid {
   columns?: number;
@@ -22,7 +22,7 @@ export const Grid = styled.div<iGrid>`
 
   ${(props) =>
     props.columns > 0 &&
-    `@media (min-width: 600px) {grid-template-columns: repeat(2, 1fr)}
+    `@media (min-width: 600px) {grid-template-columns: repeat(1, 1fr)}
     @media (min-width: 800px) {grid-template-columns: repeat(${props.columns}, 1fr)
   }`}
 

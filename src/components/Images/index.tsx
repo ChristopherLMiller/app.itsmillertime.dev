@@ -1,7 +1,7 @@
-import { FunctionComponent } from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { FunctionComponent } from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface iImageContainer {
   border: boolean;
@@ -106,14 +106,14 @@ const ImageDefault: FunctionComponent<iImage> = ({
     border={border}
   >
     <Image
-      src={public_id}
+      src={`${public_id}`}
       alt={alt}
       layout={layout}
       width={width}
       height={height}
       loading={`eager`}
       placeholder="blur"
-      blurDataURL={`https://res.cloudinary.com/christopherleemiller/image/upload/e_blur:200/v1621611397/${public_id}`}
+      blurDataURL={`${public_id}`}
     />
     {caption && (
       <ImageOverlay variants={ImageOverlayVariants}>

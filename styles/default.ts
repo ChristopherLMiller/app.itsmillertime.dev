@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import { CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from '../config';
+import { createGlobalStyle } from "styled-components";
+import { CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from "../config";
 
 export const defaultTheme = {
   colors: {
@@ -67,6 +67,8 @@ export const GlobalStyles = createGlobalStyle`
     --h5-size: clamp(2.5rem, 5vw, 3rem);
     --h6-size: clamp(2rem, 5vw, 2.5rem);
     --p-size: clamp(2rem, 5vw, 2.5rem);
+
+    --linen-paper: url('https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg');
   }
 
   html {
@@ -109,19 +111,4 @@ export const GlobalStyles = createGlobalStyle`
   h6 {
     font-size: var(--h6-size);
   }
-
-  main {
-  a {
-    color: var(--color-grey-darker);
-    text-decoration: none;
-    box-shadow: var(--box-shadow-inset-0);
-    transition: all 0.25s ease;
-
-    :hover {
-        box-shadow: var(--box-shadow-inset-1);
-        color: var(--color-white-100);
-        scale: 1.05;
-    }
-  }
-}
 `;
