@@ -65,7 +65,7 @@
     "remark-parse": "^10.0.0",
     "remark-rehype": "^9.0.0",
     "simple-react-lightbox": "^3.6.9-0",
-    "unified": "^9.2.0",
+    "unified": "^10.1.0",
     "remark-react": "^9.0.1",
     "remark-sub-super": "^1.0.20",
     "remark-unwrap-images": "^3.0.0",
