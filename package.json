@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@cloudinary/base": "^1.0.0-beta.4",
-    "@cloudinary/react": "^1.0.0-beta.9",
+    "@cloudinary/react": "^1.0.0-beta.11",
     "@hcaptcha/react-hcaptcha": "^0.3.7",
     "@mapbox/rehype-prism": "^0.7.0",
     "@mavrin/remark-typograf": "^2.2.0",
