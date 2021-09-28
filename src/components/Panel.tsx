@@ -7,7 +7,7 @@ interface iStyledPanel {
   padding?: boolean;
 }
 
-const StyledPanel = styled<iPanel>(motion.div)`
+const StyledPanel = styled<iStyledPanel>(motion.div)`
   :before {
     content: "";
     background: var(--color-grey-light);
@@ -101,14 +101,12 @@ interface iPanel {
 
 const Panel: FunctionComponent<iPanel> = ({
   children,
-  align = "left",
+  align = `left`,
   padding = true,
-}) => {
-  return (
-    <StyledPanel align={align} padding={padding}>
-      {children}
-    </StyledPanel>
-  );
-};
+}) => (
+  <StyledPanel align={align} padding={padding}>
+    {children}
+  </StyledPanel>
+);
 
 export default Panel;

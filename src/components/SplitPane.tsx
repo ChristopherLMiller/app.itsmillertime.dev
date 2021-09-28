@@ -7,9 +7,9 @@ const StyledSplitPane = styled(motion.div)`
   grid-template-columns: repeat(2, 1fr);
   background: var(--linen-paper);
 `;
-export const SplitPane: FunctionComponent = ({ children }) => {
-  return <StyledSplitPane>{children}</StyledSplitPane>;
-};
+export const SplitPane: FunctionComponent = ({ children }) => (
+  <StyledSplitPane>{children}</StyledSplitPane>
+);
 
 const StyledTextPane = styled(motion.div)`
   align-items: center;
@@ -40,9 +40,9 @@ const StyledTextPane = styled(motion.div)`
   }
 `;
 
-export const TextPane: FunctionComponent = ({ children }) => {
-  return <StyledTextPane>{children}</StyledTextPane>;
-};
+export const TextPane: FunctionComponent = ({ children }) => (
+  <StyledTextPane>{children}</StyledTextPane>
+);
 
 const StyledContentPane = styled.div`
   padding: 3% 5%;

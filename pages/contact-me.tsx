@@ -121,7 +121,6 @@ const ContactPage = () => {
         }}
       />
       <Panel padding={false}>
-      >
         <ContactGrid>
           <ContactColumn>
             <Formik

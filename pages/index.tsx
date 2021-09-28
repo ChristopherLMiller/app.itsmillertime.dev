@@ -1,6 +1,5 @@
 import PageLayout from "src/layout/PageLayout";
 import { NextSeo } from "next-seo";
-import Link from "next/link";
 import { NextPage } from "next";
 import { useSession } from "next-auth/client";
 import Panel from "src/components/Panel";
