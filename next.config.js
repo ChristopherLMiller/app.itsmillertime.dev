@@ -32,6 +32,11 @@ const withMDX = require(`@next/mdx`)({
 
 // Config
 const nextConfig = {
+  webpack5: true,
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false , path: require.resolve('path-browserify') };
+    return config;
+  },
   experimental: {
     esmExternals: "loose",
   },

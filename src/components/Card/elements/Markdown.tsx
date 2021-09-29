@@ -1,21 +1,13 @@
-import { createElement, Fragment, FunctionComponent } from "react";
-import { remark } from "remark";
-import remarkParse from "remark-parse";
-import rehypeReact from "rehype-react";
-import remarkRehype from "remark-rehype";
-
-const processor = remark()
-  .use(remarkParse)
-  .use(remarkRehype)
-  .use(rehypeReact, { createElement: createElement });
-
+import { FunctionComponent } from "react";
+import MDX from "@mdx-js/runtime";
+import { MDXProvider } from "@mdx-js/react";
 interface iMarkdown {
   source: string;
 }
 const Markdown: FunctionComponent<iMarkdown> = ({ source }) => (
-  <Fragment>
-    <p>{processor.processSync(source).result}</p>
-  </Fragment>
+  <MDXProvider>
+    <MDX>{source}</MDX>
+  </MDXProvider>
 );
 
 export default Markdown;

@@ -1,14 +1,14 @@
-import { NextSeo } from 'next-seo';
-import PageLayout from 'src/layout/PageLayout';
-import Card from 'src/components/Card';
-import { NextPage } from 'next';
-import styled from 'styled-components';
-import ArticleListItem from 'src/components/Article/ListItem';
-import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/client';
-import Loader from 'src/components/Loader';
-import { useArticlesQuery } from 'src/graphql/schema/articles/articles.query.generated';
-import { Article, PublicationState } from 'src/graphql/types';
+import { NextSeo } from "next-seo";
+import PageLayout from "src/layout/PageLayout";
+import Card from "src/components/Card";
+import { NextPage } from "next";
+import styled from "styled-components";
+import ArticleListItem from "src/components/Article/ListItem";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
+import Loader from "src/components/Loader";
+import { useArticlesQuery } from "src/graphql/schema/articles/articles.query.generated";
+import { Article, PublicationState } from "src/graphql/types";
 
 const title = `From My Desk`;
 const description = `Archives concerning all matters web development and beyond`;
@@ -64,6 +64,7 @@ const BlogIndexpage: NextPage = () => {
 
       {isSuccess && (
         <ArticleList>
+          {console.log(data?.articles)}
           {data?.articles?.map((article) => (
             <ArticleListItem key={article.id} article={article as Article} />
           ))}
