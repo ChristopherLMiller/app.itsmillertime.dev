@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
-import { ArrayList } from "src/components/arrayList";
 import ImageDefault from "src/components/Images";
 import PageLayout from "src/layout/PageLayout";
 import styled from "styled-components";

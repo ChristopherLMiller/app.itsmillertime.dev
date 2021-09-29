@@ -3,11 +3,11 @@ import { AdvancedImage } from "@cloudinary/react";
 
 const cloud = new Cloudinary({
   cloud: {
-    cloudName: "demo",
+    cloudName: `demo`,
   },
 });
 const CloudinaryImage = () => {
-  const image = cloud.image("sample");
+  const image = cloud.image(`sample`);
 
   return (
     <div>

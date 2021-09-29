@@ -23,6 +23,8 @@ const ModelPage: NextPage<iModelPage> = ({ SEO }) => {
     console.log(error);
   }
 
+  console.log(session);
+
   return (
     <PageLayout title={SEO.title} description="Model Gallery" padding={true}>
       <NextSeo
@@ -31,7 +33,7 @@ const ModelPage: NextPage<iModelPage> = ({ SEO }) => {
         openGraph={{
           title: `${SEO.title}`,
           description: `${SEO.SEO.description}`,
-          type: "website",
+          type: `website`,
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/models/model/${SEO.slug}`,
           images: [
             {

@@ -78,7 +78,6 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
                       alt={`${image.caption}`}
                       caption={`${image.caption}`}
                       key={image.slug}
-                      srl_gallery_image="true"
                     />
                   </a>
                 ))}

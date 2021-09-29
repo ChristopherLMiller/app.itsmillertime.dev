@@ -88,6 +88,9 @@ interface iImage {
   border?: boolean;
 }
 
+const customImageProps = {
+  srl_gallery_image: `true`,
+};
 const ImageDefault: FunctionComponent<iImage> = ({
   public_id = `clm-new/uploads/default_fb95099398`,
   width = 1920,
@@ -112,8 +115,9 @@ const ImageDefault: FunctionComponent<iImage> = ({
       width={width}
       height={height}
       loading={`eager`}
-      placeholder="blur"
+      placeholder={`blur`}
       blurDataURL={`${public_id}`}
+      {...customImageProps}
     />
     {caption && (
       <ImageOverlay variants={ImageOverlayVariants}>

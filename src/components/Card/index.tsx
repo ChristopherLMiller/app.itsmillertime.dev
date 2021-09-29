@@ -2,7 +2,6 @@ import { FunctionComponent } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from "config";
 import Markdown from "./elements/Markdown";
 import Contents from "./elements/Contents";
 import Panel from "../Panel";
