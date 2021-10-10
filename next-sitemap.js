@@ -9,6 +9,7 @@ module.exports = {
     additionalSitemaps: [
       `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap/articles.xml`,
       `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap/galleries.xml`,
+      `${process.env.NEXT_PUBLIC_SITE_URL|}/sitemap/models.xl`
     ],
     policies: [
       {

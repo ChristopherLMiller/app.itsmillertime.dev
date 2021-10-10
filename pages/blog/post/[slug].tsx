@@ -1,17 +1,17 @@
-import { NextSeo } from 'next-seo';
-import PageLayout from 'src/layout/PageLayout';
-import { GetServerSideProps, NextPage } from 'next';
-import Markdown from 'src/components/Card/elements/Markdown';
-import styled from 'styled-components';
-import { formatRelative, parseISO } from 'date-fns';
+import { NextSeo } from "next-seo";
+import PageLayout from "src/layout/PageLayout";
+import { GetServerSideProps, NextPage } from "next";
+import Markdown from "src/components/Card/elements/Markdown";
+import styled from "styled-components";
+import { formatRelative, parseISO } from "date-fns";
 
-import { countWords, isAdmin, timeToRead } from 'src/utils';
-import { getServerSideSEO } from 'src/utils/getServerSideSEO';
-import { useArticleQuery } from 'src/graphql/schema/articles/article.query.generated';
-import { Article } from 'src/graphql/types';
-import ShareButtons from 'src/components/ShareButtons';
-import Loader from 'src/components/Loader';
-import { useSession } from 'next-auth/client';
+import { countWords, isAdmin, timeToRead } from "src/utils";
+import { getServerSideSEO } from "src/utils/getServerSideSEO";
+import { useArticleQuery } from "src/graphql/schema/articles/article.query.generated";
+import { Article, PublicationState } from "src/graphql/types";
+import ShareButtons from "src/components/ShareButtons";
+import Loader from "src/components/Loader";
+import { useSession } from "next-auth/client";
 
 const title = `From My Desk`;
 const description = `Archives concerning all matters web development and beyond`;
@@ -98,7 +98,16 @@ interface iBlogPost {
 
 const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
   const [session] = useSession();
-  const { data, error, isLoading, isSuccess } = useArticleQuery({ id: SEO.id });
+  const publicationState =
+    session && isAdmin(session?.user)
+      ? PublicationState.Preview
+      : PublicationState.Live;
+  console.log(publicationState);
+  const { data, error, isLoading, isSuccess } = useArticleQuery({
+    id: SEO.id,
+    publicationState,
+  });
+
   const article = data?.article;
 
   if (error) {
@@ -129,15 +138,18 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
 
       {isSuccess && (
         <StyledBlogPost>
+          {console.log(article)}
           <ArticleHeader>
             <img
-              src={article.seo.featured_image?.url}
-              alt={article.seo.featured_image?.alternativeText}
+              src={article?.seo?.featured_image?.url}
+              alt={article?.seo?.featured_image?.alternativeText}
             />
-            <h2>{article.title}</h2>
+            <h2>{article?.title}</h2>
             <h5>
               Published:{` `}
-              {formatRelative(parseISO(article.published_at), new Date())}
+              {article?.published_at
+                ? formatRelative(parseISO(article?.published_at), new Date())
+                : "DRAFT"}
               {` `}| Time To Read:
               {timeToRead(countWords(article.content))}
             </h5>
@@ -174,7 +186,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const response = await getServerSideSEO(
       `${process.env.NEXT_PUBLIC_STRAPI_URL}/articles?slug_eq=${
         context?.query[`slug`]
-      }`,
+      }&_publicationState=preview`,
       context
     );
 

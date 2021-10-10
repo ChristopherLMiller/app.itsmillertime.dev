@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import { getServerSideSitemap } from "next-sitemap";
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   // Fetch all dynamic content here
   const galleriesQuery = await fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/galleries?_publicationState=live&_sort=published_at:DESC`
@@ -12,7 +12,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     lastmod: gallery?.updatedAt,
   }));
 
-  return getServerSideSitemap(ctx, galleries);
+  return getServerSideSitemap(context, galleries);
 };
 
 const SiteMapPage: NextPage = () => null;
