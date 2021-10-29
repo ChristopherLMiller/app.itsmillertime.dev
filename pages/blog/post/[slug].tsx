@@ -149,7 +149,7 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
               Published:{` `}
               {article?.published_at
                 ? formatRelative(parseISO(article?.published_at), new Date())
-                : "DRAFT"}
+                : `DRAFT`}
               {` `}| Time To Read:
               {timeToRead(countWords(article.content))}
             </h5>
