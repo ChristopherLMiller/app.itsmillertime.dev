@@ -31,7 +31,7 @@
     "dotenv-flow": "^3.2.0",
     "formik": "^2.2.8",
     "framer-motion": "^5.0.2",
-    "graphql": "^16.0.0",
+    "graphql": "^16.0.1",
     "graphql-request": "^3.6.1",
     "graphql-tag": "^2.12.4",
     "md5": "^2.3.0",
