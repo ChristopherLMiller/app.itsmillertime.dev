@@ -79,7 +79,7 @@
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.15.8",
     "@graphql-codegen/cli": "^2.2.1",
-    "@graphql-codegen/near-operation-file-preset": "^2.1.6",
+    "@graphql-codegen/near-operation-file-preset": "^2.2.0",
     "@graphql-codegen/typescript": "^2.0.0",
     "@graphql-codegen/typescript-operations": "^2.1.8",
     "@graphql-codegen/typescript-react-apollo": "^3.1.6",
