@@ -21,12 +21,11 @@
       "authState": "ANY",
       "icon": "user-4"
     },
-
     {
       "title": "Projects",
       "activePaths": ["/projects"],
       "href": "/projects",
-      "authState": "ANY",
+      "authState": "NONE",
       "icon": "resume"
     },
     {
@@ -42,13 +41,6 @@
       "href": "/gallery",
       "authState": "ANY",
       "icon": "albums"
-    },
-    {
-      "title": "Contact",
-      "activePaths": ["/contact-me"],
-      "href": "/contact-me",
-      "authState": "ANY",
-      "icon": "incoming"
     }
   ]
 }

@@ -1,10 +1,11 @@
-import styled from 'styled-components';
-import { format } from 'date-fns';
-import packageJSON from 'package.json';
-import { Grid, GridItem } from 'src/components/Grid';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { FunctionComponent } from 'react';
+import styled from "styled-components";
+import { format } from "date-fns";
+import packageJSON from "package.json";
+import { Grid, GridItem } from "src/components/Grid";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { FunctionComponent } from "react";
+import ContactMeForm from "src/templates/forms/contactMe";
 
 const StyledFooter = styled.footer`
   position: relative;
@@ -36,7 +37,7 @@ const FooterContent = styled.div`
   max-width: 1000px;
   text-align: center;
   color: var(--color-grey-darker);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 
   a {
     color: var(--color-white-80);
@@ -75,11 +76,11 @@ const FooterIconVariants = {
 };
 
 const FooterHeading = styled.h3`
-  margin-bottom: 0;
+  margin-block: 0;
 `;
 
 const FooterSubheading = styled.p`
-  margin-top: 0;
+  margin-block: 0;
 `;
 
 const Footer: FunctionComponent = () => (
@@ -88,6 +89,13 @@ const Footer: FunctionComponent = () => (
     <FooterContentArea>
       <FooterContent>
         <Grid columns={2} gap="50px" marginBottom={false}>
+          <GridItem>
+            <FooterHeading>Contact Me</FooterHeading>
+            <FooterSubheading>
+              Reach out today with any questions or concerns.
+            </FooterSubheading>
+            <ContactMeForm />
+          </GridItem>
           <GridItem>
             <FooterHeading>Follow Me</FooterHeading>
             <FooterSubheading>
@@ -136,8 +144,6 @@ const Footer: FunctionComponent = () => (
                 height="60px"
               />
             </Grid>
-          </GridItem>
-          <GridItem>
             <p>
               Use of this site constitues acceptance of our{` `}
               <Link href="/privacy-policy">
