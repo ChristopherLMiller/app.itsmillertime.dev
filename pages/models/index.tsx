@@ -22,7 +22,7 @@ const ModelListing = styled.div`
   margin-block-end: 3rem;
 
   @media screen and (min-width: 800px) {
-    grid-template-columns: 200px auto;
+    grid-template-columns: 25% auto;
   }
 `;
 
@@ -55,7 +55,7 @@ const ModelListingTitle = styled.h4`
 const InfoPanel = styled.div``;
 const InfoContent = styled.div`
   display: grid;
-  grid-template-columns: 1fr auto 1fr auto;
+  grid-template-columns: repeat(4, 1fr);
   padding: 2rem;
   padding-block-start: 0;
   font-family: var(--font-block);
@@ -65,14 +65,7 @@ const InfoContent = styled.div`
   }
 `;
 
-const ContentArea = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 30px;
-  @media (min-width: 900px) {
-    grid-template-columns: 15% auto;
-  }
-`;
+const ContentArea = styled.div``;
 
 const List = styled.ul`
   padding-inline-start: 0;
@@ -138,81 +131,51 @@ const ModelsPageIndex: NextPage = () => {
         }}
       />
       <ContentArea>
-        <div>
-          <Card heading="Filters">
-            <p>
-              <Grid cols={2} gap="10px">
-                <label>Sort</label>
-                <select name="sort" onChange={(e) => setSort(e.target.value)}>
-                  <option value="title:ASC">Name A-Z</option>
-                  <option value="title:DESC">Name Z-A</option>
-                  <option value="updatedAt:ASC">Updated Recently</option>
-                  <option value="updatedAt:DESC">Updated Oldest</option>
-                </select>
-                <label htmlFor="scale">Scale</label>
-                <select name="scale">
-                  <option>All</option>
-                  <option>1/12</option>
-                  <option>1/25</option>
-                </select>
-                <label>Brand</label>
-                <select name="brand">
-                  <option>Tamiya</option>
-                </select>
-              </Grid>
-            </p>
-          </Card>
-        </div>
-        <div>
-          {isSuccess &&
-            data.models.map((model) => (
-              <ModelListing key={model.slug}>
-                <ImageDefault
-                  public_id={
-                    model?.SEO.featured_image?.provider_metadata?.public_id
-                  }
-                  width={model?.SEO.featured_image?.width}
-                  height={model?.SEO.featured_image?.height}
-                  alt={model?.SEO.featured_image?.alternativeText}
-                  border={false}
-                />
-                <InfoPanel>
-                  <ModelListingTitle>
-                    <Link href={`/models/model/${model.slug}`}>
-                      <a>{model.title}</a>
-                    </Link>
-                  </ModelListingTitle>
-                  <InfoContent>
-                    <p>Brand:</p>
-                    <p>{model.manufacturer.name}</p>
-                    <p>Kit Number:</p>
-                    <p>{model.kit_number}</p>
-                    <p>Year Released:</p>
-                    <p>{model.year_released}</p>
-                    <p>Scale:</p>
-                    <p>{model.scale.name}</p>
-                  </InfoContent>
+        {isSuccess &&
+          data.models.map((model) => (
+            <ModelListing key={model.slug}>
+              <ImageDefault
+                public_id={
+                  model?.SEO.featured_image?.provider_metadata?.public_id
+                }
+                width={model?.SEO.featured_image?.width}
+                height={model?.SEO.featured_image?.height}
+                alt={model?.SEO.featured_image?.alternativeText}
+                border={false}
+              />
+              <InfoPanel>
+                <ModelListingTitle>
+                  <Link href={`/models/model/${model.slug}`}>
+                    <a>{model.title}</a>
+                  </Link>
+                </ModelListingTitle>
+                <InfoContent>
+                  <p>Brand:</p>
+                  <p>{model.manufacturer.name}</p>
+                  <p>Kit Number:</p>
+                  <p>{model.kit_number}</p>
+                  <p>Year Released:</p>
+                  <p>{model.year_released}</p>
+                  <p>Scale:</p>
+                  <p>{model.scale.name}</p>
                   <p>
                     Build Time:{` `}
                     <BuildTime clockifyProjectId={model?.clockify_project_id} />
                     {` `}Completed: {model?.completed ? `Yes` : `No`}
                   </p>
-                  <List>
-                    {model.model_tags.map((tag) => (
-                      <li key={tag.slug}>
-                        <Link
-                          href={`/models?model_tag.slug=${tag.slug}`}
-                          shallow
-                        >
-                          <MetaButton>{tag.name}</MetaButton>
-                        </Link>
-                      </li>
-                    ))}
-                  </List>
-                </InfoPanel>
-              </ModelListing>
-            ))}
-        </div>
+                </InfoContent>
+                <List>
+                  {model.model_tags.map((tag) => (
+                    <li key={tag.slug}>
+                      <Link href={`/models?model_tag.slug=${tag.slug}`} shallow>
+                        <MetaButton>{tag.name}</MetaButton>
+                      </Link>
+                    </li>
+                  ))}
+                </List>
+              </InfoPanel>
+            </ModelListing>
+          ))}
       </ContentArea>
     </PageLayout>
   );

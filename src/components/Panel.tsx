@@ -104,7 +104,7 @@ const Panel: FunctionComponent<iPanel> = ({
   align = `left`,
   padding = true,
 }) => (
-  <StyledPanel align={align} padding={padding}>
+  <StyledPanel align={align} padding={padding || undefined}>
     {children}
   </StyledPanel>
 );
