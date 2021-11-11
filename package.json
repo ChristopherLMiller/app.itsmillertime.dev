@@ -1,6 +1,6 @@
 {
   "name": "app.christopherleemiller.me",
-  "version": "1.17.2",
+  "version": "1.17.3",
   "description": "Front End to www.christopherleemiller.me",
   "main": "index.js",
   "scripts": {
@@ -50,7 +50,7 @@
     "react-cookie-consent": "^6.4.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.3.1",
-    "react-modal": "^3.14.2",
+    "react-modal": "^3.14.4",
     "react-query": "^3.31.0",
     "react-share": "^4.4.0",
     "react-snowfall": "^1.1.0",
