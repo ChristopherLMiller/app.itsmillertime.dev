@@ -26,7 +26,11 @@ const ModelPage: NextPage<iModelPage> = ({ SEO }) => {
   console.log(session);
 
   return (
-    <PageLayout title={SEO.title} description="Model Gallery" padding={true}>
+    <PageLayout
+      title={SEO.title}
+      description="Airplanes, Tanks, Cars, its all here"
+      padding={true}
+    >
       <NextSeo
         title={SEO.title}
         description={SEO.SEO.description}
