@@ -19,6 +19,7 @@ export const Grid = styled.div<iGrid>`
   background: ${(props) => props.background};
   ${(props) => props.justify && `justify-items: ` + props.justify};
   margin-bottom: ${(props) => (props.marginBottom ? `50px` : `0`)};
+  padding: 1rem;
 
   ${(props) =>
     props.columns > 0 &&

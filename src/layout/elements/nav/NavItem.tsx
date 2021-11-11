@@ -1,9 +1,9 @@
-import { FunctionComponent } from 'react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import styled from 'styled-components';
+import { FunctionComponent } from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import styled from "styled-components";
 //import { LOGGED_IN, LOGGED_OUT } from 'config';
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 interface iNavItem {
   item: {
@@ -86,6 +86,11 @@ const Text = styled.span`
 const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
   const router = useRouter();
   const isLocalUrl = !item.href.includes(`http`);
+
+  // TODO: hack, this allows me to hide things for everyone
+  if (item.authState === "NONE") {
+    return null;
+  }
 
   // see if the user is authorized to view this
   // TODO: Fix this, for next auth
