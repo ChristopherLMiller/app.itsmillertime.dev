@@ -123,7 +123,7 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
         openGraph={{
           title: `${SEO?.title}`,
           description: `${SEO?.seo?.description}`,
-          type: `seo`,
+          type: `article`,
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/blog/post/${SEO?.slug}`,
           images: [
             {

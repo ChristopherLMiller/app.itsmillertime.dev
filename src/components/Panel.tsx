@@ -22,7 +22,7 @@ const StyledPanel = styled<iStyledPanel>(motion.div)`
     z-index: -1;
   }
 
-  padding: ${(props) => (props.padding ? `3% 5%` : `0`)};
+  padding: ${(props) => (props.padding === true ? `3% 5%` : `0`)};
   position: relative;
   text-align: ${(props) => props.align};
 
