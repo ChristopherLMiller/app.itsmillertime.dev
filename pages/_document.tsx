@@ -5,9 +5,9 @@ import Document, {
   Html,
   Main,
   NextScript,
-} from 'next/document';
-import { GA_TRACKING_ID } from 'src/lib/gtag';
-import { ServerStyleSheet } from 'styled-components';
+} from "next/document";
+import { GA_TRACKING_ID } from "src/lib/gtag";
+import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
   static async getInitialProps(
@@ -59,10 +59,6 @@ export default class MyDocument extends Document {
           `,
             }}
           />
-
-          <link rel="manifest" href="/manifest.json" />
-          <link rel="shortcut icon" href="/logo.png" />
-          <link rel="apple-touch-icon" href="/logo.png" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
             href="https://fonts.googleapis.com/css2?family=Oswald&family=Permanent+Marker&family=Roboto:wght@300&family=Source+Code+Pro&family=Special+Elite&display=swap"
