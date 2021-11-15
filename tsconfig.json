@@ -3,13 +3,13 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": [
-        "components/*"
+        "src/components/*"
       ],
       "@/styles/*": [
-        "styles/*"
+        "src/styles/*"
       ],
       "@/fixtures/*": [
-        "fixtures/*"
+        "src/fixtures/*"
       ]
     },
     "target": "ESNext",
