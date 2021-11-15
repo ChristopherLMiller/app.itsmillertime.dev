@@ -80,7 +80,7 @@ const nextConfig = {
   images: {
     loader: `cloudinary`,
     path: `https://res.cloudinary.com/christopherleemiller/image/upload`,
-    domains: [`res.cloudinary.com`],
+    domains: [`res.cloudinary.com`, `gravatar.com`],
   },
 };
 

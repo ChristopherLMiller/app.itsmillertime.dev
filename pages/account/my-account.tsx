@@ -1,11 +1,14 @@
-import PageLayout from 'src/layout/PageLayout';
-import { NextPage } from 'next';
-import { Grid, GridItem } from 'src/components/Grid';
-import Card from 'src/components/Card';
-import styled from 'styled-components';
-import { NextSeo } from 'next-seo';
-import { SITE_DEFAULT_IMAGE_FILE, CLOUDINARY_CLOUD } from 'config';
-import { useSession } from 'next-auth/client';
+import PageLayout from "src/layout/PageLayout";
+import { GetServerSideProps, NextPage } from "next";
+import { Grid, GridItem } from "src/components/Grid";
+import Card from "src/components/Card";
+import styled from "styled-components";
+import { NextSeo } from "next-seo";
+import { SITE_DEFAULT_IMAGE_FILE, CLOUDINARY_CLOUD } from "config";
+import { getSession, useSession } from "next-auth/client";
+import Image from "next/image";
+
+const crypto = require("crypto");
 
 const title = `My Account`;
 const description = `Manage your account here`;
@@ -16,7 +19,11 @@ const InformationPanel = styled.div`
   }
 `;
 
-const MyAccount: NextPage = () => {
+interface iMyAccountPage {
+  emailHash: string;
+}
+
+const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
   const [session] = useSession();
   return (
     <PageLayout title={title} description={description}>
@@ -40,7 +47,12 @@ const MyAccount: NextPage = () => {
         }}
       />
       <Grid columns={3}>
-        <img src={``} alt="Avatar picture of self" loading="lazy" />
+        <img
+          src={`https://www.gravatar.com/avatar/${emailHash}`}
+          alt="Gravatar"
+          width={80}
+          height={80}
+        />
         <GridItem start={2} end={3}>
           <Card heading="My Information" align="left">
             <InformationPanel>
@@ -94,4 +106,20 @@ const MyAccount: NextPage = () => {
   );
 };
 
-export default MyAccount;
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
+
+  const emailHash = crypto
+    .createHash("md5")
+    .update(session?.user?.email)
+    .digest("hex");
+
+  console.log(emailHash);
+  return {
+    props: {
+      emailHash,
+    },
+  };
+};
+
+export default MyAccountPage;

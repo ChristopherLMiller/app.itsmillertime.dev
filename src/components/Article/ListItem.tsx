@@ -144,7 +144,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
               <a
                 href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
                 target="_blank"
-                rel="noopener norefer"
+                rel="noopener noreferrer"
               >
                 Edit
               </a>
@@ -156,7 +156,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
           <List>
             {article.article_categories.map((category: ArticleCategory) => (
               <li key={category.id}>
-                <Link href={`/blog?category=${category.slug}`}>
+                <Link href={`/blog?category=${category.slug}`} passHref>
                   <MetaButton>{category.title}</MetaButton>
                 </Link>
               </li>
@@ -165,7 +165,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
           <List>
             {article.article_tags.map((tag: ArticleTags) => (
               <li key={tag.id}>
-                <Link href={`/blog?tag=${tag.slug}`} shallow>
+                <Link href={`/blog?tag=${tag.slug}`} shallow passHref>
                   <MetaButton>{tag.title}</MetaButton>
                 </Link>
               </li>

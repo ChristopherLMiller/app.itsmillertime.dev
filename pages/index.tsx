@@ -35,13 +35,13 @@ const IndexPage: NextPage = () => {
         <Panel>
           <p>Hello, {session?.user ? session?.user?.username : `Guest`}</p>
           <p>
-            Please excuse the mess while I'm remodeling. Many great things are
-            in progress and will appear here as they are built.
+            Please excuse the mess while I&apos;m remodeling. Many great things
+            are in progress and will appear here as they are built.
           </p>
 
           <p>
             If you want to enjoy what I have to offer so far though go ahead and
-            have a look around as I've got many pieces in place, nothing
+            have a look around as I&apos;ve got many pieces in place, nothing
             compared to what I have to go yet though.
           </p>
 

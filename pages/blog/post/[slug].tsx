@@ -158,7 +158,7 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
                 <a
                   href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
                   target="_blank"
-                  rel="noopener norefer"
+                  rel="noopener noreferrer"
                 >
                   Edit
                 </a>

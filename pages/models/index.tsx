@@ -167,7 +167,11 @@ const ModelsPageIndex: NextPage = () => {
                 <List>
                   {model.model_tags.map((tag) => (
                     <li key={tag.slug}>
-                      <Link href={`/models?model_tag.slug=${tag.slug}`} shallow>
+                      <Link
+                        href={`/models?model_tag.slug=${tag.slug}`}
+                        shallow
+                        passHref
+                      >
                         <MetaButton>{tag.name}</MetaButton>
                       </Link>
                     </li>

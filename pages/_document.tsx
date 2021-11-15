@@ -59,9 +59,8 @@ export default class MyDocument extends Document {
           `,
             }}
           />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Oswald&family=Permanent+Marker&family=Roboto:wght@300&family=Source+Code+Pro&family=Special+Elite&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Montserrat&family=Oswald&family=Permanent+Marker&family=Roboto:wght@300&family=Source+Code+Pro&family=Special+Elite&display=swap"
             rel="stylesheet"
           />
         </Head>

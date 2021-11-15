@@ -99,7 +99,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
                 <a
                   href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${data.gallery.id}`}
                   target="_blank"
-                  rel="noopener norefer"
+                  rel="noopener noreferrer"
                 >
                   Edit
                 </a>
