@@ -1,20 +1,27 @@
-import * as Types from 'src/graphql/types';
+import * as Types from "src/graphql/types";
 
-import { useQuery, UseQueryOptions } from 'react-query';
-import { fetcher } from 'src/lib/fetch';
+import { useQuery, UseQueryOptions } from "react-query";
+import { fetcher } from "src/lib/fetch";
 export type GardensQueryVariables = Types.Exact<{ [key: string]: never }>;
 
-export type GardensQuery = { __typename?: `Query` } & {
-  gardens?: Types.Maybe<
-    Array<
-      Types.Maybe<
-        { __typename?: `Gardens` } & Pick<
-          Types.Gardens,
-          `title` | `contents` | `slug` | `id` | `_id`
-        > & { createdAt: Types.Gardens[`updatedAt`] }
+export type GardensQuery = {
+  __typename?: "Query";
+  gardens?:
+    | Array<
+        | {
+            __typename?: "Gardens";
+            title: string;
+            contents: string;
+            slug: string;
+            id: string;
+            _id: string;
+            createdAt: any;
+          }
+        | null
+        | undefined
       >
-    >
-  >;
+    | null
+    | undefined;
 };
 
 export const GardensDocument = `
@@ -34,7 +41,7 @@ export const useGardensQuery = <TData = GardensQuery, TError = unknown>(
   options?: UseQueryOptions<GardensQuery, TError, TData>
 ) =>
   useQuery<GardensQuery, TError, TData>(
-    [`Gardens`, variables],
+    variables === undefined ? ["Gardens"] : ["Gardens", variables],
     fetcher<GardensQuery, GardensQueryVariables>(GardensDocument, variables),
     options
   );

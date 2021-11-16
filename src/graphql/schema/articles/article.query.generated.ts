@@ -1,68 +1,65 @@
-import * as Types from 'src/graphql/types';
+import * as Types from "src/graphql/types";
 
-import { useQuery, UseQueryOptions } from 'react-query';
-import { fetcher } from 'src/lib/fetch';
+import { useQuery, UseQueryOptions } from "react-query";
+import { fetcher } from "src/lib/fetch";
 export type ArticleQueryVariables = Types.Exact<{
-  id: Types.Scalars[`ID`];
+  id: Types.Scalars["ID"];
   publicationState?: Types.Maybe<Types.PublicationState>;
 }>;
 
-export type ArticleQuery = { __typename?: `Query` } & {
-  article?: Types.Maybe<
-    { __typename?: `Article` } & Pick<
-      Types.Article,
-      | `id`
-      | `_id`
-      | `createdAt`
-      | `updatedAt`
-      | `title`
-      | `content`
-      | `slug`
-      | `published_at`
-    > & {
-        seo?: Types.Maybe<
-          { __typename?: `ComponentGlobalSeo` } & Pick<
-            Types.ComponentGlobalSeo,
-            `id` | `title` | `description`
-          > & {
-              featured_image?: Types.Maybe<
-                { __typename?: `UploadFile` } & Pick<
-                  Types.UploadFile,
-                  | `name`
-                  | `alternativeText`
-                  | `caption`
-                  | `width`
-                  | `height`
-                  | `url`
-                  | `previewUrl`
-                  | `provider`
-                  | `provider_metadata`
-                >
-              >;
+export type ArticleQuery = {
+  __typename?: "Query";
+  article?:
+    | {
+        __typename?: "Article";
+        id: string;
+        _id: string;
+        createdAt: any;
+        updatedAt: any;
+        title: string;
+        content: string;
+        slug: string;
+        published_at?: any | null | undefined;
+        seo?:
+          | {
+              __typename?: "ComponentGlobalSeo";
+              id: string;
+              title: string;
+              description?: string | null | undefined;
+              featured_image?:
+                | {
+                    __typename?: "UploadFile";
+                    name: string;
+                    alternativeText?: string | null | undefined;
+                    caption?: string | null | undefined;
+                    width?: number | null | undefined;
+                    height?: number | null | undefined;
+                    url: string;
+                    previewUrl?: string | null | undefined;
+                    provider: string;
+                    provider_metadata?: any | null | undefined;
+                  }
+                | null
+                | undefined;
             }
-        >;
-        article_tags?: Types.Maybe<
-          Array<
-            Types.Maybe<
-              { __typename?: `ArticleTags` } & Pick<
-                Types.ArticleTags,
-                `id` | `slug` | `title`
-              >
+          | null
+          | undefined;
+        article_tags?:
+          | Array<
+              | {
+                  __typename?: "ArticleTags";
+                  id: string;
+                  slug: string;
+                  title: string;
+                }
+              | null
+              | undefined
             >
-          >
-        >;
-        article_categories?: Types.Maybe<
-          Array<
-            Types.Maybe<
-              { __typename?: `ArticleCategory` } & Pick<
-                Types.ArticleCategory,
-                `id` | `slug` | `title`
-              >
-            >
-          >
-        >;
+          | null
+          | undefined;
       }
-  >;
+    | null
+    | undefined;
 };
 
 export const ArticleDocument = `
@@ -97,11 +94,6 @@ export const ArticleDocument = `
       slug
       title
     }
-    article_categories {
-      id
-      slug
-      title
-    }
   }
 }
     `;
@@ -110,7 +102,7 @@ export const useArticleQuery = <TData = ArticleQuery, TError = unknown>(
   options?: UseQueryOptions<ArticleQuery, TError, TData>
 ) =>
   useQuery<ArticleQuery, TError, TData>(
-    [`Article`, variables],
+    ["Article", variables],
     fetcher<ArticleQuery, ArticleQueryVariables>(ArticleDocument, variables),
     options
   );
