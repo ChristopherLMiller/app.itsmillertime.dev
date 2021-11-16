@@ -17,7 +17,7 @@ const Page = ({ page }) => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context.params["slug"][0];
   const res = await fetch(
-    `https://admin.christopherleemiller.me/pages?slug_eq=${slug}`
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/pages?slug_eq=${slug}`
   );
   const data = await res.json();
 
@@ -39,7 +39,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const res = await fetch(`https://admin.christopherleemiller.me/pages`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/pages`);
     const pages = await res.json();
 
     const paths = pages.map((page) => ({
