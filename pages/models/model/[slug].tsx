@@ -29,7 +29,6 @@ const ModelPage: NextPage<iModelPage> = ({ SEO }) => {
     <PageLayout
       title={SEO.title}
       description="Airplanes, Tanks, Cars, its all here"
-      padding={true}
     >
       <NextSeo
         title={SEO.title}

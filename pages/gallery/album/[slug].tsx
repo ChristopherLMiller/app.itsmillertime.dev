@@ -48,7 +48,6 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
     <PageLayout
       title={SEO.title}
       description={`A visual of all the things me!`}
-      padding={false}
     >
       <NextSeo
         title={SEO.title}

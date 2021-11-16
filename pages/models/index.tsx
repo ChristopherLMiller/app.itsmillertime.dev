@@ -110,7 +110,7 @@ const ModelsPageIndex: NextPage = () => {
   console.log(router.query);
 
   return (
-    <PageLayout title={title} description={description} padding={false}>
+    <PageLayout title={title} description={description}>
       {isLoading && <Loader isLoading={isLoading} />}
       <NextSeo
         title={title}
