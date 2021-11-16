@@ -7,8 +7,7 @@ interface iImageContainer {
   border: boolean;
 }
 const ImageContainer = styled<iImageContainer>(motion.div)`
-  border: ${(props) =>
-    props.border ? `5px solid var(--color-red-intermediate);` : `none`};
+  border: ${(props) => props.border};
   position: relative;
   min-height: 75px;
   height: min-content;
@@ -105,7 +104,7 @@ const ImageDefault: FunctionComponent<iImage> = ({
     variants={ImageContainerVariants}
     initial="rest"
     whileHover={hoverable ? `hover` : `rest`}
-    border={border ? border : undefined}
+    border={border ? `5px solid var(--color-red-intermediate);` : `none`}
   >
     <Image
       src={`${public_id}`}
