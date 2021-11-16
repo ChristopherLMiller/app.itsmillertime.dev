@@ -47,7 +47,7 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
         }}
       />
       <Grid columns={3}>
-        <img
+        <Image
           src={`https://www.gravatar.com/avatar/${emailHash}`}
           alt="Gravatar"
           width={80}

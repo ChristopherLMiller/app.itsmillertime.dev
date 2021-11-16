@@ -4,6 +4,7 @@ import { GetServerSideProps, NextPage } from "next";
 import Markdown from "src/components/Card/elements/Markdown";
 import styled from "styled-components";
 import { formatRelative, parseISO } from "date-fns";
+import Image from "next/image";
 
 import { countWords, isAdmin, timeToRead } from "src/utils";
 import { getServerSideSEO } from "src/utils/getServerSideSEO";
@@ -140,9 +141,12 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
         <StyledBlogPost>
           {console.log(article)}
           <ArticleHeader>
-            <img
+            <Image
               src={article?.seo?.featured_image?.url}
               alt={article?.seo?.featured_image?.alternativeText}
+              width={1920}
+              height={1080}
+              layout="responsive"
             />
             <h2>{article?.title}</h2>
             <h5>

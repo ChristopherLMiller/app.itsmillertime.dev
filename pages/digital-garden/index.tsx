@@ -1,9 +1,9 @@
-import { CLOUDINARY_CLOUD } from 'config';
-import { NextSeo } from 'next-seo';
-import { Grid } from 'src/components/Grid';
-import PageLayout from 'src/layout/PageLayout';
-import Card from 'src/components/Card';
-import { NextPage } from 'next';
+import { CLOUDINARY_CLOUD } from "config";
+import { NextSeo } from "next-seo";
+import { Grid } from "src/components/Grid";
+import PageLayout from "src/layout/PageLayout";
+import Card from "src/components/Card";
+import { NextPage } from "next";
 
 const title = `Digital Garden`;
 const description = `Random thoughts of me`;
@@ -38,7 +38,6 @@ const DigitalGardenIndexPage: NextPage = () => (
     </Card>
 
     <Grid columns="5" gap="30px">
-      // TODO: Map the items and output
       <Card
         heading="Garden Title"
         actionLinks={[

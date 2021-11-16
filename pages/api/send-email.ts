@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { sendEmail } from 'src/utils';
+import { NextApiRequest, NextApiResponse } from "next";
+import { sendEmail } from "src/utils";
 
-export default async (
+const emailer = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
@@ -16,3 +16,5 @@ export default async (
     },
   });
 };
+
+export default emailer;
