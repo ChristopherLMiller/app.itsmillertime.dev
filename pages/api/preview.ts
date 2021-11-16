@@ -1,6 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default (req: NextApiRequest, res: NextApiResponse): void => {
+const preview = (req: NextApiRequest, res: NextApiResponse): void => {
   res.setPreviewData({});
   res.end(`Preview mode enabled`);
 };
+
+export default preview;

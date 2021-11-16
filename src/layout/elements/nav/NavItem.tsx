@@ -22,10 +22,7 @@ interface iNavContainer {
 
 const NavContainer = styled(motion.div)<iNavContainer>`
   position: relative;
-  background: ${(props) =>
-    props.isActive
-      ? `var(--color-gold-highlight)`
-      : `var(--color-white-transparent)`};
+  background: ${(props) => props.background};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,7 +107,11 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
         whileHover="hover"
         initial="rest"
         animate="rest"
-        isActive={isActive}
+        background={
+          isActive
+            ? `var(--color-gold-highlight)`
+            : `var(--color-white-transparent)`
+        }
         variants={NavContainerVariants}
       >
         <Link href={item.href}>

@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default (req: NextApiRequest, res: NextApiResponse): void => {
+const webhook = (req: NextApiRequest, res: NextApiResponse): void => {
   const authHeader = req.headers.authorization;
 
   if (authHeader != `${process.env.STRAPI_WEBHOOK_KEY}`) {
@@ -31,3 +31,5 @@ export default (req: NextApiRequest, res: NextApiResponse): void => {
 
   res.end();
 };
+
+export default webhook;

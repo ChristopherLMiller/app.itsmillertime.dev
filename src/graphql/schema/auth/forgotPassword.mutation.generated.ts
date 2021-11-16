@@ -1,18 +1,17 @@
-import * as Types from 'src/graphql/types';
+import * as Types from "src/graphql/types";
 
-import { useMutation, UseMutationOptions } from 'react-query';
-import { fetcher } from 'src/lib/fetch';
+import { useMutation, UseMutationOptions } from "react-query";
+import { fetcher } from "src/lib/fetch";
 export type ForgotPasswordMutationVariables = Types.Exact<{
-  email: Types.Scalars[`String`];
+  email: Types.Scalars["String"];
 }>;
 
-export type ForgotPasswordMutation = { __typename?: `Mutation` } & {
-  forgotPassword?: Types.Maybe<
-    { __typename?: `UserPermissionsPasswordPayload` } & Pick<
-      Types.UserPermissionsPasswordPayload,
-      `ok`
-    >
-  >;
+export type ForgotPasswordMutation = {
+  __typename?: "Mutation";
+  forgotPassword?:
+    | { __typename?: "UserPermissionsPasswordPayload"; ok: boolean }
+    | null
+    | undefined;
 };
 
 export const ForgotPasswordDocument = `
@@ -36,6 +35,7 @@ export const useForgotPasswordMutation = <TError = unknown, TContext = unknown>(
     ForgotPasswordMutationVariables,
     TContext
   >(
+    "forgotPassword",
     (variables?: ForgotPasswordMutationVariables) =>
       fetcher<ForgotPasswordMutation, ForgotPasswordMutationVariables>(
         ForgotPasswordDocument,

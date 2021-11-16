@@ -39,8 +39,8 @@ const ResetPasswordPage: NextPage = () => {
         <TextPane>
           <h3>Password Requirements</h3>
           <p>
-            While I have no requirements for password complexity or length it's
-            on you if your account gets hacked.
+            While I have no requirements for password complexity or length
+            it&apos;s on you if your account gets hacked.
           </p>
         </TextPane>
         <ContentPane>

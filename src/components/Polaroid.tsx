@@ -52,7 +52,7 @@ const Polaroid: FunctionComponent<iPolaroid> = ({
 }) => {
   if (link != null) {
     return (
-      <Link as={link.as} href={link.href}>
+      <Link as={link.as} href={link.href} passHref>
         <StyledPolaroid whileHover={hoverState}>
           <Image
             src={`/${src}`}

@@ -59,7 +59,7 @@ const GalleriesIndexPage: NextPage = () => {
   }
 
   return (
-    <PageLayout title={title} description={description} padding={false}>
+    <PageLayout title={title} description={description}>
       {isLoading && <Loader isLoading={isLoading} />}
       <NextSeo
         title={title}
@@ -83,7 +83,11 @@ const GalleriesIndexPage: NextPage = () => {
       <Grid gap="30px" columns={3} masonry>
         {isSuccess &&
           data?.galleries?.map((gallery) => (
-            <Link href={`/gallery/album/${gallery.slug}`} key={gallery.slug}>
+            <Link
+              href={`/gallery/album/${gallery.slug}`}
+              key={gallery.slug}
+              passHref
+            >
               <Anchor>
                 <Image
                   public_id={`${
@@ -118,7 +122,7 @@ const GalleriesIndexPage: NextPage = () => {
                       <a
                         href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${gallery.id}`}
                         target="_blank"
-                        rel="noopener norefer"
+                        rel="noopener noreferrer"
                       >
                         Edit
                       </a>

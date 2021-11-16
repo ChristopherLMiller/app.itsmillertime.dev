@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { FunctionComponent } from 'react';
+import styled from "styled-components";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { FunctionComponent } from "react";
 interface ButtonTypes {
   href: string;
   text: string;
@@ -17,7 +17,7 @@ export const LinkButton: FunctionComponent<ButtonTypes> = ({
     initial="rest"
     variants={ButtonVariants}
   >
-    <Link href={href}>
+    <Link href={href} passHref>
       <ButtonAnchor>{children}</ButtonAnchor>
     </Link>
   </StyledButton>

@@ -2,7 +2,7 @@ import { formatRelative, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { FunctionComponent } from "react";
-import { Article, ArticleCategory, ArticleTags } from "src/graphql/types";
+import { Article, ArticleTags } from "src/graphql/types";
 import { countWords, timeToRead } from "src/utils";
 import styled from "styled-components";
 import { useSession } from "next-auth/client";
@@ -144,7 +144,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
               <a
                 href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
                 target="_blank"
-                rel="noopener norefer"
+                rel="noopener noreferrer"
               >
                 Edit
               </a>
@@ -154,18 +154,9 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
         <Excerpt>{article.seo.description}</Excerpt>
         <PostMeta>
           <List>
-            {article.article_categories.map((category: ArticleCategory) => (
-              <li key={category.id}>
-                <Link href={`/blog?category=${category.slug}`}>
-                  <MetaButton>{category.title}</MetaButton>
-                </Link>
-              </li>
-            ))}
-          </List>
-          <List>
             {article.article_tags.map((tag: ArticleTags) => (
               <li key={tag.id}>
-                <Link href={`/blog?tag=${tag.slug}`} shallow>
+                <Link href={`/blog?tag=${tag.slug}`} shallow passHref>
                   <MetaButton>{tag.title}</MetaButton>
                 </Link>
               </li>

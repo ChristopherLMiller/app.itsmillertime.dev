@@ -22,7 +22,7 @@ const StyledPanel = styled<iStyledPanel>(motion.div)`
     z-index: -1;
   }
 
-  padding: ${(props) => (props.padding ? `3% 5%` : `0`)};
+  padding: ${(props) => props.padding};
   position: relative;
   text-align: ${(props) => props.align};
 
@@ -104,7 +104,7 @@ const Panel: FunctionComponent<iPanel> = ({
   align = `left`,
   padding = true,
 }) => (
-  <StyledPanel align={align} padding={padding || undefined}>
+  <StyledPanel align={align} padding={padding ? `3% 5%` : `0`}>
     {children}
   </StyledPanel>
 );

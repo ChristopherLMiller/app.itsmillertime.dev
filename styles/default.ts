@@ -11,6 +11,7 @@ export const defaultTheme = {
     block: `'Source Code pro', monospace`,
     typewriter: `'Special Elite', monospace`,
     permanentMarker: `'Permanent Marker', serif`,
+    montserrat: `'Montserrat', sans-serif`,
   },
 };
 

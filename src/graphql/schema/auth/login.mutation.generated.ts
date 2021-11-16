@@ -1,29 +1,36 @@
-import * as Types from 'src/graphql/types';
+import * as Types from "src/graphql/types";
 
-import { useMutation, UseMutationOptions } from 'react-query';
-import { fetcher } from 'src/lib/fetch';
+import { useMutation, UseMutationOptions } from "react-query";
+import { fetcher } from "src/lib/fetch";
 export type LoginMutationVariables = Types.Exact<{
-  identifier: Types.Scalars[`String`];
-  password: Types.Scalars[`String`];
+  identifier: Types.Scalars["String"];
+  password: Types.Scalars["String"];
 }>;
 
-export type LoginMutation = { __typename?: `Mutation` } & {
-  login: { __typename?: `UsersPermissionsLoginPayload` } & Pick<
-    Types.UsersPermissionsLoginPayload,
-    `jwt`
-  > & {
-      user: { __typename?: `UsersPermissionsMe` } & Pick<
-        Types.UsersPermissionsMe,
-        `id` | `username` | `email` | `confirmed` | `blocked`
-      > & {
-          role?: Types.Maybe<
-            { __typename?: `UsersPermissionsMeRole` } & Pick<
-              Types.UsersPermissionsMeRole,
-              `id` | `name` | `description` | `type`
-            >
-          >;
-        };
+export type LoginMutation = {
+  __typename?: "Mutation";
+  login: {
+    __typename?: "UsersPermissionsLoginPayload";
+    jwt?: string | null | undefined;
+    user: {
+      __typename?: "UsersPermissionsMe";
+      id: string;
+      username: string;
+      email: string;
+      confirmed?: boolean | null | undefined;
+      blocked?: boolean | null | undefined;
+      role?:
+        | {
+            __typename?: "UsersPermissionsMeRole";
+            id: string;
+            name: string;
+            description?: string | null | undefined;
+            type?: string | null | undefined;
+          }
+        | null
+        | undefined;
     };
+  };
 };
 
 export const LoginDocument = `
@@ -55,6 +62,7 @@ export const useLoginMutation = <TError = unknown, TContext = unknown>(
   >
 ) =>
   useMutation<LoginMutation, TError, LoginMutationVariables, TContext>(
+    "Login",
     (variables?: LoginMutationVariables) =>
       fetcher<LoginMutation, LoginMutationVariables>(
         LoginDocument,

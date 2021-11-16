@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (
+const buildtime = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
@@ -33,3 +33,5 @@ export default async (
     res.send({ success: true, duration: data.duration });
   }
 };
+
+export default buildtime;

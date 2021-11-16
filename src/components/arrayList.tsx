@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { FunctionComponent } from 'react';
-import styled from 'styled-components';
+import Link from "next/link";
+import { FunctionComponent } from "react";
+import styled from "styled-components";
 
 const Items = styled.span`
   display: inline-block;
@@ -17,7 +17,6 @@ const Splitter = styled.span`
 `;
 
 interface iArrayList {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   array: Array<any>;
   separator?: string;
   asLinks?: boolean;
