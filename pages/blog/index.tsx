@@ -85,7 +85,8 @@ const BlogIndexpage: NextPage = () => {
       {isSuccess && data?.articles.length === 0 && (
         <Card heading="No posts Found">
           <p>
-            Well this is awkward. We couldn't find any posts for the current tag{" "}
+            Well this is awkward. We couldn&apos;t find any posts for the
+            current tag{" "}
             <strong>
               <em>{tag}</em>
             </strong>
