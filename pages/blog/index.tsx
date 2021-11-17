@@ -101,7 +101,6 @@ const BlogIndexpage: NextPage = () => {
 
       {isSuccess && (
         <ArticleList>
-          {console.log(data?.articles)}
           {data?.articles?.map((article) => (
             <ArticleListItem key={article.id} article={article as Article} />
           ))}

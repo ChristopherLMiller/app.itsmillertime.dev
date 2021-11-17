@@ -23,16 +23,16 @@ import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
 
 const Content = styled(motion.div)`
-  margin-top: calc(55px * 8);
+  margin-top: var(--top-bar-height);
 
   @media screen and (min-width: 500px) {
-    margin-top: calc(55px * 4);
+    margin-top: calc(var(--top-bar-height) * 4);
   }
   @media screen and (min-width: 659px) {
-    margin-top: calc(55px * 3);
+    margin-top: calc(var(--top-bar-height) * 3);
   }
   @media screen and (min-width: 1155px) {
-    margin-top: calc(55px * 2);
+    margin-top: calc(var(--top-bar-height) * 2);
   }
 `;
 

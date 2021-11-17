@@ -17,7 +17,7 @@ import { useSession } from "next-auth/client";
 const title = `From My Desk`;
 const description = `Archives concerning all matters web development and beyond`;
 
-const StyledBlogPost = styled.div`
+const StyledBlogPost = styled.article`
   background: var(--color-grey-light);
   column-count: 2;
   column-fill: balance;
@@ -103,7 +103,6 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
     session && isAdmin(session?.user)
       ? PublicationState.Preview
       : PublicationState.Live;
-  console.log(publicationState);
   const { data, error, isLoading, isSuccess } = useArticleQuery({
     id: SEO.id,
     publicationState,
@@ -139,10 +138,9 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
 
       {isSuccess && (
         <StyledBlogPost>
-          {console.log(article)}
           <ArticleHeader>
             <Image
-              src={article?.seo?.featured_image?.url}
+              src={article?.seo?.featured_image?.provider_metadata?.public_id}
               alt={article?.seo?.featured_image?.alternativeText}
               width={1920}
               height={1080}

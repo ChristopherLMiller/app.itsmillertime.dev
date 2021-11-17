@@ -60,6 +60,7 @@ export const GlobalStyles = createGlobalStyle`
     --color-grey-light: #ECECEC;
 
     --max-width: 1800px;
+    --top-bar-height: 55px;
 
     --h1-size: clamp(5rem, 5vw, 6.25rem);
     --h2-size: clamp(4rem, 5vw, 5.75rem);

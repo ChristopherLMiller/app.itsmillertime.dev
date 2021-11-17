@@ -2,11 +2,30 @@ import { GetStaticProps, GetStaticPaths } from "next";
 import PageLayout from "src/layout/PageLayout";
 import Panel from "src/components/Panel";
 import Markdown from "src/components/Card/elements/Markdown";
+import { NextSeo } from "next-seo";
 
 const Page = ({ page }) => {
-  const { title, description, content } = page[0];
+  const { title, description, content, seo, slug } = page[0];
   return (
     <PageLayout title={title} description={description}>
+      <NextSeo
+        title={seo.title}
+        description={seo.description}
+        openGraph={{
+          title: seo.title,
+          description: seo.description,
+          type: "website",
+          images: [
+            {
+              alt: seo?.featured_image?.alternativeText,
+              width: 800,
+              height: 600,
+              url: seo?.featured_image?.url,
+            },
+          ],
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`,
+        }}
+      />
       <Panel>
         <Markdown source={content} />
       </Panel>

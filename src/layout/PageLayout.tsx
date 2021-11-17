@@ -9,13 +9,13 @@ const Main = styled(motion.main)`
   flex-grow: 1;
 
   @media (min-width: 800px) {
-    padding: 0 5%;
+    padding: ${(props) => props.padding};
   }
 `;
 
 const ContentArea = styled(motion.div)`
   overflow-x: hidden;
-  min-height: calc(100vh - 55px - 55px);
+  min-height: calc(100vh - var(--top-bar-height) - var(--top-bar-height));
   display: flex;
   flex-direction: column;
 `;
@@ -52,7 +52,7 @@ const PageLayout: FunctionComponent<iPagelayout> = ({
 }) => (
   <ContentArea variants={contentVariants}>
     <Header title={title} description={description} />
-    <Main>{children}</Main>
+    <Main padding={padding ? `0 10%` : `0 5%`}>{children}</Main>
     <Footer />
   </ContentArea>
 );

@@ -9,7 +9,7 @@ import { useSession } from "next-auth/client";
 import { isAdmin } from "src/utils";
 import Image from "src/components/Images";
 
-const StyledArticleListItem = styled(motion.div)`
+const StyledArticleListItem = styled(motion.article)`
   display: grid;
   grid-template-columns: 1fr;
   margin-block-end: 30px;
