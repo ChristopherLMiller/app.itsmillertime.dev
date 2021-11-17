@@ -12,7 +12,6 @@ const description = `Recever your account`;
 const ResetPasswordPage: NextPage = () => {
   const router = useRouter();
   const code = router.query[`code`] as string;
-  console.log(code);
 
   return (
     <PageLayout title={title} description={description}>

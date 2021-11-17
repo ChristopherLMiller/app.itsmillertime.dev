@@ -1,8 +1,8 @@
-import { FunctionComponent } from 'react';
-import styled from 'styled-components';
-import Image from 'src/components/Images';
-import { formatRelative, parseISO } from 'date-fns';
-import { UploadFile } from 'src/graphql/types';
+import { FunctionComponent } from "react";
+import styled from "styled-components";
+import Image from "src/components/Images";
+import { formatRelative, parseISO } from "date-fns";
+import { UploadFile } from "src/graphql/types";
 
 const StyledArticleHead = styled.div`
   font-weight: 100;
@@ -40,24 +40,27 @@ const ArticleHead: FunctionComponent<iArticleHead> = ({
   publishedDate,
   timeToRead,
   title,
-}) => (
-  <StyledArticleHead>
-    {featuredImage !== null && (
-      <Image
-        public_id={`${featuredImage.provider_metadata[`public_id`]}`}
-        width={featuredImage.width}
-        height={featuredImage.height}
-        alt={featuredImage.alternativeText}
-      />
-    )}
-    <StyledArticleHeaderInfo>
-      <StyledPublishDate>
-        Published: {formatRelative(parseISO(publishedDate), new Date())} | Time
-        To Read: {timeToRead}
-      </StyledPublishDate>
-      <StyledHeading>{title}</StyledHeading>
-    </StyledArticleHeaderInfo>
-  </StyledArticleHead>
-);
+}) => {
+  console.log(featuredImage);
 
+  return (
+    <StyledArticleHead>
+      {featuredImage !== null && (
+        <Image
+          public_id={`${featuredImage.provider_metadata[`public_id`]}`}
+          width={featuredImage.width}
+          height={featuredImage.height}
+          alt={featuredImage.alternativeText}
+        />
+      )}
+      <StyledArticleHeaderInfo>
+        <StyledPublishDate>
+          Published: {formatRelative(parseISO(publishedDate), new Date())} |
+          Time To Read: {timeToRead}
+        </StyledPublishDate>
+        <StyledHeading>{title}</StyledHeading>
+      </StyledArticleHeaderInfo>
+    </StyledArticleHead>
+  );
+};
 export default ArticleHead;

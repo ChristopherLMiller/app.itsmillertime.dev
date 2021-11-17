@@ -114,7 +114,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     .update(session?.user?.email)
     .digest("hex");
 
-  console.log(emailHash);
   return {
     props: {
       emailHash,
