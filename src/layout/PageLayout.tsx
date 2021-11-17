@@ -15,7 +15,7 @@ const Main = styled(motion.main)`
 
 const ContentArea = styled(motion.div)`
   overflow-x: hidden;
-  min-height: calc(100vh - 55px - 55px);
+  min-height: calc(100vh - var(--top-bar-height) - var(--top-bar-height));
   display: flex;
   flex-direction: column;
 `;
