@@ -9,7 +9,7 @@ const Main = styled(motion.main)`
   flex-grow: 1;
 
   @media (min-width: 800px) {
-    padding: 0 5%;
+    padding: ${(props) => props.padding};
   }
 `;
 
@@ -52,7 +52,7 @@ const PageLayout: FunctionComponent<iPagelayout> = ({
 }) => (
   <ContentArea variants={contentVariants}>
     <Header title={title} description={description} />
-    <Main>{children}</Main>
+    <Main padding={padding ? `0 10%` : `0 5%`}>{children}</Main>
     <Footer />
   </ContentArea>
 );
