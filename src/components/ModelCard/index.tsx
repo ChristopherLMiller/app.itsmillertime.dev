@@ -6,6 +6,7 @@ import {
   ModelImage,
   ModelDetails,
   TagList,
+  variants,
 } from "./styles";
 import { Grid } from "@/components/Grid";
 import Image from "next/image";
@@ -34,8 +35,12 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
   ));
 
   return (
-    <ModelItem>
-      <ModelName>{model.title}</ModelName>
+    <ModelItem variants={variants} initial="initial" whileHover="hover">
+      <ModelName>
+        <Link href={`/models/model/${model?.slug}`}>
+          <a>{model.title}</a>
+        </Link>
+      </ModelName>
       <Grid columns={2} padding={false}>
         <ModelImage>
           <Image
