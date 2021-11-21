@@ -30,3 +30,9 @@ export const STATUS = {
 
 // SendGrid
 export const SENDGRID_API = `https://api.sendgrid.com/v3/mail/send`;
+
+export const defaultImage = {
+  public_id: "clm-new/assets/default",
+  width: 900,
+  height: 450,
+};
