@@ -25,13 +25,7 @@ import styled from "styled-components";
 const Content = styled(motion.div)`
   margin-top: var(--top-bar-height);
 
-  @media screen and (min-width: 500px) {
-    margin-top: calc(var(--top-bar-height) * 4);
-  }
-  @media screen and (min-width: 659px) {
-    margin-top: calc(var(--top-bar-height) * 3);
-  }
-  @media screen and (min-width: 1155px) {
+  @media screen and (min-width: 822px) {
     margin-top: calc(var(--top-bar-height) * 2);
   }
 `;

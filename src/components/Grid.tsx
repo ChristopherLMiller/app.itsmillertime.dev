@@ -9,6 +9,7 @@ interface iGrid {
   masonry?: boolean;
   justify?: string;
   marginBottom?: boolean;
+  padding?: boolean;
 }
 
 export const Grid = styled.div<iGrid>`
@@ -19,7 +20,7 @@ export const Grid = styled.div<iGrid>`
   background: ${(props) => props.background};
   ${(props) => props.justify && `justify-items: ` + props.justify};
   margin-bottom: ${(props) => (props.marginBottom ? `50px` : `0`)};
-  padding: 1rem;
+  padding: ${(props) => (props.padding ? "1rem" : "0")};
 
   ${(props) =>
     props.columns > 0 &&
