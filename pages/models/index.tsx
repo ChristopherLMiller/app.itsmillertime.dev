@@ -49,6 +49,7 @@ const ModelsPageIndex: NextPage = () => {
       <Grid columns={2} min="450px" gap="30px">
         {isSuccess &&
           data.models?.map((model) => (
+            // @ts-ignore
             <ModelCard key={model.slug} model={model} />
           ))}
       </Grid>
