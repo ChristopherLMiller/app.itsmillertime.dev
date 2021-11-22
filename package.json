@@ -92,7 +92,7 @@
     "@typescript-eslint/parser": "^5.4.0",
     "airbnb": "0.0.2",
     "babel-loader": "^8.2.3",
-    "babel-plugin-styled-components": "^1.13.3",
+    "babel-plugin-styled-components": "^2.0.1",
     "cross-env": "^7.0.3",
     "eslint": "<8.0.0",
     "eslint-config-airbnb": "^19.0.0",
