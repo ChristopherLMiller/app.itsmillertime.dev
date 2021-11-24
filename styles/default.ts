@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from "../config";
+import { cloudinary } from "../config";
 
 export const defaultTheme = {
   colors: {
@@ -70,7 +70,7 @@ export const GlobalStyles = createGlobalStyle`
     --h6-size: clamp(2rem, 5vw, 2.5rem);
     --p-size: clamp(2rem, 5vw, 2.5rem);
 
-    --linen-paper: url('https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg');
+    --linen-paper: url('https://res.cloudinary.com/${cloudinary.cloudName}/image/upload/${cloudinary.folder}/assets/linen.jpg');
   }
 
   html {
@@ -85,7 +85,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: var(--font-main);
-    background: var(--color-grey-intermediate) url('https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/background.jpg') no-repeat;
+    background: var(--color-grey-intermediate) url('https://res.cloudinary.com/${cloudinary.cloudName}/image/upload/${cloudinary.folder}/assets/background.jpg') no-repeat;
     background-attachment: fixed;
     background-size: cover;
     color: var(--color-grey-dark);

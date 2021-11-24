@@ -7,6 +7,7 @@ import Card from "src/components/Card";
 import Markdown from "src/components/Card/elements/Markdown";
 import { GetServerSideProps, NextPage } from "next";
 import { getServerSideSEO } from "src/utils";
+import { pageSettings } from "config";
 
 interface iModelPage {
   SEO: Model;
@@ -27,8 +28,8 @@ const ModelPage: NextPage<iModelPage> = ({ SEO }) => {
 
   return (
     <PageLayout
-      title={SEO.title}
-      description="Airplanes, Tanks, Cars, its all here"
+      title={pageSettings.models.title}
+      description={pageSettings.models.description}
     >
       <NextSeo
         title={SEO.title}
@@ -37,7 +38,7 @@ const ModelPage: NextPage<iModelPage> = ({ SEO }) => {
           title: `${SEO.title}`,
           description: `${SEO.SEO.description}`,
           type: `website`,
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/models/model/${SEO.slug}`,
+          url: `${pageSettings.models.url}/model/${SEO.slug}`,
           images: [
             {
               url: SEO?.SEO?.featured_image?.url,

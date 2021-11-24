@@ -1,37 +1,38 @@
 import PageLayout from "src/layout/PageLayout";
-import { SITE_DEFAULT_IMAGE_FILE, CLOUDINARY_CLOUD } from "config";
+import { defaultImage, pageSettings } from "config";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
 import { NextPage } from "next";
 import { ContentPane, SplitPane, TextPane } from "src/components/SplitPane";
 import ResetPasswordForm from "src/templates/forms/resetPassword";
 
-const title = `Reset Password`;
-const description = `Recever your account`;
-
 const ResetPasswordPage: NextPage = () => {
   const router = useRouter();
+  // TODO: The code and resetting need redone
   const code = router.query[`code`] as string;
 
   return (
-    <PageLayout title={title} description={description}>
+    <PageLayout
+      title={pageSettings.resetPassword.title}
+      description={pageSettings.resetPassword.description}
+    >
       <NextSeo
         nofollow={true}
-        title={title}
-        description={description}
+        title={pageSettings.resetPassword.title}
+        description={pageSettings.resetPassword.description}
         openGraph={{
-          title,
-          description,
+          title: pageSettings.resetPassword.title,
+          description: pageSettings.resetPassword.description,
           type: `website`,
           images: [
             {
-              alt: `Default Site Image`,
-              width: 800,
-              height: 600,
-              url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+              alt: defaultImage.altText,
+              width: defaultImage.width,
+              height: defaultImage.height,
+              url: defaultImage.path,
             },
           ],
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/reset-password`,
+          url: pageSettings.resetPassword.url,
         }}
       />
       <SplitPane>

@@ -1,10 +1,10 @@
-import { CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from 'config';
-import Link from 'next/link';
-import { FunctionComponent } from 'react';
-import styled from 'styled-components';
-import { iActionLink } from '../index';
-import Contents from './Contents';
-import Markdown from './Markdown';
+import { cloudinary } from "config";
+import Link from "next/link";
+import { FunctionComponent } from "react";
+import styled from "styled-components";
+import { iActionLink } from "../index";
+import Contents from "./Contents";
+import Markdown from "./Markdown";
 
 interface iCardBody {
   align: string;
@@ -13,7 +13,7 @@ interface iCardBody {
 
 const StyledCardBody = styled.div<iCardBody>`
   background: var(--color-grey-light);
-  background-image: url('https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/linen.jpg');
+  background-image: url("https://res.cloudinary.com/${cloudinary.cloudName}/image/upload/${cloudinary.folder}/assets/linen.jpg");
   padding: ${(props) => (props.padding ? `3% 5%` : `0`)};
   position: relative;
   text-align: ${(props) => props.align};

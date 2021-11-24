@@ -7,9 +7,7 @@ import Loader from "src/components/Loader";
 import { useRouter } from "next/router";
 import ModelCard from "@/components/ModelCard";
 import { Grid } from "@/components/Grid";
-
-const title = `Models`;
-const description = `Airplanes, Tanks, Cars, its all here`;
+import { defaultImage, pageSettings } from "config";
 
 const ModelsPageIndex: NextPage = () => {
   const router = useRouter();
@@ -26,24 +24,27 @@ const ModelsPageIndex: NextPage = () => {
   console.log(router.query);
 
   return (
-    <PageLayout title={title} description={description}>
+    <PageLayout
+      title={pageSettings.models.title}
+      description={pageSettings.models.description}
+    >
       {isLoading && <Loader isLoading={isLoading} />}
       <NextSeo
-        title={title}
-        description={description}
+        title={pageSettings.models.title}
+        description={pageSettings.models.description}
         openGraph={{
-          title,
-          description,
+          title: pageSettings.models.title,
+          description: pageSettings.models.description,
           type: `website`,
           images: [
             {
-              alt: `Image of models`,
-              width: 6000,
-              height: 4000,
-              url: `https://res.cloudinary.com/christopherleemiller/image/upload/v16209772701/clm-new/assets/default.png`,
+              alt: defaultImage.altText,
+              width: defaultImage.width,
+              height: defaultImage.height,
+              url: defaultImage.path,
             },
           ],
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/models`,
+          url: pageSettings.models.url,
         }}
       />
       <Grid columns={2} min="450px" gap="30px">

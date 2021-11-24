@@ -24,9 +24,11 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
     defaultImage.public_id;
   const imageWidth = model?.SEO?.featured_image?.width || defaultImage.width;
   const imageHeight = model?.SEO?.featured_image?.height || defaultImage.height;
+  const imageAlt =
+    model?.SEO?.featured_image?.alternativeText || defaultImage.altText;
 
   const tags = model?.model_tags?.map((tag, index) => (
-    <Link href={`/models?tag=${tag.slug}`} key={tag.id}>
+    <Link href={`/models?tag=${tag.slug}`} key={tag.id} passHref>
       <span>
         <a>{tag.name}</a>
         {index !== model?.model_tags?.length - 1 && ", "}
@@ -48,6 +50,9 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
             layout="intrinsic"
             width={imageWidth}
             height={imageHeight}
+            alt={imageAlt}
+            placeholder="blur"
+            blurDataURL={defaultImage.blurred}
           />
         </ModelImage>
         <ModelDetails>

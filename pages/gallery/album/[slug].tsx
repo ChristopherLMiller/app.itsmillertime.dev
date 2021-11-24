@@ -13,6 +13,7 @@ import { Gallery } from "src/graphql/types";
 import { useSession } from "next-auth/client";
 import ShareButtons from "src/components/ShareButtons";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
+import { pageSettings } from "config";
 
 const GalleryGrid = styled.div`
   display: grid;
@@ -46,8 +47,8 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
 
   return (
     <PageLayout
-      title={SEO.title}
-      description={`A visual of all the things me!`}
+      title={pageSettings.gallery.title}
+      description={pageSettings.gallery.description}
     >
       <NextSeo
         title={SEO.title}
@@ -56,7 +57,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
           title: `${SEO.title}`,
           description: `${SEO.description}`,
           type: `website`,
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/gallery/album/${SEO.slug}`,
+          url: `${pageSettings.gallery.url}/gallery/album/${SEO.slug}`,
           images: [
             {
               url: SEO.featured_image?.url,
@@ -90,7 +91,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
           <Reverse>
             <Card heading="About This Gallery" align="left">
               <ShareButtons
-                url={`${process.env.NEXT_PUBLIC_SITE_URL}/gallery/album/${SEO.slug}`}
+                url={`${pageSettings.gallery.url}/gallery/album/${SEO.slug}`}
                 media={SEO.featured_image?.url}
                 title={SEO?.title}
               />

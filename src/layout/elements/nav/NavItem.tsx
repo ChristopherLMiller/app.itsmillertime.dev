@@ -2,7 +2,6 @@ import { FunctionComponent } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-//import { LOGGED_IN, LOGGED_OUT } from 'config';
 import { useRouter } from "next/router";
 
 interface iNavItem {
@@ -88,14 +87,6 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
   if (item.authState === "NONE") {
     return null;
   }
-
-  // see if the user is authorized to view this
-  // TODO: Fix this, for next auth
-  /*if (!auth.methods.hasPermission(item.requiredRoles)) return null;
-
-  // chek the auth state of the item
-  if (item.authState === LOGGED_IN && !session.isAuthenticated) return null;
-  if (item.authState === LOGGED_OUT && auth.isAuthenticated) return null;*/
 
   // use the router to determine if this is the active path
   const isActive = item?.activePaths?.includes(router.pathname);

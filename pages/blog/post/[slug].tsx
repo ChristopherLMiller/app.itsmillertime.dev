@@ -13,9 +13,7 @@ import { Article, PublicationState } from "src/graphql/types";
 import ShareButtons from "src/components/ShareButtons";
 import Loader from "src/components/Loader";
 import { useSession } from "next-auth/client";
-
-const title = `From My Desk`;
-const description = `Archives concerning all matters web development and beyond`;
+import { defaultImage, pageSettings } from "config";
 
 const StyledBlogPost = styled.article`
   background: var(--color-grey-light);
@@ -115,7 +113,10 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
   }
 
   return (
-    <PageLayout title={title} description={description}>
+    <PageLayout
+      title={pageSettings.blog.title}
+      description={pageSettings.blog.description}
+    >
       {isLoading && <Loader isLoading={isLoading} />}
       <NextSeo
         title={SEO?.title}
@@ -124,7 +125,7 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
           title: `${SEO?.title}`,
           description: `${SEO?.seo?.description}`,
           type: `article`,
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/blog/post/${SEO?.slug}`,
+          url: `${pageSettings.blog.url}/post/${SEO?.slug}`,
           images: [
             {
               url: SEO?.seo?.featured_image?.url,
@@ -139,13 +140,20 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
       {isSuccess && (
         <StyledBlogPost>
           <ArticleHeader>
-            <Image
-              src={article?.seo?.featured_image?.provider_metadata?.public_id}
-              alt={article?.seo?.featured_image?.alternativeText}
-              width={1920}
-              height={1080}
-              layout="responsive"
-            />
+            {article?.seo?.featured_image && (
+              <Image
+                src={
+                  article?.seo?.featured_image?.provider_metadata?.public_id ||
+                  defaultImage.public_id
+                }
+                alt={article?.seo?.featured_image?.alternativeText}
+                width={1920}
+                height={1080}
+                layout="responsive"
+                placeholder="blur"
+                blurDataURL={defaultImage.blurred}
+              />
+            )}
             <h2>{article?.title}</h2>
             <h5>
               Published:{` `}
