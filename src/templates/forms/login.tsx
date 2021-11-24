@@ -1,16 +1,16 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import Button from 'src/components/inputs/Button';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import Button from "src/components/inputs/Button";
 import {
   StyledForm,
   Fieldset,
   Label,
   FormErrorMessage,
-} from 'src/components/inputs';
-import * as Yup from 'yup';
-import { useToasts } from 'react-toast-notifications';
-import { FunctionComponent } from 'react';
-import { signIn } from 'next-auth/client';
-import { useRouter } from 'next/router';
+} from "src/components/inputs";
+import * as Yup from "yup";
+import { useToasts } from "react-toast-notifications";
+import { FunctionComponent } from "react";
+import { signIn } from "next-auth/client";
+import { useRouter } from "next/router";
 
 const FormValidation = Yup.object().shape({
   username: Yup.string().required(`Please enter your username or email`),
@@ -30,8 +30,9 @@ const LoginForm: FunctionComponent = () => {
           redirect: false,
           ...values,
         });
+        console.log(response);
         if (response.error) {
-          addToast(response.error, {
+          addToast(`Unable to login: ${response.error}`, {
             appearance: `error`,
           });
         } else if (response.ok) {
