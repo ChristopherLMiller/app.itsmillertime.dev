@@ -1,7 +1,6 @@
-import NextAuth from 'next-auth';
-import Providers from 'next-auth/providers';
-import axios from 'axios';
-import { NextApiRequest, NextApiResponse } from 'next';
+import NextAuth from "next-auth";
+import Providers from "next-auth/providers";
+import { NextApiRequest, NextApiResponse } from "next";
 
 interface iCredentials {
   username: string;
@@ -17,23 +16,27 @@ const options = {
       },
       authorize: async (credentials: iCredentials) => {
         try {
-          const response = await axios.post(
+          const response = await fetch(
             `${process.env.NEXT_PUBLIC_STRAPI_URL}/auth/local`,
             {
-              identifier: credentials.username,
-              password: credentials.password,
+              method: `POST`,
+              headers: {
+                "Content-Type": `application/json`,
+              },
+              body: JSON.stringify({
+                identifier: credentials.username,
+                password: credentials.password,
+              }),
             }
           );
 
-          if (response.data) {
-            return response.data;
+          if (response.status === 200) {
+            return await response.json();
           } else {
-            return null;
+            throw new Error(`Invalid credentials`);
           }
         } catch (error) {
-          const errorMessage =
-            error.response.data.message[0].messages[0].message;
-          throw new Error(errorMessage);
+          throw new Error(error.message);
         }
       },
     }),
