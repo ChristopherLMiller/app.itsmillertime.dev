@@ -1,31 +1,31 @@
-import { CLOUDINARY_CLOUD } from 'config';
-import { NextSeo } from 'next-seo';
-import { Grid } from 'src/components/Grid';
-import PageLayout from 'src/layout/PageLayout';
-import Card from 'src/components/Card';
-import { NextPage } from 'next';
-
-const title = `Digital Garden`;
-const description = `Random thoughts of me`;
+import { cloudinary, pageSettings } from "config";
+import { NextSeo } from "next-seo";
+import { Grid } from "src/components/Grid";
+import PageLayout from "src/layout/PageLayout";
+import Card from "src/components/Card";
+import { NextPage } from "next";
 
 const DigitalGardenIndexPage: NextPage = () => (
-  <PageLayout title={title} description={description}>
+  <PageLayout
+    title={pageSettings.digitalGarden.title}
+    description={pageSettings.digitalGarden.description}
+  >
     <NextSeo
-      title={title}
-      description={description}
+      title={pageSettings.digitalGarden.title}
+      description={pageSettings.digitalGarden.description}
       openGraph={{
-        title,
-        description,
+        title: pageSettings.digitalGarden.title,
+        description: pageSettings.digitalGarden.description,
         type: `website`,
         images: [
           {
             alt: `Digital Garden`,
             width: 800,
             height: 600,
-            url: `https://res.cloudinary.com//${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/clm-new/assets/digital-garden.jpg`,
+            url: `https://res.cloudinary.com//${cloudinary.cloudName}/image/upload/w_800,h_600,q_auto,f_auto/v1594740865/clm-new/assets/digital-garden.jpg`,
           },
         ],
-        url: `${process.env.NEXT_PUBLIC_SITE_URL}/digital-garden`,
+        url: `${pageSettings.digitalGarden.url}/slug-here`,
       }}
     />
     <Card heading="Digital Garden">

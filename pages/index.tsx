@@ -5,27 +5,28 @@ import { useSession } from "next-auth/client";
 import Panel from "src/components/Panel";
 import React from "react";
 import { Grid } from "src/components/Grid";
-
-const title = `Home`;
-const description = `Programmer.  Amateur Designer.  Model Enthsiast.`;
+import { defaultImage, pageSettings } from "config";
 
 const IndexPage: NextPage = () => {
   const [session] = useSession();
   return (
-    <PageLayout title={title} description={description}>
+    <PageLayout
+      title={pageSettings.home.title}
+      description={pageSettings.home.description}
+    >
       <NextSeo
-        title={title}
-        description={description}
+        title={pageSettings.home.title}
+        description={pageSettings.home.description}
         openGraph={{
-          title,
-          description,
+          title: pageSettings.home.title,
+          description: pageSettings.home.description,
           type: `website`,
           images: [
             {
-              alt: `Default Site Image`,
-              width: 800,
-              height: 600,
-              url: `https://res.cloudinary.com/christopherleemiller/image/upload/v1620977750/clm-new/uploads/default_fb95099398.jpg`,
+              alt: defaultImage.altText,
+              width: defaultImage.width,
+              height: defaultImage.height,
+              url: defaultImage.path,
             },
           ],
           url: `${process.env.NEXT_PUBLIC_SITE_URL}`,

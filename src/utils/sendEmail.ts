@@ -1,6 +1,6 @@
 //import mjml2html from 'mjml';
 
-const SENDGRID_API = `https://api.sendgrid.com/v3/mail/send`;
+import { sendgrid } from "config";
 
 type sendEmailTypes = {
   toEmail: string;
@@ -18,10 +18,10 @@ const sendEmail = async ({
 }: sendEmailTypes): Promise<unknown> => {
   const htmlOutput = `<h1>Test</h1>`; //mjml2html(mjmlString).html;
 
-  return fetch(SENDGRID_API, {
+  return fetch(sendgrid.endpoint, {
     method: `POST`,
     headers: {
-      'Content-Type': `application/json`,
+      "Content-Type": `application/json`,
       Authorization: `Bearer ${process.env.SENDGRID_API_KEY}`,
     },
     body: JSON.stringify({

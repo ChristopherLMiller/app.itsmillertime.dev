@@ -1,5 +1,5 @@
 import PageLayout from "src/layout/PageLayout";
-import { SITE_DEFAULT_IMAGE_FILE, CLOUDINARY_CLOUD } from "config";
+import { defaultImage, pageSettings } from "config";
 import { NextSeo } from "next-seo";
 import { LoginForm } from "src/templates/forms";
 import Link from "next/link";
@@ -8,28 +8,28 @@ import { getSession } from "next-auth/client";
 import { ContentPane, SplitPane, TextPane } from "src/components/SplitPane";
 import React from "react";
 
-const title = `Login`;
-const description = `Access your Account`;
-
 const LoginPage: NextPage = () => (
-  <PageLayout title={title} description={description}>
+  <PageLayout
+    title={pageSettings.login.title}
+    description={pageSettings.login.description}
+  >
     <NextSeo
       nofollow={true}
-      title={title}
-      description={description}
+      title={pageSettings.login.title}
+      description={pageSettings.login.description}
       openGraph={{
-        title,
-        description,
+        title: pageSettings.login.title,
+        description: pageSettings.login.description,
         type: `website`,
         images: [
           {
-            alt: `Default Site Image`,
-            width: 800,
-            height: 600,
-            url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+            alt: defaultImage.altText,
+            width: defaultImage.width,
+            height: defaultImage.height,
+            url: defaultImage.path,
           },
         ],
-        url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/login`,
+        url: pageSettings.login.url,
       }}
     />
     <SplitPane>

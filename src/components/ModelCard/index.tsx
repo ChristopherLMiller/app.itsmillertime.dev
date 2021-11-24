@@ -52,7 +52,7 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
             height={imageHeight}
             alt={imageAlt}
             placeholder="blur"
-            blurDataURL={`data:image/jpeg;base64,${defaultImage.blurred}`}
+            blurDataURL={defaultImage.blurred}
           />
         </ModelImage>
         <ModelDetails>

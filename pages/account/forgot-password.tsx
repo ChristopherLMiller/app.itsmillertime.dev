@@ -1,4 +1,4 @@
-import { CLOUDINARY_CLOUD, SITE_DEFAULT_IMAGE_FILE } from "config";
+import { defaultImage, pageSettings } from "config";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { ForgotPasswordForm } from "src/templates/forms";
@@ -7,28 +7,28 @@ import { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/client";
 import { ContentPane, SplitPane, TextPane } from "src/components/SplitPane";
 
-const title = `Forgot Password?`;
-const description = `How could you forget your password?`;
-
 const ForgotPasswordPage: NextPage = () => (
-  <PageLayout title={title} description={description}>
+  <PageLayout
+    title={pageSettings.forgotPassword.title}
+    description={pageSettings.forgotPassword.description}
+  >
     <NextSeo
       nofollow={true}
-      title={title}
-      description={description}
+      title={pageSettings.forgotPassword.title}
+      description={pageSettings.forgotPassword.description}
       openGraph={{
-        title,
-        description,
+        title: pageSettings.forgotPassword.title,
+        description: pageSettings.forgotPassword.description,
         type: `website`,
         images: [
           {
-            alt: `Default Site Image`,
-            width: 800,
-            height: 600,
-            url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto,/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+            alt: defaultImage.altText,
+            width: defaultImage.width,
+            height: defaultImage.height,
+            url: defaultImage.path,
           },
         ],
-        url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/forgot-password',`,
+        url: pageSettings.forgotPassword.url,
       }}
     />
     <SplitPane>
