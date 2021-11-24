@@ -82,7 +82,7 @@ const nextConfig = {
 };
 
 const SentryWebpackPluginOptions = {
-  silent: true
+  silent: true,
 };
 
 module.exports = withOffline(
