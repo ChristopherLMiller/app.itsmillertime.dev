@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (
+const buildtime = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
@@ -15,8 +15,8 @@ export default async (
   // Setup headers to fetch from clockify
   const headers = {
     Accept: `application/json`,
-    'Content-Type': `application/json`,
-    'X-Api-Key': process.env.CLOCKIFY_API_KEY,
+    "Content-Type": `application/json`,
+    "X-Api-Key": process.env.CLOCKIFY_API_KEY,
   };
 
   // now fetch the data
@@ -33,3 +33,5 @@ export default async (
     res.send({ success: true, duration: data.duration });
   }
 };
+
+export default buildtime;

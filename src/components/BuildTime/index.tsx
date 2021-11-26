@@ -1,5 +1,5 @@
-import { FunctionComponent, useEffect, useState } from 'react';
-import { getBuildTime, makeDurationFriendly } from 'src/utils';
+import { FunctionComponent, useEffect, useState } from "react";
+import { getBuildTime, makeDurationFriendly } from "src/utils";
 
 interface iBuildTime {
   clockifyProjectId: string;
@@ -17,7 +17,7 @@ const BuildTime: FunctionComponent<iBuildTime> = ({ clockifyProjectId }) => {
     } else {
       setDuration(`None`);
     }
-  });
+  }, [clockifyProjectId]);
 
   return <span>{duration}</span>;
 };

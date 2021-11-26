@@ -1,90 +1,58 @@
-import { CLOUDINARY_CLOUD, SITE_DEFAULT_IMAGE_FILE } from 'config';
-import { NextSeo } from 'next-seo';
-import Link from 'next/link';
-import Card from 'src/components/Card';
-import { ForgotPasswordForm } from 'src/templates/forms';
-import { Grid } from 'src/components/Grid';
-import PageLayout from 'src/layout/PageLayout';
-import styled from 'styled-components';
-import { GetServerSideProps, NextPage } from 'next';
-import { getSession } from 'next-auth/client';
+import { defaultImage, pageSettings } from "config";
+import { NextSeo } from "next-seo";
+import Link from "next/link";
+import { ForgotPasswordForm } from "src/templates/forms";
+import PageLayout from "src/layout/PageLayout";
+import { GetServerSideProps, NextPage } from "next";
+import { getSession } from "next-auth/client";
+import { ContentPane, SplitPane, TextPane } from "src/components/SplitPane";
+import { useRouter } from "next/router";
 
-const title = `Forgot Password?`;
-const description = `How could you forget your password?`;
+const ForgotPasswordPage: NextPage = () => {
+  const router = useRouter();
 
-const PanelLink = styled.a`
-  cursor: pointer;
-  color: var(--color-white-100) !important;
-  text-decoration: underline;
-`;
-
-const TextPane = styled.div`
-  align-items: center;
-  background: var(--color-red-intermediate);
-  padding: 3% 5%;
-
-  p,
-  h3,
-  a {
-    color: var(--color-white-100);
-    font-weight: 100;
-  }
-
-  h3 {
-    font-family: var(--font-block);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-top: 0;
-  }
-`;
-
-const ResetPane = styled.div`
-  padding: 3% 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const ForgotPasswordPage: NextPage = () => (
-  <PageLayout title={title} description={description}>
-    <NextSeo
-      nofollow={true}
-      title={title}
-      description={description}
-      openGraph={{
-        title,
-        description,
-        type: `website`,
-        images: [
-          {
-            alt: `Default Site Image`,
-            width: 800,
-            height: 600,
-            url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto,/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
-          },
-        ],
-        url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/forgot-password',`,
-      }}
-    />
-    <Card padding={false}>
-      <Grid columns={2}>
+  return (
+    <PageLayout
+      title={pageSettings.forgotPassword.title}
+      description={pageSettings.forgotPassword.description}
+    >
+      <NextSeo
+        nofollow={true}
+        title={pageSettings.forgotPassword.title}
+        description={pageSettings.forgotPassword.description}
+        openGraph={{
+          title: pageSettings.forgotPassword.title,
+          description: pageSettings.forgotPassword.description,
+          type: `website`,
+          images: [
+            {
+              alt: defaultImage.altText,
+              width: defaultImage.width,
+              height: defaultImage.height,
+              url: defaultImage.path,
+            },
+          ],
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
+        }}
+      />
+      <SplitPane>
         <TextPane>
-          <h3>Forgot your password?</h3>
+          <h3>We Understand</h3>
           <p>
-            No problem! Enter your email and an email will be sent to you with
-            instructions to reset it.
+            Things happen, we get it. Enter your email and link will be sent to
+            you to reset it.
           </p>
           <Link href="/account/login">
-            <PanelLink>Login instead?</PanelLink>
+            <a>Login instead?</a>
           </Link>
         </TextPane>
-        <ResetPane>
+        <ContentPane>
           <ForgotPasswordForm />
-        </ResetPane>
-      </Grid>
-    </Card>
-  </PageLayout>
-);
+        </ContentPane>
+      </SplitPane>
+    </PageLayout>
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -93,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (session?.user) {
     context.res.writeHead(302, {
       Location: `/`,
-      'Content-Type': `text/html; chaset=utf-8`,
+      "Content-Type": `text/html; chaset=utf-8`,
     });
     context.res.end();
   }

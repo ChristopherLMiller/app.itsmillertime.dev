@@ -1,17 +1,17 @@
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { useState, useEffect, FunctionComponent } from 'react';
-import NavItem from './NavItem';
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import { useState, useEffect, FunctionComponent } from "react";
+import NavItem from "./NavItem";
 
 const StyledNav = styled(motion.nav)`
-  display: grid;
-  grid-template-columns: 1;
-  align-items: center;
-  background: var(--color-gold);
-  box-shadow: var(--box-shadow-elev-1);
+  display: none;
 
   @media (min-width: 500px) {
     grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+    display: grid;
+    align-items: center;
+    background: var(--color-gold);
+    box-shadow: var(--box-shadow-elev-1);
   }
 `;
 

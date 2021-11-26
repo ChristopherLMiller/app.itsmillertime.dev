@@ -1,22 +1,22 @@
-import { NextSeo } from 'next-seo';
-import PageLayout from 'src/layout/PageLayout';
-import { GetServerSideProps, NextPage } from 'next';
-import Markdown from 'src/components/Card/elements/Markdown';
-import styled from 'styled-components';
-import { formatRelative, parseISO } from 'date-fns';
+import { NextSeo } from "next-seo";
+import PageLayout from "src/layout/PageLayout";
+import { GetServerSideProps, NextPage } from "next";
+import Markdown from "src/components/Card/elements/Markdown";
+import styled from "styled-components";
+import { formatRelative, parseISO } from "date-fns";
+import Image from "next/image";
 
-import { countWords, isAdmin, timeToRead } from 'src/utils';
-import { getServerSideSEO } from 'src/utils/getServerSideSEO';
-import { useArticleQuery } from 'src/graphql/schema/articles/article.query.generated';
-import { Article } from 'src/graphql/types';
-import ShareButtons from 'src/components/ShareButtons';
-import Loader from 'src/components/Loader';
-import { useSession } from 'next-auth/client';
+import { countWords, isAdmin, timeToRead } from "src/utils";
+import { getServerSideSEO } from "src/utils/getServerSideSEO";
+import { useArticleQuery } from "src/graphql/schema/articles/article.query.generated";
+import { Article, PublicationState } from "src/graphql/types";
+import ShareButtons from "src/components/ShareButtons";
+import Loader from "src/components/Loader";
+import { useSession } from "next-auth/client";
+import { defaultImage, pageSettings } from "config";
+import { useRouter } from "next/router";
 
-const title = `From My Desk`;
-const description = `Archives concerning all matters web development and beyond`;
-
-const StyledBlogPost = styled.div`
+const StyledBlogPost = styled.article`
   background: var(--color-grey-light);
   column-count: 2;
   column-fill: balance;
@@ -98,7 +98,16 @@ interface iBlogPost {
 
 const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
   const [session] = useSession();
-  const { data, error, isLoading, isSuccess } = useArticleQuery({ id: SEO.id });
+  const router = useRouter();
+  const publicationState =
+    session && isAdmin(session?.user)
+      ? PublicationState.Preview
+      : PublicationState.Live;
+  const { data, error, isLoading, isSuccess } = useArticleQuery({
+    id: SEO.id,
+    publicationState,
+  });
+
   const article = data?.article;
 
   if (error) {
@@ -106,7 +115,10 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
   }
 
   return (
-    <PageLayout title={title} description={description}>
+    <PageLayout
+      title={pageSettings.blog.title}
+      description={pageSettings.blog.description}
+    >
       {isLoading && <Loader isLoading={isLoading} />}
       <NextSeo
         title={SEO?.title}
@@ -114,8 +126,8 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
         openGraph={{
           title: `${SEO?.title}`,
           description: `${SEO?.seo?.description}`,
-          type: `seo`,
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/blog/post/${SEO?.slug}`,
+          type: `article`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
           images: [
             {
               url: SEO?.seo?.featured_image?.url,
@@ -130,14 +142,26 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
       {isSuccess && (
         <StyledBlogPost>
           <ArticleHeader>
-            <img
-              src={article.seo.featured_image?.url}
-              alt={article.seo.featured_image?.alternativeText}
-            />
-            <h2>{article.title}</h2>
+            {article?.seo?.featured_image && (
+              <Image
+                src={
+                  article?.seo?.featured_image?.provider_metadata?.public_id ||
+                  defaultImage.public_id
+                }
+                alt={article?.seo?.featured_image?.alternativeText}
+                width={1920}
+                height={1080}
+                layout="responsive"
+                placeholder="blur"
+                blurDataURL={defaultImage.blurred}
+              />
+            )}
+            <h2>{article?.title}</h2>
             <h5>
               Published:{` `}
-              {formatRelative(parseISO(article.published_at), new Date())}
+              {article?.published_at
+                ? formatRelative(parseISO(article?.published_at), new Date())
+                : `DRAFT`}
               {` `}| Time To Read:
               {timeToRead(countWords(article.content))}
             </h5>
@@ -146,7 +170,7 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
                 <a
                   href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
                   target="_blank"
-                  rel="noopener norefer"
+                  rel="noopener noreferrer"
                 >
                   Edit
                 </a>
@@ -174,7 +198,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const response = await getServerSideSEO(
       `${process.env.NEXT_PUBLIC_STRAPI_URL}/articles?slug_eq=${
         context?.query[`slug`]
-      }`,
+      }&_publicationState=preview`,
       context
     );
 

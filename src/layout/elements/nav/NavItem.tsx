@@ -1,9 +1,8 @@
-import { FunctionComponent } from 'react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import styled from 'styled-components';
-//import { LOGGED_IN, LOGGED_OUT } from 'config';
-import { useRouter } from 'next/router';
+import { FunctionComponent } from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import styled from "styled-components";
+import { useRouter } from "next/router";
 
 interface iNavItem {
   item: {
@@ -22,10 +21,7 @@ interface iNavContainer {
 
 const NavContainer = styled(motion.div)<iNavContainer>`
   position: relative;
-  background: ${(props) =>
-    props.isActive
-      ? `var(--color-gold-highlight)`
-      : `var(--color-white-transparent)`};
+  background: ${(props) => props.background};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,13 +83,10 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
   const router = useRouter();
   const isLocalUrl = !item.href.includes(`http`);
 
-  // see if the user is authorized to view this
-  // TODO: Fix this, for next auth
-  /*if (!auth.methods.hasPermission(item.requiredRoles)) return null;
-
-  // chek the auth state of the item
-  if (item.authState === LOGGED_IN && !session.isAuthenticated) return null;
-  if (item.authState === LOGGED_OUT && auth.isAuthenticated) return null;*/
+  // TODO: hack, this allows me to hide things for everyone
+  if (item.authState === "NONE") {
+    return null;
+  }
 
   // use the router to determine if this is the active path
   const isActive = item?.activePaths?.includes(router.pathname);
@@ -105,7 +98,11 @@ const NavItem: FunctionComponent<iNavItem> = ({ item }) => {
         whileHover="hover"
         initial="rest"
         animate="rest"
-        isActive={isActive}
+        background={
+          isActive
+            ? `var(--color-gold-highlight)`
+            : `var(--color-white-transparent)`
+        }
         variants={NavContainerVariants}
       >
         <Link href={item.href}>

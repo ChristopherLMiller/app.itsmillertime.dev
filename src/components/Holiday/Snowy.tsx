@@ -1,10 +1,10 @@
-import dynamic from 'next/dynamic';
-import { FunctionComponent, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import Modal from 'react-modal';
-import { getYear, isThisMonth } from 'date-fns';
-import Image from 'next/image';
-import ChristmasImage from 'public/christmas.jpg';
+import dynamic from "next/dynamic";
+import { FunctionComponent, useEffect, useState } from "react";
+import styled from "styled-components";
+import Modal from "react-modal";
+import { getYear, isThisMonth } from "date-fns";
+import Image from "next/image";
+import ChristmasImage from "public/christmas.jpg";
 
 const Snowfall = dynamic(() => import(`react-snowfall`), { ssr: false });
 
@@ -41,12 +41,6 @@ const ModalStyles = {
 };
 
 const Snowy: FunctionComponent = () => {
-  // we don't wanna render at all if its not december
-  const currentYear = getYear(new Date());
-  if (!isThisMonth(new Date(`12/24/${currentYear}`))) {
-    return null;
-  }
-
   const [enabled, setEnabled] = useState(true);
   const [snowFlakeCount, setSnowFlakeCount] = useState(250);
   const [modalIsOpen, setIsOpen] = useState(true);
@@ -67,7 +61,13 @@ const Snowy: FunctionComponent = () => {
         );
       }
     }
-  }, []);
+  }, [enabled, snowFlakeCount]);
+
+  // we don't wanna render at all if its not december
+  const currentYear = getYear(new Date());
+  if (!isThisMonth(new Date(`12/24/${currentYear}`))) {
+    return null;
+  }
 
   // cause modal to open
   const openModal = () => {

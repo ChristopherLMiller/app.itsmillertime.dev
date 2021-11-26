@@ -1,15 +1,31 @@
-import { Fragment, FunctionComponent } from 'react';
-import remark from 'remark';
-import parse from 'remark-parse';
-import remark2react from 'remark-react';
+import { FunctionComponent } from "react";
+import MDX from "@mdx-js/runtime";
+import { MDXProvider } from "@mdx-js/react";
 
+import remarkTypograf from "@mavrin/remark-typograf";
+import remarkEmoji from "remark-emoji";
+import remarkFootnotes from "remark-footnotes";
+import remarkSubSuper from "remark-sub-super";
+import remarkGuillemets from "remark-fix-guillemets";
+import remarkUnwrapImages from "remark-unwrap-images";
 interface iMarkdown {
   source: string;
 }
 const Markdown: FunctionComponent<iMarkdown> = ({ source }) => (
-  <Fragment>
-    {remark().use(parse).use(remark2react).processSync(source).result}
-  </Fragment>
+  <MDXProvider>
+    <MDX
+      remarkPlugins={[
+        remarkTypograf,
+        remarkEmoji,
+        remarkFootnotes,
+        remarkSubSuper,
+        remarkGuillemets,
+        remarkUnwrapImages,
+      ]}
+    >
+      {source}
+    </MDX>
+  </MDXProvider>
 );
 
 export default Markdown;

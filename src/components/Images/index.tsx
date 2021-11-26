@@ -1,14 +1,13 @@
-import { FunctionComponent } from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { FunctionComponent } from "react";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface iImageContainer {
   border: boolean;
 }
 const ImageContainer = styled<iImageContainer>(motion.div)`
-  ${(props) =>
-    props.border && `border: 5px solid var(--color-red-intermediate);`}
+  border: ${(props) => props.border};
   position: relative;
   min-height: 75px;
   height: min-content;
@@ -80,7 +79,6 @@ interface iImage {
   public_id: string;
   width: number;
   height: number;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   layout?: any;
   alt: string;
   hoverable?: boolean;
@@ -88,6 +86,9 @@ interface iImage {
   border?: boolean;
 }
 
+const customImageProps = {
+  srl_gallery_image: `true`,
+};
 const ImageDefault: FunctionComponent<iImage> = ({
   public_id = `clm-new/uploads/default_fb95099398`,
   width = 1920,
@@ -103,17 +104,18 @@ const ImageDefault: FunctionComponent<iImage> = ({
     variants={ImageContainerVariants}
     initial="rest"
     whileHover={hoverable ? `hover` : `rest`}
-    border={border}
+    border={border ? `5px solid var(--color-red-intermediate);` : `none`}
   >
     <Image
-      src={public_id}
+      src={`${public_id}`}
       alt={alt}
       layout={layout}
       width={width}
       height={height}
       loading={`eager`}
-      placeholder="blur"
-      blurDataURL={`https://res.cloudinary.com/christopherleemiller/image/upload/e_blur:200/v1621611397/${public_id}`}
+      placeholder={`blur`}
+      blurDataURL={`${public_id}`}
+      {...customImageProps}
     />
     {caption && (
       <ImageOverlay variants={ImageOverlayVariants}>

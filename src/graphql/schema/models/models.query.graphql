@@ -12,6 +12,7 @@ query Models(
     publicationState: $publicationState
     where: $where
   ) {
+    _id
     id
     createdAt
     updatedAt

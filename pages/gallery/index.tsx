@@ -11,12 +11,9 @@ import { ArrayList } from "src/components/arrayList";
 import { useRouter } from "next/router";
 import { useGalleriesQuery } from "src/graphql/schema/galleries/galleries.query.generated";
 import { formatRelative, parseISO } from "date-fns";
-import { SITE_DEFAULT_IMAGE_FILE } from "config";
+import { defaultImage, pageSettings } from "config";
 import { isAdmin } from "src/utils";
 import { useSession } from "next-auth/client";
-
-const title = `Gallery`;
-const description = `A visual of all the things me!`;
 
 // TODO: fix anchor tag on the main tag in system default, breaks this here
 const Anchor = styled.a`
@@ -59,36 +56,43 @@ const GalleriesIndexPage: NextPage = () => {
   }
 
   return (
-    <PageLayout title={title} description={description} padding={false}>
+    <PageLayout
+      title={pageSettings.gallery.title}
+      description={pageSettings.gallery.description}
+    >
       {isLoading && <Loader isLoading={isLoading} />}
       <NextSeo
-        title={title}
-        description={description}
+        title={pageSettings.gallery.title}
+        description={pageSettings.gallery.description}
         openGraph={{
-          title,
-          description,
+          title: pageSettings.gallery.title,
+          description: pageSettings.gallery.description,
           type: `website`,
           images: [
             {
               alt: `Image of photo albums`,
-              width: 6000,
-              height: 4000,
-              url: `https://res.cloudinary.com/christopherleemiller/image/upload/v1620977270/clm-new/uploads/galleries_be8f339ef5.jpg`,
+              width: 800,
+              height: 600,
+              url: `https://res.cloudinary.com/christopherleemiller/image/upload/w_800,f_auto,q_auto/clm-new/uploads/galleries_be8f339ef5.jpg`,
             },
           ],
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/gallery`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
 
       <Grid gap="30px" columns={3} masonry>
         {isSuccess &&
           data?.galleries?.map((gallery) => (
-            <Link href={`/gallery/album/${gallery.slug}`} key={gallery.slug}>
+            <Link
+              href={`/gallery/album/${gallery.slug}`}
+              key={gallery.slug}
+              passHref
+            >
               <Anchor>
                 <Image
                   public_id={`${
                     gallery?.featured_image?.provider_metadata?.public_id ||
-                    SITE_DEFAULT_IMAGE_FILE
+                    defaultImage.public_id
                   }`}
                   width={gallery?.featured_image?.width || 900}
                   height={gallery?.featured_image?.height || 450}
@@ -118,7 +122,7 @@ const GalleriesIndexPage: NextPage = () => {
                       <a
                         href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${gallery.id}`}
                         target="_blank"
-                        rel="noopener norefer"
+                        rel="noopener noreferrer"
                       >
                         Edit
                       </a>

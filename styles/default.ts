@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import { CLOUDINARY_CLOUD, CLOUDINARY_FOLDER } from '../config';
+import { createGlobalStyle } from "styled-components";
+import { cloudinary } from "../config";
 
 export const defaultTheme = {
   colors: {
@@ -11,6 +11,7 @@ export const defaultTheme = {
     block: `'Source Code pro', monospace`,
     typewriter: `'Special Elite', monospace`,
     permanentMarker: `'Permanent Marker', serif`,
+    montserrat: `'Montserrat', sans-serif`,
   },
 };
 
@@ -59,6 +60,7 @@ export const GlobalStyles = createGlobalStyle`
     --color-grey-light: #ECECEC;
 
     --max-width: 1800px;
+    --top-bar-height: 55px;
 
     --h1-size: clamp(5rem, 5vw, 6.25rem);
     --h2-size: clamp(4rem, 5vw, 5.75rem);
@@ -67,6 +69,8 @@ export const GlobalStyles = createGlobalStyle`
     --h5-size: clamp(2.5rem, 5vw, 3rem);
     --h6-size: clamp(2rem, 5vw, 2.5rem);
     --p-size: clamp(2rem, 5vw, 2.5rem);
+
+    --linen-paper: url('https://res.cloudinary.com/${cloudinary.cloudName}/image/upload/${cloudinary.folder}/assets/linen.jpg');
   }
 
   html {
@@ -81,7 +85,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: var(--font-main);
-    background: var(--color-grey-intermediate) url('https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/${CLOUDINARY_FOLDER}/assets/background.jpg') no-repeat;
+    background: var(--color-grey-intermediate) url('https://res.cloudinary.com/${cloudinary.cloudName}/image/upload/${cloudinary.folder}/assets/background.jpg') no-repeat;
     background-attachment: fixed;
     background-size: cover;
     color: var(--color-grey-dark);
@@ -109,19 +113,4 @@ export const GlobalStyles = createGlobalStyle`
   h6 {
     font-size: var(--h6-size);
   }
-
-  main {
-  a {
-    color: var(--color-grey-darker);
-    text-decoration: none;
-    box-shadow: var(--box-shadow-inset-0);
-    transition: all 0.25s ease;
-
-    :hover {
-        box-shadow: var(--box-shadow-inset-1);
-        color: var(--color-white-100);
-        scale: 1.05;
-    }
-  }
-}
 `;

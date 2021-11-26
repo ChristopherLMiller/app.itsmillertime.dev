@@ -1,14 +1,15 @@
-import PageLayout from 'src/layout/PageLayout';
-import { NextPage } from 'next';
-import { Grid, GridItem } from 'src/components/Grid';
-import Card from 'src/components/Card';
-import styled from 'styled-components';
-import { NextSeo } from 'next-seo';
-import { SITE_DEFAULT_IMAGE_FILE, CLOUDINARY_CLOUD } from 'config';
-import { useSession } from 'next-auth/client';
+import PageLayout from "src/layout/PageLayout";
+import { GetServerSideProps, NextPage } from "next";
+import { Grid, GridItem } from "src/components/Grid";
+import Card from "src/components/Card";
+import styled from "styled-components";
+import { NextSeo } from "next-seo";
+import { defaultImage, pageSettings } from "config";
+import { getSession, useSession } from "next-auth/client";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
-const title = `My Account`;
-const description = `Manage your account here`;
+const crypto = require("crypto");
 
 const InformationPanel = styled.div`
   p {
@@ -16,31 +17,45 @@ const InformationPanel = styled.div`
   }
 `;
 
-const MyAccount: NextPage = () => {
+interface iMyAccountPage {
+  emailHash: string;
+}
+
+const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
   const [session] = useSession();
+  const router = useRouter();
+
   return (
-    <PageLayout title={title} description={description}>
+    <PageLayout
+      title={pageSettings.myAccount.title}
+      description={pageSettings.myAccount.description}
+    >
       <NextSeo
         nofollow={true}
-        title={title}
-        description={description}
+        title={pageSettings.myAccount.title}
+        description={pageSettings.myAccount.description}
         openGraph={{
-          title,
-          description,
+          title: pageSettings.myAccount.title,
+          description: pageSettings.myAccount.description,
           type: `website`,
           images: [
             {
-              alt: `Default Site Image`,
-              width: 800,
-              height: 600,
-              url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+              alt: defaultImage.altText,
+              width: defaultImage.width,
+              height: defaultImage.height,
+              url: defaultImage.path,
             },
           ],
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/my-account`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
       <Grid columns={3}>
-        <img src={``} alt="Avatar picture of self" loading="lazy" />
+        <Image
+          src={`https://www.gravatar.com/avatar/${emailHash}`}
+          alt="Gravatar"
+          width={80}
+          height={80}
+        />
         <GridItem start={2} end={3}>
           <Card heading="My Information" align="left">
             <InformationPanel>
@@ -94,4 +109,19 @@ const MyAccount: NextPage = () => {
   );
 };
 
-export default MyAccount;
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
+
+  const emailHash = crypto
+    .createHash("md5")
+    .update(session?.user?.email)
+    .digest("hex");
+
+  return {
+    props: {
+      emailHash,
+    },
+  };
+};
+
+export default MyAccountPage;

@@ -1,10 +1,10 @@
-import { FunctionComponent, useState } from 'react';
-import styled from 'styled-components';
-import { countWords, timeToRead } from 'src/utils';
-import Button from 'src/components/inputs/Button';
-import ArticleHead from './elements/Header';
-import ArticleContent from './elements/Content';
-import { Article } from 'src/graphql/types';
+import { FunctionComponent, useState } from "react";
+import styled from "styled-components";
+import { countWords, timeToRead } from "src/utils";
+import Button from "src/components/inputs/Button";
+import ArticleHead from "./elements/Header";
+import ArticleContent from "./elements/Content";
+import { Article } from "src/graphql/types";
 
 const StyledArticle = styled.div`
   margin-bottom: 50px;

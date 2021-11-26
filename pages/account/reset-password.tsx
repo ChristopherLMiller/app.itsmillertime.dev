@@ -1,104 +1,52 @@
-import PageLayout from 'src/layout/PageLayout';
-import { Formik, Form, ErrorMessage, Field } from 'formik';
-import {
-  Fieldset,
-  Label,
-  FormErrorMessage,
-  Button,
-  StyledForm,
-} from 'src/components/inputs';
-import { SITE_DEFAULT_IMAGE_FILE, CLOUDINARY_CLOUD } from 'config';
-import * as Yup from 'yup';
-import Card from 'src/components/Card';
-import { Grid } from 'src/components/Grid';
-import { useRouter } from 'next/router';
-import { NextSeo } from 'next-seo';
-import { NextPage } from 'next';
-
-const FormValidation = Yup.object().shape({
-  password: Yup.string().required(`We need your password please`),
-  passwordConfirm: Yup.string()
-    .oneOf([Yup.ref(`password`), null], `Passwords must match`)
-    .required(`We need your new password again`),
-});
-
-const title = `Reset Password`;
-const description = `Recever your account, reset your password now`;
+import PageLayout from "src/layout/PageLayout";
+import { defaultImage, pageSettings } from "config";
+import { useRouter } from "next/router";
+import { NextSeo } from "next-seo";
+import { NextPage } from "next";
+import { ContentPane, SplitPane, TextPane } from "src/components/SplitPane";
+import ResetPasswordForm from "src/templates/forms/resetPassword";
 
 const ResetPasswordPage: NextPage = () => {
   const router = useRouter();
+  // TODO: The code and resetting need redone
   const code = router.query[`code`] as string;
-  console.log(code);
 
   return (
-    <PageLayout title={title} description={description}>
+    <PageLayout
+      title={pageSettings.resetPassword.title}
+      description={pageSettings.resetPassword.description}
+    >
       <NextSeo
         nofollow={true}
-        title={title}
-        description={description}
+        title={pageSettings.resetPassword.title}
+        description={pageSettings.resetPassword.description}
         openGraph={{
-          title,
-          description,
+          title: pageSettings.resetPassword.title,
+          description: pageSettings.resetPassword.description,
           type: `website`,
           images: [
             {
-              alt: `Default Site Image`,
-              width: 800,
-              height: 600,
-              url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/w_800,h_600,q_auto/v1594740865/${SITE_DEFAULT_IMAGE_FILE}.jpg`,
+              alt: defaultImage.altText,
+              width: defaultImage.width,
+              height: defaultImage.height,
+              url: defaultImage.path,
             },
           ],
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/account/reset-password`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
-      <Card>
-        <Grid columns={2} gap="30px">
-          <Formik
-            initialValues={{ password: ``, passwordConfirm: `` }}
-            onSubmit={async (values, { setSubmitting }) => {
-              setSubmitting(true);
-              console.log(values);
-              setSubmitting(false);
-            }}
-            validationSchema={FormValidation}
-          >
-            {({ isSubmitting }) => (
-              <Form>
-                <StyledForm>
-                  <Fieldset>
-                    <Label htmlFor="password">Password:</Label>
-                    <Field type="password" name="password" />
-                    <FormErrorMessage>
-                      <ErrorMessage name="password" component="div" />
-                    </FormErrorMessage>
-                  </Fieldset>
-                  <Fieldset>
-                    <Label htmlFor="passwordConfirm">Password Again:</Label>
-                    <Field type="password" name="passwordConfirm" />
-                    <FormErrorMessage>
-                      <ErrorMessage name="passwordConfirm" component="div" />
-                    </FormErrorMessage>
-                  </Fieldset>
-                  <Button
-                    type="submit"
-                    isDisabled={isSubmitting}
-                    isSubmitting={isSubmitting}
-                  >
-                    Reset
-                  </Button>
-                </StyledForm>
-              </Form>
-            )}
-          </Formik>
-          <div>
-            <h4>Reset your password</h4>
-            <p>
-              While I have no requirements for password complexity or length
-              it's on you if your account gets hacked.
-            </p>
-          </div>
-        </Grid>
-      </Card>
+      <SplitPane>
+        <TextPane>
+          <h3>Password Requirements</h3>
+          <p>
+            While I have no requirements for password complexity or length
+            it&apos;s on you if your account gets hacked.
+          </p>
+        </TextPane>
+        <ContentPane>
+          <ResetPasswordForm />
+        </ContentPane>
+      </SplitPane>
     </PageLayout>
   );
 };

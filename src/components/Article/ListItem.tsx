@@ -1,15 +1,15 @@
-import { formatRelative, parseISO } from 'date-fns';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { FunctionComponent } from 'react';
-import { Article, ArticleCategory, ArticleTags } from 'src/graphql/types';
-import { countWords, timeToRead } from 'src/utils';
-import styled from 'styled-components';
-import { useSession } from 'next-auth/client';
-import { isAdmin } from 'src/utils';
-import Image from '../Images';
+import { formatRelative, parseISO } from "date-fns";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { FunctionComponent } from "react";
+import { Article, ArticleTags } from "src/graphql/types";
+import { countWords, timeToRead } from "src/utils";
+import styled from "styled-components";
+import { useSession } from "next-auth/client";
+import { isAdmin } from "src/utils";
+import Image from "src/components/Images";
 
-const StyledArticleListItem = styled(motion.div)`
+const StyledArticleListItem = styled(motion.article)`
   display: grid;
   grid-template-columns: 1fr;
   margin-block-end: 30px;
@@ -17,6 +17,18 @@ const StyledArticleListItem = styled(motion.div)`
 
   @media screen and (min-width: 800px) {
     grid-template-columns: 30% 1fr;
+  }
+
+  a {
+    color: var(--color-white-100);
+    text-decoration: none;
+    box-shadow: var(--box-shadow-inset-0);
+    transition: all 0.25s ease;
+
+    :hover {
+      box-shadow: var(--box-shadow-inset-1);
+      scale: 1.05;
+    }
   }
 `;
 
@@ -36,6 +48,7 @@ const ArticleHeader = styled.div`
 
   h3 {
     font-family: var(--font-alt);
+    font-weight: 100;
     margin: 0;
   }
   h5,
@@ -105,9 +118,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
       <ArticleListItemImage>
         {article?.seo?.featured_image && (
           <Image
-            public_id={`${
-              article?.seo?.featured_image.provider_metadata[`public_id`]
-            }`}
+            public_id={`${article?.seo?.featured_image.provider_metadata.public_id}`}
             width={parseInt(`${article?.seo?.featured_image.width}`)}
             height={parseInt(`${article?.seo?.featured_image.height}`)}
             alt={article?.seo?.featured_image.alternativeText}
@@ -133,7 +144,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
               <a
                 href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
                 target="_blank"
-                rel="noopener norefer"
+                rel="noopener noreferrer"
               >
                 Edit
               </a>
@@ -143,18 +154,9 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
         <Excerpt>{article.seo.description}</Excerpt>
         <PostMeta>
           <List>
-            {article.article_categories.map((category: ArticleCategory) => (
-              <li key={category.id}>
-                <Link href={`/blog?category=${category.slug}`}>
-                  <MetaButton>{category.title}</MetaButton>
-                </Link>
-              </li>
-            ))}
-          </List>
-          <List>
             {article.article_tags.map((tag: ArticleTags) => (
               <li key={tag.id}>
-                <Link href={`/blog?tag=${tag.slug}`} shallow>
+                <Link href={`/blog?tag=${tag.slug}`} shallow passHref>
                   <MetaButton>{tag.title}</MetaButton>
                 </Link>
               </li>

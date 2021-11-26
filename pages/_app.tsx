@@ -3,13 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Provider } from "next-auth/client";
 import { DefaultSeo } from "next-seo";
 import SEO from "next-seo.config";
-import { AppComponent } from "next/dist/next-server/lib/router/router";
 import Head from "next/head";
 import { useRouter } from "next/router";
-// global CSS
-import "node_modules/normalize.css/normalize.css";
-import "../public/nprogress.css";
-import "node_modules/prismjs/themes/prism-tomorrow.css";
 import NProgress from "nprogress";
 import { Fragment, useEffect } from "react";
 import CookieConsent from "react-cookie-consent";
@@ -23,17 +18,16 @@ import * as gtag from "src/lib/gtag";
 import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
 
-const Content = styled(motion.div)`
-  margin-top: calc(55px * 8);
+// global CSS
+import "node_modules/normalize.css/normalize.css";
+import "../public/nprogress.css";
+import "node_modules/prismjs/themes/prism-tomorrow.css";
 
-  @media screen and (min-width: 500px) {
-    margin-top: calc(55px * 4);
-  }
-  @media screen and (min-width: 659px) {
-    margin-top: calc(55px * 3);
-  }
-  @media screen and (min-width: 1155px) {
-    margin-top: calc(55px * 2);
+const Content = styled(motion.div)`
+  margin-top: var(--top-bar-height);
+
+  @media screen and (min-width: 822px) {
+    margin-top: calc(var(--top-bar-height) * 2);
   }
 `;
 
@@ -44,7 +38,7 @@ const CookieConsentText = styled.span`
 
 const queryClient = new QueryClient();
 
-const App: AppComponent = ({ Component, pageProps, err }) => {
+const App = ({ Component, pageProps, err }) => {
   const router = useRouter();
 
   useEffect(() => {

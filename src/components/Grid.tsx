@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface iGrid {
   columns?: number;
@@ -9,6 +9,7 @@ interface iGrid {
   masonry?: boolean;
   justify?: string;
   marginBottom?: boolean;
+  padding?: boolean;
 }
 
 export const Grid = styled.div<iGrid>`
@@ -19,10 +20,11 @@ export const Grid = styled.div<iGrid>`
   background: ${(props) => props.background};
   ${(props) => props.justify && `justify-items: ` + props.justify};
   margin-bottom: ${(props) => (props.marginBottom ? `50px` : `0`)};
+  padding: ${(props) => (props.padding ? "1rem" : "0")};
 
   ${(props) =>
     props.columns > 0 &&
-    `@media (min-width: 600px) {grid-template-columns: repeat(2, 1fr)}
+    `@media (min-width: 600px) {grid-template-columns: repeat(1, 1fr)}
     @media (min-width: 800px) {grid-template-columns: repeat(${props.columns}, 1fr)
   }`}
 

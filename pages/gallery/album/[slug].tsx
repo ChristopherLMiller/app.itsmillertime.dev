@@ -12,6 +12,9 @@ import { useGalleryQuery } from "src/graphql/schema/galleries/gallery.query.gene
 import { Gallery } from "src/graphql/types";
 import { useSession } from "next-auth/client";
 import ShareButtons from "src/components/ShareButtons";
+import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
+import { pageSettings } from "config";
+import { useRouter } from "next/router";
 
 const GalleryGrid = styled.div`
   display: grid;
@@ -35,6 +38,7 @@ interface iGalleryPage {
 }
 const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
   const [session] = useSession();
+  const router = useRouter();
   const { data, error, isLoading } = useGalleryQuery({
     id: SEO.id,
   });
@@ -44,7 +48,10 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
   }
 
   return (
-    <PageLayout title={SEO.title} description={SEO.description} padding={false}>
+    <PageLayout
+      title={pageSettings.gallery.title}
+      description={pageSettings.gallery.description}
+    >
       <NextSeo
         title={SEO.title}
         description={SEO.description}
@@ -52,7 +59,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
           title: `${SEO.title}`,
           description: `${SEO.description}`,
           type: `website`,
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}/gallery/album/${SEO.slug}`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
           images: [
             {
               url: SEO.featured_image?.url,
@@ -65,19 +72,24 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
       />
       {!isLoading && (
         <GalleryGrid>
-          <Grid gap="30px" min="425px" masonry>
-            {data.gallery.gallery_images?.map((image) => (
-              <Image
-                public_id={`${image.watermarked.provider_metadata.public_id}`}
-                width={image.watermarked.width}
-                height={image.watermarked.height}
-                alt={`${image.caption}`}
-                caption={`${image.caption}`}
-                key={image.slug}
-              />
-            ))}
-          </Grid>
-
+          <SimpleReactLightbox>
+            <SRLWrapper>
+              <Grid gap="30px" min="425px" masonry>
+                {data.gallery.gallery_images?.map((image) => (
+                  <a key={image.slug} href={image.watermarked.url}>
+                    <Image
+                      public_id={`${image.watermarked.provider_metadata.public_id}`}
+                      width={image.watermarked.width}
+                      height={image.watermarked.height}
+                      alt={`${image.caption}`}
+                      caption={`${image.caption}`}
+                      key={image.slug}
+                    />
+                  </a>
+                ))}
+              </Grid>
+            </SRLWrapper>
+          </SimpleReactLightbox>
           <Reverse>
             <Card heading="About This Gallery" align="left">
               <ShareButtons
@@ -89,7 +101,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
                 <a
                   href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${data.gallery.id}`}
                   target="_blank"
-                  rel="noopener norefer"
+                  rel="noopener noreferrer"
                 >
                   Edit
                 </a>

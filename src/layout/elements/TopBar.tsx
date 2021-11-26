@@ -1,9 +1,9 @@
-import { FunctionComponent } from 'react';
-import styled from 'styled-components';
-import SiteTitle from './SiteTitle';
-import Nav from './nav/Navigation';
-import AccountDetails from './AccountDetails';
-import MobileNav from './nav/MobileNav';
+import { FunctionComponent } from "react";
+import styled from "styled-components";
+import SiteTitle from "./SiteTitle";
+import Nav from "./nav/Navigation";
+import AccountDetails from "./AccountDetails";
+import MobileNav from "./nav/MobileNav";
 
 const TopBarContainer = styled.div`
   position: fixed;
@@ -17,7 +17,7 @@ const StyledTopBar = styled.div`
   background: var(--color-grey-darker);
   display: flex;
   justify-content: space-between;
-  height: 55px;
+  height: var(--top-bar-height);
   padding-inline: 10px;
 `;
 

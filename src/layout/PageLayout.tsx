@@ -1,21 +1,21 @@
-import Header from 'src/layout/elements/Header';
-import { motion } from 'framer-motion';
-import styled from 'styled-components';
-import { FunctionComponent } from 'react';
-import Footer from './elements/Footer';
+import Header from "src/layout/elements/Header";
+import { motion } from "framer-motion";
+import styled from "styled-components";
+import { FunctionComponent } from "react";
+import Footer from "./elements/Footer";
 
 const Main = styled(motion.main)`
   padding: 0 2%;
   flex-grow: 1;
 
   @media (min-width: 800px) {
-    padding: 0 ${(props) => (props.padding ? `15%` : `5%`)};
+    padding: ${(props) => props.padding};
   }
 `;
 
 const ContentArea = styled(motion.div)`
   overflow-x: hidden;
-  min-height: calc(100vh - 55px - 55px);
+  min-height: calc(100vh - var(--top-bar-height) - var(--top-bar-height));
   display: flex;
   flex-direction: column;
 `;
@@ -52,7 +52,7 @@ const PageLayout: FunctionComponent<iPagelayout> = ({
 }) => (
   <ContentArea variants={contentVariants}>
     <Header title={title} description={description} />
-    <Main padding={padding}>{children}</Main>
+    <Main padding={padding ? `0 10%` : `0 5%`}>{children}</Main>
     <Footer />
   </ContentArea>
 );

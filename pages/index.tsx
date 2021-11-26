@@ -1,53 +1,60 @@
-import PageLayout from 'src/layout/PageLayout';
-import Card from 'src/components/Card';
-import { NextSeo } from 'next-seo';
-
-import { NextPage } from 'next';
-import { useSession } from 'next-auth/client';
-
-const title = `Home`;
-const description = `Programmer.  Amateur Designer.  Model Enthsiast.`;
+import PageLayout from "src/layout/PageLayout";
+import { NextSeo } from "next-seo";
+import { NextPage } from "next";
+import { useSession } from "next-auth/client";
+import Panel from "src/components/Panel";
+import React from "react";
+import { Grid } from "src/components/Grid";
+import { defaultImage, pageSettings } from "config";
+import { useRouter } from "next/router";
 
 const IndexPage: NextPage = () => {
   const [session] = useSession();
+  const router = useRouter();
   return (
-    <PageLayout title={title} description={description}>
+    <PageLayout
+      title={pageSettings.home.title}
+      description={pageSettings.home.description}
+    >
       <NextSeo
-        title={title}
-        description={description}
+        title={pageSettings.home.title}
+        description={pageSettings.home.description}
         openGraph={{
-          title,
-          description,
+          title: pageSettings.home.title,
+          description: pageSettings.home.description,
           type: `website`,
           images: [
             {
-              alt: `Default Site Image`,
-              width: 800,
-              height: 600,
-              url: `https://res.cloudinary.com/christopherleemiller/image/upload/v1620977750/clm-new/uploads/default_fb95099398.jpg`,
+              alt: defaultImage.altText,
+              width: defaultImage.width,
+              height: defaultImage.height,
+              url: defaultImage.path,
             },
           ],
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
-      <Card heading="Welcome" align="left">
-        <p>Hello, {session?.user ? session?.user?.username : `Guest`}</p>
-        <p>
-          Please excuse the mess while I'm remodeling. Many great things are in
-          progress and will appear here as they are built.
-        </p>
+      <Grid columns={2} gap="30px">
+        <Panel>
+          <p>Hello, {session?.user ? session?.user?.username : `Guest`}</p>
+          <p>
+            Please excuse the mess while I&apos;m remodeling. Many great things
+            are in progress and will appear here as they are built.
+          </p>
 
-        <p>
-          If you want to enjoy what I have to offer so far though go ahead and
-          have a look around as I've got many pieces in place, nothing compared
-          to what I have to go yet though.
-        </p>
+          <p>
+            If you want to enjoy what I have to offer so far though go ahead and
+            have a look around as I&apos;ve got many pieces in place, nothing
+            compared to what I have to go yet though.
+          </p>
 
-        <p>
-          If you find any errors or problems you can submit an issue on GitHub,
-          or reach me at one of the other places in the sidebar on the left.
-        </p>
-      </Card>
+          <p>
+            If you find any errors or problems you can submit an issue on
+            GitHub, or reach me at one of the other places in the sidebar on the
+            left.
+          </p>
+        </Panel>
+      </Grid>
     </PageLayout>
   );
 };
