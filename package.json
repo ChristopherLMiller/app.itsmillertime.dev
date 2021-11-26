@@ -79,7 +79,7 @@
     "@types/gtag.js": "0.0.8",
     "@types/hcaptcha__react-hcaptcha": "^0.1.4",
     "@types/node": "^16.11.7",
-    "@types/react": "^17.0.34",
+    "@types/react": "^17.0.37",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "airbnb": "0.0.2",
