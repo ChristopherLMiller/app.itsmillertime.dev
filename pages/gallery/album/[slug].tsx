@@ -14,7 +14,6 @@ import { useSession } from "next-auth/client";
 import ShareButtons from "src/components/ShareButtons";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 import { pageSettings } from "config";
-import { useRouter } from "next/router";
 
 const GalleryGrid = styled.div`
   display: grid;
@@ -38,7 +37,6 @@ interface iGalleryPage {
 }
 const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
   const [session] = useSession();
-  const router = useRouter();
   const { data, error, isLoading } = useGalleryQuery({
     id: SEO.id,
   });
@@ -59,7 +57,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
           title: `${SEO.title}`,
           description: `${SEO.description}`,
           type: `website`,
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
+          url: `${pageSettings.gallery.url}/gallery/album/${SEO.slug}`,
           images: [
             {
               url: SEO.featured_image?.url,
