@@ -7,6 +7,7 @@ import { NextSeo } from "next-seo";
 import { defaultImage, pageSettings } from "config";
 import { getSession, useSession } from "next-auth/client";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const crypto = require("crypto");
 
@@ -22,6 +23,8 @@ interface iMyAccountPage {
 
 const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
   const [session] = useSession();
+  const router = useRouter();
+
   return (
     <PageLayout
       title={pageSettings.myAccount.title}
@@ -43,7 +46,7 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
               url: defaultImage.path,
             },
           ],
-          url: pageSettings.myAccount.url,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
       <Grid columns={3}>
