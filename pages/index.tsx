@@ -6,9 +6,12 @@ import Panel from "src/components/Panel";
 import React from "react";
 import { Grid } from "src/components/Grid";
 import { defaultImage, pageSettings } from "config";
+import { useRouter } from "next/router";
 
 const IndexPage: NextPage = () => {
   const [session] = useSession();
+  const router = useRouter();
+
   return (
     <PageLayout
       title={pageSettings.home.title}
@@ -29,7 +32,7 @@ const IndexPage: NextPage = () => {
               url: defaultImage.path,
             },
           ],
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
       <Grid columns={2} gap="30px">
