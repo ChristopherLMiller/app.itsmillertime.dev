@@ -76,7 +76,7 @@ const GalleriesIndexPage: NextPage = () => {
               url: `https://res.cloudinary.com/christopherleemiller/image/upload/w_800,f_auto,q_auto/clm-new/uploads/galleries_be8f339ef5.jpg`,
             },
           ],
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
+          url: pageSettings.gallery.url,
         }}
       />
 

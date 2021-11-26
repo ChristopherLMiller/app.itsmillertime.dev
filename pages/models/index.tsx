@@ -44,7 +44,7 @@ const ModelsPageIndex: NextPage = () => {
               url: defaultImage.path,
             },
           ],
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
+          url: pageSettings.models.url,
         }}
       />
       <Grid columns={2} min="450px" gap="30px">

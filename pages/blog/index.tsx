@@ -73,7 +73,7 @@ const BlogIndexpage: NextPage = () => {
               url: `https://res.cloudinary.com/christopherleemiller/image/upload/w_800,q_auto,f_auto/clm-new/uploads/blog_adb6d70b97.jpg`,
             },
           ],
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
+          url: pageSettings.blog.url,
         }}
       />
       {error && (

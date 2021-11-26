@@ -14,7 +14,6 @@ import ShareButtons from "src/components/ShareButtons";
 import Loader from "src/components/Loader";
 import { useSession } from "next-auth/client";
 import { defaultImage, pageSettings } from "config";
-import { useRouter } from "next/router";
 
 const StyledBlogPost = styled.article`
   background: var(--color-grey-light);
@@ -98,7 +97,6 @@ interface iBlogPost {
 
 const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
   const [session] = useSession();
-  const router = useRouter();
   const publicationState =
     session && isAdmin(session?.user)
       ? PublicationState.Preview
@@ -127,7 +125,7 @@ const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
           title: `${SEO?.title}`,
           description: `${SEO?.seo?.description}`,
           type: `article`,
-          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
+          url: `${pageSettings.blog.url}/post/${SEO?.slug}`,
           images: [
             {
               url: SEO?.seo?.featured_image?.url,
