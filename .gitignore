@@ -9,5 +9,6 @@ public/service-worker.js.map
 ## ENV Variables
 .env.local
 sentry.properties
+
 # Sentry
 .sentryclirc

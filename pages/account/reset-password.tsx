@@ -32,7 +32,7 @@ const ResetPasswordPage: NextPage = () => {
               url: defaultImage.path,
             },
           ],
-          url: pageSettings.resetPassword.url,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
       <SplitPane>

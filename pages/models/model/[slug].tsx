@@ -8,6 +8,7 @@ import Markdown from "src/components/Card/elements/Markdown";
 import { GetServerSideProps, NextPage } from "next";
 import { getServerSideSEO } from "src/utils";
 import { pageSettings } from "config";
+import { useRouter } from "next/router";
 
 interface iModelPage {
   SEO: Model;
@@ -15,6 +16,7 @@ interface iModelPage {
 
 const ModelPage: NextPage<iModelPage> = ({ SEO }) => {
   const [session] = useSession();
+  const router = useRouter();
   const { data, error, isLoading } = useModelQuery({
     id: SEO.id,
   });
@@ -38,7 +40,7 @@ const ModelPage: NextPage<iModelPage> = ({ SEO }) => {
           title: `${SEO.title}`,
           description: `${SEO.SEO.description}`,
           type: `website`,
-          url: `${pageSettings.models.url}/model/${SEO.slug}`,
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
           images: [
             {
               url: SEO?.SEO?.featured_image?.url,
