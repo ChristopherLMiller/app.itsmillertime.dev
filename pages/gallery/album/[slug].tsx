@@ -91,7 +91,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
           <Reverse>
             <Card heading="About This Gallery" align="left">
               <ShareButtons
-                url={`${pageSettings.gallery.url}/gallery/album/${SEO.slug}`}
+                url={`${process.env.NEXT_PUBLIC_SITE_URL}/gallery/album/${SEO.slug}`}
                 media={SEO.featured_image?.url}
                 title={SEO?.title}
               />
