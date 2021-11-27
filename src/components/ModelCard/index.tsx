@@ -5,7 +5,6 @@ import { Grid } from "@/components/Grid";
 import Image from "next/image";
 import { defaultImage } from "../../../config";
 import Link from "next/link";
-import BuildTime from "../BuildTime";
 import { Table } from "src/components";
 import { getBuildTime, makeDurationFriendly } from "src/utils";
 
@@ -82,6 +81,13 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
             ],
             ["Kit Number", model?.kit_number],
             ["Year Released", model?.year_released],
+            [
+              "Completed",
+              {
+                label: model?.completed ? "Yes" : "No",
+                url: `/models?completed=${model?.completed ? true : false}`,
+              },
+            ],
             ["Build Time", buildTime],
           ]}
         />
