@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 export const ModelItem = styled(motion.article)`
   border: 5px solid var(--color-red);
+  border-top: none;
   height: min-content;
 `;
 
@@ -18,7 +19,7 @@ export const variants = {
 export const ModelName = styled.div`
   grid-column: 1 / -1;
   background: var(--color-red);
-  padding: 1% 3%;
+  padding: 1rem 0.5rem;
   font-family: var(--font-alt);
   font-size: var(--p-size);
   letter-spacing: 2px;
