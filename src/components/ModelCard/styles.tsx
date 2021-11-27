@@ -40,29 +40,6 @@ export const ModelImage = styled.div`
   }
 `;
 
-export const ModelDetails = styled.table`
-  grid-column: 2 / -1;
-  border-collapse: collapse;
-  font-family: var(--font-alt);
-  color: var(--color-white-80);
-
-  td {
-    padding-inline: 1rem;
-  }
-
-  tr:nth-child(even) {
-    background: var(--color-grey-intermediate);
-  }
-  tr:nth-child(odd) {
-    background: var(--color-grey-darker);
-  }
-
-  a {
-    text-decoration: none;
-    color: var(--color-red);
-  }
-`;
-
 export const TagList = styled.div`
   background: var(--color-grey-intermediate);
   font-size: var(--p-size);

@@ -8,6 +8,8 @@ import remarkFootnotes from "remark-footnotes";
 import remarkSubSuper from "remark-sub-super";
 import remarkGuillemets from "remark-fix-guillemets";
 import remarkUnwrapImages from "remark-unwrap-images";
+import remarkFrontmatter from "remark-frontmatter";
+
 interface iMarkdown {
   source: string;
 }
@@ -21,6 +23,7 @@ const Markdown: FunctionComponent<iMarkdown> = ({ source }) => (
         remarkSubSuper,
         remarkGuillemets,
         remarkUnwrapImages,
+        remarkFrontmatter,
       ]}
     >
       {source}
