@@ -13,7 +13,9 @@ const remarkGuillemets = require("next-transpile-modules")([
 const remarkUnwrapImages = require("next-transpile-modules")([
   "remark-unwrap-images",
 ]);
-const remarkFrontmatter = require("next-transpile-modules")(["remark-frontmatter"]);
+const remarkFrontmatter = require("next-transpile-modules")([
+  "remark-frontmatter",
+]);
 
 // MDX
 const withMDX = require(`@next/mdx`)({
@@ -27,7 +29,7 @@ const withMDX = require(`@next/mdx`)({
       remarkSubSuper,
       remarkGuillemets,
       remarkUnwrapImages,
-      remarkFrontmatter
+      remarkFrontmatter,
     ],
   },
 });
