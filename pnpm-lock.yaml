@@ -70,6 +70,7 @@ specifiers:
   remark-emoji: ^3.0.2
   remark-fix-guillemets: ^1.1.1
   remark-footnotes: ^4.0.1
+  remark-frontmatter: ^4.0.1
   remark-html: ^15.0.0
   remark-mdx: ^1.6.22
   remark-parse: ^10.0.1
@@ -125,6 +126,7 @@ dependencies:
   remark-emoji: 3.0.2
   remark-fix-guillemets: 1.1.1
   remark-footnotes: 4.0.1
+  remark-frontmatter: 4.0.1
   remark-html: 15.0.0
   remark-mdx: 1.6.22
   remark-parse: 10.0.1
@@ -5867,6 +5869,12 @@ packages:
       reusify: 1.0.4
     dev: true
 
+  /fault/2.0.1:
+    resolution: {integrity: sha512-WtySTkS4OKev5JtpHXnib4Gxiurzh5NCGvWrFaZ34m6JehfTUhKZvn9njTfw48t6JumVQOmrKqpmGcdwxnhqBQ==}
+    dependencies:
+      format: 0.2.2
+    dev: false
+
   /fb-watchman/2.0.1:
     resolution: {integrity: sha512-DkPJKQeY6kKwmuMretBhr7G6Vodr7bFwDYTXIkfG1gjvNpaxBTQV3PbXg6bR1c1UP4jPOX0jHUbbHANL9vRjVg==}
     dependencies:
@@ -6023,6 +6031,11 @@ packages:
       combined-stream: 1.0.8
       mime-types: 2.1.33
     dev: true
+
+  /format/0.2.2:
+    resolution: {integrity: sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=}
+    engines: {node: '>=0.4.x'}
+    dev: false
 
   /formik/2.2.9_react@17.0.2:
     resolution: {integrity: sha512-LQLcISMmf1r5at4/gyJigGn0gOwFbeEAlji+N9InZF6LIMXnFNkO42sCI8Jt84YZggpD4cPWObAZaxpEFtSzNA==}
@@ -7812,6 +7825,12 @@ packages:
       - supports-color
     dev: false
 
+  /mdast-util-frontmatter/1.0.0:
+    resolution: {integrity: sha512-7itKvp0arEVNpCktOET/eLFAYaZ+0cNjVtFtIPxgQ5tV+3i+D4SDDTjTzPWl44LT59PC+xdx+glNTawBdF98Mw==}
+    dependencies:
+      micromark-extension-frontmatter: 1.0.0
+    dev: false
+
   /mdast-util-to-hast/10.0.1:
     resolution: {integrity: sha512-BW3LM9SEMnjf4HXXVApZMt8gLQWVNXc3jryK0nJu/rOXPOnlkUjmdkDlmxMirpbU9ILncGFIwLH/ubnWBbcdgA==}
     dependencies:
@@ -7931,6 +7950,14 @@ packages:
       micromark-util-resolve-all: 1.0.0
       micromark-util-symbol: 1.0.0
       uvu: 0.5.2
+    dev: false
+
+  /micromark-extension-frontmatter/1.0.0:
+    resolution: {integrity: sha512-EXjmRnupoX6yYuUJSQhrQ9ggK0iQtQlpi6xeJzVD5xscyAI+giqco5fdymayZhJMbIFecjnE2yz85S9NzIgQpg==}
+    dependencies:
+      fault: 2.0.1
+      micromark-util-character: 1.1.0
+      micromark-util-symbol: 1.0.0
     dev: false
 
   /micromark-factory-destination/1.0.0:
@@ -9687,6 +9714,15 @@ packages:
       '@types/mdast': 3.0.10
       mdast-util-footnote: 1.0.0
       micromark-extension-footnote: 1.0.2
+      unified: 10.1.1
+    dev: false
+
+  /remark-frontmatter/4.0.1:
+    resolution: {integrity: sha512-38fJrB0KnmD3E33a5jZC/5+gGAC2WKNiPw1/fdXJvijBlhA7RCsvJklrYJakS0HedninvaCYW8lQGf9C918GfA==}
+    dependencies:
+      '@types/mdast': 3.0.10
+      mdast-util-frontmatter: 1.0.0
+      micromark-extension-frontmatter: 1.0.0
       unified: 10.1.1
     dev: false
 

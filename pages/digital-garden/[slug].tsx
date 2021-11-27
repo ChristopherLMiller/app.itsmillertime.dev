@@ -1,12 +1,17 @@
 import { cloudinary, pageSettings } from "config";
 import { NextSeo } from "next-seo";
-import { Grid } from "src/components/Grid";
 import PageLayout from "src/layout/PageLayout";
-import Card from "src/components/Card";
-import { NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
+import Card from "@/components/Card";
+import Markdown from "@/components/Card/elements/Markdown";
+import { Gardens } from "src/graphql/types";
 
-const DigitalGardenIndexPage: NextPage = () => {
+interface iDigitalGarden {
+  garden: Gardens;
+}
+
+const DigitalGardenIndexPage: NextPage<iDigitalGarden> = ({ garden }) => {
   const router = useRouter();
 
   return (
@@ -32,30 +37,47 @@ const DigitalGardenIndexPage: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
-      <Card heading="Digital Garden">
-        <p>
-          Welcome to my digital garden, a place for all the random thoughts in
-          my head and so on to live. Here you will find things like recipes,
-          books i want to read and so on.
-        </p>
-        {false && <p>There was an error fetching items. {false}</p>}
+      <Card heading={garden.title}>
+        <Markdown source={garden.contents} />
       </Card>
-
-      <Grid columns="5" gap="30px">
-        <Card
-          heading="Item Title"
-          actionLinks={[
-            {
-              title: `View`,
-              href: `/digital-garden/slug`,
-            },
-          ]}
-          markdown={`##Cotnents`}
-          align="left"
-        />
-      </Grid>
     </PageLayout>
   );
+};
+export const getStaticProps: GetStaticProps = async (context) => {
+  const slug = context.params["slug"];
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/gardens?slug_eq=${slug}`
+  );
+  const data = await response.json();
+
+  if (data.length) {
+    return {
+      props: {
+        garden: data[0],
+      },
+    };
+  } else {
+    return {
+      notFound: true,
+    };
+  }
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/gardens`);
+    const data = await res.json();
+
+    const paths = data.map((item) => ({
+      params: { slug: item.slug },
+    }));
+
+    return { paths, fallback: false };
+  } catch (error) {
+    // shouldn't ever happen but never know, if so fall back to SSR
+    console.log(error);
+    return { paths: [], fallback: "blocking" };
+  }
 };
 
 export default DigitalGardenIndexPage;

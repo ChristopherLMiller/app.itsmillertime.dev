@@ -9,7 +9,7 @@
         "src/styles/*"
       ],
       "@/fixtures/*": [
-        "src/fixtures/*"
+        "fixtures/*"
       ]
     },
     "target": "ESNext",

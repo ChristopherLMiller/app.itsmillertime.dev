@@ -57,5 +57,4 @@ const DigitalGardenIndexPage: NextPage = () => {
     </PageLayout>
   );
 };
-
 export default DigitalGardenIndexPage;
