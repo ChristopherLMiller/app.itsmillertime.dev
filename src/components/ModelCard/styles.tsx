@@ -41,7 +41,7 @@ export const ModelImage = styled.div`
 `;
 
 export const TagList = styled.div`
-  background: var(--color-grey-intermediate);
+  background: var(--color-grey-darker);
   font-size: var(--p-size);
   font-family: var(--font-alt);
   color: var(--color-white-80);

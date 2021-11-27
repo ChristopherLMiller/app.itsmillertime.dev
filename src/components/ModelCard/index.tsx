@@ -5,7 +5,6 @@ import { Grid } from "@/components/Grid";
 import Image from "next/image";
 import { defaultImage } from "../../../config";
 import Link from "next/link";
-import BuildTime from "../BuildTime";
 import { Table } from "src/components";
 import { getBuildTime, makeDurationFriendly } from "src/utils";
 
