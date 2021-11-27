@@ -82,6 +82,13 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
             ],
             ["Kit Number", model?.kit_number],
             ["Year Released", model?.year_released],
+            [
+              "Completed",
+              {
+                label: model?.completed ? "Yes" : "No",
+                url: `/models?completed=${model?.completed ? true : false}`,
+              },
+            ],
             ["Build Time", buildTime],
           ]}
         />
