@@ -57,19 +57,24 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/pages`;
+  let paths = [];
+
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/pages`);
-    const pages = await res.json();
+    const res = await fetch(url);
+    const data = await res.json();
 
-    const paths = pages.map((page) => ({
-      params: { slug: [page.slug] },
-    }));
-
-    return { paths, fallback: false };
+    if (data.length) {
+      paths = data.map((item) => ({
+        params: { slug: item.slug },
+      }));
+    }
   } catch (error) {
-    // shouldn't ever happen but never know, if so fall back to SSR
+    // We shouldn't really ever have an issue fetchign this data unless like network is offline
+    // log it out and just return empty paths
     console.log(error);
-    return { paths: [], fallback: "blocking" };
+  } finally {
+    return { paths, fallback: "blocking", revalidate: 120 };
   }
 };
 export default Page;
