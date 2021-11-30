@@ -1,10 +1,12 @@
-import { defaultTheme, GlobalStyles } from "styles/default";
-import { motion, AnimatePresence } from "framer-motion";
+import ScrollTop from "@components/ScrollTop";
+import { AnimatePresence, motion } from "framer-motion";
 import { Provider } from "next-auth/client";
 import { DefaultSeo } from "next-seo";
 import SEO from "next-seo.config";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import "node_modules/normalize.css/normalize.css";
+import "node_modules/prismjs/themes/prism-tomorrow.css";
 import NProgress from "nprogress";
 import { Fragment, useEffect } from "react";
 import CookieConsent from "react-cookie-consent";
@@ -12,16 +14,11 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ToastProvider } from "react-toast-notifications";
 import Snowy from "src/components/Holiday/Snowy";
-import ScrollTop from "src/components/ScrollTop";
 import TopBar from "src/layout/elements/TopBar";
 import * as gtag from "src/lib/gtag";
-import { ThemeProvider } from "styled-components";
-import styled from "styled-components";
-
-// global CSS
-import "node_modules/normalize.css/normalize.css";
+import styled, { ThemeProvider } from "styled-components";
+import { defaultTheme, GlobalStyles } from "styles/default";
 import "../public/nprogress.css";
-import "node_modules/prismjs/themes/prism-tomorrow.css";
 
 const Content = styled(motion.div)`
   margin-top: var(--top-bar-height);

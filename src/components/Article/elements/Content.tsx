@@ -1,8 +1,8 @@
-import { FunctionComponent } from "react";
-import styled from "styled-components";
+import Markdown from "@components/Markdown";
 import { cloudinary } from "config";
+import { FunctionComponent } from "react";
 import { truncate } from "src/utils";
-import Markdown from "src/components/Card/elements/Markdown";
+import styled from "styled-components";
 
 interface iCardBody {
   align: string;

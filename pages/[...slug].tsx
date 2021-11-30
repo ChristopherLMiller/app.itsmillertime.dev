@@ -1,8 +1,8 @@
-import { GetStaticProps, GetStaticPaths } from "next";
-import PageLayout from "src/layout/PageLayout";
-import Panel from "src/components/Panel";
-import Markdown from "src/components/Card/elements/Markdown";
+import Markdown from "@components/Markdown";
+import Panel from "@components/Panel";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
+import PageLayout from "src/layout/PageLayout";
 
 const Page = ({ page }) => {
   const { title, description, content, seo, slug } = page[0];
@@ -26,7 +26,7 @@ const Page = ({ page }) => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`,
         }}
       />
-      <Panel>
+      <Panel boxed>
         <Markdown source={content} />
       </Panel>
     </PageLayout>

@@ -1,10 +1,9 @@
+import Card from "@components/Card";
 import { cloudinary, pageSettings } from "config";
-import { NextSeo } from "next-seo";
-import { Grid } from "src/components/Grid";
-import PageLayout from "src/layout/PageLayout";
-import Card from "src/components/Card";
 import { NextPage } from "next";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
+import PageLayout from "src/layout/PageLayout";
 
 const DigitalGardenIndexPage: NextPage = () => {
   const router = useRouter();
@@ -40,20 +39,6 @@ const DigitalGardenIndexPage: NextPage = () => {
         </p>
         {false && <p>There was an error fetching items. {false}</p>}
       </Card>
-
-      <Grid columns="5" gap="30px">
-        <Card
-          heading="Garden Title"
-          actionLinks={[
-            {
-              title: `View`,
-              href: `/digital-garden/slug`,
-            },
-          ]}
-          markdown={`### Contents`}
-          align="left"
-        />
-      </Grid>
     </PageLayout>
   );
 };

@@ -1,12 +1,12 @@
+import { Grid } from "@components/Grid";
+import Table from "@components/Table";
+import Image from "next/image";
+import Link from "next/link";
 import { FunctionComponent, useEffect, useState } from "react";
 import { Model } from "src/graphql/types";
-import { ModelItem, ModelName, ModelImage, TagList, variants } from "./styles";
-import { Grid } from "@/components/Grid";
-import Image from "next/image";
-import { defaultImage } from "../../../config";
-import Link from "next/link";
-import { Table } from "src/components";
 import { getBuildTime, makeDurationFriendly } from "src/utils";
+import { defaultImage } from "../../../config";
+import { ModelImage, ModelItem, ModelName, TagList, variants } from "./styles";
 
 interface iModelCard {
   model: Model;

@@ -1,30 +1,7 @@
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { isClient } from 'src/utils';
-import { FunctionComponent, useEffect, useState } from 'react';
-import { FaArrowCircleUp } from 'react-icons/fa';
-
-const ScrollTopDiv = styled(motion.div)`
-  position: fixed;
-  right: 30px;
-  bottom: 30px;
-  color: var(--color-white-100);
-  justify-content: center;
-  align-content: center;
-  font-size: 6rem;
-  cursor: pointer;
-`;
-
-const ScrollTopVariants = {
-  hidden: {
-    opacity: 0,
-    display: `none`,
-  },
-  visible: {
-    opacity: 1,
-    display: `flex`,
-  },
-};
+import { isClient } from "src/utils";
+import { FunctionComponent, useEffect, useState } from "react";
+import { FaArrowCircleUp } from "react-icons/fa";
+import { ScrollTopDiv, ScrollTopVariants } from "./styles";
 
 const ScrollTop: FunctionComponent = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);

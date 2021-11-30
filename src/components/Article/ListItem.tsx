@@ -1,13 +1,12 @@
 import { formatRelative, parseISO } from "date-fns";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/client";
 import Link from "next/link";
 import { FunctionComponent } from "react";
-import { Article, ArticleTags } from "src/graphql/types";
-import { countWords, timeToRead } from "src/utils";
-import styled from "styled-components";
-import { useSession } from "next-auth/client";
-import { isAdmin } from "src/utils";
 import Image from "src/components/Images";
+import { Article, ArticleTags } from "src/graphql/types";
+import { countWords, isAdmin, timeToRead } from "src/utils";
+import styled from "styled-components";
 
 const StyledArticleListItem = styled(motion.article)`
   display: grid;

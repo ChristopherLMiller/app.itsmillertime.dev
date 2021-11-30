@@ -1,15 +1,10 @@
-import { ErrorMessage, Field, Formik, Form } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
-import {
-  StyledForm,
-  Fieldset,
-  Label,
-  FormErrorMessage,
-} from "src/components/inputs";
-import Button from "src/components/inputs/Button";
 import { useToasts } from "react-toast-notifications";
-import * as Yup from "yup";
+import { Fieldset, FormErrorMessage, StyledForm } from "src/components/inputs";
+import Button from "src/components/inputs/Button";
 import styled from "styled-components";
+import * as Yup from "yup";
 
 const ContactValidation = Yup.object().shape({
   email: Yup.string()

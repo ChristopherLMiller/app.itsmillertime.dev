@@ -1,14 +1,14 @@
+import Card from "@components/Card";
+import Markdown from "@components/Markdown";
+import { pageSettings } from "config";
+import { GetServerSideProps, NextPage } from "next";
 import { useSession } from "next-auth/client";
+import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
 import { useModelQuery } from "src/graphql/schema/models/model.query.generated";
 import { Model } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
-import { NextSeo } from "next-seo";
-import Card from "src/components/Card";
-import Markdown from "src/components/Card/elements/Markdown";
-import { GetServerSideProps, NextPage } from "next";
 import { getServerSideSEO } from "src/utils";
-import { pageSettings } from "config";
-import { useRouter } from "next/router";
 
 interface iModelPage {
   SEO: Model;

@@ -1,11 +1,11 @@
+import Card from "@components/Card";
+import Markdown from "@components/Markdown";
 import { cloudinary, pageSettings } from "config";
-import { NextSeo } from "next-seo";
-import PageLayout from "src/layout/PageLayout";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import Card from "@/components/Card";
-import Markdown from "@/components/Card/elements/Markdown";
 import { Gardens } from "src/graphql/types";
+import PageLayout from "src/layout/PageLayout";
 
 interface iDigitalGarden {
   garden: Gardens;
