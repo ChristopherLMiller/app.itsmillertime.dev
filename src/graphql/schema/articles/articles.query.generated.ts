@@ -1,73 +1,18 @@
-import * as Types from "src/graphql/types";
+import * as Types from '../../types';
 
-import { useQuery, UseQueryOptions } from "react-query";
-import { fetcher } from "src/lib/fetch";
+import { useQuery, UseQueryOptions } from 'react-query';
+import { fetcher } from 'src/lib/fetch';
 export type ArticlesQueryVariables = Types.Exact<{
-  sort?: Types.Maybe<Types.Scalars["String"]>;
-  limit?: Types.Maybe<Types.Scalars["Int"]>;
-  start?: Types.Maybe<Types.Scalars["Int"]>;
-  where?: Types.Maybe<Types.Scalars["JSON"]>;
-  publicationState?: Types.Maybe<Types.PublicationState>;
+  sort?: Types.InputMaybe<Types.Scalars['String']>;
+  limit?: Types.InputMaybe<Types.Scalars['Int']>;
+  start?: Types.InputMaybe<Types.Scalars['Int']>;
+  where?: Types.InputMaybe<Types.Scalars['JSON']>;
+  publicationState?: Types.InputMaybe<Types.PublicationState>;
 }>;
 
-export type ArticlesQuery = {
-  __typename?: "Query";
-  articles?:
-    | Array<
-        | {
-            __typename?: "Article";
-            id: string;
-            _id: string;
-            createdAt: any;
-            updatedAt: any;
-            title: string;
-            content: string;
-            slug: string;
-            published_at?: any | null | undefined;
-            seo?:
-              | {
-                  __typename?: "ComponentGlobalSeo";
-                  id: string;
-                  title: string;
-                  description?: string | null | undefined;
-                  featured_image?:
-                    | {
-                        __typename?: "UploadFile";
-                        name: string;
-                        alternativeText?: string | null | undefined;
-                        caption?: string | null | undefined;
-                        width?: number | null | undefined;
-                        height?: number | null | undefined;
-                        url: string;
-                        previewUrl?: string | null | undefined;
-                        provider: string;
-                        provider_metadata?: any | null | undefined;
-                      }
-                    | null
-                    | undefined;
-                }
-              | null
-              | undefined;
-            article_tags?:
-              | Array<
-                  | {
-                      __typename?: "ArticleTags";
-                      id: string;
-                      slug: string;
-                      title: string;
-                    }
-                  | null
-                  | undefined
-                >
-              | null
-              | undefined;
-          }
-        | null
-        | undefined
-      >
-    | null
-    | undefined;
-};
+
+export type ArticlesQuery = { __typename?: 'Query', articles?: Array<{ __typename?: 'Article', id: string, _id: string, createdAt: any, updatedAt: any, title: string, content: string, slug: string, published_at?: any | null | undefined, seo?: { __typename?: 'ComponentGlobalSeo', id: string, title: string, description?: string | null | undefined, featured_image?: { __typename?: 'UploadFile', name: string, alternativeText?: string | null | undefined, caption?: string | null | undefined, width?: number | null | undefined, height?: number | null | undefined, url: string, previewUrl?: string | null | undefined, provider: string, provider_metadata?: any | null | undefined } | null | undefined } | null | undefined, article_tags?: Array<{ __typename?: 'ArticleTags', id: string, slug: string, title: string } | null | undefined> | null | undefined } | null | undefined> | null | undefined };
+
 
 export const ArticlesDocument = `
     query Articles($sort: String, $limit: Int, $start: Int, $where: JSON, $publicationState: PublicationState) {
@@ -110,12 +55,15 @@ export const ArticlesDocument = `
   }
 }
     `;
-export const useArticlesQuery = <TData = ArticlesQuery, TError = unknown>(
-  variables?: ArticlesQueryVariables,
-  options?: UseQueryOptions<ArticlesQuery, TError, TData>
-) =>
-  useQuery<ArticlesQuery, TError, TData>(
-    variables === undefined ? ["Articles"] : ["Articles", variables],
-    fetcher<ArticlesQuery, ArticlesQueryVariables>(ArticlesDocument, variables),
-    options
-  );
+export const useArticlesQuery = <
+      TData = ArticlesQuery,
+      TError = unknown
+    >(
+      variables?: ArticlesQueryVariables,
+      options?: UseQueryOptions<ArticlesQuery, TError, TData>
+    ) =>
+    useQuery<ArticlesQuery, TError, TData>(
+      variables === undefined ? ['Articles'] : ['Articles', variables],
+      fetcher<ArticlesQuery, ArticlesQueryVariables>(ArticlesDocument, variables),
+      options
+    );

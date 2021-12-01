@@ -1,0 +1,6 @@
+query articlesSitemap {
+  articles {
+    slug
+    updatedAt
+  }
+}

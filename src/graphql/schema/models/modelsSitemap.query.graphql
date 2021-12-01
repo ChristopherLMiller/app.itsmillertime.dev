@@ -1,0 +1,6 @@
+query modelsSitemap {
+  models {
+    slug
+    updatedAt
+  }
+}

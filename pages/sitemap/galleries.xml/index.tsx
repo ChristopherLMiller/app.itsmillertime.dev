@@ -1,15 +1,16 @@
 import { GetServerSideProps, NextPage } from "next";
 import { getServerSideSitemap } from "next-sitemap";
+import { GalleriesSitemapDocument } from "src/graphql/schema/galleries/galleriesSitemap.query.generated";
+import { fetchData } from "src/lib/fetch";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // Fetch all dynamic content here
-  const galleriesQuery = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/galleries?_publicationState=live&_sort=published_at:DESC`
-  );
-  const galleriesRaw = await galleriesQuery.json();
-  const galleries = galleriesRaw.map((gallery) => ({
-    loc: `${process.env.NEXT_PUBLIC_SITE_URL}/gallery/album/${gallery?.slug}`,
-    lastmod: gallery?.updatedAt,
+  const data = await fetchData(GalleriesSitemapDocument);
+
+  // Map the data
+  const galleries = data.galleries.map((gallery) => ({
+    loc: `${process.env.NEXT_PUBLIC_SITE_URL}/gallery/album/${gallery.slug}`,
+    lastmod: gallery.updatedAt,
   }));
 
   return getServerSideSitemap(context, galleries);
