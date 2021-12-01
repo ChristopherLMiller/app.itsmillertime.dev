@@ -1,115 +1,15 @@
-import * as Types from "src/graphql/types";
+import * as Types from '../../types';
 
-import { useQuery, UseQueryOptions } from "react-query";
-import { fetcher } from "src/lib/fetch";
+import { useQuery, UseQueryOptions } from 'react-query';
+import { fetcher } from 'src/lib/fetch';
 export type ModelQueryVariables = Types.Exact<{
-  id: Types.Scalars["ID"];
-  publicationState?: Types.Maybe<Types.PublicationState>;
+  id: Types.Scalars['ID'];
+  publicationState?: Types.InputMaybe<Types.PublicationState>;
 }>;
 
-export type ModelQuery = {
-  __typename?: "Query";
-  model?:
-    | {
-        __typename?: "Model";
-        id: string;
-        createdAt: any;
-        updatedAt: any;
-        title?: string | null | undefined;
-        slug: string;
-        content?: string | null | undefined;
-        completed?: boolean | null | undefined;
-        kit_number?: string | null | undefined;
-        year_released?: number | null | undefined;
-        clockify_project_id?: string | null | undefined;
-        scalemates_link?: string | null | undefined;
-        completed_at?: any | null | undefined;
-        youtube_video?: string | null | undefined;
-        status?: Types.Enum_Model_Status | null | undefined;
-        published_at?: any | null | undefined;
-        scale?:
-          | {
-              __typename?: "Scale";
-              name?: string | null | undefined;
-              slug?: string | null | undefined;
-            }
-          | null
-          | undefined;
-        manufacturer?:
-          | {
-              __typename?: "Manufacturer";
-              slug: string;
-              name?: string | null | undefined;
-            }
-          | null
-          | undefined;
-        model_tags?:
-          | Array<
-              | {
-                  __typename?: "ModelTags";
-                  name?: string | null | undefined;
-                  slug?: string | null | undefined;
-                }
-              | null
-              | undefined
-            >
-          | null
-          | undefined;
-        SEO?:
-          | {
-              __typename?: "ComponentGlobalSeo";
-              title: string;
-              description?: string | null | undefined;
-              featured_image?:
-                | {
-                    __typename?: "UploadFile";
-                    name: string;
-                    alternativeText?: string | null | undefined;
-                    caption?: string | null | undefined;
-                    width?: number | null | undefined;
-                    height?: number | null | undefined;
-                    url: string;
-                    previewUrl?: string | null | undefined;
-                    provider: string;
-                    provider_metadata?: any | null | undefined;
-                  }
-                | null
-                | undefined;
-            }
-          | null
-          | undefined;
-        sharing?:
-          | {
-              __typename?: "ComponentGlobalShare";
-              facebook?: boolean | null | undefined;
-              twitter?: boolean | null | undefined;
-              instagram?: boolean | null | undefined;
-            }
-          | null
-          | undefined;
-        images?:
-          | Array<
-              | {
-                  __typename?: "UploadFile";
-                  name: string;
-                  alternativeText?: string | null | undefined;
-                  caption?: string | null | undefined;
-                  width?: number | null | undefined;
-                  height?: number | null | undefined;
-                  url: string;
-                  previewUrl?: string | null | undefined;
-                  provider: string;
-                  provider_metadata?: any | null | undefined;
-                }
-              | null
-              | undefined
-            >
-          | null
-          | undefined;
-      }
-    | null
-    | undefined;
-};
+
+export type ModelQuery = { __typename?: 'Query', model?: { __typename?: 'Model', id: string, createdAt: any, updatedAt: any, title?: string | null | undefined, slug: string, content?: string | null | undefined, completed?: boolean | null | undefined, kit_number?: string | null | undefined, year_released?: number | null | undefined, clockify_project_id?: string | null | undefined, scalemates_link?: string | null | undefined, completed_at?: any | null | undefined, youtube_video?: string | null | undefined, status?: Types.Enum_Model_Status | null | undefined, published_at?: any | null | undefined, scale?: { __typename?: 'Scale', name?: string | null | undefined, slug?: string | null | undefined } | null | undefined, manufacturer?: { __typename?: 'Manufacturer', slug: string, name?: string | null | undefined } | null | undefined, model_tags?: Array<{ __typename?: 'ModelTags', name?: string | null | undefined, slug?: string | null | undefined } | null | undefined> | null | undefined, SEO?: { __typename?: 'ComponentGlobalSeo', title: string, description?: string | null | undefined, featured_image?: { __typename?: 'UploadFile', name: string, alternativeText?: string | null | undefined, caption?: string | null | undefined, width?: number | null | undefined, height?: number | null | undefined, url: string, previewUrl?: string | null | undefined, provider: string, provider_metadata?: any | null | undefined } | null | undefined } | null | undefined, sharing?: { __typename?: 'ComponentGlobalShare', facebook?: boolean | null | undefined, twitter?: boolean | null | undefined, instagram?: boolean | null | undefined } | null | undefined, images?: Array<{ __typename?: 'UploadFile', name: string, alternativeText?: string | null | undefined, caption?: string | null | undefined, width?: number | null | undefined, height?: number | null | undefined, url: string, previewUrl?: string | null | undefined, provider: string, provider_metadata?: any | null | undefined } | null | undefined> | null | undefined } | null | undefined };
+
 
 export const ModelDocument = `
     query Model($id: ID!, $publicationState: PublicationState) {
@@ -175,12 +75,15 @@ export const ModelDocument = `
   }
 }
     `;
-export const useModelQuery = <TData = ModelQuery, TError = unknown>(
-  variables: ModelQueryVariables,
-  options?: UseQueryOptions<ModelQuery, TError, TData>
-) =>
-  useQuery<ModelQuery, TError, TData>(
-    ["Model", variables],
-    fetcher<ModelQuery, ModelQueryVariables>(ModelDocument, variables),
-    options
-  );
+export const useModelQuery = <
+      TData = ModelQuery,
+      TError = unknown
+    >(
+      variables: ModelQueryVariables,
+      options?: UseQueryOptions<ModelQuery, TError, TData>
+    ) =>
+    useQuery<ModelQuery, TError, TData>(
+      ['Model', variables],
+      fetcher<ModelQuery, ModelQueryVariables>(ModelDocument, variables),
+      options
+    );

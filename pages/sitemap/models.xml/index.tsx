@@ -1,16 +1,15 @@
 import { GetServerSideProps, NextPage } from "next";
 import { getServerSideSitemap } from "next-sitemap";
+import { ModelsSitemapDocument } from "src/graphql/schema/models/modelsSitemap.query.generated";
+import { fetchData } from "src/lib/fetch";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // Fetch all dynamic content
-  const modelsQuery = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/models?_publicationState=live&_sort=published_at:DESC`
-  );
+  const data = await fetchData(ModelsSitemapDocument);
 
-  const modelsRaw = await modelsQuery.json();
-  const models = modelsRaw.map((model) => ({
-    loc: `${process.env.NEXT_PUBLIC_SITE_URL}/models/model/${model?.slug}`,
-    lastmod: model?.upatedAt,
+  const models = data.models.map((model) => ({
+    loc: `${process.env.NEXT_PUBLIC_SITE_URL}/models/model/${model.slug}`,
+    lastmod: model.updatedAt,
   }));
 
   return getServerSideSitemap(context, models);

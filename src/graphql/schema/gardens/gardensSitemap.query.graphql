@@ -1,0 +1,6 @@
+query gardensSitemap {
+  gardens {
+    slug
+    updatedAt
+  }
+}

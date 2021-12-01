@@ -1,0 +1,6 @@
+query galleriesSitemap {
+  galleries {
+    slug
+    updatedAt
+  }
+}
