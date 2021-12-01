@@ -1,11 +1,11 @@
+import Card from "@components/Card";
+import Markdown from "@components/Markdown";
 import { cloudinary, pageSettings } from "config";
-import { NextSeo } from "next-seo";
-import PageLayout from "src/layout/PageLayout";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import Card from "@/components/Card";
-import Markdown from "@/components/Card/elements/Markdown";
 import { Gardens } from "src/graphql/types";
+import PageLayout from "src/layout/PageLayout";
 
 interface iDigitalGarden {
   garden: Gardens;
@@ -64,20 +64,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/gardens`);
-    const data = await res.json();
+  const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/gardens`;
+  const res = await fetch(url);
+  const data = await res.json();
 
-    const paths = data.map((item) => ({
-      params: { slug: item.slug },
-    }));
-
-    return { paths, fallback: false };
-  } catch (error) {
-    // shouldn't ever happen but never know, if so fall back to SSR
-    console.log(error);
-    return { paths: [], fallback: "blocking" };
-  }
+  const paths = data.map((item) => ({
+    params: { slug: item.slug },
+  }));
+  return { paths, fallback: "blocking" };
 };
 
 export default DigitalGardenIndexPage;

@@ -1,13 +1,13 @@
+import { Grid } from "@components/Grid";
+import ModelCard from "@components/ModelCard";
+import { defaultImage, pageSettings } from "config";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
-import PageLayout from "src/layout/PageLayout";
-import React, { useState } from "react";
-import { useModelsQuery } from "src/graphql/schema/models/models.query.generated";
-import Loader from "src/components/Loader";
 import { useRouter } from "next/router";
-import ModelCard from "@/components/ModelCard";
-import { Grid } from "@/components/Grid";
-import { defaultImage, pageSettings } from "config";
+import React, { useState } from "react";
+import Loader from "src/components/Loader";
+import { useModelsQuery } from "src/graphql/schema/models/models.query.generated";
+import PageLayout from "src/layout/PageLayout";
 
 const ModelsPageIndex: NextPage = () => {
   const router = useRouter();

@@ -71,6 +71,7 @@ export const GlobalStyles = createGlobalStyle`
     --p-size: clamp(2rem, 5vw, 2.5rem);
 
     --linen-paper: url('https://res.cloudinary.com/${cloudinary.cloudName}/image/upload/${cloudinary.folder}/assets/linen.jpg');
+    --border: 5px solid var(--color-red-intermediate);
   }
 
   html {

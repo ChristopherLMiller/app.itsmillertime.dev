@@ -1,8 +1,8 @@
-import { GetStaticProps, GetStaticPaths } from "next";
-import PageLayout from "src/layout/PageLayout";
-import Panel from "src/components/Panel";
-import Markdown from "src/components/Card/elements/Markdown";
+import Markdown from "@components/Markdown";
+import Panel from "@components/Panel";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
+import PageLayout from "src/layout/PageLayout";
 
 const Page = ({ page }) => {
   const { title, description, content, seo, slug } = page[0];
@@ -26,7 +26,7 @@ const Page = ({ page }) => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`,
         }}
       />
-      <Panel>
+      <Panel boxed>
         <Markdown source={content} />
       </Panel>
     </PageLayout>
@@ -34,7 +34,7 @@ const Page = ({ page }) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const slug = context.params["slug"][0];
+  const slug = context.params["slug"];
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/pages?slug_eq=${slug}`
   );
@@ -57,19 +57,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/pages`);
-    const pages = await res.json();
+  const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/pages`;
 
-    const paths = pages.map((page) => ({
-      params: { slug: [page.slug] },
-    }));
+  const res = await fetch(url);
+  const data = await res.json();
 
-    return { paths, fallback: false };
-  } catch (error) {
-    // shouldn't ever happen but never know, if so fall back to SSR
-    console.log(error);
-    return { paths: [], fallback: "blocking" };
-  }
+  const paths = data.map((item) => {
+    return { params: { slug: item.slug } };
+  });
+
+  return { paths, fallback: "blocking" };
 };
+
 export default Page;

@@ -1,20 +1,20 @@
-import { GetServerSideProps, NextPage } from "next";
-import { NextSeo } from "next-seo";
-import { Grid } from "src/components/Grid";
-import PageLayout from "src/layout/PageLayout";
-import Image from "src/components/Images";
-import Card from "src/components/Card";
-import Markdown from "src/components/Card/elements/Markdown";
-import styled from "styled-components";
-import { formatRelative } from "date-fns";
-import { getServerSideSEO, isAdmin } from "src/utils";
-import { useGalleryQuery } from "src/graphql/schema/galleries/gallery.query.generated";
-import { Gallery } from "src/graphql/types";
-import { useSession } from "next-auth/client";
-import ShareButtons from "src/components/ShareButtons";
-import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
+import Card from "@components/Card";
+import Markdown from "@components/Markdown";
+import Table from "@components/Table";
 import { pageSettings } from "config";
+import { formatRelative } from "date-fns";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { useSession } from "next-auth/client";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
+import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
+import { Grid } from "src/components/Grid";
+import Image from "src/components/Images";
+import ShareButtons from "src/components/ShareButtons";
+import { Gallery } from "src/graphql/types";
+import PageLayout from "src/layout/PageLayout";
+import { isAdmin } from "src/utils";
+import styled from "styled-components";
 
 const GalleryGrid = styled.div`
   display: grid;
@@ -34,104 +34,109 @@ const Reverse = styled.div`
   }
 `;
 interface iGalleryPage {
-  SEO: Gallery;
+  album: Gallery;
 }
-const GalleryPage: NextPage<iGalleryPage> = ({ SEO }) => {
+const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
+  console.log(album);
   const [session] = useSession();
   const router = useRouter();
-  const { data, error, isLoading } = useGalleryQuery({
+  /*const { data, error, isLoading } = useGalleryQuery({
     id: SEO.id,
   });
 
   if (error) {
     console.error(error);
-  }
+  }*/
 
   return (
     <PageLayout
       title={pageSettings.gallery.title}
       description={pageSettings.gallery.description}
     >
+      <ShareButtons
+        url={`${process.env.NEXT_PUBLIC_SITE_URL}/gallery/album/${album.slug}`}
+        media={album.featured_image?.url}
+        title={album?.title}
+      />
       <NextSeo
-        title={SEO.title}
-        description={SEO.description}
+        title={album.title}
+        description={album.description}
         openGraph={{
-          title: `${SEO.title}`,
-          description: `${SEO.description}`,
+          title: `${album.title}`,
+          description: `${album.description}`,
           type: `website`,
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
           images: [
             {
-              url: SEO.featured_image?.url,
-              width: SEO.featured_image?.width,
-              height: SEO.featured_image?.height,
-              alt: SEO.featured_image?.alternativeText,
+              url: album.featured_image?.url,
+              width: album.featured_image?.width,
+              height: album.featured_image?.height,
+              alt: album.featured_image?.alternativeText,
             },
           ],
         }}
       />
-      {!isLoading && (
-        <GalleryGrid>
-          <SimpleReactLightbox>
-            <SRLWrapper>
-              <Grid gap="30px" min="425px" masonry>
-                {data.gallery.gallery_images?.map((image) => (
-                  <a key={image.slug} href={image.watermarked.url}>
-                    <Image
-                      public_id={`${image.watermarked.provider_metadata.public_id}`}
-                      width={image.watermarked.width}
-                      height={image.watermarked.height}
-                      alt={`${image.caption}`}
-                      caption={`${image.caption}`}
-                      key={image.slug}
-                    />
-                  </a>
-                ))}
-              </Grid>
-            </SRLWrapper>
-          </SimpleReactLightbox>
-          <Reverse>
-            <Card heading="About This Gallery" align="left">
-              <ShareButtons
-                url={`${process.env.NEXT_PUBLIC_SITE_URL}/gallery/album/${SEO.slug}`}
-                media={SEO.featured_image?.url}
-                title={SEO?.title}
-              />
-              {isAdmin(session?.user) && (
-                <a
-                  href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${data.gallery.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Edit
+
+      <GalleryGrid>
+        <SimpleReactLightbox>
+          <SRLWrapper>
+            <Grid gap="30px" min="425px" masonry>
+              {album.gallery_images?.map((image) => (
+                <a key={image.slug} href={image.watermarked.url}>
+                  <Image
+                    public_id={`${image.watermarked.provider_metadata.public_id}`}
+                    width={image.watermarked.width}
+                    height={image.watermarked.height}
+                    alt={`${image.caption}`}
+                    caption={`${image.caption}`}
+                    key={image.slug}
+                  />
                 </a>
-              )}
-              <p>Album Name: {data.gallery.title}</p>
-              <p>
-                Created On:{` `}
-                {formatRelative(
-                  new Date(data.gallery.createdAt as string),
-                  new Date()
-                )}
-              </p>
-              <p>
-                Last Updated:{` `}
-                {formatRelative(
-                  new Date(data.gallery.updatedAt as string),
-                  new Date()
-                )}
-              </p>
-              <p># Images: {data.gallery.gallery_images.length}</p>
-              <Markdown source={data.gallery?.meta} />
-            </Card>
-          </Reverse>
-        </GalleryGrid>
-      )}
+              ))}
+            </Grid>
+          </SRLWrapper>
+        </SimpleReactLightbox>
+        <Reverse>
+          <Card heading="About This Gallery" align="left" padding={false}>
+            <Table
+              rows={[
+                ["Album Name", album.title],
+                [
+                  "Created",
+                  formatRelative(
+                    new Date(album.createdAt as string),
+                    new Date()
+                  ),
+                ],
+                [
+                  "Updated Last",
+                  formatRelative(
+                    new Date(album.updatedAt as string),
+                    new Date()
+                  ),
+                ],
+                ["Num Images", album.gallery_images?.length.toString()],
+                [
+                  {
+                    label: isAdmin(session?.user) ? "Edit" : "",
+                    url: isAdmin(session?.user)
+                      ? `${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${album.id}`
+                      : ``,
+                  },
+                  "",
+                ],
+              ]}
+            />
+
+            <Markdown source={album?.meta} />
+          </Card>
+        </Reverse>
+      </GalleryGrid>
     </PageLayout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+/*export const getServerSideProps: GetServerSideProps = async (context) => {
   const slug = context?.query?.slug;
 
   if (slug) {
@@ -158,6 +163,39 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       permanent: false,
     },
   };
+};*/
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const slug = context.params["slug"];
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/galleries?slug_eq=${slug}`
+  );
+  const data = await response.json();
+
+  if (data.length) {
+    return {
+      props: {
+        album: data[0],
+      },
+    };
+  } else {
+    return {
+      notFound: true,
+    };
+  }
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/galleries`;
+
+  const res = await fetch(url);
+  const data = await res.json();
+
+  const paths = data.map((item) => {
+    return { params: { slug: item.slug } };
+  });
+
+  return { paths, fallback: "blocking" };
 };
 
 export default GalleryPage;

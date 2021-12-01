@@ -11,3 +11,4 @@ public/service-worker.js.map
 
 # Sentry
 .sentryclirc
+sentry.properties

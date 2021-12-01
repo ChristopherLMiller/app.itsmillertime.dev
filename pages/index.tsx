@@ -1,12 +1,12 @@
-import PageLayout from "src/layout/PageLayout";
-import { NextSeo } from "next-seo";
+import Panel from "@components/Panel";
+import { defaultImage, pageSettings } from "config";
 import { NextPage } from "next";
 import { useSession } from "next-auth/client";
-import Panel from "src/components/Panel";
+import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
 import React from "react";
 import { Grid } from "src/components/Grid";
-import { defaultImage, pageSettings } from "config";
-import { useRouter } from "next/router";
+import PageLayout from "src/layout/PageLayout";
 
 const IndexPage: NextPage = () => {
   const [session] = useSession();

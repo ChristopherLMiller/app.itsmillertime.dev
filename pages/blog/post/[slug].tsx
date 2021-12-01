@@ -1,20 +1,19 @@
-import { NextSeo } from "next-seo";
-import PageLayout from "src/layout/PageLayout";
-import { GetServerSideProps, NextPage } from "next";
-import Markdown from "src/components/Card/elements/Markdown";
-import styled from "styled-components";
+import Markdown from "@components/Markdown";
+import { defaultImage, pageSettings } from "config";
 import { formatRelative, parseISO } from "date-fns";
+import { GetServerSideProps, NextPage } from "next";
+import { useSession } from "next-auth/client";
+import { NextSeo } from "next-seo";
 import Image from "next/image";
-
-import { countWords, isAdmin, timeToRead } from "src/utils";
-import { getServerSideSEO } from "src/utils/getServerSideSEO";
+import { useRouter } from "next/router";
+import Loader from "src/components/Loader";
+import ShareButtons from "src/components/ShareButtons";
 import { useArticleQuery } from "src/graphql/schema/articles/article.query.generated";
 import { Article, PublicationState } from "src/graphql/types";
-import ShareButtons from "src/components/ShareButtons";
-import Loader from "src/components/Loader";
-import { useSession } from "next-auth/client";
-import { defaultImage, pageSettings } from "config";
-import { useRouter } from "next/router";
+import PageLayout from "src/layout/PageLayout";
+import { countWords, isAdmin, timeToRead } from "src/utils";
+import { getServerSideSEO } from "src/utils/getServerSideSEO";
+import styled from "styled-components";
 
 const StyledBlogPost = styled.article`
   background: var(--color-grey-light);

@@ -1,19 +1,19 @@
-import { NextSeo } from "next-seo";
-import { Grid } from "src/components/Grid";
-import PageLayout from "src/layout/PageLayout";
-import Image from "src/components/Images";
-import Card from "src/components/Card";
-import { NextPage } from "next";
-import Loader from "src/components/Loader";
-import styled from "styled-components";
-import Link from "next/link";
-import { ArrayList } from "src/components/arrayList";
-import { useRouter } from "next/router";
-import { useGalleriesQuery } from "src/graphql/schema/galleries/galleries.query.generated";
-import { formatRelative, parseISO } from "date-fns";
+import Card from "@components/Card";
 import { defaultImage, pageSettings } from "config";
-import { isAdmin } from "src/utils";
+import { formatRelative, parseISO } from "date-fns";
+import { NextPage } from "next";
 import { useSession } from "next-auth/client";
+import { NextSeo } from "next-seo";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { ArrayList } from "src/components/arrayList";
+import { Grid } from "src/components/Grid";
+import Image from "src/components/Images";
+import Loader from "src/components/Loader";
+import { useGalleriesQuery } from "src/graphql/schema/galleries/galleries.query.generated";
+import PageLayout from "src/layout/PageLayout";
+import { isAdmin } from "src/utils";
+import styled from "styled-components";
 
 // TODO: fix anchor tag on the main tag in system default, breaks this here
 const Anchor = styled.a`

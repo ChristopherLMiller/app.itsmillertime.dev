@@ -5,6 +5,7 @@ export const StyledTable = styled.table`
   border-collapse: collapse;
   font-family: var(--font-alt);
   color: var(--color-white-80);
+  width: 100%;
 
   td {
     padding-inline: 1rem;
