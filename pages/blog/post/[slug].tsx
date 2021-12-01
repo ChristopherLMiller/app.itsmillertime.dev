@@ -1,18 +1,17 @@
 import Markdown from "@components/Markdown";
 import { defaultImage, pageSettings } from "config";
 import { formatRelative, parseISO } from "date-fns";
-import { GetServerSideProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/client";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Loader from "src/components/Loader";
 import ShareButtons from "src/components/ShareButtons";
-import { useArticleQuery } from "src/graphql/schema/articles/article.query.generated";
-import { Article, PublicationState } from "src/graphql/types";
+import { ArticlesSitemapDocument } from "src/graphql/schema/articles/articlesSitemap.query.generated";
+import { Article } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
+import { fetchData } from "src/lib/fetch";
 import { countWords, isAdmin, timeToRead } from "src/utils";
-import { getServerSideSEO } from "src/utils/getServerSideSEO";
 import styled from "styled-components";
 
 const StyledBlogPost = styled.article`
@@ -92,132 +91,116 @@ const ArticleHeader = styled.div`
 `;
 
 interface iBlogPost {
-  SEO: Article;
+  article: Article;
 }
 
-const BlogPost: NextPage<iBlogPost> = ({ SEO }) => {
+const BlogPost: NextPage<iBlogPost> = ({ article }) => {
   const [session] = useSession();
   const router = useRouter();
-
-  const publicationState =
-    session && isAdmin(session?.user)
-      ? PublicationState.Preview
-      : PublicationState.Live;
-  const { data, error, isLoading, isSuccess } = useArticleQuery({
-    id: SEO.id,
-    publicationState,
-  });
-
-  const article = data?.article;
-
-  if (error) {
-    console.error(error);
-  }
+  console.log(article);
 
   return (
     <PageLayout
       title={pageSettings.blog.title}
       description={pageSettings.blog.description}
     >
-      {isLoading && <Loader isLoading={isLoading} />}
       <NextSeo
-        title={SEO?.title}
-        description={SEO?.seo?.description}
+        title={article.title}
+        description={article?.seo?.description}
         openGraph={{
-          title: `${SEO?.title}`,
-          description: `${SEO?.seo?.description}`,
+          title: `${article?.title}`,
+          description: `${article?.seo?.description}`,
           type: `article`,
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
           images: [
             {
-              url: SEO?.seo?.featured_image?.url,
-              width: SEO?.seo?.featured_image?.width,
-              height: SEO?.seo?.featured_image?.height,
-              alt: SEO?.seo?.featured_image?.alternativeText,
+              url: article?.seo?.featured_image?.url,
+              width: article?.seo?.featured_image?.width,
+              height: article?.seo?.featured_image?.height,
+              alt: article?.seo?.featured_image?.alternativeText,
             },
           ],
         }}
       />
-
-      {isSuccess && (
-        <StyledBlogPost>
-          <ArticleHeader>
-            {article?.seo?.featured_image && (
-              <Image
-                src={
-                  article?.seo?.featured_image?.provider_metadata?.public_id ||
-                  defaultImage.public_id
-                }
-                alt={article?.seo?.featured_image?.alternativeText}
-                width={1920}
-                height={1080}
-                layout="responsive"
-                placeholder="blur"
-                blurDataURL={defaultImage.blurred}
-              />
-            )}
-            <h2>{article?.title}</h2>
+      <StyledBlogPost>
+        <ArticleHeader>
+          {article?.seo?.featured_image && (
+            <Image
+              src={
+                article?.seo?.featured_image?.provider_metadata?.public_id ||
+                defaultImage.public_id
+              }
+              alt={article?.seo?.featured_image?.alternativeText}
+              width={1920}
+              height={1080}
+              layout="responsive"
+              placeholder="blur"
+              blurDataURL={defaultImage.blurred}
+            />
+          )}
+          <h2>{article?.title}</h2>
+          <h5>
+            Published:{` `}
+            {article?.published_at
+              ? formatRelative(parseISO(article?.published_at), new Date())
+              : `DRAFT`}
+            {` `}| Time To Read:
+            {timeToRead(countWords(article.content))}
+          </h5>
+          {isAdmin(session?.user) && (
             <h5>
-              Published:{` `}
-              {article?.published_at
-                ? formatRelative(parseISO(article?.published_at), new Date())
-                : `DRAFT`}
-              {` `}| Time To Read:
-              {timeToRead(countWords(article.content))}
+              <a
+                href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Edit
+              </a>
             </h5>
-            {isAdmin(session?.user) && (
-              <h5>
-                <a
-                  href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Edit
-                </a>
-              </h5>
-            )}
-          </ArticleHeader>
-          <ShareButtons
-            url={`${process.env.NEXT_PUBLIC_SITE_URL}/blog/post/${SEO?.slug}`}
-            media={SEO?.seo.featured_image?.url}
-            title={SEO?.title}
-          />
-          <ArticleListItemContent>
-            <Markdown source={article.content} />
-          </ArticleListItemContent>
-        </StyledBlogPost>
-      )}
+          )}
+        </ArticleHeader>
+        <ShareButtons
+          url={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
+          media={article?.seo.featured_image?.url}
+          title={article?.title}
+        />
+        <ArticleListItemContent>
+          <Markdown source={article.content} />
+        </ArticleListItemContent>
+      </StyledBlogPost>
     </PageLayout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const slug = context?.query?.slug;
+export const getStaticProps: GetStaticProps = async (context) => {
+  const slug = context.params?.slug;
 
-  if (slug) {
-    const response = await getServerSideSEO(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL}/articles?slug_eq=${
-        context?.query[`slug`]
-      }&_publicationState=preview`,
-      context
-    );
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_STRAPI_URL}/articles?slug_eq=${slug}`
+  );
+  const data = await response.json();
 
-    const data = await response.json();
-
-    if (data.length) {
-      return {
-        props: { SEO: data[0] },
-      };
-    }
+  if (data.length) {
+    return {
+      props: {
+        article: data[0],
+      },
+    };
+  } else {
+    return {
+      notFound: true,
+    };
   }
+};
 
-  // default go to 404, not found for whatever reason
-  return {
-    redirect: {
-      destination: `/404`,
-      permanent: false,
-    },
-  };
+export const getStaticPaths: GetStaticPaths = async () => {
+  const data = await fetchData(ArticlesSitemapDocument);
+
+  const paths = data.articles.map((item) => {
+    return { params: { slug: item.slug } };
+  });
+
+  return { paths, fallback: "blocking" };
 };
 
 export default BlogPost;

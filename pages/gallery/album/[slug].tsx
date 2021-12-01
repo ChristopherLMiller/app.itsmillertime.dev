@@ -11,8 +11,10 @@ import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 import { Grid } from "src/components/Grid";
 import Image from "src/components/Images";
 import ShareButtons from "src/components/ShareButtons";
+import { GalleriesSitemapDocument } from "src/graphql/schema/galleries/galleriesSitemap.query.generated";
 import { Gallery } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
+import { fetchData } from "src/lib/fetch";
 import { isAdmin } from "src/utils";
 import styled from "styled-components";
 
@@ -40,13 +42,6 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
   console.log(album);
   const [session] = useSession();
   const router = useRouter();
-  /*const { data, error, isLoading } = useGalleryQuery({
-    id: SEO.id,
-  });
-
-  if (error) {
-    console.error(error);
-  }*/
 
   return (
     <PageLayout
@@ -136,37 +131,8 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
   );
 };
 
-/*export const getServerSideProps: GetServerSideProps = async (context) => {
-  const slug = context?.query?.slug;
-
-  if (slug) {
-    const response = await getServerSideSEO(
-      `${process.env.NEXT_PUBLIC_STRAPI_URL}/galleries?slug=${
-        context.query[`slug`]
-      }`,
-      context
-    );
-
-    const data = await response.json();
-
-    if (data.length) {
-      return {
-        props: { SEO: data[0] },
-      };
-    }
-  }
-
-  // default return 404, as not found for whatever reason
-  return {
-    redirect: {
-      destination: `/404`,
-      permanent: false,
-    },
-  };
-};*/
-
 export const getStaticProps: GetStaticProps = async (context) => {
-  const slug = context.params["slug"];
+  const slug = context.params?.slug;
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/galleries?slug_eq=${slug}`
   );
@@ -186,12 +152,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/galleries`;
+  const data = await fetchData(GalleriesSitemapDocument);
 
-  const res = await fetch(url);
-  const data = await res.json();
-
-  const paths = data.map((item) => {
+  const paths = data.galleries.map((item) => {
     return { params: { slug: item.slug } };
   });
 
