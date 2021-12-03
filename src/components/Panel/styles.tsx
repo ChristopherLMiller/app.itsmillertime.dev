@@ -21,6 +21,7 @@ export const StyledPanel = styled<iStyledPanel>(motion.div)`
     z-index: -1;
   }
 
+  height: min-content;
   padding: ${(props) => props.padding};
   position: relative;
   text-align: ${(props) => props.align};
