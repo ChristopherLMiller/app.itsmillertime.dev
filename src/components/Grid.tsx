@@ -41,7 +41,11 @@ export const Grid = styled.div<iGrid>`
 
 interface iGridItem {
   maxWidth?: string;
+  start?: number;
+  end?: number;
 }
 export const GridItem = styled.div<iGridItem>`
   max-width: ${(props) => props.maxWidth};
+  grid-column-start: ${(props) => props.start};
+  grid-column-end: ${(props) => props.end};
 `;

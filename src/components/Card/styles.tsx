@@ -30,7 +30,7 @@ export const StyledCard = styled.div`
   box-shadow: var(--box-shadow-elev-1);
   margin-bottom: 10rem;
   border: var(--border);
-  border-top: none;
+  border-top: ${(props) => props.borderTop};
 `;
 
 export const CardHeading = styled.div`

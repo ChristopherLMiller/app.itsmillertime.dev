@@ -38,7 +38,7 @@ const Card: FunctionComponent<CardProps> = ({
   actionLinks,
 }) => (
   <motion.div variants={CardVariants}>
-    <StyledCard>
+    <StyledCard borderTop={heading && subHeading ? "none" : "var(--border)"}>
       {(heading || subHeading) && (
         <CardHeading>
           {heading && <CardHeadingHeading>{heading}</CardHeadingHeading>}
