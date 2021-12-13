@@ -12,7 +12,7 @@ export default function makeDurationFriendly(
     const minutes =
       split[2] !== undefined ? parseInt(split[2].slice(0, -1)) : 0;
     const total = hours + minutes / 60;
-    return `${total.toFixed(2)}Hrs`;
+    return `${total.toFixed(1)}Hrs`;
   } else {
     const hours = split[1] !== undefined ? `${split[1]}rs` : ``;
     const minutes = split[2] !== undefined ? `${split[2]}ins` : ``;

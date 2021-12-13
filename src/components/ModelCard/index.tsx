@@ -79,8 +79,8 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
                 url: `/models?scale=${model?.scale?.slug}`,
               },
             ],
-            ["Kit Number", model?.kit_number],
-            ["Year Released", model?.year_released],
+            ["Kit #", model?.kit_number],
+            ["Released", model?.year_released],
             [
               "Completed",
               {

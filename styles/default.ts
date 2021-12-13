@@ -65,10 +65,10 @@ export const GlobalStyles = createGlobalStyle`
     --h1-size: clamp(5rem, 5vw, 6.25rem);
     --h2-size: clamp(4rem, 5vw, 5.75rem);
     --h3-size: clamp(3.5rem, 5vw, 5rem);
-    --h4-size: clamp(3rem, 5vw, 4rem);
-    --h5-size: clamp(2.5rem, 5vw, 3rem);
-    --h6-size: clamp(2rem, 5vw, 2.5rem);
-    --p-size: clamp(2rem, 5vw, 2.5rem);
+    --h4-size: clamp(2.8rem, 5vw, 3.5rem);
+    --h5-size: clamp(2.25rem, 5vw, 2.8rem);
+    --h6-size: clamp(1.75rem, 5vw, 2.25rem);
+    --p-size: clamp(1.75rem, 5vw, 2.25rem);
 
     --linen-paper: url('https://res.cloudinary.com/${cloudinary.cloudName}/image/upload/${cloudinary.folder}/assets/linen.jpg');
     --border: 5px solid var(--color-red-intermediate);

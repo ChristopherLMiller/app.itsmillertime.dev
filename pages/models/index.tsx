@@ -47,7 +47,7 @@ const ModelsPageIndex: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
-      <Grid columns={2} min="500px" gap="30px">
+      <Grid columns={2} min="475px" gap="5rem">
         {isSuccess &&
           data.models?.map((model) => (
             // @ts-ignore

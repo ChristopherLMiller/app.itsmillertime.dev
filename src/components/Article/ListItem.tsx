@@ -15,7 +15,7 @@ const StyledArticleListItem = styled(motion.article)`
   grid-gap: 30px;
 
   @media screen and (min-width: 800px) {
-    grid-template-columns: 30% 1fr;
+    grid-template-columns: 40% 1fr;
   }
 
   a {
