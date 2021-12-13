@@ -25,7 +25,7 @@ export const StyledCard = styled.div`
   color: var(--color-black);
   font-family: var(--font-main);
   font-weight: 300;
-  max-width: 1000px;
+  max-width: ${(props) => props.maxWidth};
   margin: 0 auto;
   box-shadow: var(--box-shadow-elev-1);
   margin-bottom: 10rem;

@@ -26,7 +26,7 @@ interface CardProps {
   subHeading?: string;
   padding?: boolean;
   actionLinks?: Array<iActionLink>;
-  markdown?: string;
+  fullWidth?: boolean;
 }
 
 const Card: FunctionComponent<CardProps> = ({
@@ -36,9 +36,13 @@ const Card: FunctionComponent<CardProps> = ({
   padding = true,
   align = `center`,
   actionLinks,
+  fullWidth = false, // false means we want
 }) => (
   <motion.div variants={CardVariants}>
-    <StyledCard borderTop={heading && subHeading ? "none" : "var(--border)"}>
+    <StyledCard
+      borderTop={heading && subHeading ? "none" : "var(--border)"}
+      maxWidth={fullWidth ? "1000px" : "100%"}
+    >
       {(heading || subHeading) && (
         <CardHeading>
           {heading && <CardHeadingHeading>{heading}</CardHeadingHeading>}

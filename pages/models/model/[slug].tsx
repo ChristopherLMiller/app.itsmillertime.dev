@@ -3,6 +3,7 @@ import { Grid, GridItem } from "@components/Grid";
 import Markdown from "@components/Markdown";
 import Table from "@components/Table";
 import { defaultImage, pageSettings } from "config";
+import { format, formatRelative, parseISO } from "date-fns";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/client";
 import { NextSeo } from "next-seo";
@@ -14,7 +15,16 @@ import { Model } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { fetchData } from "src/lib/fetch";
 import { getBuildTime, makeDurationFriendly } from "src/utils";
+import styled from "styled-components";
 
+const ImageLabel = styled.div`
+  background: var(--color-red-intermediate);
+  padding: 3% 5%;
+  color: var(--color-white-100);
+  font-family: var(--font-main);
+  text-align: center;
+  font-size: var(--h4-size);
+`;
 interface iModelPage {
   model: Model;
 }
@@ -31,6 +41,12 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
   const imageHeight = model?.SEO?.featured_image?.height || defaultImage.height;
   const imageAlt =
     model.SEO?.featured_image?.alternativeText || defaultImage.altText;
+
+  // so for the sake of UI, if the completed_at field is null/undefined
+  // we'll just set it to Yes, to reflect that it's done
+  const completedAt = model?.completed_at
+    ? format(parseISO(model?.completed_at), "PP")
+    : "Yes";
 
   useEffect(() => {
     async function fetchTime() {
@@ -77,40 +93,64 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
             alt={imageAlt}
             layout="responsive"
           />
-          <Card heading={model.title}>
-            <Markdown source={model.content} />
-          </Card>
+          {model?.content && (
+            <Card>
+              <Markdown source={model.content} />
+            </Card>
+          )}
         </GridItem>
-        <Card padding={false}>
-          <Table
-            rows={[
-              [
-                "Brand",
-                {
-                  label: model?.manufacturer?.name,
-                  url: `/models?manufacturer=${model?.manufacturer?.slug}`,
-                },
-              ],
-              [
-                "Scale",
-                {
-                  label: model?.scale?.name,
-                  url: `/models?scale=${model?.scale?.slug}`,
-                },
-              ],
-              ["Kit Number", model?.kit_number],
-              ["Year Released", model?.year_released],
-              [
-                "Completed",
-                {
-                  label: model?.completed ? "Yes" : "No",
-                  url: `/models?completed=${model?.completed ? true : false}`,
-                },
-              ],
-              ["Build Time", buildTime],
-            ]}
-          />
-        </Card>
+        <GridItem>
+          <Card padding={false} heading={model.title} fullWidth>
+            <Table
+              rows={[
+                [
+                  `Started: ${formatRelative(
+                    parseISO(model.createdAt),
+                    new Date()
+                  )}`,
+                  `Updated: ${formatRelative(
+                    parseISO(model.updatedAt),
+                    new Date()
+                  )}`,
+                ],
+                [
+                  "Brand",
+                  {
+                    label: model?.manufacturer?.name,
+                    url: `/models?manufacturer=${model?.manufacturer?.slug}`,
+                  },
+                ],
+                [
+                  "Scale",
+                  {
+                    label: model?.scale?.name,
+                    url: `/models?scale=${model?.scale?.slug}`,
+                  },
+                ],
+                ["Kit Number", model?.kit_number],
+                ["Year Released", model?.year_released],
+                ["Completed", model?.completed ? completedAt : "No"],
+                ["Build Time", buildTime],
+                //model.model_tags, model.scalemates_link, model.youtube_video
+              ]}
+            />
+          </Card>
+          <ImageLabel>Images</ImageLabel>
+          <Grid columns={3}>
+            {model.images.length > 0 &&
+              model.images.map((image) => (
+                <div key={image.id}>
+                  <Image
+                    src={image.provider_metadata.public_id}
+                    alt={image.alternativeText}
+                    width={image.width}
+                    height={image.height}
+                    layout="intrinsic"
+                  />
+                </div>
+              ))}
+          </Grid>
+        </GridItem>
       </Grid>
     </PageLayout>
   );
