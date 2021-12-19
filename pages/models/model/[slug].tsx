@@ -10,11 +10,16 @@ import { NextSeo } from "next-seo";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Youtube from "react-youtube";
 import { ModelsSitemapDocument } from "src/graphql/schema/models/modelsSitemap.query.generated";
 import { Model } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { fetchData } from "src/lib/fetch";
-import { getBuildTime, makeDurationFriendly } from "src/utils";
+import {
+  getBuildTime,
+  getYouTubeVideoId,
+  makeDurationFriendly,
+} from "src/utils";
 import styled from "styled-components";
 
 const ImageLabel = styled.div`
@@ -24,6 +29,12 @@ const ImageLabel = styled.div`
   font-family: var(--font-main);
   text-align: center;
   font-size: var(--h4-size);
+`;
+
+const YoutubeWrapper = styled.div`
+  div > iframe {
+    display: block;
+  }
 `;
 interface iModelPage {
   model: Model;
@@ -47,6 +58,10 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
   const completedAt = model?.completed_at
     ? format(parseISO(model?.completed_at), "PP")
     : "Yes";
+
+  const videoId = model?.youtube_video
+    ? getYouTubeVideoId(model?.youtube_video)
+    : null;
 
   useEffect(() => {
     async function fetchTime() {
@@ -129,12 +144,23 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
                 ],
                 ["Kit Number", model?.kit_number],
                 ["Year Released", model?.year_released],
+                [
+                  "Scalemates",
+                  { label: "Link", url: model?.scalemates_link, target: "new" },
+                ],
                 ["Completed", model?.completed ? completedAt : "No"],
                 ["Build Time", buildTime],
-                //model.model_tags, model.scalemates_link, model.youtube_video
+                //model.model_tags
               ]}
             />
           </Card>
+          {videoId && (
+            <Card subHeading="Youtube Video" padding={false}>
+              <YoutubeWrapper>
+                <Youtube videoId={videoId} />
+              </YoutubeWrapper>
+            </Card>
+          )}
           <ImageLabel>Images</ImageLabel>
           <Grid columns={3}>
             {model.images.length > 0 &&
