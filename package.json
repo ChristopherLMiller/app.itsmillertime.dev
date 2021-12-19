@@ -1,6 +1,6 @@
 {
   "name": "app.christopherleemiller.me",
-  "version": "1.22.2",
+  "version": "1.22.3",
   "description": "Front End to www.christopherleemiller.me",
   "main": "index.js",
   "scripts": {
@@ -51,6 +51,7 @@
     "react-snowfall": "^1.1.0",
     "react-spinners": "^0.11.0",
     "react-toast-notifications": "^2.4.3",
+    "react-youtube": "^7.13.1",
     "rehype-react": "^7.0.3",
     "remark": "^14.0.2",
     "remark-emoji": "^3.0.2",
