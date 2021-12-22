@@ -82,10 +82,10 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
       description={pageSettings.models.description}
     >
       <NextSeo
-        title={model.title}
+        title={model.SEO.title}
         description={model.SEO.description}
         openGraph={{
-          title: `${model.title}`,
+          title: `${model.SEO.title}`,
           description: `${model.SEO.description}`,
           type: `website`,
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
