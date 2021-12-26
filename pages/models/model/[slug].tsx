@@ -11,6 +11,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Youtube from "react-youtube";
+import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 import { ModelsSitemapDocument } from "src/graphql/schema/models/modelsSitemap.query.generated";
 import { Model } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
@@ -162,20 +163,24 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
             </Card>
           )}
           <ImageLabel>Images</ImageLabel>
-          <Grid columns={3}>
-            {model.images.length > 0 &&
-              model.images.map((image) => (
-                <div key={image.id}>
-                  <Image
-                    src={image.provider_metadata.public_id}
-                    alt={image.alternativeText}
-                    width={image.width}
-                    height={image.height}
-                    layout="intrinsic"
-                  />
-                </div>
-              ))}
-          </Grid>
+          <SimpleReactLightbox>
+            <SRLWrapper>
+              <Grid columns={3}>
+                {model.images.length > 0 &&
+                  model.images.map((image) => (
+                    <div key={image.id}>
+                      <Image
+                        src={image.provider_metadata.public_id}
+                        alt={image.alternativeText}
+                        width={image.width}
+                        height={image.height}
+                        layout="intrinsic"
+                      />
+                    </div>
+                  ))}
+              </Grid>
+            </SRLWrapper>
+          </SimpleReactLightbox>
         </GridItem>
       </Grid>
     </PageLayout>
