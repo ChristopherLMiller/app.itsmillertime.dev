@@ -37,6 +37,10 @@ const YoutubeWrapper = styled.div`
     display: block;
   }
 `;
+
+const ImageWrapper = styled.div`
+  cursor: pointer;
+`;
 interface iModelPage {
   model: Model;
 }
@@ -165,10 +169,10 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
           <ImageLabel>Images</ImageLabel>
           <SimpleReactLightbox>
             <SRLWrapper>
-              <Grid columns={3}>
+              <Grid columns={3} masonry>
                 {model.images.length > 0 &&
                   model.images.map((image) => (
-                    <div key={image.id}>
+                    <ImageWrapper key={image.id}>
                       <Image
                         src={image.provider_metadata.public_id}
                         alt={image.alternativeText}
@@ -176,7 +180,7 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
                         height={image.height}
                         layout="intrinsic"
                       />
-                    </div>
+                    </ImageWrapper>
                   ))}
               </Grid>
             </SRLWrapper>
@@ -189,6 +193,7 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context?.params?.slug;
+  console.log(context);
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/models?slug_eq=${slug}`
   );
@@ -200,10 +205,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
       props: {
         model: data[0],
       },
+      revalidate: 30,
     };
   } else {
     return {
-      notFound: true,
+      props: {
+        model: null,
+        fetchClientSide: true,
+      },
     };
   }
 };
