@@ -16,7 +16,7 @@ export const Grid = styled.div<iGrid>`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: ${(props) => (props.masonry ? `masonry` : `auto`)};
-  grid-gap: ${(props) => props.gap || `0px`};
+
   background: ${(props) => props.background};
   ${(props) => props.justify && `justify-items: ` + props.justify};
   margin-bottom: ${(props) => (props.marginBottom ? `50px` : `0`)};
@@ -24,9 +24,14 @@ export const Grid = styled.div<iGrid>`
 
   ${(props) =>
     props.columns > 0 &&
-    `@media (min-width: 600px) {grid-template-columns: repeat(1, 1fr)}
-    @media (min-width: 800px) {grid-template-columns: repeat(${props.columns}, 1fr)
-  }`}
+    `@media (min-width: 600px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    @media (min-width: 800px) {
+      grid-template-columns: repeat(${props.columns}, 1fr);
+      grid-gap: ${props.gap || `0px`};
+    }
+  `}
 
   ${(props) =>
     props.min !== undefined &&
