@@ -39,7 +39,6 @@ interface iGalleryPage {
   album: Gallery;
 }
 const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
-  console.log(album);
   const [session] = useSession();
   const router = useRouter();
 

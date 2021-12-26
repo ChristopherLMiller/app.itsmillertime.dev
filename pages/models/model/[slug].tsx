@@ -193,7 +193,6 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const slug = context?.params?.slug;
-  console.log(context);
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/models?slug_eq=${slug}`
   );

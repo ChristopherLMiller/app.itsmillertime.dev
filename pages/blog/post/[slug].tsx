@@ -97,7 +97,6 @@ interface iBlogPost {
 const BlogPost: NextPage<iBlogPost> = ({ article }) => {
   const [session] = useSession();
   const router = useRouter();
-  console.log(article);
 
   return (
     <PageLayout
