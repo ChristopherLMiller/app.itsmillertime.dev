@@ -1,8 +1,8 @@
-import { FunctionComponent } from "react";
-import styled from "styled-components";
-import Image from "src/components/Images";
 import { formatRelative, parseISO } from "date-fns";
+import { FunctionComponent } from "react";
+import Image from "src/components/Images";
 import { UploadFile } from "src/graphql/types";
+import styled from "styled-components";
 
 const StyledArticleHead = styled.div`
   font-weight: 100;
@@ -41,8 +41,6 @@ const ArticleHead: FunctionComponent<iArticleHead> = ({
   timeToRead,
   title,
 }) => {
-  console.log(featuredImage);
-
   return (
     <StyledArticleHead>
       {featuredImage !== null && (

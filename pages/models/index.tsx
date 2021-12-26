@@ -21,8 +21,6 @@ const ModelsPageIndex: NextPage = () => {
     console.error(error);
   }
 
-  console.log(router.query);
-
   return (
     <PageLayout
       title={pageSettings.models.title}

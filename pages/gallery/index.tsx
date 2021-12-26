@@ -39,7 +39,6 @@ const GalleriesIndexPage: NextPage = () => {
   const [session] = useSession();
   const queryParams = router.query;
 
-  console.log(queryParams);
   const { isLoading, error, data, isSuccess } = useGalleriesQuery({
     sort: `createdAt:ASC`,
     where: queryParams,
