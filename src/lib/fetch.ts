@@ -24,8 +24,8 @@ export function fetcher<TData, TVariables>(
 
 export const fetchData = async (
   query: string,
-  variables: any | null,
-  jwt: string | unknown
+  variables?: any | null,
+  jwt?: string | unknown
 ) => {
   const requestHeaders = {
     "Content-Type": "application/json",
