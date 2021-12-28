@@ -22,17 +22,28 @@ export function fetcher<TData, TVariables>(
   };
 }
 
-export const fetchData = async (query: string) => {
+export const fetchData = async (
+  query: string,
+  variables: any | null,
+  jwt: string | unknown
+) => {
+  const requestHeaders = {
+    "Content-Type": "application/json",
+  };
+
+  if (jwt) {
+    requestHeaders["authorization"] = `Bearer ${jwt}`;
+  }
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`,
     {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ query: query }),
+      headers: requestHeaders,
+      body: JSON.stringify({ query: query, variables: variables }),
     }
   );
   const data = await response.json();
+  console.log(data);
   return data.data;
 };

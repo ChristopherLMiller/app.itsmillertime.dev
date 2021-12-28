@@ -16,6 +16,7 @@ export const Grid = styled.div<iGrid>`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: ${(props) => (props.masonry ? `masonry` : `auto`)};
+  grid-gap: ${(props) => props.gap || `0px`};
 
   background: ${(props) => props.background};
   ${(props) => props.justify && `justify-items: ` + props.justify};
@@ -29,7 +30,6 @@ export const Grid = styled.div<iGrid>`
     }
     @media (min-width: 800px) {
       grid-template-columns: repeat(${props.columns}, 1fr);
-      grid-gap: ${props.gap || `0px`};
     }
   `}
 
@@ -51,6 +51,9 @@ interface iGridItem {
 }
 export const GridItem = styled.div<iGridItem>`
   max-width: ${(props) => props.maxWidth};
-  grid-column-start: ${(props) => props.start};
-  grid-column-end: ${(props) => props.end};
+
+  @media (min-width: 600px) {
+    grid-column-start: ${(props) => props.start};
+    grid-column-end: ${(props) => props.end};
+  }
 `;

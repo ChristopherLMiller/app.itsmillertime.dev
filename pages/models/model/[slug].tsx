@@ -1,40 +1,34 @@
 import Card from "@components/Card";
 import { Grid, GridItem } from "@components/Grid";
 import Markdown from "@components/Markdown";
+import Panel from "@components/Panel";
 import Table from "@components/Table";
 import { defaultImage, pageSettings } from "config";
 import { format, formatRelative, parseISO } from "date-fns";
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { useSession } from "next-auth/client";
+import { GetServerSideProps, NextPage } from "next";
+import { getSession, useSession } from "next-auth/client";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Youtube from "react-youtube";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
-import { ModelsSitemapDocument } from "src/graphql/schema/models/modelsSitemap.query.generated";
-import { Model } from "src/graphql/types";
+import { ModelsDocument } from "src/graphql/schema/models/models.query.generated";
+import { Model, PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { fetchData } from "src/lib/fetch";
 import {
   getBuildTime,
   getYouTubeVideoId,
+  isAdmin,
   makeDurationFriendly,
 } from "src/utils";
 import styled from "styled-components";
 
-const ImageLabel = styled.div`
-  background: var(--color-red-intermediate);
-  padding: 3% 5%;
-  color: var(--color-white-100);
-  font-family: var(--font-main);
-  text-align: center;
-  font-size: var(--h4-size);
-`;
-
 const YoutubeWrapper = styled.div`
   div > iframe {
     display: block;
+    width: 100%;
   }
 `;
 
@@ -48,8 +42,8 @@ interface iModelPage {
 const ModelPage: NextPage<iModelPage> = ({ model }) => {
   const [session] = useSession();
   const router = useRouter();
-  const [buildTime, setBuildTime] = useState<string>();
 
+  const [buildTime, setBuildTime] = useState<string>();
   const imageURL =
     model.SEO?.featured_image?.provider_metadata.public_id ||
     defaultImage.public_id;
@@ -104,7 +98,7 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
           ],
         }}
       />
-      <Grid columns={3} gap="30px">
+      <Grid columns={3} gap="2rem">
         <GridItem start={1} end={3}>
           <Image
             src={imageURL}
@@ -112,12 +106,8 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
             height={imageHeight}
             alt={imageAlt}
             layout="responsive"
+            priority={true}
           />
-          {model?.content && (
-            <Card>
-              <Markdown source={model.content} />
-            </Card>
-          )}
         </GridItem>
         <GridItem>
           <Card padding={false} heading={model.title} fullWidth>
@@ -151,78 +141,101 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
                 ["Year Released", model?.year_released],
                 [
                   "Scalemates",
-                  { label: "Link", url: model?.scalemates_link, target: "new" },
+                  {
+                    label: "Link",
+                    url: model?.scalemates_link,
+                    target: "new",
+                  },
                 ],
                 ["Completed", model?.completed ? completedAt : "No"],
                 ["Build Time", buildTime],
-                //model.model_tags
               ]}
             />
           </Card>
-          {videoId && (
-            <Card subHeading="Youtube Video" padding={false}>
-              <YoutubeWrapper>
-                <Youtube videoId={videoId} />
-              </YoutubeWrapper>
+        </GridItem>
+        <GridItem start={1} end={3}>
+          {model?.content && (
+            <Card>
+              <Markdown source={model.content} />
             </Card>
           )}
-          <ImageLabel>Images</ImageLabel>
-          <SimpleReactLightbox>
-            <SRLWrapper>
-              <Grid columns={3} masonry>
-                {model.images.length > 0 &&
-                  model.images.map((image) => (
-                    <ImageWrapper key={image.id}>
-                      <Image
-                        src={image.provider_metadata.public_id}
-                        alt={image.alternativeText}
-                        width={image.width}
-                        height={image.height}
-                        layout="intrinsic"
-                      />
-                    </ImageWrapper>
-                  ))}
-              </Grid>
-            </SRLWrapper>
-          </SimpleReactLightbox>
+        </GridItem>
+        <GridItem>
+          <Grid gap="3rem">
+            {videoId && (
+              <Panel padding={false}>
+                <YoutubeWrapper>
+                  <Youtube videoId={videoId} />
+                </YoutubeWrapper>
+              </Panel>
+            )}
+            {model?.images?.length > 0 && (
+              <Panel padding={false}>
+                <SimpleReactLightbox>
+                  <SRLWrapper>
+                    <Grid columns={3} masonry>
+                      {model.images.length > 0 &&
+                        model.images.map((image) => (
+                          <ImageWrapper key={image.id}>
+                            <Image
+                              src={image.provider_metadata.public_id}
+                              alt={image.alternativeText}
+                              width={image.width}
+                              height={image.height}
+                              layout="responsive"
+                            />
+                          </ImageWrapper>
+                        ))}
+                    </Grid>
+                  </SRLWrapper>
+                </SimpleReactLightbox>
+              </Panel>
+            )}
+          </Grid>
         </GridItem>
       </Grid>
     </PageLayout>
   );
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const slug = context?.params?.slug;
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/models?slug_eq=${slug}`
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  const { slug } = context.query;
+
+  // if the slug isn't found lets eject right away for a 404 error
+  if (!slug) {
+    return {
+      notFound: true,
+    };
+  }
+
+  // Fetch the data, the publication state depends on the user being an admin or not
+  const data = await fetchData(
+    ModelsDocument,
+    {
+      where: { slug_eq: slug },
+      publicationState: isAdmin(session?.user)
+        ? PublicationState.Preview
+        : PublicationState.Live,
+    },
+    session?.jwt
   );
 
-  const data = await response.json();
-
-  if (data.length) {
+  if (data.models.length) {
     return {
       props: {
-        model: data[0],
+        model: data.models[0],
       },
-      revalidate: 30,
     };
   } else {
+    // If the model isn't found (0 length) we will just redirct to the landing page
     return {
-      props: {
-        model: null,
-        fetchClientSide: true,
+      redirect: {
+        destination: "/models",
+        permanent: false,
       },
     };
   }
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await fetchData(ModelsSitemapDocument);
-  const paths = data.models.map((model) => {
-    return { params: { slug: model.slug } };
-  });
-
-  return { paths, fallback: "blocking" };
 };
 
 export default ModelPage;

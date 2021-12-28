@@ -5,6 +5,7 @@ interface iPanel {
   align?: string;
   padding?: boolean;
   boxed?: boolean;
+  background?: string;
 }
 
 const Panel: FunctionComponent<iPanel> = ({

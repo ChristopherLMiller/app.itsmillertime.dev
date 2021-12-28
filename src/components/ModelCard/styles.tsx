@@ -1,8 +1,8 @@
-import styled from "styled-components";
 import { motion } from "framer-motion";
+import styled from "styled-components";
 
 export const ModelItem = styled(motion.article)`
-  border: 5px solid var(--color-red);
+  border: 5px solid ${(props) => props.borderColor};
   border-top: none;
   height: min-content;
 `;
@@ -18,7 +18,7 @@ export const variants = {
 
 export const ModelName = styled.div`
   grid-column: 1 / -1;
-  background: var(--color-red);
+  background: ${(props) => props.background};
   padding: 1rem 0.5rem;
   font-family: var(--font-alt);
   font-size: var(--p-size);
