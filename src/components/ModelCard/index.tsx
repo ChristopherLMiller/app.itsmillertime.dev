@@ -3,7 +3,7 @@ import Table from "@components/Table";
 import Image from "next/image";
 import Link from "next/link";
 import { FunctionComponent, useEffect, useState } from "react";
-import { Model } from "src/graphql/types";
+import { Model, PublicationState } from "src/graphql/types";
 import { getBuildTime, makeDurationFriendly } from "src/utils";
 import { defaultImage } from "../../../config";
 import { ModelImage, ModelItem, ModelName, TagList, variants } from "./styles";
@@ -20,6 +20,9 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
   const imageHeight = model?.SEO?.featured_image?.height || defaultImage.height;
   const imageAlt =
     model?.SEO?.featured_image?.alternativeText || defaultImage.altText;
+  const publicationState = model.published_at
+    ? PublicationState.Live
+    : PublicationState.Preview;
   const [buildTime, setBuildTime] = useState<string>();
 
   useEffect(() => {
@@ -45,8 +48,23 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
   ));
 
   return (
-    <ModelItem variants={variants} initial="initial" whileHover="hover">
-      <ModelName>
+    <ModelItem
+      variants={variants}
+      initial="initial"
+      whileHover="hover"
+      borderColor={
+        publicationState == PublicationState.Live
+          ? `var(--color-red)`
+          : `var(--color-gold)`
+      }
+    >
+      <ModelName
+        background={
+          publicationState == PublicationState.Live
+            ? `var(--color-red)`
+            : `var(--color-gold)`
+        }
+      >
         <Link href={`/models/model/${model?.slug}`}>
           <a>{model.title}</a>
         </Link>

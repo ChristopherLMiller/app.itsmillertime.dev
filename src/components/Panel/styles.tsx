@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export interface iStyledPanel {
-  align?: string;
-  padding?: boolean;
+  align: string;
+  padding: boolean;
 }
 
 export const StyledPanel = styled<iStyledPanel>(motion.div)`
@@ -25,6 +25,7 @@ export const StyledPanel = styled<iStyledPanel>(motion.div)`
   padding: ${(props) => props.padding};
   position: relative;
   text-align: ${(props) => props.align};
+  border: var(--border);
   ${(props) => props.boxed}
 
   img {

@@ -12,7 +12,6 @@ import Image from "src/components/Images";
 import Loader from "src/components/Loader";
 import { useGalleriesQuery } from "src/graphql/schema/galleries/galleries.query.generated";
 import PageLayout from "src/layout/PageLayout";
-import { isAdmin } from "src/utils";
 import styled from "styled-components";
 
 // TODO: fix anchor tag on the main tag in system default, breaks this here
@@ -117,15 +116,6 @@ const GalleriesIndexPage: NextPage = () => {
                     <p>
                       Tags: <ArrayList array={gallery.gallery_tags} />
                     </p>
-                    {isAdmin(session?.user) && (
-                      <a
-                        href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${gallery.id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Edit
-                      </a>
-                    )}
                   </SubText>
                 </Image>
               </Anchor>

@@ -28,9 +28,6 @@ export const StyledCard = styled.div`
   max-width: ${(props) => props.maxWidth};
   margin: 0 auto;
   box-shadow: var(--box-shadow-elev-1);
-  margin-bottom: 10rem;
-  border: var(--border);
-  border-top: ${(props) => props.borderTop};
 `;
 
 export const CardHeading = styled.div`

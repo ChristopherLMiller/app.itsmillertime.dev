@@ -2,7 +2,7 @@ import { formatRelative, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/client";
 import Link from "next/link";
-import { FunctionComponent } from "react";
+import { Fragment, FunctionComponent } from "react";
 import Image from "src/components/Images";
 import { Article, ArticleTags } from "src/graphql/types";
 import { countWords, isAdmin, timeToRead } from "src/utils";
@@ -37,9 +37,7 @@ const ArticleListItemContent = styled.div`
   background: var(--color-white-60);
   color: var(--color-black-80);
   padding: 3% 5%;
-
-  ${(props) =>
-    props.published == null && `border-left: 10px solid var(--color-gold)`}
+  border-left: 10px solid var(--color-gold);
 `;
 
 const ArticleHeader = styled.div`
@@ -136,19 +134,21 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
             {article.published_at
               ? formatRelative(parseISO(article.published_at), new Date())
               : `Draft`}
-            {` `}| Time To Read: {timeToRead(countWords(article.content))}
+            {` | `}
+            {isAdmin(session?.user) && (
+              <Fragment>
+                <a
+                  href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Edit
+                </a>
+                {" | "}
+              </Fragment>
+            )}
+            Time To Read: {timeToRead(countWords(article.content))}
           </h5>
-          {isAdmin(session?.user) && (
-            <h6>
-              <a
-                href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Edit
-              </a>
-            </h6>
-          )}
         </ArticleHeader>
         <Excerpt>{article.seo.description}</Excerpt>
         <PostMeta>
