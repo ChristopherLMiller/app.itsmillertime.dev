@@ -142,6 +142,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       props: {
         album: data[0],
       },
+      revalidate: 10,
     };
   } else {
     return {

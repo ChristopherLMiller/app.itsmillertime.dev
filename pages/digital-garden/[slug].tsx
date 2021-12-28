@@ -55,6 +55,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       props: {
         garden: data[0],
       },
+      revalidate: 10,
     };
   } else {
     return {
