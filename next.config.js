@@ -16,7 +16,9 @@ const remarkUnwrapImages = require("next-transpile-modules")([
 const remarkFrontmatter = require("next-transpile-modules")([
   "remark-frontmatter",
 ]);
-const remarkHeadingId = require("next-transpile-modules")(["remark-heading-id"]);
+const remarkHeadingId = require("next-transpile-modules")([
+  "remark-heading-id",
+]);
 
 // MDX
 const withMDX = require(`@next/mdx`)({
