@@ -2,7 +2,6 @@ import Card from "@components/Card";
 import { defaultImage, pageSettings } from "config";
 import { formatRelative, parseISO } from "date-fns";
 import { NextPage } from "next";
-import { useSession } from "next-auth/client";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -35,12 +34,12 @@ const SubText = styled.div`
 
 const GalleriesIndexPage: NextPage = () => {
   const router = useRouter();
-  const [session] = useSession();
   const queryParams = router.query;
+  const where = { nsfw: false, ...queryParams };
 
   const { isLoading, error, data, isSuccess } = useGalleriesQuery({
     sort: `createdAt:ASC`,
-    where: queryParams,
+    where: where,
   });
 
   if (error) {

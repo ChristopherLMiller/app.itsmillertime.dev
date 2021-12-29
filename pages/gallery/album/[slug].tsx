@@ -3,16 +3,16 @@ import Markdown from "@components/Markdown";
 import Table from "@components/Table";
 import { pageSettings } from "config";
 import { formatRelative } from "date-fns";
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { useSession } from "next-auth/client";
+import { GetServerSideProps, NextPage } from "next";
+import { getSession, useSession } from "next-auth/client";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 import { Grid } from "src/components/Grid";
 import Image from "src/components/Images";
 import ShareButtons from "src/components/ShareButtons";
-import { GalleriesSitemapDocument } from "src/graphql/schema/galleries/galleriesSitemap.query.generated";
-import { Gallery } from "src/graphql/types";
+import { GalleriesDocument } from "src/graphql/schema/galleries/galleries.query.generated";
+import { Enum_Gallery_Status, Gallery } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { fetchData } from "src/lib/fetch";
 import { isAdmin } from "src/utils";
@@ -42,6 +42,8 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
   const [session] = useSession();
   const router = useRouter();
 
+  const isPublic = album.status === Enum_Gallery_Status.Public;
+
   return (
     <PageLayout
       title={pageSettings.gallery.title}
@@ -69,6 +71,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
             },
           ],
         }}
+        noindex={!isPublic}
       />
 
       <GalleryGrid>
@@ -130,35 +133,81 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const slug = context.params?.slug;
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/galleries?slug_eq=${slug}`
-  );
-  const data = await response.json();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  const { slug } = context.query;
 
-  if (data.length) {
-    return {
-      props: {
-        album: data[0],
-      },
-      revalidate: 10,
-    };
-  } else {
+  const defaultReturn = {
+    redirect: {
+      destination: "/gallery",
+      permanent: false,
+    },
+  };
+
+  // if the slug isn't provided, lets eject and 404
+  if (!slug) {
     return {
       notFound: true,
     };
   }
-};
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await fetchData(GalleriesSitemapDocument);
+  // Fetch the data at this point
+  const data = await fetchData(
+    GalleriesDocument,
+    {
+      where: { slug_eq: slug },
+      sort: "title:ASC",
+    },
+    session?.jwt
+  );
 
-  const paths = data.galleries.map((item) => {
-    return { params: { slug: item.slug } };
-  });
+  // next step is make sure we got at least one result
+  if (data?.galleries?.length == 0) {
+    return defaultReturn;
+  }
 
-  return { paths, fallback: "blocking" };
+  const album = data.galleries[0];
+
+  // use a switch to determine if the user is allowed to view the gallery from here
+  switch (album.status) {
+    case Enum_Gallery_Status.Private:
+    case Enum_Gallery_Status.Draft:
+    case Enum_Gallery_Status.Archived:
+      // if the user isn't an admin, then its a no go
+      if (!isAdmin(session?.user)) {
+        return defaultReturn;
+      }
+      break;
+    case Enum_Gallery_Status.Protected:
+      // Albums of this type we need to check the persons role and group as they are used to determine access
+      if (!session?.user) {
+        return defaultReturn;
+      }
+
+      const userRole = session.user.role.name;
+      const albumGroups = album.roles.map((role) => role.name);
+      const albumPersons = album.users_permissions_users.map((user) => user.id);
+
+      if (
+        isAdmin(session?.user) ||
+        albumGroups.includes(userRole) ||
+        albumPersons.includes(session?.user?.id)
+      ) {
+        break;
+      } else {
+        return defaultReturn;
+      }
+    case Enum_Gallery_Status.Public:
+    default:
+      // nothing needs to be done here
+      break;
+  }
+
+  return {
+    props: {
+      album: data?.galleries[0],
+    },
+  };
 };
 
 export default GalleryPage;
