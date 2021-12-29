@@ -1,4 +1,5 @@
 import Markdown from "@components/Markdown";
+import ShareButtons from "@components/ShareButtons";
 import { defaultImage, pageSettings } from "config";
 import { formatRelative, parseISO } from "date-fns";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
@@ -6,7 +7,6 @@ import { useSession } from "next-auth/client";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import ShareButtons from "src/components/ShareButtons";
 import { ArticlesSitemapDocument } from "src/graphql/schema/articles/articlesSitemap.query.generated";
 import { Article } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";

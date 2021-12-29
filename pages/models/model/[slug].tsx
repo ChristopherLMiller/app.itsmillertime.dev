@@ -6,7 +6,7 @@ import Table from "@components/Table";
 import { defaultImage, pageSettings } from "config";
 import { format, formatRelative, parseISO } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
-import { getSession, useSession } from "next-auth/client";
+import { getSession } from "next-auth/client";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -35,12 +35,40 @@ const YoutubeWrapper = styled.div`
 const ImageWrapper = styled.div`
   cursor: pointer;
 `;
+
+const Contents = styled.div`
+  h4 {
+    margin-block: 1rem;
+    position: relative;
+    padding-inline-start: 2rem;
+    color: var(--color-black-60);
+    font-family: var(--font-block);
+    text-transform: uppercase;
+    font-style: italic;
+
+    :before {
+      content: "\\A";
+      position: absolute;
+      left: 5px;
+      width: 50%;
+      height: 100%;
+      border-inline-start: 3px solid var(--color-gold-transparent);
+      border-block-end: 5px solid var(--color-red-dark);
+      opacity: 0.7;
+      transform: skewX(-12deg);
+    }
+  }
+
+  img {
+    max-width: 50%;
+    display: inline-block;
+  }
+`;
 interface iModelPage {
   model: Model;
 }
 
 const ModelPage: NextPage<iModelPage> = ({ model }) => {
-  const [session] = useSession();
   const router = useRouter();
 
   const [buildTime, setBuildTime] = useState<string>();
@@ -156,8 +184,10 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
         </GridItem>
         <GridItem start={1} end={3}>
           {model?.content && (
-            <Card>
-              <Markdown source={model.content} />
+            <Card align="left">
+              <Contents>
+                <Markdown source={model.content} />
+              </Contents>
             </Card>
           )}
         </GridItem>

@@ -74,6 +74,7 @@ specifiers:
   remark-fix-guillemets: ^1.1.1
   remark-footnotes: ^4.0.1
   remark-frontmatter: ^4.0.1
+  remark-heading-id: ^1.0.0
   remark-html: ^15.0.0
   remark-mdx: ^1.6.22
   remark-parse: ^10.0.1
@@ -132,6 +133,7 @@ dependencies:
   remark-fix-guillemets: 1.1.1
   remark-footnotes: 4.0.1
   remark-frontmatter: 4.0.1
+  remark-heading-id: 1.0.0
   remark-html: 15.0.0
   remark-mdx: 1.6.22
   remark-parse: 10.0.1
@@ -9436,6 +9438,13 @@ packages:
       mdast-util-frontmatter: 1.0.0
       micromark-extension-frontmatter: 1.0.0
       unified: 10.1.1
+    dev: false
+
+  /remark-heading-id/1.0.0:
+    resolution: {integrity: sha512-86QaOiL+8jTV9P5Y0S25kSIcykCd/XmnqiFltWZRWKHmsVT4sevN7QJnkpUjkCJUpIeWte/LYH7pVlCTGz89fw==}
+    engines: {node: '>=8'}
+    dependencies:
+      unist-util-visit: 1.4.1
     dev: false
 
   /remark-html/15.0.0:

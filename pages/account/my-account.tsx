@@ -1,13 +1,13 @@
-import PageLayout from "src/layout/PageLayout";
-import { GetServerSideProps, NextPage } from "next";
-import { Grid, GridItem } from "src/components/Grid";
-import Card from "src/components/Card";
-import styled from "styled-components";
-import { NextSeo } from "next-seo";
+import { Grid, GridItem } from "@components/Grid";
 import { defaultImage, pageSettings } from "config";
+import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/client";
+import { NextSeo } from "next-seo";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Card from "src/components/Card";
+import PageLayout from "src/layout/PageLayout";
+import styled from "styled-components";
 
 const crypto = require("crypto");
 

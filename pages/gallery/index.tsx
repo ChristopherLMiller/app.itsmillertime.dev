@@ -1,4 +1,5 @@
 import Card from "@components/Card";
+import { Grid } from "@components/Grid";
 import { defaultImage, pageSettings } from "config";
 import { formatRelative, parseISO } from "date-fns";
 import { NextPage } from "next";
@@ -6,7 +7,6 @@ import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ArrayList } from "src/components/arrayList";
-import { Grid } from "src/components/Grid";
 import Image from "src/components/Images";
 import Loader from "src/components/Loader";
 import { useGalleriesQuery } from "src/graphql/schema/galleries/galleries.query.generated";
