@@ -117,7 +117,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
                   {
                     label: isAdmin(session?.user) ? "Edit" : "",
                     url: isAdmin(session?.user)
-                      ? `${process.env.NEXT_PUBLIC_STRAPI_URL}admin/plugins/content-manager/collectionType/application::gallery.gallery/${album.id}`
+                      ? `${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${album.id}`
                       : ``,
                   },
                   "",
