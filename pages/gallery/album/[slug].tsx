@@ -12,7 +12,7 @@ import { Grid } from "src/components/Grid";
 import Image from "src/components/Images";
 import ShareButtons from "src/components/ShareButtons";
 import { GalleriesSitemapDocument } from "src/graphql/schema/galleries/galleriesSitemap.query.generated";
-import { Gallery } from "src/graphql/types";
+import { Enum_Gallery_Status, Gallery } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { fetchData } from "src/lib/fetch";
 import { isAdmin } from "src/utils";
@@ -42,6 +42,8 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
   const [session] = useSession();
   const router = useRouter();
 
+  const isPublic = album.status === Enum_Gallery_Status.Public;
+
   return (
     <PageLayout
       title={pageSettings.gallery.title}
@@ -69,6 +71,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
             },
           ],
         }}
+        noindex={!isPublic}
       />
 
       <GalleryGrid>

@@ -120,6 +120,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
             },
           ],
         }}
+        noindex={article.published_at == null}
       />
       <StyledBlogPost>
         <ArticleHeader>

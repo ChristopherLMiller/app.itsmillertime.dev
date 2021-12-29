@@ -97,6 +97,7 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
             },
           ],
         }}
+        noindex={model.published_at == null}
       />
       <Grid columns={3} gap="2rem">
         <GridItem start={1} end={3}>
