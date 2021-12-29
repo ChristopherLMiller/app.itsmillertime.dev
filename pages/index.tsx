@@ -1,3 +1,4 @@
+import { Grid } from "@components/Grid";
 import Panel from "@components/Panel";
 import { defaultImage, pageSettings } from "config";
 import { NextPage } from "next";
@@ -5,7 +6,6 @@ import { useSession } from "next-auth/client";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import React from "react";
-import { Grid } from "src/components/Grid";
 import PageLayout from "src/layout/PageLayout";
 
 const IndexPage: NextPage = () => {

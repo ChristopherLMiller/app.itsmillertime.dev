@@ -1,5 +1,7 @@
 import Card from "@components/Card";
+import { Grid } from "@components/Grid";
 import Markdown from "@components/Markdown";
+import ShareButtons from "@components/ShareButtons";
 import Table from "@components/Table";
 import { pageSettings } from "config";
 import { formatRelative } from "date-fns";
@@ -8,9 +10,7 @@ import { getSession, useSession } from "next-auth/client";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
-import { Grid } from "src/components/Grid";
 import Image from "src/components/Images";
-import ShareButtons from "src/components/ShareButtons";
 import { GalleriesDocument } from "src/graphql/schema/galleries/galleries.query.generated";
 import { Enum_Gallery_Status, Gallery } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";

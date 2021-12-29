@@ -6,6 +6,7 @@ import remarkEmoji from "remark-emoji";
 import remarkGuillemets from "remark-fix-guillemets";
 import remarkFootnotes from "remark-footnotes";
 import remarkFrontmatter from "remark-frontmatter";
+import remarkHeadingId from "remark-heading-id";
 import remarkSubSuper from "remark-sub-super";
 import remarkUnwrapImages from "remark-unwrap-images";
 
@@ -23,6 +24,7 @@ const Markdown: FunctionComponent<iMarkdown> = ({ source }) => (
         remarkGuillemets,
         remarkUnwrapImages,
         remarkFrontmatter,
+        remarkHeadingId,
       ]}
     >
       {source}

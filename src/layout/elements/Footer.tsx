@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import { Grid, GridItem } from "@components/Grid";
 import { format } from "date-fns";
-import packageJSON from "package.json";
-import { Grid, GridItem } from "src/components/Grid";
-import Link from "next/link";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import packageJSON from "package.json";
 import { FunctionComponent } from "react";
 import ContactMeForm from "src/templates/forms/contactMe";
+import styled from "styled-components";
 
 const StyledFooter = styled.footer`
   position: relative;
