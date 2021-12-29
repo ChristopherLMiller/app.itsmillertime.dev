@@ -6,12 +6,12 @@ import {
   RedditIcon,
   RedditShareButton,
   TwitterIcon,
-  TwitterShareButton
+  TwitterShareButton,
 } from "react-share";
 import { ShareButtonVariants, ShareButtonWrapper } from "./styles";
 
 const ShareButtons = ({ url, media, title }) => (
-  <ShareButtonWrapper>
+  <ShareButtonWrapper
     variants={ShareButtonVariants}
     initial="hidden"
     animate="visible"
