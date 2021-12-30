@@ -57,7 +57,7 @@ specifiers:
   prettier: ^2.5.0
   prismjs: ^1.25.0
   react: ^17.0.2
-  react-cookie-consent: ^6.4.1
+  react-cookie-consent: ^7.0.0
   react-dom: ^17.0.2
   react-icons: ^4.3.1
   react-is: 17.0.2
@@ -117,7 +117,7 @@ dependencies:
   prettier: 2.5.0
   prismjs: 1.25.0
   react: 17.0.2
-  react-cookie-consent: 6.4.1_react@17.0.2
+  react-cookie-consent: 7.2.1_react@17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-icons: 4.3.1_react@17.0.2
   react-modal: 3.14.4_react-dom@17.0.2+react@17.0.2
@@ -8948,8 +8948,8 @@ packages:
       minimist: 1.2.5
       strip-json-comments: 2.0.1
 
-  /react-cookie-consent/6.4.1_react@17.0.2:
-    resolution: {integrity: sha512-dAgC2uSrUN0eXoNhEKDCHH/dL3RUs/84SPO8hRvJVz7HtPGmF+t/mQwd4V4qsGAvVqhbn0hzMdftEuiJS3iueQ==}
+  /react-cookie-consent/7.2.1_react@17.0.2:
+    resolution: {integrity: sha512-+mP3o9ip6PJyGvz10nTYeS1rVl/psxb8op9TB36KQQeMTLREH4ARRoUqhajzYYERa48rMwTOkpLGsOZUlY9nBg==}
     peerDependencies:
       react: ^16.13.1 || ^17.0.0
     dependencies:
