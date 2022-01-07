@@ -198,7 +198,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
     // TODO: Fix this, unknown and ignoring is shameful
     //@ts-ignore
-    session.jwt
+    session?.jwt
   );
 
   if (data.articles.length) {
