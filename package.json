@@ -40,7 +40,7 @@
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "prettier": "^2.5.1",
-    "prismjs": "^1.25.0",
+    "prismjs": "^1.26.0",
     "react": "^17.0.2",
     "react-cookie-consent": "^7.0.0",
     "react-dom": "^17.0.2",
