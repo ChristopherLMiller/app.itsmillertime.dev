@@ -7,14 +7,14 @@ const emailer = async (
 ): Promise<void> => {
   if (req.method === `POST`) {
     await sendEmail(req.body);
-    return res.status(200).end();
+    res.status(200).end();
+  } else {
+    res.status(404).json({
+      error: {
+        code: `not_found`,
+        message: `The requested endpoint was not found or doesn't support this method.`,
+      },
+    });
   }
-  return res.status(404).json({
-    error: {
-      code: `not_found`,
-      message: `The requested endpoint was not found or doesn't support this method.`,
-    },
-  });
 };
-
 export default emailer;
