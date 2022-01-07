@@ -1,13 +1,13 @@
-import PageLayout from "src/layout/PageLayout";
 import { defaultImage, pageSettings } from "config";
-import { NextSeo } from "next-seo";
-import { LoginForm } from "src/templates/forms";
-import Link from "next/link";
 import { GetServerSideProps, NextPage } from "next";
-import { getSession } from "next-auth/client";
-import { ContentPane, SplitPane, TextPane } from "src/components/SplitPane";
-import React from "react";
+import { getSession } from "next-auth/react";
+import { NextSeo } from "next-seo";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import React from "react";
+import { ContentPane, SplitPane, TextPane } from "src/components/SplitPane";
+import PageLayout from "src/layout/PageLayout";
+import { LoginForm } from "src/templates/forms";
 
 const LoginPage: NextPage = () => {
   const router = useRouter();

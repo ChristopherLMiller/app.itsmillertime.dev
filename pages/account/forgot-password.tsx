@@ -1,12 +1,12 @@
 import { defaultImage, pageSettings } from "config";
+import { GetServerSideProps, NextPage } from "next";
+import { getSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
-import { ForgotPasswordForm } from "src/templates/forms";
-import PageLayout from "src/layout/PageLayout";
-import { GetServerSideProps, NextPage } from "next";
-import { getSession } from "next-auth/client";
-import { ContentPane, SplitPane, TextPane } from "src/components/SplitPane";
 import { useRouter } from "next/router";
+import { ContentPane, SplitPane, TextPane } from "src/components/SplitPane";
+import PageLayout from "src/layout/PageLayout";
+import { ForgotPasswordForm } from "src/templates/forms";
 
 const ForgotPasswordPage: NextPage = () => {
   const router = useRouter();

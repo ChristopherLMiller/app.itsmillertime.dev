@@ -1,6 +1,6 @@
-import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/client';
-import { ParsedUrlQuery } from 'querystring';
+import { GetServerSidePropsContext } from "next";
+import { getSession } from "next-auth/react";
+import { ParsedUrlQuery } from "querystring";
 
 export async function getServerSideSEO(
   url: string,

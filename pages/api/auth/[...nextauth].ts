@@ -1,14 +1,14 @@
 import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
-import { NextApiRequest, NextApiResponse } from "next";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 interface iCredentials {
   username: string;
   password: string;
 }
-const options = {
+
+export default NextAuth({
   providers: [
-    Providers.Credentials({
+    CredentialsProvider({
       name: `Credentials`,
       credentials: {
         username: { label: `Email`, type: `email`, placeholder: `jsmith` },
@@ -43,38 +43,19 @@ const options = {
   ],
   secret: process.env.SECRET,
   session: {
-    jwt: true,
-    secret: process.env.JWT_SECRET,
-    signingKey: `{
-      kty: 'oct',
-      kid: process.env.JWT_SIGNING_KID,
-      alg: 'HS512',
-      k: process.env.JWT_SIGNING_PRIVATE_KEY,
-    }`,
-  },
-  callbacks: {
-    jwt: async (token, user) => {
-      if (user) {
-        token.jwt = user.jwt;
-        token.user = user.user;
-      }
-      return Promise.resolve(token);
-    },
-    session: async (session, token) => {
-      session.jwt = token.jwt;
-      session.user = token.user;
-      return Promise.resolve(session);
-    },
+    strategy: "jwt",
   },
   pages: {
     signIn: `/login`,
     error: `/login`,
   },
-};
-
-const Auth = (
-  req: NextApiRequest,
-  res: NextApiResponse
-): void | Promise<void> => NextAuth(req, res, options);
-
-export default Auth;
+  callbacks: {
+    async session({ session, token }) {
+      session.jwt = token.jwt;
+      // TODO: fix this shameful hack to shut up TS
+      // @ts-ignore
+      session.user = token.user;
+      return session;
+    },
+  },
+});

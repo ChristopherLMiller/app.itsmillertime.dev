@@ -1,7 +1,7 @@
 import { Grid, GridItem } from "@components/Grid";
 import { defaultImage, pageSettings } from "config";
 import { GetServerSideProps, NextPage } from "next";
-import { getSession, useSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -22,7 +22,7 @@ interface iMyAccountPage {
 }
 
 const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
-  const [session] = useSession();
+  const session = useSession();
   const router = useRouter();
 
   return (
@@ -64,13 +64,13 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
                   <p>Username:</p>
                 </GridItem>
                 <GridItem>
-                  <p>{session?.user?.username}</p>
+                  <p>{session.data?.user?.username}</p>
                 </GridItem>
                 <GridItem>
                   <p>Email:</p>
                 </GridItem>
                 <GridItem>
-                  <p>{session?.user?.email}</p>
+                  <p>{session.data?.user?.email}</p>
                 </GridItem>
                 <GridItem>
                   <p>Account Confirmed:</p>
@@ -78,7 +78,7 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
                 <GridItem>
                   <input
                     type="checkbox"
-                    checked={session?.user?.confirmed}
+                    checked={session.data?.user?.confirmed}
                     disabled
                   />
                 </GridItem>
@@ -89,7 +89,7 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
                   <p>
                     <input
                       type="checkbox"
-                      checked={session?.user?.blocked}
+                      checked={session.data?.user?.blocked}
                       disabled
                     />
                   </p>
@@ -98,7 +98,7 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
                   <p>User Role:</p>
                 </GridItem>
                 <GridItem>
-                  <p>{session?.user?.role?.name}</p>
+                  <p>{session.data?.user?.role?.name}</p>
                 </GridItem>
               </Grid>
             </InformationPanel>

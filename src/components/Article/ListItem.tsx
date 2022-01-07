@@ -1,6 +1,6 @@
 import { formatRelative, parseISO } from "date-fns";
 import { motion } from "framer-motion";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { Fragment, FunctionComponent } from "react";
 import Image from "src/components/Images";
@@ -108,7 +108,7 @@ interface iArticleListItem {
 }
 
 const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
-  const [session] = useSession();
+  const session = useSession();
 
   return (
     <StyledArticleListItem>
@@ -135,7 +135,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
               ? formatRelative(parseISO(article.published_at), new Date())
               : `Draft`}
             {` | `}
-            {isAdmin(session?.user) && (
+            {isAdmin(session.data?.user) && (
               <Fragment>
                 <a
                   href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}

@@ -2,13 +2,13 @@ import Markdown from "@components/Markdown";
 import ShareButtons from "@components/ShareButtons";
 import { defaultImage, pageSettings } from "config";
 import { formatRelative, parseISO } from "date-fns";
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { useSession } from "next-auth/client";
+import { GetServerSideProps, NextPage } from "next";
+import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { ArticlesSitemapDocument } from "src/graphql/schema/articles/articlesSitemap.query.generated";
-import { Article } from "src/graphql/types";
+import { ArticlesDocument } from "src/graphql/schema/articles/articles.query.generated";
+import { Article, PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { fetchData } from "src/lib/fetch";
 import { countWords, isAdmin, timeToRead } from "src/utils";
@@ -20,11 +20,6 @@ const StyledBlogPost = styled.article`
   column-fill: balance;
   column-gap: 0;
   column-rule: 3px solid var(--color-gold-transparent);
-
-  img {
-    width: 100%;
-    display: inline-block;
-  }
 `;
 
 const ArticleListItemContent = styled.div`
@@ -62,6 +57,16 @@ const ArticleListItemContent = styled.div`
       color: var(--color-gold-transparent);
       box-shadow: var(--box-shadow-inset-2);
     }
+    img {
+      width: 33%;
+      max-width: 33%;
+      display: inline-block;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    display: inline-block;
   }
 `;
 
@@ -95,7 +100,7 @@ interface iBlogPost {
 }
 
 const BlogPost: NextPage<iBlogPost> = ({ article }) => {
-  const [session] = useSession();
+  const session = useSession();
   const router = useRouter();
 
   return (
@@ -147,7 +152,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
             {` `}| Time To Read:
             {timeToRead(countWords(article.content))}
           </h5>
-          {isAdmin(session?.user) && (
+          {isAdmin(session.data?.user) && (
             <h5>
               <a
                 href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
@@ -172,36 +177,44 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const slug = context.params?.slug;
-
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/articles?slug_eq=${slug}`
-  );
-  const data = await response.json();
-
-  if (data.length) {
-    return {
-      props: {
-        article: data[0],
-      },
-      revalidate: 10,
-    };
-  } else {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  const { slug } = context.query;
+  // if the slug isn't found lets eject right away for a 404 error
+  if (!slug) {
     return {
       notFound: true,
     };
   }
+
+  // Fetch the data, the publication state depends on the user being an admin or not
+  const data = await fetchData(
+    ArticlesDocument,
+    {
+      where: { slug_eq: slug },
+      publicationState: isAdmin(session?.user)
+        ? PublicationState.Preview
+        : PublicationState.Live,
+    },
+    // TODO: Fix this, unknown and ignoring is shameful
+    //@ts-ignore
+    session.jwt
+  );
+
+  if (data.articles.length) {
+    return {
+      props: {
+        article: data.articles[0],
+      },
+    };
+  } else {
+    // If the article isn't found (0 length) we will just redirct to the landing page
+    return {
+      redirect: {
+        destination: "/blog",
+        permanent: false,
+      },
+    };
+  }
 };
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await fetchData(ArticlesSitemapDocument);
-
-  const paths = data.articles.map((item) => {
-    return { params: { slug: item.slug } };
-  });
-
-  return { paths, fallback: "blocking" };
-};
-
 export default BlogPost;

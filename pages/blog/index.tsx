@@ -1,30 +1,30 @@
-import { NextSeo } from "next-seo";
-import PageLayout from "src/layout/PageLayout";
-import Card from "src/components/Card";
+import { pageSettings } from "config";
 import { NextPage } from "next";
-import styled from "styled-components";
-import ArticleListItem from "src/components/Article/ListItem";
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/client";
-import Loader from "src/components/Loader";
+import { useSession } from "next-auth/react";
+import { NextSeo } from "next-seo";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import ArticleListItem from "src/components/Article/ListItem";
+import Card from "src/components/Card";
+import Loader from "src/components/Loader";
 import { useArticlesQuery } from "src/graphql/schema/articles/articles.query.generated";
 import { Article, PublicationState } from "src/graphql/types";
-import { pageSettings } from "config";
+import PageLayout from "src/layout/PageLayout";
+import styled from "styled-components";
 
 const ArticleList = styled.ul`
   padding-inline-start: 0;
 `;
 
 const BlogIndexpage: NextPage = () => {
-  const [session] = useSession();
+  const session = useSession();
   const router = useRouter();
 
   // retrieve anything currently in the router query to use for the variables
   const variables = {};
   const tag = router.query["tag"];
   const sort = router.query["sort"] || "createdAt:DESC";
-  const publicationState = session?.user
+  const publicationState = session.data?.user
     ? PublicationState.Preview
     : PublicationState.Live;
   const page = parseInt(router.query["page"] as string) || 1;

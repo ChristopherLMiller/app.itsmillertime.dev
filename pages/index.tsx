@@ -2,14 +2,14 @@ import { Grid } from "@components/Grid";
 import Panel from "@components/Panel";
 import { defaultImage, pageSettings } from "config";
 import { NextPage } from "next";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import React from "react";
 import PageLayout from "src/layout/PageLayout";
 
 const IndexPage: NextPage = () => {
-  const [session] = useSession();
+  const session = useSession();
   const router = useRouter();
 
   return (
@@ -37,7 +37,9 @@ const IndexPage: NextPage = () => {
       />
       <Grid columns={2} gap="30px">
         <Panel>
-          <p>Hello, {session?.user ? session?.user?.username : `Guest`}</p>
+          <p>
+            Hello, {session.data?.user ? session.data?.user?.username : `Guest`}
+          </p>
           <p>
             Please excuse the mess while I&apos;m remodeling. Many great things
             are in progress and will appear here as they are built.
