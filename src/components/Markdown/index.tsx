@@ -7,6 +7,7 @@ import remarkGuillemets from "remark-fix-guillemets";
 import remarkFootnotes from "remark-footnotes";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkHeadingId from "remark-heading-id";
+import remarkHtml from "remark-html";
 import remarkSubSuper from "remark-sub-super";
 import remarkUnwrapImages from "remark-unwrap-images";
 
@@ -17,6 +18,7 @@ const Markdown: FunctionComponent<iMarkdown> = ({ source }) => (
   <MDXProvider>
     <MDX
       remarkPlugins={[
+        remarkHtml,
         remarkTypograf,
         remarkEmoji,
         remarkFootnotes,

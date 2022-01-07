@@ -39,7 +39,7 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
   }, [model?.clockify_project_id]);
 
   const tags = model?.model_tags?.map((tag, index) => (
-    <Link href={`/models?tag=${tag.slug}`} key={tag.id} passHref>
+    <Link href={`/models?tag=${tag.slug}`} key={tag.slug} passHref>
       <span>
         <a>{tag.name}</a>
         {index !== model?.model_tags?.length - 1 && ", "}

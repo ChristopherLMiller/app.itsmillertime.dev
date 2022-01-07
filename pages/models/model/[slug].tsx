@@ -6,7 +6,7 @@ import Table from "@components/Table";
 import { defaultImage, pageSettings } from "config";
 import { format, formatRelative, parseISO } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -249,7 +249,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         ? PublicationState.Preview
         : PublicationState.Live,
     },
-    session?.jwt
+    // TODO: Fix this, unknown and ignoring is shameful
+    //@ts-ignore
+    session.jwt
   );
 
   if (data.models.length) {

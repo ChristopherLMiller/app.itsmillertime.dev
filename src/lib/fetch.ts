@@ -1,5 +1,5 @@
 import { GraphQLClient } from "graphql-request";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 
 export const graphQLClient = new GraphQLClient(
   `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`
@@ -25,7 +25,7 @@ export function fetcher<TData, TVariables>(
 export const fetchData = async (
   query: string,
   variables?: any | null,
-  jwt?: string | unknown
+  jwt?: string
 ) => {
   const requestHeaders = {
     "Content-Type": "application/json",
@@ -44,6 +44,7 @@ export const fetchData = async (
     }
   );
   const data = await response.json();
+  // TODO: handle errors and return them instead of just tryign to send back data
   console.log(data);
   return data.data;
 };

@@ -1,6 +1,6 @@
 import ScrollTop from "@components/ScrollTop";
 import { AnimatePresence, motion } from "framer-motion";
-import { Provider } from "next-auth/client";
+import { SessionProvider } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
 import SEO from "next-seo.config";
 import Head from "next/head";
@@ -35,7 +35,7 @@ const CookieConsentText = styled.span`
 
 const queryClient = new QueryClient();
 
-const App = ({ Component, pageProps, err }) => {
+const App = ({ Component, pageProps: { session, ...pageProps }, err }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const App = ({ Component, pageProps, err }) => {
   });
 
   return (
-    <Provider session={pageProps.session}>
+    <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen />
         <ThemeProvider theme={defaultTheme}>
@@ -121,7 +121,7 @@ const App = ({ Component, pageProps, err }) => {
           <GlobalStyles />
         </ThemeProvider>
       </QueryClientProvider>
-    </Provider>
+    </SessionProvider>
   );
 };
 

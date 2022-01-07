@@ -6,7 +6,7 @@ import Table from "@components/Table";
 import { pageSettings } from "config";
 import { formatRelative } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
-import { getSession, useSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
@@ -39,7 +39,7 @@ interface iGalleryPage {
   album: Gallery;
 }
 const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
-  const [session] = useSession();
+  const session = useSession();
   const router = useRouter();
 
   const isPublic = album.status === Enum_Gallery_Status.Public;
@@ -115,8 +115,8 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
                 ["Num Images", album.gallery_images?.length.toString()],
                 [
                   {
-                    label: isAdmin(session?.user) ? "Edit" : "",
-                    url: isAdmin(session?.user)
+                    label: isAdmin(session.data?.user) ? "Edit" : "",
+                    url: isAdmin(session.data?.user)
                       ? `${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${album.id}`
                       : ``,
                   },
@@ -152,14 +152,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   // Fetch the data at this point
-  const data = await fetchData(
-    GalleriesDocument,
-    {
-      where: { slug_eq: slug },
-      sort: "title:ASC",
-    },
-    session?.jwt
-  );
+  const data = await fetchData(GalleriesDocument, {
+    where: { slug_eq: slug },
+    sort: "title:ASC",
+  });
 
   // next step is make sure we got at least one result
   if (data?.galleries?.length == 0) {

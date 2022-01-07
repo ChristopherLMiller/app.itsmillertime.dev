@@ -1,16 +1,16 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import Button from "src/components/inputs/Button";
-import {
-  StyledForm,
-  Fieldset,
-  Label,
-  FormErrorMessage,
-} from "src/components/inputs";
-import * as Yup from "yup";
-import { useToasts } from "react-toast-notifications";
-import { FunctionComponent } from "react";
-import { signIn } from "next-auth/client";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import { FunctionComponent } from "react";
+import { useToasts } from "react-toast-notifications";
+import {
+  Fieldset,
+  FormErrorMessage,
+  Label,
+  StyledForm,
+} from "src/components/inputs";
+import Button from "src/components/inputs/Button";
+import * as Yup from "yup";
 
 const FormValidation = Yup.object().shape({
   username: Yup.string().required(`Please enter your username or email`),
@@ -51,14 +51,14 @@ const LoginForm: FunctionComponent = () => {
           <StyledForm>
             <Fieldset>
               <Label htmlFor="username">Username or Email:</Label>
-              <Field type="text" name="username" />
+              <Field type="text" name="username" autocomplete="username" />
               <FormErrorMessage>
                 <ErrorMessage name="username" component="div" />
               </FormErrorMessage>
             </Fieldset>
             <Fieldset>
               <Label htmlFor="password">Password:</Label>
-              <Field type="password" name="password" />
+              <Field type="password" name="password" autocomplete="password" />
               <FormErrorMessage>
                 <ErrorMessage name="password" component="div" />
               </FormErrorMessage>

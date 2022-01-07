@@ -1,14 +1,14 @@
-import { signOut, useSession } from 'next-auth/client';
-import { useRouter } from 'next/router';
-import { FunctionComponent } from 'react';
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { FunctionComponent } from "react";
 import {
+  IoIosArchive,
   IoIosLogIn,
   IoIosLogOut,
-  IoIosArchive,
   IoMdContact,
-} from 'react-icons/io';
-import { isAdmin } from 'src/utils';
-import styled from 'styled-components';
+} from "react-icons/io";
+import { isAdmin } from "src/utils";
+import styled from "styled-components";
 
 const Item = styled.span`
   color: var(--color-white-100);
@@ -18,16 +18,16 @@ const Item = styled.span`
 
 const AccountDetails: FunctionComponent = () => {
   const router = useRouter();
-  const [session] = useSession();
+  const session = useSession();
 
   return (
     <div>
-      {session?.user && (
+      {session.data?.user && (
         <Item onClick={() => router.push(`/account/my-account`)}>
           <IoMdContact />
         </Item>
       )}
-      {isAdmin(session?.user) && (
+      {isAdmin(session.data?.user) && (
         <Item
           onClick={() =>
             router.push(`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin`)
@@ -38,11 +38,11 @@ const AccountDetails: FunctionComponent = () => {
       )}
       <Item
         onClick={() =>
-          session?.user ? signOut() : router.push(`/account/login`)
+          session.data?.user ? signOut() : router.push(`/account/login`)
         }
       >
-        {session?.user && <IoIosLogOut />}
-        {!session?.user && <IoIosLogIn />}
+        {session.data?.user && <IoIosLogOut />}
+        {!session.data?.user && <IoIosLogIn />}
       </Item>
     </div>
   );
