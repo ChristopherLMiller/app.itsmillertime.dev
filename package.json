@@ -1,6 +1,6 @@
 {
   "name": "app.christopherleemiller.me",
-  "version": "1.22.12",
+  "version": "1.23.0",
   "description": "Front End to www.christopherleemiller.me",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@cloudinary/base": "^1.0.0-beta.4",
-    "@cloudinary/react": "^1.0.0-beta.11",
+    "@cloudinary/react": "^1.0.1",
     "@hcaptcha/react-hcaptcha": "^1.0.0",
     "@mapbox/rehype-prism": "^0.8.0",
     "@mavrin/remark-typograf": "^2.2.0",
