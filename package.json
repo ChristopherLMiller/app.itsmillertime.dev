@@ -1,6 +1,6 @@
 {
   "name": "app.christopherleemiller.me",
-  "version": "1.22.12",
+  "version": "1.23.0",
   "description": "Front End to www.christopherleemiller.me",
   "main": "index.js",
   "scripts": {
@@ -86,7 +86,7 @@
     "@types/node": "16.11.17",
     "@types/react": "17.0.38",
     "@typescript-eslint/eslint-plugin": "5.8.1",
-    "@typescript-eslint/parser": "5.8.1",
+    "@typescript-eslint/parser": "5.9.0",
     "airbnb": "0.0.2",
     "babel-loader": "8.2.3",
     "babel-plugin-styled-components": "2.0.2",
