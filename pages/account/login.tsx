@@ -21,6 +21,7 @@ const LoginPage: NextPage = () => {
         nofollow={true}
         title={pageSettings.login.title}
         description={pageSettings.login.description}
+        canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         openGraph={{
           title: pageSettings.login.title,
           description: pageSettings.login.description,

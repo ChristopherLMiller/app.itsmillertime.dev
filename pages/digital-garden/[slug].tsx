@@ -21,6 +21,7 @@ const DigitalGardenIndexPage: NextPage<iDigitalGarden> = ({ garden }) => {
     >
       <NextSeo
         title={pageSettings.digitalGarden.title}
+        canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         description={pageSettings.digitalGarden.description}
         openGraph={{
           title: pageSettings.digitalGarden.title,

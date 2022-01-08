@@ -61,6 +61,7 @@ const GalleriesIndexPage: NextPage = () => {
       <NextSeo
         title={pageSettings.gallery.title}
         description={pageSettings.gallery.description}
+        canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         openGraph={{
           title: pageSettings.gallery.title,
           description: pageSettings.gallery.description,

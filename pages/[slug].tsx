@@ -11,6 +11,7 @@ const Page = ({ page }) => {
       <NextSeo
         title={seo.title}
         description={seo.description}
+        canonical={`${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`}
         openGraph={{
           title: seo.title,
           description: seo.description,

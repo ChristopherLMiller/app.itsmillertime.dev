@@ -65,6 +65,7 @@ const BlogIndexpage: NextPage = () => {
       <NextSeo
         title={pageSettings.blog.title}
         description={pageSettings.blog.description}
+        canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         openGraph={{
           title: pageSettings.blog.title,
           description: pageSettings.blog.description,

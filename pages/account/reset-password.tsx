@@ -1,9 +1,9 @@
-import PageLayout from "src/layout/PageLayout";
 import { defaultImage, pageSettings } from "config";
-import { useRouter } from "next/router";
-import { NextSeo } from "next-seo";
 import { NextPage } from "next";
+import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
 import { ContentPane, SplitPane, TextPane } from "src/components/SplitPane";
+import PageLayout from "src/layout/PageLayout";
 import ResetPasswordForm from "src/templates/forms/resetPassword";
 
 const ResetPasswordPage: NextPage = () => {
@@ -19,6 +19,7 @@ const ResetPasswordPage: NextPage = () => {
       <NextSeo
         nofollow={true}
         title={pageSettings.resetPassword.title}
+        canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         description={pageSettings.resetPassword.description}
         openGraph={{
           title: pageSettings.resetPassword.title,

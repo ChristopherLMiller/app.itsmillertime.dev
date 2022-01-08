@@ -21,6 +21,7 @@ const IndexPage: NextPage = () => {
       <NextSeo
         title={pageSettings.home.title}
         description={pageSettings.home.description}
+        canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         openGraph={{
           title: pageSettings.home.title,
           description: pageSettings.home.description,

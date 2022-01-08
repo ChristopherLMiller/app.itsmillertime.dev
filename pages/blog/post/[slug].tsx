@@ -114,6 +114,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
     >
       <NextSeo
         title={article.title}
+        canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         description={article?.seo?.description}
         openGraph={{
           title: `${article?.title}`,
