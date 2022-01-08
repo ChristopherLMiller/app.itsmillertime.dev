@@ -16,6 +16,7 @@ import { Enum_Gallery_Status, Gallery } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { fetchData } from "src/lib/fetch";
 import { isAdmin } from "src/utils";
+import { isSessionLoading } from "src/utils/auth";
 import styled from "styled-components";
 
 const GalleryGrid = styled.div`
@@ -115,10 +116,14 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
                 ["Num Images", album.gallery_images?.length.toString()],
                 [
                   {
-                    label: isAdmin(session) ? "Edit" : "",
-                    url: isAdmin(session)
-                      ? `${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${album.id}`
-                      : ``,
+                    label:
+                      !isSessionLoading(session) && isAdmin(session)
+                        ? "Edit"
+                        : "",
+                    url:
+                      !isSessionLoading(session) && isAdmin(session)
+                        ? `${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${album.id}`
+                        : ``,
                   },
                   "",
                 ],

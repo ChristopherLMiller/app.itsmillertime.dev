@@ -12,14 +12,18 @@ import { Article, PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { fetchData } from "src/lib/fetch";
 import { countWords, isAdmin, timeToRead } from "src/utils";
+import { isSessionLoading } from "src/utils/auth";
 import styled from "styled-components";
 
 const StyledBlogPost = styled.article`
   background: var(--color-grey-light);
-  column-count: 2;
+  column-count: 1;
   column-fill: balance;
   column-gap: 0;
   column-rule: 3px solid var(--color-gold-transparent);
+
+  @media (min-width: 800px) {
+    column-count: 2;
 `;
 
 const ArticleListItemContent = styled.div`
@@ -152,7 +156,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
             {` `}| Time To Read:
             {timeToRead(countWords(article.content))}
           </h5>
-          {isAdmin(session) && (
+          {!isSessionLoading(session) && isAdmin(session) && (
             <h5>
               <a
                 href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}

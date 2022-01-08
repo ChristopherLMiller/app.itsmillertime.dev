@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
-import { useSession } from "next-auth/react";
 import { FunctionComponent } from "react";
 import Header from "src/layout/elements/Header";
-import { isSessionLoading } from "src/utils/auth";
 import styled from "styled-components";
 import Footer from "./elements/Footer";
 
@@ -52,10 +50,6 @@ const PageLayout: FunctionComponent<iPagelayout> = ({
   padding = true,
   children,
 }) => {
-  const session = useSession();
-
-  if (isSessionLoading(session)) return null;
-
   return (
     <ContentArea variants={contentVariants}>
       <Header title={title} description={description} />
