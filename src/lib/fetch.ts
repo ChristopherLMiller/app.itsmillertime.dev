@@ -1,5 +1,4 @@
 import { GraphQLClient } from "graphql-request";
-import { getSession } from "next-auth/react";
 import { isDev } from "src/utils";
 
 export const graphQLClient = new GraphQLClient(
@@ -11,14 +10,26 @@ export function fetcher<TData, TVariables>(
   variables?: TVariables
 ) {
   return async (): Promise<TData> => {
-    const session = await getSession();
+    // if the jwt is supplied in the variables and isn't null/undefined
+    // then lets set the request header to include it
+    // @ts-ignore
+    const jwt = variables?.jwt;
+
+    // Filter out the JWt now so that we don't accidently send it along as a variable
+    const finalVariables = Object.keys(variables)
+      .filter((key) => key != "jwt")
+      .reduce((obj, key) => {
+        obj[key] = variables[key];
+        return obj;
+      }, {});
+
     const requestHeaders = {
-      authorization: `Bearer ${session?.jwt}`,
+      authorization: `Bearer ${jwt}`,
     };
     return await graphQLClient.request(
       query,
-      variables,
-      session ? requestHeaders : null
+      finalVariables,
+      jwt && requestHeaders
     );
   };
 }

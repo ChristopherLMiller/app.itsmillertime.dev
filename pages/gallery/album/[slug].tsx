@@ -115,8 +115,8 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
                 ["Num Images", album.gallery_images?.length.toString()],
                 [
                   {
-                    label: isAdmin(session.data?.user) ? "Edit" : "",
-                    url: isAdmin(session.data?.user)
+                    label: isAdmin(session) ? "Edit" : "",
+                    url: isAdmin(session)
                       ? `${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${album.id}`
                       : ``,
                   },

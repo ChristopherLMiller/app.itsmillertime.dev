@@ -111,7 +111,7 @@ const App = ({ Component, pageProps: { session, ...pageProps }, err }) => {
                     animate="enter"
                     exit="exit"
                   >
-                    <Component {...pageProps} err={err} />
+                    {true && <Component {...pageProps} err={err} />}
                   </motion.div>
                 </Content>
               </Fragment>

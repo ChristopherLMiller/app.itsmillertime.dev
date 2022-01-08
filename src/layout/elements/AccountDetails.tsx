@@ -8,6 +8,7 @@ import {
   IoMdContact,
 } from "react-icons/io";
 import { isAdmin } from "src/utils";
+import { isAuthenticated, isSessionLoading } from "src/utils/auth";
 import styled from "styled-components";
 
 const Item = styled.span`
@@ -20,14 +21,17 @@ const AccountDetails: FunctionComponent = () => {
   const router = useRouter();
   const session = useSession();
 
+  if (isSessionLoading(session)) {
+    return null;
+  }
   return (
     <div>
-      {session.data?.user && (
+      {isAuthenticated(session) && (
         <Item onClick={() => router.push(`/account/my-account`)}>
           <IoMdContact />
         </Item>
       )}
-      {isAdmin(session.data?.user) && (
+      {isAdmin(session) && (
         <Item
           onClick={() =>
             router.push(`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin`)
@@ -38,11 +42,10 @@ const AccountDetails: FunctionComponent = () => {
       )}
       <Item
         onClick={() =>
-          session.data?.user ? signOut() : router.push(`/account/login`)
+          isAuthenticated(session) ? signOut() : router.push(`/account/login`)
         }
       >
-        {session.data?.user && <IoIosLogOut />}
-        {!session.data?.user && <IoIosLogIn />}
+        {isAuthenticated(session) ? <IoIosLogOut /> : <IoIosLogIn />}
       </Item>
     </div>
   );

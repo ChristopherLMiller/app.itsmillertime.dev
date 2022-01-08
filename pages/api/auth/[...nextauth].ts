@@ -31,7 +31,8 @@ export default NextAuth({
           );
 
           if (response.status === 200) {
-            return await response.json();
+            const user = await response.json();
+            return user;
           } else {
             throw new Error(`Invalid credentials`);
           }
@@ -51,11 +52,17 @@ export default NextAuth({
   },
   callbacks: {
     async session({ session, token }) {
-      session.jwt = token.jwt;
-      // TODO: fix this shameful hack to shut up TS
       // @ts-ignore
       session.user = token.user;
+      session.jwt = token.jwt;
       return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.jwt = user.jwt;
+        token.user = user.user;
+      }
+      return token;
     },
   },
 });

@@ -20,7 +20,7 @@ const ModelsPageIndex: NextPage = () => {
   const { data, isLoading, isSuccess, error } = useModelsQuery({
     sort: sort,
     where: router.query ? router.query : null,
-    publicationState: isAdmin(session.data?.user)
+    publicationState: isAdmin(session)
       ? PublicationState.Preview
       : PublicationState.Live,
   });
