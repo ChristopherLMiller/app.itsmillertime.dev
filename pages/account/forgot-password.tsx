@@ -20,6 +20,7 @@ const ForgotPasswordPage: NextPage = () => {
         nofollow={true}
         title={pageSettings.forgotPassword.title}
         description={pageSettings.forgotPassword.description}
+        canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         openGraph={{
           title: pageSettings.forgotPassword.title,
           description: pageSettings.forgotPassword.description,

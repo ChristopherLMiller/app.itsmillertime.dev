@@ -38,6 +38,7 @@ const ModelsPageIndex: NextPage = () => {
       <NextSeo
         title={pageSettings.models.title}
         description={pageSettings.models.description}
+        canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         openGraph={{
           title: pageSettings.models.title,
           description: pageSettings.models.description,

@@ -111,6 +111,7 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
       <NextSeo
         title={model.SEO.title}
         description={model.SEO.description}
+        canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         openGraph={{
           title: `${model.SEO.title}`,
           description: `${model.SEO.description}`,

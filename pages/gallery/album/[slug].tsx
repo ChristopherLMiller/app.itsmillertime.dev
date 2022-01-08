@@ -58,6 +58,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
       <NextSeo
         title={album.title}
         description={album.description}
+        canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         openGraph={{
           title: `${album.title}`,
           description: `${album.description}`,

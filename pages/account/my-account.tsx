@@ -33,6 +33,7 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
       <NextSeo
         nofollow={true}
         title={pageSettings.myAccount.title}
+        canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         description={pageSettings.myAccount.description}
         openGraph={{
           title: pageSettings.myAccount.title,
