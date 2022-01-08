@@ -245,7 +245,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     ModelsDocument,
     {
       where: { slug_eq: slug },
-      publicationState: isAdmin(session?.user)
+      publicationState: isAdmin(session, true)
         ? PublicationState.Preview
         : PublicationState.Live,
     },

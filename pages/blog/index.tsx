@@ -10,6 +10,7 @@ import Loader from "src/components/Loader";
 import { useArticlesQuery } from "src/graphql/schema/articles/articles.query.generated";
 import { Article, PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
+import { getJWT, isAuthenticated } from "src/utils/auth";
 import styled from "styled-components";
 
 const ArticleList = styled.ul`
@@ -21,14 +22,23 @@ const BlogIndexpage: NextPage = () => {
   const router = useRouter();
 
   // retrieve anything currently in the router query to use for the variables
-  const variables = {};
-  const tag = router.query["tag"];
-  const sort = router.query["sort"] || "createdAt:DESC";
-  const publicationState = session.data?.user
+  const tag = router.query["tag"] as string;
+  const sort = (router.query["sort"] as string) || "createdAt:DESC";
+  const publicationState = isAuthenticated(session)
     ? PublicationState.Preview
     : PublicationState.Live;
   const page = parseInt(router.query["page"] as string) || 1;
   const limit = parseInt(router.query["limit"] as string) || 10;
+  const start = (page - 1) * limit;
+
+  // set the rest now based on the above, will have a value regardless here
+  const variables = {
+    sort,
+    publicationState,
+    limit,
+    start,
+    jwt: getJWT(session),
+  };
 
   // if the tag is defined, we'll use it to filter the articles, but we must create an object appropriate for Strapi
   if (tag) {
@@ -38,12 +48,6 @@ const BlogIndexpage: NextPage = () => {
       },
     };
   }
-
-  // set the rest now based on the above, will have a value regardless here
-  variables["sort"] = sort;
-  variables["publicationState"] = publicationState;
-  variables["limit"] = limit;
-  variables["start"] = (page - 1) * limit;
 
   // fetch the data now
   const { data, error, isLoading, isSuccess } = useArticlesQuery(variables);

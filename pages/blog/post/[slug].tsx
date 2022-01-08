@@ -152,7 +152,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
             {` `}| Time To Read:
             {timeToRead(countWords(article.content))}
           </h5>
-          {isAdmin(session.data?.user) && (
+          {isAdmin(session) && (
             <h5>
               <a
                 href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
@@ -180,6 +180,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
   const { slug } = context.query;
+
   // if the slug isn't found lets eject right away for a 404 error
   if (!slug) {
     return {
@@ -192,7 +193,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     ArticlesDocument,
     {
       where: { slug_eq: slug },
-      publicationState: isAdmin(session?.user)
+      publicationState: isAdmin(session, true)
         ? PublicationState.Preview
         : PublicationState.Live,
     },

@@ -3,10 +3,10 @@ import { defaultImage, pageSettings } from "config";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import Card from "src/components/Card";
 import PageLayout from "src/layout/PageLayout";
+import { getRole, getUser } from "src/utils/auth";
 import styled from "styled-components";
 
 const crypto = require("crypto");
@@ -50,11 +50,9 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
         }}
       />
       <Grid columns={3}>
-        <Image
+        <img
           src={`https://www.gravatar.com/avatar/${emailHash}`}
           alt="Gravatar"
-          width={80}
-          height={80}
         />
         <GridItem start={2} end={3}>
           <Card heading="My Information" align="left">
@@ -64,13 +62,13 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
                   <p>Username:</p>
                 </GridItem>
                 <GridItem>
-                  <p>{session.data?.user?.username}</p>
+                  <p>{getUser(session).username}</p>
                 </GridItem>
                 <GridItem>
                   <p>Email:</p>
                 </GridItem>
                 <GridItem>
-                  <p>{session.data?.user?.email}</p>
+                  <p>{getUser(session).email}</p>
                 </GridItem>
                 <GridItem>
                   <p>Account Confirmed:</p>
@@ -78,7 +76,7 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
                 <GridItem>
                   <input
                     type="checkbox"
-                    checked={session.data?.user?.confirmed}
+                    checked={getUser(session).confirmed}
                     disabled
                   />
                 </GridItem>
@@ -89,7 +87,7 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
                   <p>
                     <input
                       type="checkbox"
-                      checked={session.data?.user?.blocked}
+                      checked={getUser(session).blocked}
                       disabled
                     />
                   </p>
@@ -98,7 +96,7 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
                   <p>User Role:</p>
                 </GridItem>
                 <GridItem>
-                  <p>{session.data?.user?.role?.name}</p>
+                  <p>{getRole(session)}</p>
                 </GridItem>
               </Grid>
             </InformationPanel>

@@ -76,7 +76,13 @@ const GalleriesIndexPage: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
-
+      {isSuccess && data?.galleries.length === 0 && (
+        <Card heading="No Galleries Found">
+          <p>
+            We were unable to find any galleries matching your criteria. Sorry
+          </p>
+        </Card>
+      )}
       <Grid gap="30px" columns={3} masonry>
         {isSuccess &&
           data?.galleries?.map((gallery) => (

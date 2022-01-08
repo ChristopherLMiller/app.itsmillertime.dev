@@ -135,7 +135,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
               ? formatRelative(parseISO(article.published_at), new Date())
               : `Draft`}
             {` | `}
-            {isAdmin(session.data?.user) && (
+            {isAdmin(session) && (
               <Fragment>
                 <a
                   href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}

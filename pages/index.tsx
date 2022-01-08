@@ -7,6 +7,7 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import React from "react";
 import PageLayout from "src/layout/PageLayout";
+import { getUsername } from "src/utils/auth";
 
 const IndexPage: NextPage = () => {
   const session = useSession();
@@ -37,9 +38,7 @@ const IndexPage: NextPage = () => {
       />
       <Grid columns={2} gap="30px">
         <Panel>
-          <p>
-            Hello, {session.data?.user ? session.data?.user?.username : `Guest`}
-          </p>
+          <p>Hello, {getUsername(session)}</p>
           <p>
             Please excuse the mess while I&apos;m remodeling. Many great things
             are in progress and will appear here as they are built.
