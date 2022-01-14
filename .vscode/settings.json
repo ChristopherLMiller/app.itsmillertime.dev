@@ -6,5 +6,6 @@
   "search.exclude": {
     "**/node_modules": false,
     "**/node_moduless": true
-  }
+  },
+  "svg.preview.background": "editor"
 }

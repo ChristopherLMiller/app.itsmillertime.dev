@@ -54,7 +54,6 @@ const nextConfig = {
     rootDir: __dirname,
   },
   workboxOpts: {
-    swDest: `../public/service-worker.js`,
     offlineGoogleAnalytics: true,
     runtimeCaching: [
       {
