@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { withSentryConfig } = require(`@sentry/nextjs`);
-const withPWA = require('next-pwa');
+const withPWA = require("next-pwa");
 const rehypePrism = require(`@mapbox/rehype-prism`);
 const remarkTypograf = require("@mavrin/remark-typograf");
 const remarkEmoji = require("next-transpile-modules")(["remark-emoji"]);
@@ -58,8 +58,8 @@ const nextConfig = {
     domains: [`res.cloudinary.com`, `gravatar.com`],
   },
   pwa: {
-    dest: 'public'
-  }
+    dest: "public",
+  },
 };
 
 const SentryWebpackPluginOptions = {
