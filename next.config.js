@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const withOffline = require(`next-offline`);
 const { withSentryConfig } = require(`@sentry/nextjs`);
-
+const withPWA = require('next-pwa');
 const rehypePrism = require(`@mapbox/rehype-prism`);
 const remarkTypograf = require("@mavrin/remark-typograf");
 const remarkEmoji = require("next-transpile-modules")(["remark-emoji"]);
@@ -53,45 +52,20 @@ const nextConfig = {
   serverRuntimeConfig: {
     rootDir: __dirname,
   },
-  workboxOpts: {
-    offlineGoogleAnalytics: true,
-    runtimeCaching: [
-      {
-        urlPattern: /\.(?:gif|ico|jpg|jpeg|png|svg|webp)(?:\?|$)/,
-        handler: `CacheFirst`,
-        options: {
-          cacheName: `image-cache`,
-          expiration: {
-            maxEntries: 500,
-            maxAgeSeconds: 60 * 60 * 24 * 7,
-          },
-        },
-      },
-      {
-        urlPattern: /api/,
-        handler: `NetworkFirst`,
-        options: {
-          cacheableResponse: {
-            statuses: [0, 200],
-            headers: {
-              "x-test": `true`,
-            },
-          },
-        },
-      },
-    ],
-  },
   images: {
     loader: `cloudinary`,
     path: `https://res.cloudinary.com/christopherleemiller/image/upload`,
     domains: [`res.cloudinary.com`, `gravatar.com`],
   },
+  pwa: {
+    dest: 'public'
+  }
 };
 
 const SentryWebpackPluginOptions = {
   silent: true,
 };
 
-module.exports = withOffline(
+module.exports = withPWA(
   withMDX(withSentryConfig(nextConfig, SentryWebpackPluginOptions))
 );
