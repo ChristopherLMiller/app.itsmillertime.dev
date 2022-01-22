@@ -60,6 +60,9 @@ const nextConfig = {
   pwa: {
     dest: "public",
   },
+  experimental: {
+    styledComponents: true,
+  }
 };
 
 const SentryWebpackPluginOptions = {
