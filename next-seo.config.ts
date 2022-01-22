@@ -27,7 +27,7 @@ export default {
   additionalLinkTags: [
     {
       rel: `manifest`,
-      href: `/site.webmanifest`,
+      href: `/manifest.json`,
     },
     {
       rel: `shortcut icon`,
@@ -36,6 +36,18 @@ export default {
     {
       rel: `apple-touch-icon`,
       href: `/logo.png`,
+    },
+    {
+      rel: `me`,
+      href: `https://github.com/ChristopherLMiller`,
+    },
+    {
+      rel: `webmention`,
+      href: `https://webmention.io/christopherleemiller.me/webmention`,
+    },
+    {
+      rel: `pingback`,
+      href: `https://webmention.io/christopherleemiller.me/xmlrpc`,
     },
   ],
 };
