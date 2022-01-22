@@ -62,7 +62,7 @@ const nextConfig = {
   },
   experimental: {
     styledComponents: true,
-  }
+  },
 };
 
 const SentryWebpackPluginOptions = {
