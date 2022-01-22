@@ -51,9 +51,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     };
   } else {
     return {
-      props: {
-        notFound: true,
-      },
+      notFound: true,
     };
   }
 };
