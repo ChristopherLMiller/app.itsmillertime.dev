@@ -5,6 +5,7 @@ interface iPanel {
   align?: string;
   padding?: boolean;
   boxed?: boolean;
+  boxedSmall?: boolean;
   background?: string;
 }
 
@@ -13,14 +14,21 @@ const Panel: FunctionComponent<iPanel> = ({
   align = `left`,
   padding = true,
   boxed = false,
-}) => (
-  <StyledPanel
-    align={align}
-    padding={padding ? `3% 5%` : `0`}
-    boxed={boxed ? "max-width: var(--max-width); margin: auto;" : ""}
-  >
-    {children}
-  </StyledPanel>
-);
+  boxedSmall = false,
+}) => {
+  const isBoxed = boxed || boxedSmall;
+  const boxWidth =
+    isBoxed &&
+    (boxedSmall ? "var(--max-width-desktop)" : "var(--max-width-wide)");
+  return (
+    <StyledPanel
+      align={align}
+      padding={padding ? `3% 5%` : `0`}
+      boxed={isBoxed ? `max-width: ${boxWidth}` : ""}
+    >
+      {children}
+    </StyledPanel>
+  );
+};
 
 export default Panel;

@@ -1,9 +1,7 @@
 import { FunctionComponent } from "react";
 import styled from "styled-components";
-import SiteTitle from "./SiteTitle";
-import Nav from "./nav/Navigation";
 import AccountDetails from "./AccountDetails";
-import MobileNav from "./nav/MobileNav";
+import SiteTitle from "./SiteTitle";
 
 const TopBarContainer = styled.div`
   position: fixed;
@@ -27,8 +25,6 @@ const TopBar: FunctionComponent = () => (
       <AccountDetails />
       <SiteTitle />
     </StyledTopBar>
-    <Nav />
-    <MobileNav />
   </TopBarContainer>
 );
 

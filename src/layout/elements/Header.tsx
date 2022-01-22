@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { FunctionComponent } from 'react';
+import { FunctionComponent } from "react";
+import styled from "styled-components";
 
 const StyledHeader = styled.div`
-  margin-bottom: 100px;
+  margin-block-end: 10rem;
   position: relative;
 `;
 

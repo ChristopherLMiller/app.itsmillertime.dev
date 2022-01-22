@@ -59,7 +59,8 @@ export const GlobalStyles = createGlobalStyle`
     --color-grey-darker: #212121;
     --color-grey-light: #ECECEC;
 
-    --max-width: 1800px;
+    --max-width-wide: 1800px;
+    --max-width-desktop: 1200px;
     --top-bar-height: 55px;
 
     --h1-size: clamp(5rem, 5vw, 6.25rem);

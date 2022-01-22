@@ -1,4 +1,5 @@
 import Markdown from "@components/Markdown";
+import Panel from "@components/Panel";
 import ShareButtons from "@components/ShareButtons";
 import { defaultImage, pageSettings } from "config";
 import { formatRelative, parseISO } from "date-fns";
@@ -14,17 +15,6 @@ import { fetchData } from "src/lib/fetch";
 import { countWords, isAdmin, timeToRead } from "src/utils";
 import { isSessionLoading } from "src/utils/auth";
 import styled from "styled-components";
-
-const StyledBlogPost = styled.article`
-  background: var(--color-grey-light);
-  column-count: 1;
-  column-fill: balance;
-  column-gap: 0;
-  column-rule: 3px solid var(--color-gold-transparent);
-
-  @media (min-width: 800px) {
-    column-count: 2;
-`;
 
 const ArticleListItemContent = styled.div`
   color: var(--color-black-80);
@@ -132,7 +122,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
         }}
         noindex={article.published_at == null}
       />
-      <StyledBlogPost>
+      <Panel padding={false} boxedSmall>
         <ArticleHeader>
           {article?.seo?.featured_image && (
             <Image
@@ -177,7 +167,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
         <ArticleListItemContent>
           <Markdown source={article.content} />
         </ArticleListItemContent>
-      </StyledBlogPost>
+      </Panel>
     </PageLayout>
   );
 };

@@ -13,7 +13,6 @@ import CookieConsent from "react-cookie-consent";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ToastProvider } from "react-toast-notifications";
-import Snowy from "src/components/Holiday/Snowy";
 import TopBar from "src/layout/elements/TopBar";
 import * as gtag from "src/lib/gtag";
 import styled, { ThemeProvider } from "styled-components";
@@ -22,10 +21,6 @@ import "../public/nprogress.css";
 
 const Content = styled(motion.div)`
   margin-top: var(--top-bar-height);
-
-  @media screen and (min-width: 822px) {
-    margin-top: calc(var(--top-bar-height) * 2);
-  }
 `;
 
 const CookieConsentText = styled.span`
@@ -89,7 +84,7 @@ const App = ({ Component, pageProps: { session, ...pageProps }, err }) => {
             <meta name="theme-color" content="#982929" />
           </Head>
           <DefaultSeo {...SEO} />
-          <Snowy />
+          {/*<Snowy />*/}
           <CookieConsent buttonStyle={{ fontSize: `2rem` }}>
             <CookieConsentText>
               This website uses cookies to enhance the user experience.

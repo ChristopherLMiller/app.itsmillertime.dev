@@ -26,7 +26,7 @@ export const StyledPanel = styled<iStyledPanel>(motion.div)`
   position: relative;
   text-align: ${(props) => props.align};
   border: var(--border);
-  ${(props) => props.boxed}
+  ${(props) => props.boxed};
 
   img {
     max-width: 100%;

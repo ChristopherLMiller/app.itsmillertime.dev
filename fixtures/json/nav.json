@@ -15,11 +15,27 @@
       "icon": "archive"
     },
     {
-      "title": "About Me",
-      "activePaths": ["/about-me"],
-      "href": "/about-me",
+      "title": "About",
+      "activePaths": ["/about"],
+      "href": "/about",
       "authState": "ANY",
-      "icon": "user-4"
+      "icon": "user-4",
+      "children": {
+        "items": [
+          {
+            "title": "About Me",
+            "activePaths": ["/about-me"],
+            "href": "/about-me",
+            "authState": "ANY"
+          },
+          {
+            "title": "Uses",
+            "activePaths": ["/uses"],
+            "href": "/uses",
+            "authState": "ANY"
+          }
+        ]
+      }
     },
     {
       "title": "Projects",
@@ -41,6 +57,41 @@
       "href": "/gallery",
       "authState": "ANY",
       "icon": "albums"
+    },
+    {
+      "title": "Account",
+      "activePaths": ["/account"],
+      "href": "/account",
+      "authState": "ANY",
+      "icon": "user-account",
+      "children": {
+        "items": [
+          {
+            "title": "Login",
+            "activePaths": ["/account/login"],
+            "href": "/account/login",
+            "authState": "NONE"
+          },
+          {
+            "title": "My Account",
+            "activePaths": ["/account/my-account"],
+            "href": "/account/my-account",
+            "authState": "ANY"
+          },
+          {
+            "title": "Admin Panel",
+            "activePaths": ["https://admin.christopherleemiller.me"],
+            "href": "https://admin.christopherleemiller.me",
+            "authState": "ANY"
+          },
+          {
+            "title": "Logout",
+            "activePaths": ["/account/logout"],
+            "href": "/account/logout",
+            "authState": "ANY"
+          }
+        ]
+      }
     }
   ]
 }

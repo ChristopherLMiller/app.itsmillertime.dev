@@ -1,12 +1,13 @@
+import Navigation from "@components/Navigation";
 import { motion } from "framer-motion";
 import { FunctionComponent } from "react";
 import Header from "src/layout/elements/Header";
 import styled from "styled-components";
 import Footer from "./elements/Footer";
+import MobileNav from "./elements/nav/MobileNav";
 
 const Main = styled(motion.main)`
   padding: 0 2%;
-  flex-grow: 1;
 
   @media (min-width: 800px) {
     padding: ${(props) => props.padding};
@@ -16,8 +17,6 @@ const Main = styled(motion.main)`
 const ContentArea = styled(motion.div)`
   overflow-x: hidden;
   min-height: calc(100vh - var(--top-bar-height) - var(--top-bar-height));
-  display: flex;
-  flex-direction: column;
 `;
 
 const contentVariants = {
@@ -53,6 +52,8 @@ const PageLayout: FunctionComponent<iPagelayout> = ({
   return (
     <ContentArea variants={contentVariants}>
       <Header title={title} description={description} />
+      <Navigation />
+      <MobileNav />
       <Main padding={padding ? `0 10%` : `0 5%`}>{children}</Main>
       <Footer />
     </ContentArea>
