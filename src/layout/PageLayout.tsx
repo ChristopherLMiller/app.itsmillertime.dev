@@ -1,4 +1,4 @@
-import Navigation from "@components/Navigation";
+import DesktopNav from "@components/Navigation/DesktopNav";
 import { motion } from "framer-motion";
 import { FunctionComponent } from "react";
 import Header from "src/layout/elements/Header";
@@ -9,6 +9,7 @@ import MobileNav from "./elements/nav/MobileNav";
 const Main = styled(motion.main)`
   padding: 0 2%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
 
   @media (min-width: 800px) {
@@ -54,9 +55,12 @@ const PageLayout: FunctionComponent<iPagelayout> = ({
   return (
     <ContentArea variants={contentVariants}>
       <Header title={title} description={description} />
-      <Navigation />
-      <MobileNav />
-      <Main padding={padding ? `0 10%` : `0 5%`}>{children}</Main>
+
+      <Main padding={padding ? `0 10%` : `0 5%`}>
+        <DesktopNav />
+        <MobileNav />
+        {children}
+      </Main>
       <Footer />
     </ContentArea>
   );

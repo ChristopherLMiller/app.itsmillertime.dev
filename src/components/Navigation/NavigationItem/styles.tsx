@@ -8,7 +8,7 @@ export const StyledNavigationItem = styled(motion.div)`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  min-width: 200px;
+  min-width: 175px;
 `;
 
 export const NavigationItemVariants = {
@@ -62,38 +62,4 @@ export const NavigationElementText = styled.span`
   padding-inline-start: 5px;
   font-size: var(--p-size);
   text-transform: capitalize;
-`;
-
-export const NavigationChildMenu = styled.ul`
-  position: absolute;
-  left: 0;
-  top: 100%;
-  width: 100%;
-
-  padding: 0;
-  margin: 0;
-  box-shadow: var(--box-shadow-elev-1);
-  border: 2px solid var(--color-gold-transparent);
-  border-top: none;
-  z-index: 888;
-`;
-
-export const NavigationChildMenuItem = styled(motion.li)`
-  list-style-type: none;
-  padding-inline-start: 10px;
-  padding-block: 10px;
-
-  background: var(--color-red-dark);
-
-  a {
-    text-decoration: none;
-    color: var(--color-white-80);
-  }
-
-  :hover {
-    a {
-      color: var(--color-white-100);
-    }
-    background: var(--color-red);
-  }
 `;

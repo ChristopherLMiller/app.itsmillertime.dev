@@ -6,10 +6,7 @@ export const StyledNavigation = styled(motion.nav)`
 
   @media (min-width: 500px) {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
     align-items: center;
-    max-width: var(--max-width-wide);
     justify-content: center;
     margin-block-end: 5rem;
   }
@@ -24,3 +21,10 @@ export const NavigationVariants = {
     },
   },
 };
+
+export const NavigationBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  box-shadow: 14px -14px 0px var(--color-red-80);
+`;

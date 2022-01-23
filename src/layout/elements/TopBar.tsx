@@ -1,6 +1,5 @@
 import { FunctionComponent } from "react";
 import styled from "styled-components";
-import AccountDetails from "./AccountDetails";
 import SiteTitle from "./SiteTitle";
 
 const TopBarContainer = styled.div`
@@ -14,7 +13,7 @@ const TopBarContainer = styled.div`
 const StyledTopBar = styled.div`
   background: var(--color-grey-darker);
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   height: var(--top-bar-height);
   padding-inline: 10px;
 `;
@@ -22,7 +21,6 @@ const StyledTopBar = styled.div`
 const TopBar: FunctionComponent = () => (
   <TopBarContainer>
     <StyledTopBar>
-      <AccountDetails />
       <SiteTitle />
     </StyledTopBar>
   </TopBarContainer>

@@ -2,8 +2,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { FunctionComponent } from "react";
 import {
-  NavigationChildMenu,
-  NavigationChildMenuItem,
   NavigationElement,
   NavigationElementIcon,
   NavigationElementText,
@@ -53,19 +51,6 @@ export const NavigationItem: FunctionComponent<iNavItem> = ({ item }) => {
       ) : (
         <ExternalNavItem item={item} />
       )}
-      {item.children?.items && (
-        <NavigationChildMenu>
-          {item.children?.items.map((item) => (
-            <ChildNavItem
-              key={item.title}
-              title={item.title}
-              activePaths={item.activePaths}
-              href={item.href}
-              authState={item.authState}
-            />
-          ))}
-        </NavigationChildMenu>
-      )}
     </StyledNavigationItem>
   );
 };
@@ -101,17 +86,4 @@ const ExternalNavItem: FunctionComponent<iNavItem> = ({ item }) => (
     />
     <NavigationElementText>{item.title}</NavigationElementText>
   </NavigationElement>
-);
-
-const ChildNavItem: FunctionComponent<iNavChilditem> = ({
-  title,
-  activePaths,
-  href,
-  authState,
-}) => (
-  <NavigationChildMenuItem>
-    <Link href={href}>
-      <a>{title}</a>
-    </Link>
-  </NavigationChildMenuItem>
 );
