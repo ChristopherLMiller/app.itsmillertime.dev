@@ -1,6 +1,6 @@
 {
   "name": "app.christopherleemiller.me",
-  "version": "1.24.7",
+  "version": "1.24.6",
   "description": "Front End to www.christopherleemiller.me",
   "main": "index.js",
   "scripts": {
