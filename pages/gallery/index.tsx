@@ -84,50 +84,59 @@ const GalleriesIndexPage: NextPage = () => {
           </p>
         </Card>
       )}
-      <Grid gap="30px" columns={3} masonry>
-        {isSuccess &&
-          data?.galleries?.map((gallery) => (
-            <Link
-              href={`/gallery/album/${gallery.slug}`}
-              key={gallery.slug}
-              passHref
-            >
-              <Anchor>
-                <Image
-                  public_id={`${
-                    gallery?.featured_image?.provider_metadata?.public_id ||
-                    defaultImage.public_id
-                  }`}
-                  width={gallery?.featured_image?.width || 900}
-                  height={gallery?.featured_image?.height || 450}
-                  alt={`${gallery.title}`}
-                  caption={`${gallery.title}${
-                    gallery.status === `PUBLIC` ? `` : ` - ${gallery.status}`
-                  }`}
-                  hoverable
-                  key={gallery.slug}
-                >
-                  <SubText>
-                    <p>
-                      Added:{` `}
-                      {formatRelative(parseISO(gallery.createdAt), new Date())}
-                      {` - Updated: `}
-                      {formatRelative(parseISO(gallery.updatedAt), new Date())}
-                      {` - Image Count: ${gallery?.gallery_images?.length}`}
-                    </p>
-                    <p>
-                      Categories:{` `}
-                      <ArrayList array={gallery.gallery_categories} />
-                    </p>
-                    <p>
-                      Tags: <ArrayList array={gallery.gallery_tags} />
-                    </p>
-                  </SubText>
-                </Image>
-              </Anchor>
-            </Link>
+      {isSuccess && (
+        <Grid columns={2} min="350px" gap="3rem">
+          {data?.galleries?.map((gallery) => (
+            <article>
+              <Link
+                href={`/gallery/album/${gallery.slug}`}
+                key={gallery.slug}
+                passHref
+              >
+                <Anchor>
+                  <Image
+                    public_id={`${
+                      gallery?.featured_image?.provider_metadata?.public_id ||
+                      defaultImage.public_id
+                    }`}
+                    width={gallery?.featured_image?.width || 900}
+                    height={gallery?.featured_image?.height || 450}
+                    alt={`${gallery.title}`}
+                    caption={`${gallery.title}${
+                      gallery.status === `PUBLIC` ? `` : ` - ${gallery.status}`
+                    }`}
+                    hoverable
+                    key={gallery.slug}
+                  >
+                    <SubText>
+                      <p>
+                        Added:{` `}
+                        {formatRelative(
+                          parseISO(gallery.createdAt),
+                          new Date()
+                        )}
+                        {` - Updated: `}
+                        {formatRelative(
+                          parseISO(gallery.updatedAt),
+                          new Date()
+                        )}
+                        {` - Image Count: ${gallery?.gallery_images?.length}`}
+                      </p>
+                      <p>
+                        Categories:{` `}
+                        <ArrayList array={gallery.gallery_categories} />
+                      </p>
+                      <p>
+                        Tags: <ArrayList array={gallery.gallery_tags} />
+                      </p>
+                    </SubText>
+                  </Image>
+                </Anchor>
+              </Link>
+            </article>
           ))}
-      </Grid>
+        </Grid>
+      )}
     </PageLayout>
   );
 };

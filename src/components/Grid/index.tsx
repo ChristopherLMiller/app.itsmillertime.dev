@@ -17,6 +17,7 @@ export const Grid = styled.div<iGrid>`
   grid-template-columns: 1fr;
   grid-template-rows: ${(props) => (props.masonry ? `masonry` : `auto`)};
   grid-gap: ${(props) => props.gap || `0px`};
+  width: 100%;
 
   background: ${(props) => props.background};
   ${(props) => props.justify && `justify-items: ` + props.justify};
