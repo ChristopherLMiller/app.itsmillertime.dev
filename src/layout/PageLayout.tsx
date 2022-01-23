@@ -4,7 +4,6 @@ import { FunctionComponent } from "react";
 import Header from "src/layout/elements/Header";
 import styled from "styled-components";
 import Footer from "./elements/Footer";
-import MobileNav from "./elements/nav/MobileNav";
 
 const Main = styled(motion.main)`
   padding: 0 2%;
@@ -58,7 +57,6 @@ const PageLayout: FunctionComponent<iPagelayout> = ({
 
       <Main padding={padding ? `0 10%` : `0 5%`}>
         <DesktopNav />
-        <MobileNav />
         {children}
       </Main>
       <Footer />
