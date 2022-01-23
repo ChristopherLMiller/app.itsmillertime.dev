@@ -63,6 +63,9 @@ const Separator = styled.span`
   margin: 0 5px;
 `;
 
+const FooterIconLink = styled.a`
+  border: none !important;
+`;
 const FooterIcon = styled(motion.img)`
   max-width: 60px;
 `;
@@ -72,7 +75,7 @@ const FooterIconVariants = {
     transform: `scale3d(1,1,1)`,
   },
   hover: {
-    transform: `scale3d(1.5,1.5,1)`,
+    transform: `scale3d(1.15,1.15,1)`,
   },
 };
 
@@ -81,7 +84,8 @@ const FooterHeading = styled.h3`
 `;
 
 const FooterSubheading = styled.p`
-  margin-block: 0;
+  margin-block-start: 0;
+  margin-block-end: 2rem;
 `;
 
 const Footer: FunctionComponent = () => (
@@ -103,47 +107,86 @@ const Footer: FunctionComponent = () => (
               Be sure to see the latest and greatest
             </FooterSubheading>
             <Grid colums={5} min="60px" marginBottom={false} justify="center">
-              <FooterIcon
-                loading="lazy"
-                src="/svg/github.svg"
-                alt="Github"
-                whileHover="hover"
-                variants={FooterIconVariants}
-                width="60px"
-                height="60px"
-              />
-              <FooterIcon
-                loading="lazy"
-                src="/svg/linkedin.svg"
-                alt="LinkedIn"
-                whileHover="hover"
-                width="60px"
-                height="60px"
-              />
-              <FooterIcon
-                loading="lazy"
-                src="/svg/instagram.svg"
-                alt="Instagram"
-                whileHover="hover"
-                width="60px"
-                height="60px"
-              />
-              <FooterIcon
-                loading="lazy"
-                src="/svg/twitter.svg"
-                alt="Twitter"
-                whileHover="hover"
-                width="60px"
-                height="60px"
-              />
-              <FooterIcon
-                loading="lazy"
-                src="/svg/youtube.svg"
-                alt="YouTube"
-                whileHover="hover"
-                width="60px"
-                height="60px"
-              />
+              <FooterIconLink
+                href="https://github.com/ChristopherLMiller"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FooterIcon
+                  loading="lazy"
+                  src="/svg/github.svg"
+                  alt="Github"
+                  whileHover="hover"
+                  initial="initial"
+                  variants={FooterIconVariants}
+                  width="60px"
+                  height="60px"
+                />
+              </FooterIconLink>
+              <FooterIconLink
+                href="https://www.linkedin.com/in/christopher-l-miller/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FooterIcon
+                  loading="lazy"
+                  src="/svg/linkedin.svg"
+                  alt="LinkedIn"
+                  whileHover="hover"
+                  initial="initial"
+                  variants={FooterIconVariants}
+                  width="60px"
+                  height="60px"
+                />
+              </FooterIconLink>
+              <FooterIconLink
+                href="https://www.instagram.com/moose51789/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FooterIcon
+                  loading="lazy"
+                  src="/svg/instagram.svg"
+                  alt="Instagram"
+                  whileHover="hover"
+                  initial="initial"
+                  variants={FooterIconVariants}
+                  width="60px"
+                  height="60px"
+                />
+              </FooterIconLink>
+              <FooterIconLink
+                href="https://twitter.com/ChrisLMiller_me"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FooterIcon
+                  loading="lazy"
+                  src="/svg/twitter.svg"
+                  alt="Twitter"
+                  whileHover="hover"
+                  initial="initial"
+                  variants={FooterIconVariants}
+                  width="60px"
+                  height="60px"
+                />
+              </FooterIconLink>
+              <FooterIconLink
+                href="https://www.youtube.com/channel/UCn0P6xSTSYMML80hwj7FDZg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FooterIcon
+                  loading="lazy"
+                  src="/svg/youtube.svg"
+                  alt="YouTube"
+                  whileHover="hover"
+                  initial="initial"
+                  variants={FooterIconVariants}
+                  width="60px"
+                  height="60px"
+                />
+              </FooterIconLink>
             </Grid>
             <p>
               Use of this site constitues acceptance of our{` `}
