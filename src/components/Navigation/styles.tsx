@@ -10,7 +10,6 @@ export const StyledNavigation = styled(motion.nav)`
     flex-wrap: wrap;
     align-items: center;
     max-width: var(--max-width-wide);
-    margin: 0 auto;
     justify-content: center;
     margin-block-end: 5rem;
   }

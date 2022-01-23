@@ -30,10 +30,11 @@ const FooterBackground = styled.div`
 const FooterContentArea = styled.div`
   background: var(--color-grey-intermediate);
   padding: 2rem;
+  display: flex;
+  justify-content: center;
 `;
 
 const FooterContent = styled.div`
-  margin: 0 auto;
   max-width: 1000px;
   text-align: center;
   color: var(--color-grey-darker);

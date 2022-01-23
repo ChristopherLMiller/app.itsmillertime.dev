@@ -8,6 +8,8 @@ import MobileNav from "./elements/nav/MobileNav";
 
 const Main = styled(motion.main)`
   padding: 0 2%;
+  display: flex;
+  justify-content: center;
 
   @media (min-width: 800px) {
     padding: ${(props) => props.padding};
