@@ -39,7 +39,6 @@ const withMDX = require(`@next/mdx`)({
 
 // Config
 const nextConfig = {
-  webpack5: true,
   webpack: (config) => {
     config.resolve.fallback = {
       fs: false,
@@ -59,6 +58,7 @@ const nextConfig = {
   },
   pwa: {
     dest: "public",
+    disable: process.env.NODE_ENV === "development",
   },
   experimental: {
     styledComponents: true,
