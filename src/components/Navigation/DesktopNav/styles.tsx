@@ -3,12 +3,13 @@ import styled from "styled-components";
 
 export const StyledNavigation = styled(motion.nav)`
   display: none;
+  z-index: 10;
 
   @media (min-width: 500px) {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-block-end: 5rem;
+    margin-block-end: var(--margin-5);
   }
 `;
 
@@ -16,15 +17,31 @@ export const NavigationVariants = {
   hidden: {},
   visible: {
     transition: {
-      delay: 2,
-      staggerChildren: 500,
+      duration: 2,
+      staggerChildren: 5,
     },
   },
 };
 
-export const NavigationBar = styled.div`
+export const NavigationBar = styled(motion.div)`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  box-shadow: 14px -14px 0px var(--color-red-80);
+  justify-content: space-evenly;
+  background: var(--color-gold);
 `;
+
+export const NavigationBarVariants = {
+  hidden: {
+    boxShadow: "0px 0px 0px var(--color-red-80)",
+    transition: {
+      duration: 2,
+    },
+  },
+  visible: {
+    boxShadow: "14px -14px 0px var(--color-red-80)",
+    transition: {
+      staggerChildren: 0.5,
+    },
+  },
+};

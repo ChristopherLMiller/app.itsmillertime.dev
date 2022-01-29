@@ -17,7 +17,7 @@
     {
       "title": "About",
       "activePaths": ["/about"],
-      "href": "/about",
+      "href": null,
       "authState": "ANY",
       "icon": "user-4",
       "children": {
@@ -61,7 +61,7 @@
     {
       "title": "Account",
       "activePaths": ["/account"],
-      "href": "/account",
+      "href": null,
       "authState": "ANY",
       "icon": "user-account",
       "children": {
@@ -70,25 +70,26 @@
             "title": "Login",
             "activePaths": ["/account/login"],
             "href": "/account/login",
-            "authState": "NONE"
+            "authState": "LOGGED_OUT"
           },
           {
             "title": "My Account",
             "activePaths": ["/account/my-account"],
             "href": "/account/my-account",
-            "authState": "ANY"
+            "authState": "LOGGED_IN"
           },
           {
             "title": "Admin Panel",
             "activePaths": ["https://admin.christopherleemiller.me"],
             "href": "https://admin.christopherleemiller.me",
-            "authState": "ANY"
+            "authState": "LOGGED_IN",
+            "requiredRole": ["ADMIN"]
           },
           {
             "title": "Logout",
             "activePaths": ["/account/logout"],
             "href": "/account/logout",
-            "authState": "ANY"
+            "authState": "LOGGED_IN"
           }
         ]
       }

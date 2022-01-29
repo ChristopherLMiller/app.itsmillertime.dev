@@ -17,6 +17,10 @@ export const defaultTheme = {
 
 export const GlobalStyles = createGlobalStyle`
   :root {
+
+    --primary-color: hsl(0deg 59% 40%);
+
+    // Fonts
     --font-main: ${defaultTheme.fonts.main};
     --font-alt: ${defaultTheme.fonts.alt};
     --font-block: ${defaultTheme.fonts.block};
@@ -27,9 +31,10 @@ export const GlobalStyles = createGlobalStyle`
     --box-shadow-elev-0: 0px 0px 0px rgba(0,0,0,0), 0px 0px 0px rgba(0,0,0,0);
     --box-shadow-elev-1: 0px 0px 22px rgba(0,0,0,0.4), 0px 0px 4px rgba(0,0,0,0.25);
     --box-shadow-inset: inset 0 0 0 var(--color-white-100);
-    --box-shadow-inset-0: inset 0 -2px 0 var(--color-red-dark);
-    --box-shadow-inset-1: inset 0 -6px 0 var(--color-red-dark);
-    --box-shadow-inset-2: inset 0 -10px 0 var(--color-red-dark);
+    --box-shadow-inset-0: inset 0 0px 0 var(--color-red-dark);
+    --box-shadow-inset-1: inset 0 -2px 0 var(--color-red-dark);
+    --box-shadow-inset-2: inset 0 -6px 0 var(--color-red-dark);
+    --box-shadow-inset-3: inset 0 -10px 0 var(--color-red-dark);
 
     // blacks
     --color-black-0: hsl(0deg 0% 0% / 0);
@@ -46,8 +51,11 @@ export const GlobalStyles = createGlobalStyle`
     --color-white-60: hsl(0deg 0% 100% / 0.6);
     --color-white-80: hsl(0deg 0% 100% / 0.8);
     --color-white-100: hsl(0deg 0% 100% / 1);
+
+    // Margins
+    --margin-5: 5rem;
     
-    --color-red: hsl(0deg 59% 40% / 1);
+    --color-red: var(--primary-color);
     --color-red-80: hsl(0deg 59% 40% / 0.8);
     --color-red-40: hsl(0deg 59% 40% / 0.4);
     --color-red-intermediate: hsl(0deg 59% 30% / 1);
