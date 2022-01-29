@@ -15,14 +15,19 @@ import { isAdmin } from "src/utils";
 const ModelsPageIndex: NextPage = () => {
   const router = useRouter();
   const session = useSession();
+  const page = parseInt(router.query["page"] as string) || 1;
+  const limit = parseInt(router.query["limit"] as string) || 12;
+  const start = (page - 1) * limit;
 
   const [sort, setSort] = useState(`title:ASC`);
   const { data, isLoading, isSuccess, error } = useModelsQuery({
     sort: sort,
-    where: router.query ? router.query : null,
+    where: null, //router.query ? router.query : null,
     publicationState: isAdmin(session)
       ? PublicationState.Preview
       : PublicationState.Live,
+    limit,
+    start,
   });
 
   if (error) {

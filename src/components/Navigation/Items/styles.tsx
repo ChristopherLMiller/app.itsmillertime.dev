@@ -3,12 +3,13 @@ import styled from "styled-components";
 
 export const StyledNavigationItem = styled(motion.div)`
   position: relative;
-  background: ${(props) => props.background};
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   min-width: 175px;
+  background: ${(props) => props.background};
+  flex-grow: 1;
 `;
 
 export const NavigationItemVariants = {
@@ -62,4 +63,53 @@ export const NavigationElementText = styled.span`
   padding-inline-start: 5px;
   font-size: var(--p-size);
   text-transform: capitalize;
+  position: relative;
+`;
+
+export const ChildNavManu = styled(motion.div)`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: var(--color-red-dark);
+  border: 2px solid var(--color-gold);
+  border-top: none;
+`;
+
+export const ChildNavMenuVariants = {
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+    },
+  },
+  hidden: {
+    opacity: 0,
+    transition: {
+      duration: 1,
+    },
+  },
+};
+
+export const ChildMenu = styled.ul`
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  z-index: 999 !important;
+`;
+
+export const ChildMenuItem = styled.li`
+  text-transform: capitalize;
+  text-align: center;
+  padding: 1rem;
+`;
+
+export const ChildMenuItemLink = styled.a`
+  text-decoration: none;
+  color: var(--color-white-80);
+  font-family: var(--font-main);
+
+  :hover {
+    color: var(--color-white-100);
+  }
 `;

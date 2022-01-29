@@ -1,9 +1,11 @@
+import Paginator from "@components/Paginator";
 import { pageSettings } from "config";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Fragment } from "react";
 import ArticleListItem from "src/components/Article/ListItem";
 import Card from "src/components/Card";
 import Loader from "src/components/Loader";
@@ -106,11 +108,20 @@ const BlogIndexpage: NextPage = () => {
       )}
 
       {isSuccess && (
-        <ArticleList>
-          {data?.articles?.map((article) => (
-            <ArticleListItem key={article.id} article={article as Article} />
-          ))}
-        </ArticleList>
+        <Fragment>
+          <ArticleList>
+            {data?.articles?.map((article) => (
+              <ArticleListItem key={article.id} article={article as Article} />
+            ))}
+          </ArticleList>
+          <Paginator
+            totalPages={1}
+            currentPage={page}
+            onPageChange={() => {
+              console.log("changing page");
+            }}
+          />
+        </Fragment>
       )}
     </PageLayout>
   );

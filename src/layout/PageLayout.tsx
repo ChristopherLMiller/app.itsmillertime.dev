@@ -10,6 +10,7 @@ const Main = styled(motion.main)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: -1;
 
   @media (min-width: 800px) {
     padding: ${(props) => props.padding};

@@ -1,7 +1,7 @@
-import { FunctionComponent } from "react";
-import styled from "styled-components";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { FunctionComponent } from "react";
+import styled from "styled-components";
 
 interface iImageContainer {
   border: boolean;
@@ -11,6 +11,7 @@ const ImageContainer = styled<iImageContainer>(motion.div)`
   position: relative;
   min-height: 75px;
   height: min-content;
+  z-index: -1;
 
   > div {
     display: block !important;
