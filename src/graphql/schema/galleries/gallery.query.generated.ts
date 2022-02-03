@@ -1,6 +1,6 @@
 import * as Types from '../../types';
 
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useQuery, UseQueryOptions, useInfiniteQuery, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type GalleryQueryVariables = Types.Exact<{
   id: Types.Scalars['ID'];
@@ -8,7 +8,7 @@ export type GalleryQueryVariables = Types.Exact<{
 }>;
 
 
-export type GalleryQuery = { __typename?: 'Query', gallery?: { __typename?: 'Gallery', id: string, _id: string, createdAt: any, updatedAt: any, title?: string | null | undefined, slug?: string | null | undefined, status: Types.Enum_Gallery_Status, nsfw?: boolean | null | undefined, meta?: string | null | undefined, description?: string | null | undefined, featured_image?: { __typename?: 'UploadFile', id: string, _id: string, createdAt: any, updatedAt: any, name: string, alternativeText?: string | null | undefined, caption?: string | null | undefined, width?: number | null | undefined, height?: number | null | undefined, formats?: any | null | undefined, hash: string, ext?: string | null | undefined, mime: string, size: number, url: string, previewUrl?: string | null | undefined, provider: string, provider_metadata?: any | null | undefined } | null | undefined, gallery_categories?: Array<{ __typename?: 'GalleryCategories', id: string, _id: string, slug?: string | null | undefined, title?: string | null | undefined } | null | undefined> | null | undefined, gallery_tags?: Array<{ __typename?: 'GalleryTags', id: string, _id: string, slug?: string | null | undefined, title?: string | null | undefined } | null | undefined> | null | undefined, gallery_images?: Array<{ __typename?: 'GalleryImage', id: string, _id: string, createdAt: any, updatedAt: any, caption?: string | null | undefined, slug?: string | null | undefined, watermarked?: { __typename?: 'UploadFile', id: string, _id: string, createdAt: any, updatedAt: any, name: string, alternativeText?: string | null | undefined, caption?: string | null | undefined, width?: number | null | undefined, height?: number | null | undefined, formats?: any | null | undefined, hash: string, ext?: string | null | undefined, mime: string, size: number, url: string, previewUrl?: string | null | undefined, provider: string, provider_metadata?: any | null | undefined } | null | undefined, clean?: { __typename?: 'UploadFile', id: string, _id: string, createdAt: any, updatedAt: any, name: string, alternativeText?: string | null | undefined, caption?: string | null | undefined, width?: number | null | undefined, height?: number | null | undefined, formats?: any | null | undefined, hash: string, ext?: string | null | undefined, mime: string, size: number, url: string, previewUrl?: string | null | undefined, provider: string, provider_metadata?: any | null | undefined } | null | undefined, share?: { __typename?: 'ComponentGlobalShare', id: string, _id: string, facebook?: boolean | null | undefined, twitter?: boolean | null | undefined, instagram?: boolean | null | undefined } | null | undefined, sell?: { __typename?: 'ComponentGlobalSell', id: string, _id: string, price: number } | null | undefined } | null | undefined> | null | undefined } | null | undefined };
+export type GalleryQuery = { gallery?: { id: string, _id: string, createdAt: any, updatedAt: any, title?: string | null | undefined, slug?: string | null | undefined, status: Types.Enum_Gallery_Status, nsfw?: boolean | null | undefined, meta?: string | null | undefined, description?: string | null | undefined, featured_image?: { id: string, _id: string, createdAt: any, updatedAt: any, name: string, alternativeText?: string | null | undefined, caption?: string | null | undefined, width?: number | null | undefined, height?: number | null | undefined, formats?: any | null | undefined, hash: string, ext?: string | null | undefined, mime: string, size: number, url: string, previewUrl?: string | null | undefined, provider: string, provider_metadata?: any | null | undefined } | null | undefined, gallery_categories?: Array<{ id: string, _id: string, slug?: string | null | undefined, title?: string | null | undefined } | null | undefined> | null | undefined, gallery_tags?: Array<{ id: string, _id: string, slug?: string | null | undefined, title?: string | null | undefined } | null | undefined> | null | undefined, gallery_images?: Array<{ id: string, _id: string, createdAt: any, updatedAt: any, caption?: string | null | undefined, slug?: string | null | undefined, watermarked?: { id: string, _id: string, createdAt: any, updatedAt: any, name: string, alternativeText?: string | null | undefined, caption?: string | null | undefined, width?: number | null | undefined, height?: number | null | undefined, formats?: any | null | undefined, hash: string, ext?: string | null | undefined, mime: string, size: number, url: string, previewUrl?: string | null | undefined, provider: string, provider_metadata?: any | null | undefined } | null | undefined, clean?: { id: string, _id: string, createdAt: any, updatedAt: any, name: string, alternativeText?: string | null | undefined, caption?: string | null | undefined, width?: number | null | undefined, height?: number | null | undefined, formats?: any | null | undefined, hash: string, ext?: string | null | undefined, mime: string, size: number, url: string, previewUrl?: string | null | undefined, provider: string, provider_metadata?: any | null | undefined } | null | undefined, share?: { id: string, _id: string, facebook?: boolean | null | undefined, twitter?: boolean | null | undefined, instagram?: boolean | null | undefined } | null | undefined, sell?: { id: string, _id: string, price: number } | null | undefined } | null | undefined> | null | undefined } | null | undefined };
 
 
 export const GalleryDocument = `
@@ -129,5 +129,17 @@ export const useGalleryQuery = <
     useQuery<GalleryQuery, TError, TData>(
       ['Gallery', variables],
       fetcher<GalleryQuery, GalleryQueryVariables>(GalleryDocument, variables),
+      options
+    );
+export const useInfiniteGalleryQuery = <
+      TData = GalleryQuery,
+      TError = unknown
+    >(
+      variables: GalleryQueryVariables,
+      options?: UseInfiniteQueryOptions<GalleryQuery, TError, TData>
+    ) =>
+    useInfiniteQuery<GalleryQuery, TError, TData>(
+      ['Gallery.infinite', variables],
+      (metaData) => fetcher<GalleryQuery, GalleryQueryVariables>(GalleryDocument, {...variables, ...(metaData.pageParam ?? {})})(),
       options
     );

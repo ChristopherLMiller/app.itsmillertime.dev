@@ -16,8 +16,8 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
   const imageUrl =
     model?.SEO?.featured_image?.provider_metadata["public_id"] ||
     defaultImage.public_id;
-  const imageWidth = model?.SEO?.featured_image?.width || defaultImage.width;
-  const imageHeight = model?.SEO?.featured_image?.height || defaultImage.height;
+  const imageWidth = 600;
+  const imageHeight = 400;
   const imageAlt =
     model?.SEO?.featured_image?.alternativeText || defaultImage.altText;
   const publicationState = model.published_at

@@ -6,33 +6,42 @@ import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useModelsMinimalQuery } from "src/graphql/schema/models/modelsMinimal.query.generated";
 import { PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { isAdmin } from "src/utils";
 
 const ModelsPageIndex: NextPage = () => {
+  // things we need for the page
   const router = useRouter();
   const session = useSession();
-  const [page, setPage] = useState(
-    parseInt(router.query["page"] as string) || 1
-  );
-  const [limit, setLimit] = useState(
-    parseInt(router.query["limit"] as string) || 12
-  );
+
+  // variables relating to the page
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(12);
   const start = (page - 1) * limit;
 
-  const [sort, setSort] = useState(`title:ASC`);
-  const { data, isSuccess, error } = useModelsMinimalQuery({
-    sort: sort,
-    where: null, //router.query ? router.query : null,
-    publicationState: isAdmin(session)
-      ? PublicationState.Preview
-      : PublicationState.Live,
-    limit,
-    start,
-  });
+  const [sort, setSort] = useState(`updatedAt:ASC`);
+
+  useEffect(() => {
+    setPage(parseInt(router.query["page"] as string) || 1);
+    setLimit(parseInt(router.query["limit"] as string) || 12);
+  }, [router.query]);
+
+  // query for the data
+  const { data, isSuccess, error } = useModelsMinimalQuery(
+    {
+      sort: sort,
+      where: null, //router.query ? router.query : null,
+      publicationState: isAdmin(session)
+        ? PublicationState.Preview
+        : PublicationState.Live,
+      limit,
+      start,
+    },
+    { keepPreviousData: true }
+  );
 
   if (error) {
     console.error(error);

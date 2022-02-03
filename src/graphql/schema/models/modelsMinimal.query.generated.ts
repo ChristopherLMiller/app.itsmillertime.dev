@@ -1,6 +1,6 @@
 import * as Types from '../../types';
 
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useQuery, UseQueryOptions, useInfiniteQuery, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type ModelsMinimalQueryVariables = Types.Exact<{
   sort?: Types.InputMaybe<Types.Scalars['String']>;
@@ -11,7 +11,7 @@ export type ModelsMinimalQueryVariables = Types.Exact<{
 }>;
 
 
-export type ModelsMinimalQuery = { __typename?: 'Query', models?: Array<{ __typename?: 'Model', clockify_project_id?: string | null | undefined, published_at?: any | null | undefined, title?: string | null | undefined, slug: string, kit_number?: string | null | undefined, year_released?: number | null | undefined, completed?: boolean | null | undefined, SEO?: { __typename?: 'ComponentGlobalSeo', featured_image?: { __typename?: 'UploadFile', provider_metadata?: any | null | undefined, width?: number | null | undefined, height?: number | null | undefined, alternativeText?: string | null | undefined } | null | undefined } | null | undefined, model_tags?: Array<{ __typename?: 'ModelTags', slug?: string | null | undefined, name?: string | null | undefined } | null | undefined> | null | undefined, manufacturer?: { __typename?: 'Manufacturer', slug: string, name?: string | null | undefined } | null | undefined, scale?: { __typename?: 'Scale', slug?: string | null | undefined, name?: string | null | undefined } | null | undefined } | null | undefined> | null | undefined, modelsConnection?: { __typename?: 'ModelConnection', aggregate?: { __typename?: 'ModelAggregator', count?: number | null | undefined, totalCount?: number | null | undefined } | null | undefined } | null | undefined };
+export type ModelsMinimalQuery = { models?: Array<{ clockify_project_id?: string | null | undefined, published_at?: any | null | undefined, title?: string | null | undefined, slug: string, kit_number?: string | null | undefined, year_released?: number | null | undefined, completed?: boolean | null | undefined, SEO?: { featured_image?: { provider_metadata?: any | null | undefined, width?: number | null | undefined, height?: number | null | undefined, alternativeText?: string | null | undefined } | null | undefined } | null | undefined, model_tags?: Array<{ slug?: string | null | undefined, name?: string | null | undefined } | null | undefined> | null | undefined, manufacturer?: { slug: string, name?: string | null | undefined } | null | undefined, scale?: { slug?: string | null | undefined, name?: string | null | undefined } | null | undefined } | null | undefined> | null | undefined, modelsConnection?: { aggregate?: { count?: number | null | undefined, totalCount?: number | null | undefined } | null | undefined } | null | undefined };
 
 
 export const ModelsMinimalDocument = `
@@ -69,5 +69,17 @@ export const useModelsMinimalQuery = <
     useQuery<ModelsMinimalQuery, TError, TData>(
       variables === undefined ? ['ModelsMinimal'] : ['ModelsMinimal', variables],
       fetcher<ModelsMinimalQuery, ModelsMinimalQueryVariables>(ModelsMinimalDocument, variables),
+      options
+    );
+export const useInfiniteModelsMinimalQuery = <
+      TData = ModelsMinimalQuery,
+      TError = unknown
+    >(
+      variables?: ModelsMinimalQueryVariables,
+      options?: UseInfiniteQueryOptions<ModelsMinimalQuery, TError, TData>
+    ) =>
+    useInfiniteQuery<ModelsMinimalQuery, TError, TData>(
+      variables === undefined ? ['ModelsMinimal.infinite'] : ['ModelsMinimal.infinite', variables],
+      (metaData) => fetcher<ModelsMinimalQuery, ModelsMinimalQueryVariables>(ModelsMinimalDocument, {...variables, ...(metaData.pageParam ?? {})})(),
       options
     );
