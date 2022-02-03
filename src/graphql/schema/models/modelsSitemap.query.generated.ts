@@ -1,11 +1,11 @@
 import * as Types from '../../types';
 
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useQuery, UseQueryOptions, useInfiniteQuery, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type ModelsSitemapQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type ModelsSitemapQuery = { __typename?: 'Query', models?: Array<{ __typename?: 'Model', slug: string, updatedAt: any } | null | undefined> | null | undefined };
+export type ModelsSitemapQuery = { models?: Array<{ slug: string, updatedAt: any } | null | undefined> | null | undefined };
 
 
 export const ModelsSitemapDocument = `
@@ -26,5 +26,17 @@ export const useModelsSitemapQuery = <
     useQuery<ModelsSitemapQuery, TError, TData>(
       variables === undefined ? ['modelsSitemap'] : ['modelsSitemap', variables],
       fetcher<ModelsSitemapQuery, ModelsSitemapQueryVariables>(ModelsSitemapDocument, variables),
+      options
+    );
+export const useInfiniteModelsSitemapQuery = <
+      TData = ModelsSitemapQuery,
+      TError = unknown
+    >(
+      variables?: ModelsSitemapQueryVariables,
+      options?: UseInfiniteQueryOptions<ModelsSitemapQuery, TError, TData>
+    ) =>
+    useInfiniteQuery<ModelsSitemapQuery, TError, TData>(
+      variables === undefined ? ['modelsSitemap.infinite'] : ['modelsSitemap.infinite', variables],
+      (metaData) => fetcher<ModelsSitemapQuery, ModelsSitemapQueryVariables>(ModelsSitemapDocument, {...variables, ...(metaData.pageParam ?? {})})(),
       options
     );

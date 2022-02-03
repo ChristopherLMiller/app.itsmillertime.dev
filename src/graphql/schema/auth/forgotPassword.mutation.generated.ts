@@ -1,13 +1,13 @@
 import * as Types from '../../types';
 
-import { useMutation, UseMutationOptions } from 'react-query';
+import { useMutation, UseMutationOptions, QueryFunctionContext } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type ForgotPasswordMutationVariables = Types.Exact<{
   email: Types.Scalars['String'];
 }>;
 
 
-export type ForgotPasswordMutation = { __typename?: 'Mutation', forgotPassword?: { __typename?: 'UserPermissionsPasswordPayload', ok: boolean } | null | undefined };
+export type ForgotPasswordMutation = { forgotPassword?: { ok: boolean } | null | undefined };
 
 
 export const ForgotPasswordDocument = `

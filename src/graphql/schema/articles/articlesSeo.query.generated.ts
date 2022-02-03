@@ -1,6 +1,6 @@
 import * as Types from '../../types';
 
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useQuery, UseQueryOptions, useInfiniteQuery, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type ArticlesSeoQueryVariables = Types.Exact<{
   sort?: Types.InputMaybe<Types.Scalars['String']>;
@@ -11,7 +11,7 @@ export type ArticlesSeoQueryVariables = Types.Exact<{
 }>;
 
 
-export type ArticlesSeoQuery = { __typename?: 'Query', articles?: Array<{ __typename?: 'Article', id: string, slug: string, seo?: { __typename?: 'ComponentGlobalSeo', title: string, description?: string | null | undefined, featured_image?: { __typename?: 'UploadFile', name: string, alternativeText?: string | null | undefined, caption?: string | null | undefined, width?: number | null | undefined, height?: number | null | undefined, url: string, previewUrl?: string | null | undefined, provider: string, provider_metadata?: any | null | undefined } | null | undefined } | null | undefined } | null | undefined> | null | undefined };
+export type ArticlesSeoQuery = { articles?: Array<{ id: string, slug: string, seo?: { title: string, description?: string | null | undefined, featured_image?: { name: string, alternativeText?: string | null | undefined, caption?: string | null | undefined, width?: number | null | undefined, height?: number | null | undefined, url: string, previewUrl?: string | null | undefined, provider: string, provider_metadata?: any | null | undefined } | null | undefined } | null | undefined } | null | undefined> | null | undefined };
 
 
 export const ArticlesSeoDocument = `
@@ -53,5 +53,17 @@ export const useArticlesSeoQuery = <
     useQuery<ArticlesSeoQuery, TError, TData>(
       variables === undefined ? ['ArticlesSeo'] : ['ArticlesSeo', variables],
       fetcher<ArticlesSeoQuery, ArticlesSeoQueryVariables>(ArticlesSeoDocument, variables),
+      options
+    );
+export const useInfiniteArticlesSeoQuery = <
+      TData = ArticlesSeoQuery,
+      TError = unknown
+    >(
+      variables?: ArticlesSeoQueryVariables,
+      options?: UseInfiniteQueryOptions<ArticlesSeoQuery, TError, TData>
+    ) =>
+    useInfiniteQuery<ArticlesSeoQuery, TError, TData>(
+      variables === undefined ? ['ArticlesSeo.infinite'] : ['ArticlesSeo.infinite', variables],
+      (metaData) => fetcher<ArticlesSeoQuery, ArticlesSeoQueryVariables>(ArticlesSeoDocument, {...variables, ...(metaData.pageParam ?? {})})(),
       options
     );

@@ -1,6 +1,6 @@
 import * as Types from '../../types';
 
-import { useMutation, UseMutationOptions } from 'react-query';
+import { useMutation, UseMutationOptions, QueryFunctionContext } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type LoginMutationVariables = Types.Exact<{
   identifier: Types.Scalars['String'];
@@ -8,7 +8,7 @@ export type LoginMutationVariables = Types.Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UsersPermissionsLoginPayload', jwt?: string | null | undefined, user: { __typename?: 'UsersPermissionsMe', id: string, username: string, email: string, confirmed?: boolean | null | undefined, blocked?: boolean | null | undefined, role?: { __typename?: 'UsersPermissionsMeRole', id: string, name: string, description?: string | null | undefined, type?: string | null | undefined } | null | undefined } } };
+export type LoginMutation = { login: { jwt?: string | null | undefined, user: { id: string, username: string, email: string, confirmed?: boolean | null | undefined, blocked?: boolean | null | undefined, role?: { id: string, name: string, description?: string | null | undefined, type?: string | null | undefined } | null | undefined } } };
 
 
 export const LoginDocument = `

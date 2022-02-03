@@ -13,3 +13,5 @@ generates:
       - typescript-react-query
     config:
       fetcher: "src/lib/fetch#fetcher"
+      addInfiniteQuery: true
+      skipTypename: true

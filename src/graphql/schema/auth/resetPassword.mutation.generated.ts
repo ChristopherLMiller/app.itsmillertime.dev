@@ -1,6 +1,6 @@
 import * as Types from '../../types';
 
-import { useMutation, UseMutationOptions } from 'react-query';
+import { useMutation, UseMutationOptions, QueryFunctionContext } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type ResetPasswordMutationVariables = Types.Exact<{
   password: Types.Scalars['String'];
@@ -8,7 +8,7 @@ export type ResetPasswordMutationVariables = Types.Exact<{
 }>;
 
 
-export type ResetPasswordMutation = { __typename?: 'Mutation', resetPassword?: { __typename?: 'UsersPermissionsLoginPayload', jwt?: string | null | undefined } | null | undefined };
+export type ResetPasswordMutation = { resetPassword?: { jwt?: string | null | undefined } | null | undefined };
 
 
 export const ResetPasswordDocument = `

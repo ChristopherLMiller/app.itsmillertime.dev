@@ -1,11 +1,11 @@
 import * as Types from '../../types';
 
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useQuery, UseQueryOptions, useInfiniteQuery, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type GardensSitemapQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GardensSitemapQuery = { __typename?: 'Query', gardens?: Array<{ __typename?: 'Gardens', slug: string, updatedAt: any } | null | undefined> | null | undefined };
+export type GardensSitemapQuery = { gardens?: Array<{ slug: string, updatedAt: any } | null | undefined> | null | undefined };
 
 
 export const GardensSitemapDocument = `
@@ -26,5 +26,17 @@ export const useGardensSitemapQuery = <
     useQuery<GardensSitemapQuery, TError, TData>(
       variables === undefined ? ['gardensSitemap'] : ['gardensSitemap', variables],
       fetcher<GardensSitemapQuery, GardensSitemapQueryVariables>(GardensSitemapDocument, variables),
+      options
+    );
+export const useInfiniteGardensSitemapQuery = <
+      TData = GardensSitemapQuery,
+      TError = unknown
+    >(
+      variables?: GardensSitemapQueryVariables,
+      options?: UseInfiniteQueryOptions<GardensSitemapQuery, TError, TData>
+    ) =>
+    useInfiniteQuery<GardensSitemapQuery, TError, TData>(
+      variables === undefined ? ['gardensSitemap.infinite'] : ['gardensSitemap.infinite', variables],
+      (metaData) => fetcher<GardensSitemapQuery, GardensSitemapQueryVariables>(GardensSitemapDocument, {...variables, ...(metaData.pageParam ?? {})})(),
       options
     );
