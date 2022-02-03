@@ -1,4 +1,3 @@
-import Paginator from "@components/Paginator";
 import { pageSettings } from "config";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
@@ -114,13 +113,6 @@ const BlogIndexpage: NextPage = () => {
               <ArticleListItem key={article.id} article={article as Article} />
             ))}
           </ArticleList>
-          <Paginator
-            totalPages={1}
-            currentPage={page}
-            onPageChange={() => {
-              console.log("changing page");
-            }}
-          />
         </Fragment>
       )}
     </PageLayout>

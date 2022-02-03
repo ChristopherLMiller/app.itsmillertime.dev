@@ -1,0 +1,49 @@
+query ModelsMinimal(
+  $sort: String
+  $start: Int
+  $limit: Int
+  $where: JSON
+  $publicationState: PublicationState
+) {
+  models(
+    sort: $sort
+    start: $start
+    limit: $limit
+    where: $where
+    publicationState: $publicationState
+  ) {
+    SEO {
+      featured_image {
+        provider_metadata
+        width
+        height
+        alternativeText
+      }
+    }
+    clockify_project_id
+    model_tags {
+      slug
+      name
+    }
+    published_at
+    title
+    slug
+    manufacturer {
+      slug
+      name
+    }
+    scale {
+      slug
+      name
+    }
+    kit_number
+    year_released
+    completed
+  }
+  modelsConnection {
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
