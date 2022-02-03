@@ -74,6 +74,7 @@ export const ChildNavManu = styled(motion.div)`
   background: var(--color-red-dark);
   border: 2px solid var(--color-gold);
   border-top: none;
+  z-index: 1;
 `;
 
 export const ChildNavMenuVariants = {
@@ -95,7 +96,6 @@ export const ChildMenu = styled.ul`
   list-style-type: none;
   padding: 0;
   margin: 0;
-  z-index: 999 !important;
 `;
 
 export const ChildMenuItem = styled.li`
