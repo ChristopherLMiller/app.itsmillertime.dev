@@ -62,6 +62,14 @@ export const status = {
   ERROR: `error`,
 };
 
+// AUTH STATE
+export const AUTH_STATE = {
+  ANY: `ANY`,
+  LOGGED_IN: `LOGGED_IN`,
+  LOGGED_OUT: `LOGGED_OUT`,
+  NONE: `NONE`,
+};
+
 // SendGrid
 export const sendgrid = {
   endpoint: `https://api.sendgrid.com/v3/mail/send`,

@@ -47,3 +47,10 @@ export const getJWT = (session) => {
   }
   return null;
 };
+
+export const hasRole = (session, roles) => {
+  if (!isSessionLoading(session)) {
+    const userRole = getRole(session);
+    return roles.includes(userRole.toUpperCase());
+  }
+};

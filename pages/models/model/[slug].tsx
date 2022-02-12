@@ -17,12 +17,8 @@ import { ModelsDocument } from "src/graphql/schema/models/models.query.generated
 import { Model, PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { fetchData } from "src/lib/fetch";
-import {
-  getBuildTime,
-  getYouTubeVideoId,
-  isAdmin,
-  makeDurationFriendly,
-} from "src/utils";
+import { getBuildTime, getYouTubeVideoId, isAdmin } from "src/utils";
+import makeDurationFriendly from "src/utils/makeDurationFriendly";
 import styled from "styled-components";
 
 const YoutubeWrapper = styled.div`
@@ -160,6 +156,7 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
                   <a
                     href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::model.model/${model.id}`}
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Edit
                   </a>

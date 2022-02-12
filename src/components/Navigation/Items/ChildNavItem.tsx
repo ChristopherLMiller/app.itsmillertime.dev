@@ -1,6 +1,8 @@
 import Caret from "@components/Caret";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FC, Fragment, useState } from "react";
+import { filterNavigation } from "src/utils";
 import { iNavItem } from ".";
 import {
   ChildMenu,
@@ -15,7 +17,9 @@ import {
 } from "./styles";
 
 const ChildNavItem: FC<iNavItem> = ({ item }) => {
+  const session = useSession();
   const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <Fragment>
       <NavigationElement
@@ -41,9 +45,9 @@ const ChildNavItem: FC<iNavItem> = ({ item }) => {
           animate={isExpanded ? "visible" : "hidden"}
         >
           <ChildMenu>
-            {item.children.items.map((child) => (
+            {filterNavigation(item.children.items, session).map((child) => (
               <ChildMenuItem key={child.title}>
-                <Link href={child.href}>
+                <Link href={child.href} passHref>
                   <ChildMenuItemLink>{child.title}</ChildMenuItemLink>
                 </Link>
               </ChildMenuItem>
