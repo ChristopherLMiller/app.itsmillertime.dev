@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FunctionComponent } from "react";
-import { iNavItem } from "./NavigationItem";
+import { iNavItem } from ".";
 import {
   NavigationElement,
   NavigationElementIcon,
@@ -9,7 +9,7 @@ import {
 } from "./styles";
 
 const NavItem: FunctionComponent<iNavItem> = ({ item }) => (
-  <Link href={item.href}>
+  <Link href={item.href} passHref>
     <NavigationElement variants={NavigationElementVariants}>
       <NavigationElementIcon
         src={`/svg/${item.icon}.svg`}

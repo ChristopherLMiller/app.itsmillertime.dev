@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { FunctionComponent, useEffect, useState } from "react";
 import { Model, PublicationState } from "src/graphql/types";
-import { getBuildTime, makeDurationFriendly } from "src/utils";
+import { getBuildTime } from "src/utils";
+import makeDurationFriendly from "src/utils/makeDurationFriendly";
 import { defaultImage } from "../../../config";
 import { ModelImage, ModelItem, ModelName, TagList, variants } from "./styles";
 

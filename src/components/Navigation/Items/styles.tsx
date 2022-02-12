@@ -42,6 +42,7 @@ export const NavigationElement = styled(motion.a)`
   width: 100%;
   justify-content: center;
   position: relative;
+  text-decoration: none;
 `;
 
 export const NavigationElementVariants = {

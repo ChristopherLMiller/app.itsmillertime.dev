@@ -6,23 +6,19 @@ import Table from "@components/Table";
 import { defaultImage, pageSettings } from "config";
 import { format, formatRelative, parseISO } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Youtube from "react-youtube";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 import { ModelsDocument } from "src/graphql/schema/models/models.query.generated";
 import { Model, PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { fetchData } from "src/lib/fetch";
-import {
-  getBuildTime,
-  getYouTubeVideoId,
-  isAdmin,
-  makeDurationFriendly,
-} from "src/utils";
+import { getBuildTime, getYouTubeVideoId, isAdmin } from "src/utils";
+import makeDurationFriendly from "src/utils/makeDurationFriendly";
 import styled from "styled-components";
 
 const YoutubeWrapper = styled.div`
@@ -64,12 +60,17 @@ const Contents = styled.div`
     display: inline-block;
   }
 `;
+
+const Boxed = styled.div`
+  max-width: var(--max-width-wide);
+`;
 interface iModelPage {
   model: Model;
 }
 
 const ModelPage: NextPage<iModelPage> = ({ model }) => {
   const router = useRouter();
+  const session = useSession();
 
   const [buildTime, setBuildTime] = useState<string>();
   const imageURL =
@@ -89,6 +90,9 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
   const videoId = model?.youtube_video
     ? getYouTubeVideoId(model?.youtube_video)
     : null;
+
+  const hasContent = model?.content?.length > 0;
+  console.log(hasContent);
 
   useEffect(() => {
     async function fetchTime() {
@@ -128,104 +132,133 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
         }}
         noindex={model.published_at == null}
       />
-      <Grid columns={3} gap="2rem">
-        <GridItem start={1} end={3}>
-          <Image
-            src={imageURL}
-            width={imageWidth}
-            height={imageHeight}
-            alt={imageAlt}
-            layout="responsive"
-            priority={true}
-          />
-        </GridItem>
-        <GridItem>
-          <Card padding={false} heading={model.title} fullWidth>
-            <Table
-              rows={[
-                [
-                  `Started: ${formatRelative(
-                    parseISO(model.createdAt),
-                    new Date()
-                  )}`,
-                  `Updated: ${formatRelative(
-                    parseISO(model.updatedAt),
-                    new Date()
-                  )}`,
-                ],
-                [
-                  "Brand",
-                  {
-                    label: model?.manufacturer?.name,
-                    url: `/models?manufacturer=${model?.manufacturer?.slug}`,
-                  },
-                ],
-                [
-                  "Scale",
-                  {
-                    label: model?.scale?.name,
-                    url: `/models?scale=${model?.scale?.slug}`,
-                  },
-                ],
-                ["Kit Number", model?.kit_number],
-                ["Year Released", model?.year_released],
-                [
-                  "Scalemates",
-                  {
-                    label: "Link",
-                    url: model?.scalemates_link,
-                    target: "new",
-                  },
-                ],
-                ["Completed", model?.completed ? completedAt : "No"],
-                ["Build Time", buildTime],
-              ]}
+      {!hasContent && (
+        <Grid columns={3} gap="2rem">
+          <GridItem start={1} end={3}>
+            <Image
+              src={imageURL}
+              width={imageWidth}
+              height={imageHeight}
+              alt={imageAlt}
+              layout="responsive"
+              priority={true}
             />
-          </Card>
-        </GridItem>
-        <GridItem start={1} end={3}>
-          {model?.content && (
-            <Card align="left">
-              <Contents>
-                <Markdown source={model.content} />
-              </Contents>
-            </Card>
-          )}
-        </GridItem>
-        <GridItem>
-          <Grid gap="3rem">
-            {videoId && (
-              <Panel padding={false}>
-                <YoutubeWrapper>
-                  <Youtube videoId={videoId} />
-                </YoutubeWrapper>
-              </Panel>
+          </GridItem>
+          <GridItem>
+            <Grid gap="2rem">
+              <InfoCard
+                model={model}
+                buildTime={buildTime}
+                completedAt={completedAt}
+              />
+              {isAdmin(session) && (
+                <Fragment>
+                  <a
+                    href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::model.model/${model.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Edit
+                  </a>
+                  <a href="#" target="_blank">
+                    Start Timer
+                  </a>
+                </Fragment>
+              )}
+              {videoId && (
+                <Panel padding={false}>
+                  <YoutubeWrapper>
+                    <Youtube videoId={videoId} />
+                  </YoutubeWrapper>
+                </Panel>
+              )}
+              {model?.images?.length > 0 && (
+                <Panel padding={false}>
+                  <SimpleReactLightbox>
+                    <SRLWrapper>
+                      <Grid columns={3} masonry>
+                        {model.images.length > 0 &&
+                          model.images.map((image) => (
+                            <ImageWrapper key={image.id}>
+                              <Image
+                                src={image.provider_metadata.public_id}
+                                alt={image.alternativeText}
+                                width={image.width}
+                                height={image.height}
+                                layout="responsive"
+                              />
+                            </ImageWrapper>
+                          ))}
+                      </Grid>
+                    </SRLWrapper>
+                  </SimpleReactLightbox>
+                </Panel>
+              )}
+            </Grid>
+          </GridItem>
+        </Grid>
+      )}
+      {hasContent && (
+        <Grid columns={3} gap="2rem">
+          <GridItem start={1} end={4}>
+            <Image
+              src={imageURL}
+              width={imageWidth}
+              height={imageHeight}
+              alt={imageAlt}
+              layout="responsive"
+              priority={true}
+            />
+          </GridItem>
+          <GridItem start={1} end={3}>
+            {model?.content && (
+              <Card align="left">
+                <Contents>
+                  <Markdown source={model.content} />
+                </Contents>
+              </Card>
             )}
-            {model?.images?.length > 0 && (
-              <Panel padding={false}>
-                <SimpleReactLightbox>
-                  <SRLWrapper>
-                    <Grid columns={3} masonry>
-                      {model.images.length > 0 &&
-                        model.images.map((image) => (
-                          <ImageWrapper key={image.id}>
-                            <Image
-                              src={image.provider_metadata.public_id}
-                              alt={image.alternativeText}
-                              width={image.width}
-                              height={image.height}
-                              layout="responsive"
-                            />
-                          </ImageWrapper>
-                        ))}
-                    </Grid>
-                  </SRLWrapper>
-                </SimpleReactLightbox>
-              </Panel>
-            )}
-          </Grid>
-        </GridItem>
-      </Grid>
+          </GridItem>
+          <GridItem>
+            <Grid gap="3rem">
+              <InfoCard
+                model={model}
+                buildTime={buildTime}
+                completedAt={completedAt}
+              />
+              {videoId && (
+                <Panel padding={false}>
+                  <YoutubeWrapper>
+                    <Youtube videoId={videoId} />
+                  </YoutubeWrapper>
+                </Panel>
+              )}
+              {model?.images?.length > 0 && (
+                <Panel padding={false}>
+                  <SimpleReactLightbox>
+                    <SRLWrapper>
+                      <Grid columns={3} masonry>
+                        {model.images.length > 0 &&
+                          model.images.map((image) => (
+                            <ImageWrapper key={image.id}>
+                              <Image
+                                src={image.provider_metadata.public_id}
+                                alt={image.alternativeText}
+                                width={image.width}
+                                height={image.height}
+                                layout="responsive"
+                              />
+                            </ImageWrapper>
+                          ))}
+                      </Grid>
+                    </SRLWrapper>
+                  </SimpleReactLightbox>
+                </Panel>
+              )}
+            </Grid>
+          </GridItem>
+        </Grid>
+      )}
     </PageLayout>
   );
 };
@@ -270,6 +303,47 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   }
+};
+
+const InfoCard = ({ model, completedAt, buildTime }) => {
+  return (
+    <Card padding={false} heading={model.title} fullWidth>
+      <Table
+        rows={[
+          [
+            `Started: ${formatRelative(parseISO(model.createdAt), new Date())}`,
+            `Updated: ${formatRelative(parseISO(model.updatedAt), new Date())}`,
+          ],
+          [
+            "Brand",
+            {
+              label: model?.manufacturer?.name,
+              url: `/models?manufacturer=${model?.manufacturer?.slug}`,
+            },
+          ],
+          [
+            "Scale",
+            {
+              label: model?.scale?.name,
+              url: `/models?scale=${model?.scale?.slug}`,
+            },
+          ],
+          ["Kit Number", model?.kit_number],
+          ["Year Released", model?.year_released],
+          [
+            "Scalemates",
+            {
+              label: "Link",
+              url: model?.scalemates_link,
+              target: "new",
+            },
+          ],
+          ["Completed", model?.completed ? completedAt : "No"],
+          ["Build Time", buildTime],
+        ]}
+      />
+    </Card>
+  );
 };
 
 export default ModelPage;

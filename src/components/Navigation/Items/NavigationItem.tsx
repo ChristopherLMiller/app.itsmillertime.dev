@@ -1,30 +1,9 @@
+import { iNavItem } from "@components/Navigation/Items";
 import { useRouter } from "next/router";
 import { FunctionComponent } from "react";
 import ChildNavItem from "./ChildNavItem";
 import NavItem from "./NavItem";
 import { NavigationItemVariants, StyledNavigationItem } from "./styles";
-
-export interface iNavChilditem {
-  title: string;
-  activePaths: [string];
-  href: string;
-  authState: string;
-  requiredRoles?: [string];
-}
-
-export interface iNavItem {
-  item: {
-    title: string;
-    href: string;
-    activePaths: [string];
-    authState: string;
-    icon: string;
-    requiredRoles?: [string];
-    children?: {
-      items: [iNavChilditem];
-    };
-  };
-}
 
 export const NavigationItem: FunctionComponent<iNavItem> = ({ item }) => {
   const router = useRouter();
@@ -41,8 +20,8 @@ export const NavigationItem: FunctionComponent<iNavItem> = ({ item }) => {
         isActive ? "var(--color-gold-highlight)" : "var(--color-gold)"
       }
     >
-      {!hasChildren && <NavItem item={item} />}
-      {hasChildren && <ChildNavItem item={item} />}
+      {!hasChildren && <NavItem item={item} key={item.title} />}
+      {hasChildren && <ChildNavItem item={item} key={item.title} />}
     </StyledNavigationItem>
   );
 };

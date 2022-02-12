@@ -9,14 +9,14 @@
     },
     {
       "title": "My Blog",
-      "activePaths": ["/blog", "/post"],
+      "activePaths": ["/blog", "/blog/post/[slug]"],
       "href": "/blog",
       "authState": "ANY",
       "icon": "archive"
     },
     {
       "title": "About",
-      "activePaths": ["/about"],
+      "activePaths": ["/about", "/about-me", "/uses"],
       "href": null,
       "authState": "ANY",
       "icon": "user-4",
@@ -46,14 +46,14 @@
     },
     {
       "title": "Models",
-      "activePaths": ["/models"],
+      "activePaths": ["/models","/models/model/[slug]"],
       "href": "/models",
       "authState": "ANY",
       "icon": "paper-plane-1"
     },
     {
       "title": "Galleries",
-      "activePaths": ["/gallery"],
+      "activePaths": ["/gallery", "/gallery/album/[slug]"],
       "href": "/gallery",
       "authState": "ANY",
       "icon": "albums"
@@ -83,7 +83,7 @@
             "activePaths": ["https://admin.christopherleemiller.me"],
             "href": "https://admin.christopherleemiller.me",
             "authState": "LOGGED_IN",
-            "requiredRole": ["ADMIN"]
+            "requiredRole": ["ADMINISTRATOR"]
           },
           {
             "title": "Logout",

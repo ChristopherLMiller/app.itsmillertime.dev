@@ -55,6 +55,7 @@ const BlogIndexpage: NextPage = () => {
 
   if (error) {
     console.error(error);
+    console.log(data);
   }
 
   return (
@@ -82,7 +83,7 @@ const BlogIndexpage: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
-      {error && (
+      {error && false && (
         <Card heading="Uh Oh!">
           <p>We were unable to fetch the data requested for whatever reason.</p>
           <p>More specifically: {error}</p>

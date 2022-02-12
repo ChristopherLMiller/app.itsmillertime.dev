@@ -2,6 +2,7 @@ import Card from "@components/Card";
 import { Grid } from "@components/Grid";
 import { defaultImage, pageSettings } from "config";
 import { formatRelative, parseISO } from "date-fns";
+import { motion } from "framer-motion";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
@@ -31,6 +32,16 @@ const SubText = styled.div`
     }
   }
 `;
+
+const Gallery = styled(motion.article)``;
+const GalleryVariants = {
+  hover: {
+    scale: 1.05,
+  },
+  rest: {
+    scale: 1,
+  },
+};
 
 const GalleriesIndexPage: NextPage = () => {
   const router = useRouter();
@@ -85,9 +96,14 @@ const GalleriesIndexPage: NextPage = () => {
         </Card>
       )}
       {isSuccess && (
-        <Grid columns={2} min="350px" gap="3rem">
+        <Grid columns={2} min="450px" gap="3rem">
           {data?.galleries?.map((gallery) => (
-            <article key={gallery.id}>
+            <Gallery
+              variants={GalleryVariants}
+              initial="rest"
+              whileHover="hover"
+              key={gallery.id}
+            >
               <Link
                 href={`/gallery/album/${gallery.slug}`}
                 key={gallery.slug}
@@ -133,7 +149,7 @@ const GalleriesIndexPage: NextPage = () => {
                   </Image>
                 </Anchor>
               </Link>
-            </article>
+            </Gallery>
           ))}
         </Grid>
       )}
