@@ -65,8 +65,8 @@ const nextConfig = {
   },
   swcMinify: true,
   experimental: {
-    outputStandalone: true
-  }
+    outputStandalone: true,
+  },
 };
 
 const SentryWebpackPluginOptions = {
