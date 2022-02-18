@@ -4,7 +4,7 @@ require(`dotenv-flow`).config();
 module.exports = {
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
   generateRobotsTxt: true,
-  exclude: [`/api/*`, `/admin/*`, `/sitemap/*`, `/unauthorized`],
+  exclude: [`/api/*`, `/admin/*`, `/sitemap/*`, `/unauthorized`, `/account/*`],
   robotsTxtOptions: {
     additionalSitemaps: [
       `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap/articles.xml`,
@@ -15,7 +15,7 @@ module.exports = {
       {
         userAgent: `*`,
         allow: `/`,
-        disallow: [`/api/*`, `/admin/*`, `/unauthorized`],
+        disallow: [`/api/*`, `/admin/*`, `/unauthorized`, `/account/*`],
       },
     ],
   },
