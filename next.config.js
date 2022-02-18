@@ -60,9 +60,13 @@ const nextConfig = {
     dest: "public",
     disable: process.env.NODE_ENV === "development",
   },
-  experimental: {
+  compiler: {
     styledComponents: true,
   },
+  swcMinify: true,
+  experimental: {
+    outputStandalone: true
+  }
 };
 
 const SentryWebpackPluginOptions = {
