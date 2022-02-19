@@ -40,16 +40,22 @@ const contentVariants = {
   },
 };
 
+const Boxed = styled.div`
+  width: 100%;
+  max-width: ${(props) => props.boxed};
+`;
 interface iPagelayout {
   title: string;
   description: string;
   padding?: boolean;
+  boxed?: string;
 }
 
 const PageLayout: FunctionComponent<iPagelayout> = ({
   title,
   description,
   padding = true,
+  boxed,
   children,
 }) => {
   return (
@@ -58,7 +64,7 @@ const PageLayout: FunctionComponent<iPagelayout> = ({
 
       <Main padding={padding ? `0 10%` : `0 5%`}>
         <DesktopNav />
-        {children}
+        <Boxed boxed={boxed ? boxed : ""}>{children}</Boxed>
       </Main>
       <Footer />
     </ContentArea>

@@ -13,7 +13,10 @@ import { useRouter } from "next/router";
 import { Fragment, useEffect, useState } from "react";
 import Youtube from "react-youtube";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
-import { ModelsDocument } from "src/graphql/schema/models/models.query.generated";
+import {
+  ModelsDocument,
+  useModelsQuery,
+} from "src/graphql/schema/models/models.query.generated";
 import { Model, PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { fetchData } from "src/lib/fetch";
@@ -61,43 +64,51 @@ const Contents = styled.div`
   }
 `;
 
-const Boxed = styled.div`
-  max-width: var(--max-width-wide);
-`;
 interface iModelPage {
-  model: Model;
+  seo: Model;
 }
 
-const ModelPage: NextPage<iModelPage> = ({ model }) => {
+const ModelPage: NextPage<iModelPage> = ({ seo }) => {
   const router = useRouter();
   const session = useSession();
 
-  const [buildTime, setBuildTime] = useState<string>();
+  // 1) We parse out the SEO stuff first so that we have it to get to SEO
   const imageURL =
-    model.SEO?.featured_image?.provider_metadata.public_id ||
+    seo.SEO?.featured_image?.provider_metadata.public_id ||
     defaultImage.public_id;
-  const imageWidth = model?.SEO?.featured_image?.width || defaultImage.width;
-  const imageHeight = model?.SEO?.featured_image?.height || defaultImage.height;
+  const imageWidth = seo?.SEO?.featured_image?.width || defaultImage.width;
+  const imageHeight = seo?.SEO?.featured_image?.height || defaultImage.height;
   const imageAlt =
-    model.SEO?.featured_image?.alternativeText || defaultImage.altText;
+    seo.SEO?.featured_image?.alternativeText || defaultImage.altText;
+
+  // 2) Now we load the data using hooks
+  const { data, isSuccess } = useModelsQuery({
+    where: {
+      slug: seo.slug,
+    },
+  });
+
+  // 3)  Then we set the rest of the variables and output
+  const [buildTime, setBuildTime] = useState<string>();
 
   // so for the sake of UI, if the completed_at field is null/undefined
   // we'll just set it to Yes, to reflect that it's done
-  const completedAt = model?.completed_at
-    ? format(parseISO(model?.completed_at), "PP")
+  const completedAt = data?.models[0]?.completed_at
+    ? format(parseISO(data?.models[0]?.completed_at), "PP")
     : "Yes";
 
-  const videoId = model?.youtube_video
-    ? getYouTubeVideoId(model?.youtube_video)
+  const videoId = data?.models[0]?.youtube_video
+    ? getYouTubeVideoId(data?.models[0]?.youtube_video)
     : null;
 
-  const hasContent = model?.content?.length > 0;
-  console.log(hasContent);
+  const hasContent = data?.models[0]?.content?.length > 0;
 
   useEffect(() => {
     async function fetchTime() {
-      if (model?.clockify_project_id) {
-        const duration = await getBuildTime(model?.clockify_project_id);
+      if (data?.models[0]?.clockify_project_id) {
+        const duration = await getBuildTime(
+          data?.models[0]?.clockify_project_id
+        );
         setBuildTime(makeDurationFriendly(duration, false, true));
       } else {
         setBuildTime("None");
@@ -105,34 +116,35 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
     }
 
     fetchTime();
-  }, [model?.clockify_project_id]);
+  }, [data]);
 
   return (
     <PageLayout
       title={pageSettings.models.title}
       description={pageSettings.models.description}
+      boxed={`var(--max-width-desktop)`}
     >
       <NextSeo
-        title={model.SEO.title}
-        description={model.SEO.description}
+        title={seo.SEO.title}
+        description={seo.SEO.description}
         canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         openGraph={{
-          title: `${model.SEO.title}`,
-          description: `${model.SEO.description}`,
+          title: `${seo.SEO.title}`,
+          description: `${seo.SEO.description}`,
           type: `website`,
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
           images: [
             {
-              url: model.SEO?.featured_image?.url,
-              width: model.SEO?.featured_image?.width,
-              height: model.SEO?.featured_image?.height,
-              alt: model.SEO?.featured_image?.alternativeText,
+              url: seo.SEO?.featured_image?.url,
+              width: seo.SEO?.featured_image?.width,
+              height: seo.SEO?.featured_image?.height,
+              alt: seo.SEO?.featured_image?.alternativeText,
             },
           ],
         }}
-        noindex={model.published_at == null}
+        noindex={seo.published_at == null}
       />
-      {!hasContent && (
+      {isSuccess && !hasContent && (
         <Grid columns={3} gap="2rem">
           <GridItem start={1} end={3}>
             <Image
@@ -147,14 +159,14 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
           <GridItem>
             <Grid gap="2rem">
               <InfoCard
-                model={model}
+                model={data?.models[0]}
                 buildTime={buildTime}
                 completedAt={completedAt}
               />
               {isAdmin(session) && (
                 <Fragment>
                   <a
-                    href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::model.model/${model.id}`}
+                    href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::model.model/${data?.models[0].id}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -172,13 +184,13 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
                   </YoutubeWrapper>
                 </Panel>
               )}
-              {model?.images?.length > 0 && (
+              {data?.models[0]?.images?.length > 0 && (
                 <Panel padding={false}>
                   <SimpleReactLightbox>
                     <SRLWrapper>
                       <Grid columns={3} masonry>
-                        {model.images.length > 0 &&
-                          model.images.map((image) => (
+                        {data?.models[0]?.images.length > 0 &&
+                          data?.models[0]?.images.map((image) => (
                             <ImageWrapper key={image.id}>
                               <Image
                                 src={image.provider_metadata.public_id}
@@ -198,7 +210,7 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
           </GridItem>
         </Grid>
       )}
-      {hasContent && (
+      {isSuccess && hasContent && (
         <Grid columns={3} gap="2rem">
           <GridItem start={1} end={4}>
             <Image
@@ -211,10 +223,10 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
             />
           </GridItem>
           <GridItem start={1} end={3}>
-            {model?.content && (
+            {data?.models[0]?.content && (
               <Card align="left">
                 <Contents>
-                  <Markdown source={model.content} />
+                  <Markdown source={data.models[0].content} />
                 </Contents>
               </Card>
             )}
@@ -222,7 +234,7 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
           <GridItem>
             <Grid gap="3rem">
               <InfoCard
-                model={model}
+                model={data?.models[0]}
                 buildTime={buildTime}
                 completedAt={completedAt}
               />
@@ -233,14 +245,16 @@ const ModelPage: NextPage<iModelPage> = ({ model }) => {
                   </YoutubeWrapper>
                 </Panel>
               )}
-              {model?.images?.length > 0 && (
+              {data?.models[0]?.images?.length > 0 && (
                 <Panel padding={false}>
                   <SimpleReactLightbox>
                     <SRLWrapper>
                       <Grid columns={3} masonry>
-                        {model.images.length > 0 &&
-                          model.images.map((image) => (
-                            <ImageWrapper key={image.id}>
+                        {data?.models[0]?.images.length > 0 &&
+                          data?.models[0]?.images.map((image) => (
+                            <ImageWrapper
+                              key={image.provider_metadata.public_id}
+                            >
                               <Image
                                 src={image.provider_metadata.public_id}
                                 alt={image.alternativeText}
@@ -291,7 +305,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (data.models.length) {
     return {
       props: {
-        model: data.models[0],
+        seo: data.models[0],
       },
     };
   } else {

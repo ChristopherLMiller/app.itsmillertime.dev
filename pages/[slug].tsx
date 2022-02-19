@@ -3,11 +3,16 @@ import Panel from "@components/Panel";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
 import PageLayout from "src/layout/PageLayout";
+import { ArticleListItemContent } from "./blog/post/[slug]";
 
 const Page = ({ page }) => {
   const { title, description, content, seo, slug } = page[0];
   return (
-    <PageLayout title={title} description={description}>
+    <PageLayout
+      title={title}
+      description={description}
+      boxed="var(--max-width-desktop)"
+    >
       <NextSeo
         title={seo.title}
         description={seo.description}
@@ -27,8 +32,10 @@ const Page = ({ page }) => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`,
         }}
       />
-      <Panel boxed>
-        <Markdown source={content} />
+      <Panel>
+        <ArticleListItemContent>
+          <Markdown source={content} />
+        </ArticleListItemContent>
       </Panel>
     </PageLayout>
   );

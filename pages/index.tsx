@@ -17,6 +17,7 @@ const IndexPage: NextPage = () => {
     <PageLayout
       title={pageSettings.home.title}
       description={pageSettings.home.description}
+      boxed={"var(--max-width-desktop)"}
     >
       <NextSeo
         title={pageSettings.home.title}

@@ -49,6 +49,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
     <PageLayout
       title={pageSettings.gallery.title}
       description={pageSettings.gallery.description}
+      boxed="var(--max-width-wide)"
     >
       <ShareButtons
         url={`${process.env.NEXT_PUBLIC_SITE_URL}/gallery/album/${album.slug}`}

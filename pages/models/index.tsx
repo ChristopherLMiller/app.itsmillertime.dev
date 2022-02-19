@@ -51,6 +51,7 @@ const ModelsPageIndex: NextPage = () => {
     <PageLayout
       title={pageSettings.models.title}
       description={pageSettings.models.description}
+      boxed="var(--max-width-wide)"
     >
       <NextSeo
         title={pageSettings.models.title}
