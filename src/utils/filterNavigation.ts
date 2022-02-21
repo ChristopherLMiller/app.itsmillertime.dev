@@ -34,8 +34,7 @@ export const filterNavigation = (navArray, session) => {
           return false;
         }
       default:
-        console.log(item.authState);
-        break;
+        return false;
     }
   });
 

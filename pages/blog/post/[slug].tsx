@@ -16,7 +16,7 @@ import { countWords, isAdmin, timeToRead } from "src/utils";
 import { isSessionLoading } from "src/utils/auth";
 import styled from "styled-components";
 
-const ArticleListItemContent = styled.div`
+export const ArticleListItemContent = styled.div`
   color: var(--color-black-80);
   padding: 0 5%;
   font-family: var(--font-typewriter);
@@ -101,6 +101,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
     <PageLayout
       title={pageSettings.blog.title}
       description={pageSettings.blog.description}
+      boxed="var(--max-width-desktop)"
     >
       <NextSeo
         title={article.title}

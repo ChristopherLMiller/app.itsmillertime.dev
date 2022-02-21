@@ -22,7 +22,7 @@ const ModelsPageIndex: NextPage = () => {
   const [limit, setLimit] = useState(12);
   const start = (page - 1) * limit;
 
-  const [sort, setSort] = useState(`updatedAt:ASC`);
+  const [sort, setSort] = useState(`title:ASC`);
 
   useEffect(() => {
     setPage(parseInt(router.query["page"] as string) || 1);
@@ -51,6 +51,7 @@ const ModelsPageIndex: NextPage = () => {
     <PageLayout
       title={pageSettings.models.title}
       description={pageSettings.models.description}
+      boxed="var(--max-width-wide)"
     >
       <NextSeo
         title={pageSettings.models.title}

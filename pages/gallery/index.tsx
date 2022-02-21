@@ -67,6 +67,7 @@ const GalleriesIndexPage: NextPage = () => {
     <PageLayout
       title={pageSettings.gallery.title}
       description={pageSettings.gallery.description}
+      boxed="var(--max-width-wide)"
     >
       {isLoading && <Loader isLoading={isLoading} />}
       <NextSeo
@@ -96,7 +97,7 @@ const GalleriesIndexPage: NextPage = () => {
         </Card>
       )}
       {isSuccess && (
-        <Grid columns={2} min="450px" gap="3rem">
+        <Grid columns={3} min="450px" gap="3rem">
           {data?.galleries?.map((gallery) => (
             <Gallery
               variants={GalleryVariants}
