@@ -1,5 +1,4 @@
 import { GraphQLClient } from "graphql-request";
-import { isDev } from "src/utils";
 
 export const graphQLClient = new GraphQLClient(
   `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`
@@ -57,6 +56,5 @@ export const fetchData = async (
   );
   const data = await response.json();
   // TODO: handle errors and return them instead of just tryign to send back data
-  isDev() && console.log(data);
   return data.data;
 };

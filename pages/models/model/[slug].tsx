@@ -191,9 +191,11 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                       <Grid columns={3} masonry>
                         {data?.models[0]?.images.length > 0 &&
                           data?.models[0]?.images.map((image) => (
-                            <ImageWrapper key={image.id}>
+                            <ImageWrapper
+                              key={image.provider_metadata?.public_id}
+                            >
                               <Image
-                                src={image.provider_metadata.public_id}
+                                src={image.provider_metadata?.public_id}
                                 alt={image.alternativeText}
                                 width={image.width}
                                 height={image.height}

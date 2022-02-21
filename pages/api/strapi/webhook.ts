@@ -1,11 +1,17 @@
+import { ServerResponse } from "http";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const webhook = (req: NextApiRequest, res: NextApiResponse): void => {
+const webhook = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<ServerResponse> => {
   const authHeader = req.headers.authorization;
 
   if (authHeader != `${process.env.STRAPI_WEBHOOK_KEY}`) {
-    res.status(403);
+    console.log("Received invalid token");
+    res.status(403).json({ message: `Unauthorized` });
     res.end();
+    return;
   }
 
   const { event, model } = req.body;
@@ -16,7 +22,12 @@ const webhook = (req: NextApiRequest, res: NextApiResponse): void => {
       break;
     case `entry.edit`:
       console.log(`edited an entry`);
-      break;
+      try {
+        await res.unstable_revalidate("/privacy-policy");
+        res.json({ revalidated: true });
+      } catch (error) {
+        res.status(500).send("Error revalidating");
+      }
     case `entry.delete`:
       console.log(`deleted entry`);
       break;
