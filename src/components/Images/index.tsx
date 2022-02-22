@@ -11,7 +11,7 @@ const ImageContainer = styled<iImageContainer>(motion.div)`
   position: relative;
   min-height: 75px;
   height: min-content;
-  z-index: -1;
+  cursor: pointer;
 
   > div {
     display: block !important;
@@ -90,6 +90,7 @@ interface iImage {
 const customImageProps = {
   srl_gallery_image: `true`,
 };
+
 const ImageDefault: FunctionComponent<iImage> = ({
   public_id = `clm-new/uploads/default_fb95099398`,
   width = 1920,
@@ -116,6 +117,7 @@ const ImageDefault: FunctionComponent<iImage> = ({
       loading={`eager`}
       placeholder={`blur`}
       blurDataURL={`${public_id}`}
+      srl_gallery_image={`true`}
       {...customImageProps}
     />
     {caption && (

@@ -3,7 +3,7 @@ import { Grid, GridItem } from "@components/Grid";
 import Markdown from "@components/Markdown";
 import Panel from "@components/Panel";
 import Table from "@components/Table";
-import { defaultImage, pageSettings } from "config";
+import { defaultImage, lightboxOptions, pageSettings } from "config";
 import { format, formatRelative, parseISO } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
@@ -187,7 +187,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
               {data?.models[0]?.images?.length > 0 && (
                 <Panel padding={false}>
                   <SimpleReactLightbox>
-                    <SRLWrapper>
+                    <SRLWrapper options={lightboxOptions}>
                       <Grid columns={3} masonry>
                         {data?.models[0]?.images.length > 0 &&
                           data?.models[0]?.images.map((image) => (
@@ -250,7 +250,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
               {data?.models[0]?.images?.length > 0 && (
                 <Panel padding={false}>
                   <SimpleReactLightbox>
-                    <SRLWrapper>
+                    <SRLWrapper options={lightboxOptions}>
                       <Grid columns={3} masonry>
                         {data?.models[0]?.images.length > 0 &&
                           data?.models[0]?.images.map((image) => (
