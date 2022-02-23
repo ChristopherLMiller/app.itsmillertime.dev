@@ -76,19 +76,22 @@ export const ChildNavManu = styled(motion.div)`
   border: 2px solid var(--color-gold);
   border-top: none;
   z-index: 1;
+  transform-origin: top center;
 `;
 
 export const ChildNavMenuVariants = {
   visible: {
     opacity: 1,
+    rotateX: 0,
     transition: {
-      duration: 0.1,
+      duration: 0.25,
     },
   },
   hidden: {
     opacity: 0,
+    rotateX: 90,
     transition: {
-      duration: 1,
+      duration: 0.25,
     },
   },
 };

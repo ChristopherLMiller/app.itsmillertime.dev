@@ -1,7 +1,8 @@
 import Caret from "@components/Caret";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { FC, Fragment, useState } from "react";
+import { useRouter } from "next/router";
+import { FC, Fragment, useEffect, useState } from "react";
 import { filterNavigation } from "src/utils";
 import { iNavItem } from ".";
 import {
@@ -17,9 +18,30 @@ import {
 } from "./styles";
 
 const ChildNavItem: FC<iNavItem> = ({ item }) => {
+  const router = useRouter();
+
   const session = useSession();
   const [isExpanded, setIsExpanded] = useState(false);
 
+  // hook to monitor route changes
+  useEffect(() => {
+    const routeChange = () => {
+      setIsExpanded(false);
+    };
+    router.events.on("routeChangeStart", routeChange);
+
+    return () => {
+      router.events.off("routeChangeComplete", routeChange);
+    };
+  }, [router.events]);
+
+  // hook to auto close the menu after x seconds
+  useEffect(() => {
+    if (isExpanded) {
+      const timeout = setTimeout(() => setIsExpanded(false), 5000);
+      return () => clearTimeout(timeout);
+    }
+  }, [isExpanded]);
   return (
     <Fragment>
       <NavigationElement
