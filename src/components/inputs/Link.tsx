@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import Link from "next/link";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { FunctionComponent } from "react";
+import styled from "styled-components";
 interface ButtonTypes {
   href: string;
   text: string;
@@ -10,18 +10,35 @@ interface ButtonTypes {
 export const LinkButton: FunctionComponent<ButtonTypes> = ({
   href,
   children,
-}) => (
-  <StyledButton
-    whileHover="hover"
-    animate="rest"
-    initial="rest"
-    variants={ButtonVariants}
-  >
-    <Link href={href} passHref>
-      <ButtonAnchor>{children}</ButtonAnchor>
-    </Link>
-  </StyledButton>
-);
+}) => {
+  if (href.startsWith("http")) {
+    return (
+      <StyledButton
+        whileHover="hover"
+        animate="rest"
+        initial="rest"
+        variants={ButtonVariants}
+      >
+        <ButtonAnchor href={href} target="_blank" rel="noopener noreferrer">
+          {children}
+        </ButtonAnchor>
+      </StyledButton>
+    );
+  } else {
+    return (
+      <StyledButton
+        whileHover="hover"
+        animate="rest"
+        initial="rest"
+        variants={ButtonVariants}
+      >
+        <Link href={href} passHref>
+          <ButtonAnchor>{children}</ButtonAnchor>
+        </Link>
+      </StyledButton>
+    );
+  }
+};
 
 export const StyledButton = styled(motion.p)`
   background: var(--color-red);
