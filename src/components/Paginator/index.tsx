@@ -28,6 +28,7 @@ const Paginator: React.FC<PaginatorProps> = ({
       newPage = totalPages;
     }
     setPage(newPage);
+    window.scrollTo({ top: 0, behavior: `smooth` });
     router.push("/models?page=" + newPage, undefined, {
       shallow: true,
     });
