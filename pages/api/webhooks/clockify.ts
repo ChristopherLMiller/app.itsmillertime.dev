@@ -13,7 +13,6 @@ const clockify = async (
     res.end();
     return;
   }
-  t;
 
   res.end();
   return;

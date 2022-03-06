@@ -101,33 +101,35 @@ const ImageDefault: FunctionComponent<iImage> = ({
   caption,
   border = true,
   children,
-}) => (
-  <ImageContainer
-    variants={ImageContainerVariants}
-    initial="rest"
-    whileHover={hoverable ? `hover` : `rest`}
-    border={border ? `5px solid var(--color-red-intermediate);` : `none`}
-  >
-    <Image
-      src={`${public_id}`}
-      alt={alt}
-      layout={layout}
-      width={width}
-      height={height}
-      loading={`eager`}
-      placeholder={`blur`}
-      blurDataURL={`${public_id}`}
-      srl_gallery_image={`true`}
-      {...customImageProps}
-    />
-    {caption && (
-      <ImageOverlay variants={ImageOverlayVariants}>
-        <Caption>{caption}</Caption>
-        {caption && <hr />}
-        <SubText>{children}</SubText>
-      </ImageOverlay>
-    )}
-  </ImageContainer>
-);
+}) => {
+  return (
+    <ImageContainer
+      variants={ImageContainerVariants}
+      initial="rest"
+      whileHover={hoverable ? `hover` : `rest`}
+      border={border ? `var(--border)` : `none`}
+    >
+      <Image
+        src={`${public_id}`}
+        alt={alt}
+        layout={layout}
+        width={width}
+        height={height}
+        loading={`eager`}
+        placeholder={`blur`}
+        blurDataURL={`${public_id}`}
+        srl_gallery_image={`true`}
+        {...customImageProps}
+      />
+      {caption && (
+        <ImageOverlay variants={ImageOverlayVariants}>
+          <Caption>{caption}</Caption>
+          {caption && <hr />}
+          <SubText>{children}</SubText>
+        </ImageOverlay>
+      )}
+    </ImageContainer>
+  );
+};
 
 export default ImageDefault;

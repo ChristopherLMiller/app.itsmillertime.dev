@@ -1,5 +1,4 @@
 import Card from "@components/Card";
-import { Grid } from "@components/Grid";
 import { defaultImage, pageSettings } from "config";
 import { formatRelative, parseISO } from "date-fns";
 import { motion } from "framer-motion";
@@ -7,6 +6,7 @@ import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { ArrayList } from "src/components/arrayList";
 import Image from "src/components/Images";
 import Loader from "src/components/Loader";
@@ -97,62 +97,66 @@ const GalleriesIndexPage: NextPage = () => {
         </Card>
       )}
       {isSuccess && (
-        <Grid columns={3} min="450px" gap="3rem">
-          {data?.galleries?.map((gallery) => (
-            <Gallery
-              variants={GalleryVariants}
-              initial="rest"
-              whileHover="hover"
-              key={gallery.id}
-            >
-              <Link
-                href={`/gallery/album/${gallery.slug}`}
-                key={gallery.slug}
-                passHref
+        <ResponsiveMasonry>
+          <Masonry gutter="3em">
+            {data?.galleries?.map((gallery) => (
+              <Gallery
+                variants={GalleryVariants}
+                initial="rest"
+                whileHover="hover"
+                key={gallery.id}
               >
-                <Anchor>
-                  <Image
-                    public_id={`${
-                      gallery?.featured_image?.provider_metadata?.public_id ||
-                      defaultImage.public_id
-                    }`}
-                    width={gallery?.featured_image?.width || 900}
-                    height={gallery?.featured_image?.height || 450}
-                    alt={`${gallery.title}`}
-                    caption={`${gallery.title}${
-                      gallery.status === `PUBLIC` ? `` : ` - ${gallery.status}`
-                    }`}
-                    hoverable
-                    key={gallery.slug}
-                  >
-                    <SubText>
-                      <p>
-                        Added:{` `}
-                        {formatRelative(
-                          parseISO(gallery.createdAt),
-                          new Date()
-                        )}
-                        {` - Updated: `}
-                        {formatRelative(
-                          parseISO(gallery.updatedAt),
-                          new Date()
-                        )}
-                        {` - Image Count: ${gallery?.gallery_images?.length}`}
-                      </p>
-                      <p>
-                        Categories:{` `}
-                        <ArrayList array={gallery.gallery_categories} />
-                      </p>
-                      <p>
-                        Tags: <ArrayList array={gallery.gallery_tags} />
-                      </p>
-                    </SubText>
-                  </Image>
-                </Anchor>
-              </Link>
-            </Gallery>
-          ))}
-        </Grid>
+                <Link
+                  href={`/gallery/album/${gallery.slug}`}
+                  key={gallery.slug}
+                  passHref
+                >
+                  <Anchor>
+                    <Image
+                      public_id={`${
+                        gallery?.featured_image?.provider_metadata?.public_id ||
+                        defaultImage.public_id
+                      }`}
+                      width={gallery?.featured_image?.width || 900}
+                      height={gallery?.featured_image?.height || 450}
+                      alt={`${gallery.title}`}
+                      caption={`${gallery.title}${
+                        gallery.status === `PUBLIC`
+                          ? ``
+                          : ` - ${gallery.status}`
+                      }`}
+                      hoverable
+                      key={gallery.slug}
+                    >
+                      <SubText>
+                        <p>
+                          Added:{` `}
+                          {formatRelative(
+                            parseISO(gallery.createdAt),
+                            new Date()
+                          )}
+                          {` - Updated: `}
+                          {formatRelative(
+                            parseISO(gallery.updatedAt),
+                            new Date()
+                          )}
+                          {` - Image Count: ${gallery?.gallery_images?.length}`}
+                        </p>
+                        <p>
+                          Categories:{` `}
+                          <ArrayList array={gallery.gallery_categories} />
+                        </p>
+                        <p>
+                          Tags: <ArrayList array={gallery.gallery_tags} />
+                        </p>
+                      </SubText>
+                    </Image>
+                  </Anchor>
+                </Link>
+              </Gallery>
+            ))}
+          </Masonry>
+        </ResponsiveMasonry>
       )}
     </PageLayout>
   );
