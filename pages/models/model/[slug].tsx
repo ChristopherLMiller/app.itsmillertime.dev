@@ -1,16 +1,17 @@
 import Card from "@components/Card";
+import ClockifyControls from "@components/ClockifyControls";
 import { Grid, GridItem } from "@components/Grid";
 import Markdown from "@components/Markdown";
 import Panel from "@components/Panel";
 import Table from "@components/Table";
-import { defaultImage, pageSettings } from "config";
+import { defaultImage, lightboxOptions, pageSettings } from "config";
 import { format, formatRelative, parseISO } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Youtube from "react-youtube";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 import {
@@ -88,27 +89,27 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
     },
   });
 
+  const model = isSuccess && data?.models[0];
+
   // 3)  Then we set the rest of the variables and output
   const [buildTime, setBuildTime] = useState<string>();
 
   // so for the sake of UI, if the completed_at field is null/undefined
   // we'll just set it to Yes, to reflect that it's done
-  const completedAt = data?.models[0]?.completed_at
-    ? format(parseISO(data?.models[0]?.completed_at), "PP")
+  const completedAt = model.completed_at
+    ? format(parseISO(model.completed_at), "PP")
     : "Yes";
 
-  const videoId = data?.models[0]?.youtube_video
-    ? getYouTubeVideoId(data?.models[0]?.youtube_video)
+  const videoId = model.youtube_video
+    ? getYouTubeVideoId(model.youtube_video)
     : null;
 
-  const hasContent = data?.models[0]?.content?.length > 0;
+  const hasContent = model.content?.length > 0;
 
   useEffect(() => {
     async function fetchTime() {
-      if (data?.models[0]?.clockify_project_id) {
-        const duration = await getBuildTime(
-          data?.models[0]?.clockify_project_id
-        );
+      if (model.clockify_project_id) {
+        const duration = await getBuildTime(model.clockify_project_id);
         setBuildTime(makeDurationFriendly(duration, false, true));
       } else {
         setBuildTime("None");
@@ -159,24 +160,15 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
           <GridItem>
             <Grid gap="2rem">
               <InfoCard
-                model={data?.models[0]}
+                model={model}
                 buildTime={buildTime}
                 completedAt={completedAt}
               />
-              {isAdmin(session) && (
-                <Fragment>
-                  <a
-                    href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::model.model/${data?.models[0].id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Edit
-                  </a>
-                  <a href="#" target="_blank">
-                    Start Timer
-                  </a>
-                </Fragment>
-              )}
+              <ClockifyControls
+                session={session}
+                clockify_project_id={model?.clockify_project_id}
+                completed={model.completed}
+              />
               {videoId && (
                 <Panel padding={false}>
                   <YoutubeWrapper>
@@ -184,13 +176,13 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                   </YoutubeWrapper>
                 </Panel>
               )}
-              {data?.models[0]?.images?.length > 0 && (
+              {model?.images?.length > 0 && (
                 <Panel padding={false}>
                   <SimpleReactLightbox>
-                    <SRLWrapper>
+                    <SRLWrapper options={lightboxOptions}>
                       <Grid columns={3} masonry>
-                        {data?.models[0]?.images.length > 0 &&
-                          data?.models[0]?.images.map((image) => (
+                        {model?.images.length > 0 &&
+                          model?.images.map((image) => (
                             <ImageWrapper
                               key={image.provider_metadata?.public_id}
                             >
@@ -225,10 +217,10 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
             />
           </GridItem>
           <GridItem start={1} end={3}>
-            {data?.models[0]?.content && (
+            {model?.content && (
               <Card align="left">
                 <Contents>
-                  <Markdown source={data.models[0].content} />
+                  <Markdown source={model?.content} />
                 </Contents>
               </Card>
             )}
@@ -236,9 +228,14 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
           <GridItem>
             <Grid gap="3rem">
               <InfoCard
-                model={data?.models[0]}
+                model={model}
                 buildTime={buildTime}
                 completedAt={completedAt}
+              />
+              <ClockifyControls
+                session={session}
+                completed={model.completed}
+                clockify_project_id={model.clockify_project_id}
               />
               {videoId && (
                 <Panel padding={false}>
@@ -247,13 +244,13 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                   </YoutubeWrapper>
                 </Panel>
               )}
-              {data?.models[0]?.images?.length > 0 && (
+              {model?.images?.length > 0 && (
                 <Panel padding={false}>
                   <SimpleReactLightbox>
-                    <SRLWrapper>
+                    <SRLWrapper options={lightboxOptions}>
                       <Grid columns={3} masonry>
-                        {data?.models[0]?.images.length > 0 &&
-                          data?.models[0]?.images.map((image) => (
+                        {model?.images.length > 0 &&
+                          model?.images.map((image) => (
                             <ImageWrapper
                               key={image.provider_metadata.public_id}
                             >

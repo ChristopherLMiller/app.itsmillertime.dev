@@ -11,7 +11,7 @@ const ImageContainer = styled<iImageContainer>(motion.div)`
   position: relative;
   min-height: 75px;
   height: min-content;
-  z-index: -1;
+  cursor: pointer;
 
   > div {
     display: block !important;
@@ -90,6 +90,7 @@ interface iImage {
 const customImageProps = {
   srl_gallery_image: `true`,
 };
+
 const ImageDefault: FunctionComponent<iImage> = ({
   public_id = `clm-new/uploads/default_fb95099398`,
   width = 1920,
@@ -100,32 +101,35 @@ const ImageDefault: FunctionComponent<iImage> = ({
   caption,
   border = true,
   children,
-}) => (
-  <ImageContainer
-    variants={ImageContainerVariants}
-    initial="rest"
-    whileHover={hoverable ? `hover` : `rest`}
-    border={border ? `5px solid var(--color-red-intermediate);` : `none`}
-  >
-    <Image
-      src={`${public_id}`}
-      alt={alt}
-      layout={layout}
-      width={width}
-      height={height}
-      loading={`eager`}
-      placeholder={`blur`}
-      blurDataURL={`${public_id}`}
-      {...customImageProps}
-    />
-    {caption && (
-      <ImageOverlay variants={ImageOverlayVariants}>
-        <Caption>{caption}</Caption>
-        {caption && <hr />}
-        <SubText>{children}</SubText>
-      </ImageOverlay>
-    )}
-  </ImageContainer>
-);
+}) => {
+  return (
+    <ImageContainer
+      variants={ImageContainerVariants}
+      initial="rest"
+      whileHover={hoverable ? `hover` : `rest`}
+      border={border ? `var(--border)` : `none`}
+    >
+      <Image
+        src={`${public_id}`}
+        alt={alt}
+        layout={layout}
+        width={width}
+        height={height}
+        loading={`eager`}
+        placeholder={`blur`}
+        blurDataURL={`${public_id}`}
+        srl_gallery_image={`true`}
+        {...customImageProps}
+      />
+      {caption && (
+        <ImageOverlay variants={ImageOverlayVariants}>
+          <Caption>{caption}</Caption>
+          {caption && <hr />}
+          <SubText>{children}</SubText>
+        </ImageOverlay>
+      )}
+    </ImageContainer>
+  );
+};
 
 export default ImageDefault;
