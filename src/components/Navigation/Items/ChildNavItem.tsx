@@ -67,13 +67,15 @@ const ChildNavItem: FC<iNavItem> = ({ item }) => {
           animate={isExpanded ? "visible" : "hidden"}
         >
           <ChildMenu>
-            {filterNavigation(item.children.items, session).map((child) => (
-              <ChildMenuItem key={child.title}>
-                <Link href={child.href} passHref>
-                  <ChildMenuItemLink>{child.title}</ChildMenuItemLink>
-                </Link>
-              </ChildMenuItem>
-            ))}
+            {filterNavigation(item.children.items, session).map(
+              (child, index) => (
+                <ChildMenuItem key={`${child.title}${index}`}>
+                  <Link href={child.href} passHref>
+                    <ChildMenuItemLink>{child.title}</ChildMenuItemLink>
+                  </Link>
+                </ChildMenuItem>
+              )
+            )}
           </ChildMenu>
         </ChildNavManu>
       )}
