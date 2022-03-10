@@ -42,6 +42,8 @@ specifiers:
   eslint-plugin-prettier: 4.0.0
   eslint-plugin-react: 7.29.3
   eslint-plugin-react-hooks: 4.3.0
+  exif: ^0.6.0
+  exif-js: ^2.3.0
   formik: ^2.2.9
   framer-motion: ^6.2.8
   graphql: ^16.3.0
@@ -53,6 +55,7 @@ specifiers:
   next-seo: ^5.1.0
   next-sitemap: ^2.5.4
   next-transpile-modules: ^9.0.0
+  node-fetch: ^3.2.2
   normalize.css: ^8.0.1
   nprogress: ^0.2.0
   prettier: ^2.5.1
@@ -104,6 +107,8 @@ dependencies:
   '@sentry/nextjs': 6.18.1_next@12.1.0+react@17.0.2
   date-fns: 2.28.0
   dotenv-flow: 3.2.0
+  exif: 0.6.0
+  exif-js: 2.3.0
   formik: 2.2.9_react@17.0.2
   framer-motion: 6.2.8_react-dom@17.0.2+react@17.0.2
   graphql: 16.3.0
@@ -115,6 +120,7 @@ dependencies:
   next-seo: 5.1.0_caa633a00319350dbda42996613fe26c
   next-sitemap: 2.5.4_next@12.1.0
   next-transpile-modules: 9.0.0
+  node-fetch: 3.2.2
   normalize.css: 8.0.1
   nprogress: 0.2.0
   prettier: 2.5.1
@@ -4423,6 +4429,11 @@ packages:
     resolution: {integrity: sha512-VvdQIPGdWP0SqFXghj79Wf/5LArmreyMsGLa6FG6iC4t3j7j5s71TrwWmT/4akbDQIqjfACkLZmjXhA7g2oUZw==}
     dev: true
 
+  /data-uri-to-buffer/4.0.0:
+    resolution: {integrity: sha512-Vr3mLBA8qWmcuschSLAOogKgQ/Jwxulv3RNE4FXnYWRGujzrRWQI4m12fQqRkwX06C0KanhLr4hK+GydchZsaA==}
+    engines: {node: '>= 12'}
+    dev: false
+
   /dataloader/2.0.0:
     resolution: {integrity: sha512-YzhyDAwA4TaQIhM5go+vCLmU0UikghC/t9DTQYZR2M/UvZ1MdOhPezSDZcjj9uqQJOMqjLcpWtyW2iNINdlatQ==}
     dev: true
@@ -5186,6 +5197,16 @@ packages:
     resolution: {integrity: sha1-KueOhdmJQVhnCwPUe+wfA72Ru50=}
     dev: false
 
+  /exif-js/2.3.0:
+    resolution: {integrity: sha1-nRCBm/Vx+HOBPnZAJBJVq5zhqBQ=}
+    dev: false
+
+  /exif/0.6.0:
+    resolution: {integrity: sha1-YKYmaAdlQst+T1cZnUrG830sX0o=}
+    dependencies:
+      debug: 2.6.9
+    dev: false
+
   /extend-shallow/2.0.1:
     resolution: {integrity: sha1-Ua99YUrZqfYQ6huvu5idaxxWiQ8=}
     engines: {node: '>=0.10.0'}
@@ -5278,6 +5299,14 @@ packages:
       setimmediate: 1.0.5
       ua-parser-js: 0.7.31
     dev: true
+
+  /fetch-blob/3.1.4:
+    resolution: {integrity: sha512-Eq5Xv5+VlSrYWEqKrusxY1C3Hm/hjeAsCGVG3ft7pZahlUAChpGZT/Ms1WmSLnEAisEXszjzu/s+ce6HZB2VHA==}
+    engines: {node: ^12.20 || >= 14.13}
+    dependencies:
+      node-domexception: 1.0.0
+      web-streams-polyfill: 3.2.0
+    dev: false
 
   /figgy-pudding/3.5.2:
     resolution: {integrity: sha512-0btnI/H8f2pavGMN8w40mlSKOfTK2SVJmBfBeVIj3kNw0swwgzyRq0d5TJVOwodFmtvpPeWPN/MCcfuWF0Ezbw==}
@@ -5404,6 +5433,13 @@ packages:
   /format/0.2.2:
     resolution: {integrity: sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=}
     engines: {node: '>=0.4.x'}
+    dev: false
+
+  /formdata-polyfill/4.0.10:
+    resolution: {integrity: sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g==}
+    engines: {node: '>=12.20.0'}
+    dependencies:
+      fetch-blob: 3.1.4
     dev: false
 
   /formik/2.2.9_react@17.0.2:
@@ -8016,6 +8052,11 @@ packages:
       tslib: 2.3.1
     dev: true
 
+  /node-domexception/1.0.0:
+    resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
+    engines: {node: '>=10.5.0'}
+    dev: false
+
   /node-emoji/1.11.0:
     resolution: {integrity: sha512-wo2DpQkQp7Sjm2A0cq+sN7EHKO6Sl0ctXeBdFZrL9T9+UywORbufTcTZxom8YqpLQt/FqNMUkOpkZrJVYSKD3A==}
     dependencies:
@@ -8036,6 +8077,15 @@ packages:
         optional: true
     dependencies:
       whatwg-url: 5.0.0
+
+  /node-fetch/3.2.2:
+    resolution: {integrity: sha512-Cwhq1JFIoon15wcIkFzubVNFE5GvXGV82pKf4knXXjvGmn7RJKcypeuqcVNZMGDZsAFWyIRya/anwAJr7TWJ7w==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dependencies:
+      data-uri-to-buffer: 4.0.0
+      fetch-blob: 3.1.4
+      formdata-polyfill: 4.0.10
+    dev: false
 
   /node-int64/0.4.0:
     resolution: {integrity: sha1-h6kGXNs1XTGC2PlM4RGIuCXGijs=}
@@ -10921,6 +10971,11 @@ packages:
 
   /web-namespaces/2.0.0:
     resolution: {integrity: sha512-dE7ELZRVWh0ceQsRgkjLgsAvwTuv3kcjSY/hLjqL0llleUlQBDjE9JkB9FCBY5F2mnFEwiyJoowl8+NVGHe8dw==}
+    dev: false
+
+  /web-streams-polyfill/3.2.0:
+    resolution: {integrity: sha512-EqPmREeOzttaLRm5HS7io98goBgZ7IVz79aDvqjD0kYXLtFZTc0T/U6wHTPKyIjb+MdN7DFIIX6hgdBEpWmfPA==}
+    engines: {node: '>= 8'}
     dev: false
 
   /webidl-conversions/3.0.1:
