@@ -301,7 +301,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     session?.jwt
   );
 
-  if (data.models.length) {
+  if (data?.models.length) {
     return {
       props: {
         seo: data.models[0],
