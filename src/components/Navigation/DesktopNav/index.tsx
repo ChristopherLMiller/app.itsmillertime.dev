@@ -33,8 +33,8 @@ const DesktopNav: FunctionComponent = () => {
     >
       <NavigationBar variants={NavigationBarVariants}>
         {!isLoading &&
-          navLinks.map((navItem) => (
-            <NavigationItem key={navItem.slug} item={navItem} />
+          navLinks.map((navItem, index) => (
+            <NavigationItem key={`${navItem.slug}${index}`} item={navItem} />
           ))}
       </NavigationBar>
     </StyledNavigation>

@@ -20,8 +20,8 @@ export const NavigationItem: FunctionComponent<iNavItem> = ({ item }) => {
         isActive ? "var(--color-gold-highlight)" : "var(--color-gold)"
       }
     >
-      {!hasChildren && <NavItem item={item} key={item.title} />}
-      {hasChildren && <ChildNavItem item={item} key={item.title} />}
+      {!hasChildren && <NavItem item={item} />}
+      {hasChildren && <ChildNavItem item={item} />}
     </StyledNavigationItem>
   );
 };

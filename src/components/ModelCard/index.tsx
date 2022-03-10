@@ -37,7 +37,7 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
     }
 
     fetchTime();
-  }, [model?.clockify_project_id]);
+  }, [model]);
 
   const tags = model?.model_tags?.map((tag, index) => (
     <Link href={`/models?tag=${tag.slug}`} key={tag.slug} passHref>
@@ -55,14 +55,14 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
       whileHover="hover"
       borderColor={
         publicationState == PublicationState.Live
-          ? `var(--color-red)`
+          ? `var(--color-red-intermediate)`
           : `var(--color-gold)`
       }
     >
       <ModelName
         background={
           publicationState == PublicationState.Live
-            ? `var(--color-red)`
+            ? `var(--color-red-intermediate)`
             : `var(--color-gold)`
         }
       >

@@ -117,7 +117,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
     }
 
     fetchTime();
-  }, [data]);
+  }, [model]);
 
   return (
     <PageLayout

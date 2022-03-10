@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import styled from "styled-components";
 
 interface iImageContainer {
@@ -76,6 +76,10 @@ const ImageOverlayVariants = {
   },
 };
 
+const ExifData = styled.p`
+  font-size: 1.25rem;
+`;
+
 interface iImage {
   public_id: string;
   width: number;
@@ -85,6 +89,7 @@ interface iImage {
   hoverable?: boolean;
   caption?: string;
   border?: boolean;
+  getExif?: boolean;
 }
 
 const customImageProps = {
@@ -100,8 +105,30 @@ const ImageDefault: FunctionComponent<iImage> = ({
   hoverable,
   caption,
   border = true,
+  getExif = false,
   children,
 }) => {
+  const [exifData, setExifData] = useState<any>({});
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    async function fetchExif() {
+      const response = await fetch(`/api/images/exif`, {
+        method: `POST`,
+        body: JSON.stringify({
+          public_id: public_id,
+        }),
+      });
+      const data = await response.json();
+      setIsLoading(false);
+      setExifData(data.data);
+      return;
+    }
+
+    if (getExif) {
+      fetchExif();
+    }
+  }, [public_id]);
+
   return (
     <ImageContainer
       variants={ImageContainerVariants}
@@ -126,6 +153,14 @@ const ImageDefault: FunctionComponent<iImage> = ({
           <Caption>{caption}</Caption>
           {caption && <hr />}
           <SubText>{children}</SubText>
+          {!isLoading && (
+            <ExifData>
+              f{exifData?.exif?.FNumber} - 1/
+              {1 / exifData?.exif?.ExposureTime}s - ISO {exifData?.exif?.ISO} -{" "}
+              {exifData?.exif?.FocalLength}mm - {exifData?.image?.Model} -{" "}
+              {exifData?.exif?.LensModel}
+            </ExifData>
+          )}
         </ImageOverlay>
       )}
     </ImageContainer>
