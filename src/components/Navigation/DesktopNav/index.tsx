@@ -1,7 +1,6 @@
 import { NavigationItem } from "@components/Navigation/Items/NavigationItem";
-import { useSession } from "next-auth/react";
-import { FunctionComponent, useEffect, useState } from "react";
-import { filterNavigation } from "src/utils";
+import { FunctionComponent } from "react";
+import { useNav } from "src/lib/hooks/useNav";
 import {
   NavigationBar,
   NavigationBarVariants,
@@ -10,20 +9,7 @@ import {
 } from "./styles";
 
 const DesktopNav: FunctionComponent = () => {
-  const session = useSession();
-  const [isLoading, setLoading] = useState(true);
-  const [navLinks, setNavLinks] = useState(null);
-
-  useEffect(() => {
-    async function fetchData() {
-      const data = await import(`fixtures/json/nav.json`);
-      const filteredData = filterNavigation(data.items, session);
-      setNavLinks(filteredData);
-      setLoading(false);
-    }
-
-    fetchData();
-  }, [session, isLoading]);
+  const { isLoading, navLinks } = useNav();
 
   return (
     <StyledNavigation
