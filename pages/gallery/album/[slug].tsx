@@ -65,7 +65,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
 
       <SimpleReactLightbox>
         <SRLWrapper options={lightboxOptions}>
-          <Masonry gutter="3em" columnsCount="4">
+          <Masonry gutter="3em" columnsCount={4}>
             <Card heading="About This Gallery" align="left" padding={false}>
               <Table
                 rows={[
