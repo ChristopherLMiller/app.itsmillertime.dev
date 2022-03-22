@@ -85,7 +85,8 @@ export const defaultImage = {
 };
 
 export const CloudinaryBaseUrl =
-  "https://res.cloudinary.com/christopherleemiller/image/upload/";
+  "https://res.cloudinary.com/christopherleemiller/image/upload";
+export const ApiBaseUrl = "http://localhost:3000";
 
 // SRL defaults
 export const lightboxOptions = {

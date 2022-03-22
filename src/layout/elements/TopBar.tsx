@@ -1,3 +1,4 @@
+import MobileNav from "@components/Navigation/MobileNav";
 import { FunctionComponent } from "react";
 import styled from "styled-components";
 import SiteTitle from "./SiteTitle";
@@ -13,7 +14,7 @@ const TopBarContainer = styled.div`
 const StyledTopBar = styled.div`
   background: var(--color-grey-darker);
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   height: var(--top-bar-height);
   padding-inline: 10px;
 `;
@@ -21,6 +22,7 @@ const StyledTopBar = styled.div`
 const TopBar: FunctionComponent = () => (
   <TopBarContainer>
     <StyledTopBar>
+      <MobileNav />
       <SiteTitle />
     </StyledTopBar>
   </TopBarContainer>

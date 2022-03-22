@@ -1,3 +1,4 @@
+import { ApiBaseUrl, CloudinaryBaseUrl } from "config";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { FunctionComponent, useEffect, useState } from "react";
@@ -112,16 +113,24 @@ const ImageDefault: FunctionComponent<iImage> = ({
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function fetchExif() {
-      const response = await fetch(`/api/images/exif`, {
-        method: `POST`,
-        body: JSON.stringify({
-          public_id: public_id,
-        }),
-      });
-      const data = await response.json();
-      setIsLoading(false);
-      setExifData(data.data);
-      return;
+      try {
+        const response = await fetch(`${ApiBaseUrl}/images/exif`, {
+          method: `POST`,
+          credentials: "same-origin",
+          body: JSON.stringify({
+            image: `${CloudinaryBaseUrl}/${public_id}.jpg`,
+          }),
+          headers: {
+            "Content-Type": `application/json`,
+            Accept: `application/json`,
+          },
+        });
+        const data = await response.json();
+        setIsLoading(false);
+        setExifData(data.data);
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     if (getExif) {
