@@ -33,7 +33,7 @@ const ChildNavItem: FC<iNavItem> = ({ item }) => {
     return () => {
       router.events.off("routeChangeComplete", routeChange);
     };
-  }, [router.events]);
+  });
 
   // hook to auto close the menu after x seconds
   useEffect(() => {
