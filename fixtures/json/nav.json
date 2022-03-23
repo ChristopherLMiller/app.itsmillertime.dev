@@ -88,7 +88,7 @@
           {
             "title": "Logout",
             "activePaths": ["/account/logout"],
-            "href": "/account/logout",
+            "href": "/api/auth/signout",
             "authState": "LOGGED_IN"
           }
         ]
