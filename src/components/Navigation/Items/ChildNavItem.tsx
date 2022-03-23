@@ -41,7 +41,7 @@ const ChildNavItem: FC<iNavItem> = ({ item }) => {
       const timeout = setTimeout(() => setIsExpanded(false), 5000);
       return () => clearTimeout(timeout);
     }
-  }, [isExpanded]);
+  });
   return (
     <Fragment>
       <NavigationElement
