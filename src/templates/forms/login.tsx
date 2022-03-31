@@ -51,14 +51,14 @@ const LoginForm: FunctionComponent = () => {
           <StyledForm>
             <Fieldset>
               <Label htmlFor="username">Username or Email:</Label>
-              <Field type="text" name="username" autocomplete="username" />
+              <Field type="text" name="username" autoComplete="username" />
               <FormErrorMessage>
                 <ErrorMessage name="username" component="div" />
               </FormErrorMessage>
             </Fieldset>
             <Fieldset>
               <Label htmlFor="password">Password:</Label>
-              <Field type="password" name="password" autocomplete="password" />
+              <Field type="password" name="password" autoComplete="password" />
               <FormErrorMessage>
                 <ErrorMessage name="password" component="div" />
               </FormErrorMessage>

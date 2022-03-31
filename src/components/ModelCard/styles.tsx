@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const ModelItem = styled(motion.article)`
-  border: var(--border);
+  border: var(--border-width) solid ${(props) => props.color};
   border-top: none;
   height: min-content;
 `;

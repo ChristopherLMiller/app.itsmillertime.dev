@@ -53,7 +53,7 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
       variants={variants}
       initial="initial"
       whileHover="hover"
-      borderColor={
+      color={
         publicationState == PublicationState.Live
           ? `var(--color-red-intermediate)`
           : `var(--color-gold)`
