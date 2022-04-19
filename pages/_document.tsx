@@ -6,7 +6,6 @@ import Document, {
   Main,
   NextScript,
 } from "next/document";
-import { GA_TRACKING_ID } from "src/lib/gtag";
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -42,23 +41,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          {/* Global Site Tag (gtag.js) - Google Analytics */}
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-          />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
-            });
-          `,
-            }}
-          />
           <link
             href="https://fonts.googleapis.com/css2?family=Montserrat&family=Oswald&family=Permanent+Marker&family=Roboto:wght@300&family=Source+Code+Pro&family=Special+Elite&display=swap"
             rel="stylesheet"
