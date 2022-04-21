@@ -1,7 +1,7 @@
 import Panel from "@components/Panel";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { FunctionComponent } from "react";
+import { FC, ReactNode } from "react";
 import {
   ActionLinks,
   CardHeading,
@@ -27,17 +27,18 @@ interface CardProps {
   padding?: boolean;
   actionLinks?: Array<iActionLink>;
   fullWidth?: boolean;
+  children: ReactNode;
 }
 
-const Card: FunctionComponent<CardProps> = ({
-  heading,
-  subHeading,
+const Card: FC<CardProps> = ({
+  heading = "",
+  subHeading = "",
   children,
   padding = true,
   align = `center`,
-  actionLinks,
+  actionLinks = [],
   fullWidth = false, // false means we want
-}) => (
+}: CardProps) => (
   <motion.div variants={CardVariants}>
     <StyledCard
       borderTop={heading && subHeading ? "none" : "var(--border)"}

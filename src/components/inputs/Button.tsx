@@ -1,6 +1,6 @@
-import { FunctionComponent } from 'react';
-import { motion } from 'framer-motion';
-import styled from 'styled-components';
+import { motion } from "framer-motion";
+import { FunctionComponent } from "react";
+import styled from "styled-components";
 
 const StyledButton = styled(motion.button)`
   background: var(--color-red);
@@ -32,8 +32,8 @@ const ButtonVariants = {
 interface iButton {
   isDisabled?: boolean;
   isSubmitting?: boolean;
-  type?: string;
   onClick?: () => unknown;
+  children: React.ReactNode;
 }
 
 const Button: FunctionComponent<iButton> = ({
@@ -41,14 +41,13 @@ const Button: FunctionComponent<iButton> = ({
   isSubmitting,
   children,
   onClick,
-  type = `button`,
 }) => (
   <StyledButton
     initial="initial"
     whileHover="hover"
     variants={ButtonVariants}
     onClick={onClick}
-    type={type}
+    type="button"
     disabled={isDisabled}
   >
     {isSubmitting ? `Sending...` : children}

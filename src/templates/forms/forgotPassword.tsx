@@ -1,18 +1,18 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import Button from 'src/components/inputs/Button';
+import HCaptcha from "@hcaptcha/react-hcaptcha";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useRouter } from "next/router";
+import { FunctionComponent, useRef, useState } from "react";
+import { useToasts } from "react-toast-notifications";
 import {
-  StyledForm,
   Fieldset,
-  Label,
   FormErrorMessage,
-} from 'src/components/inputs';
-import * as Yup from 'yup';
-import { useToasts } from 'react-toast-notifications';
-import HCaptcha from '@hcaptcha/react-hcaptcha';
-import { FunctionComponent, useRef, useState } from 'react';
-import { isDev } from 'src/utils';
-import { useRouter } from 'next/router';
-import { useForgotPasswordMutation } from 'src/graphql/schema/auth/forgotPassword.mutation.generated';
+  Label,
+  StyledForm,
+} from "src/components/inputs";
+import Button from "src/components/inputs/Button";
+import { useForgotPasswordMutation } from "src/graphql/schema/auth/forgotPassword.mutation.generated";
+import { isDev } from "src/utils";
+import * as Yup from "yup";
 
 const ForgotFormValidation = Yup.object().shape({
   email: Yup.string()
@@ -98,7 +98,6 @@ const ForgotPasswordForm: FunctionComponent = () => {
               />
             )}
             <Button
-              type="submit"
               isDisabled={!(isValid && dirty && (isDev() || token))}
               isSubmitting={isSubmitting}
             >

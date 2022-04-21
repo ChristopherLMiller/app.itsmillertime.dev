@@ -7,6 +7,7 @@ interface iPanel {
   boxed?: boolean;
   boxedSmall?: boolean;
   background?: string;
+  children: React.ReactNode;
 }
 
 const Panel: FunctionComponent<iPanel> = ({

@@ -1,17 +1,13 @@
-import { FunctionComponent } from "react";
-import styled from "styled-components";
 import { motion } from "framer-motion";
+import styled from "styled-components";
 
-const StyledSplitPane = styled(motion.div)`
+export const SplitPane = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   background: var(--linen-paper);
 `;
-export const SplitPane: FunctionComponent = ({ children }) => (
-  <StyledSplitPane>{children}</StyledSplitPane>
-);
 
-const StyledTextPane = styled(motion.div)`
+export const TextPane = styled(motion.div)`
   align-items: center;
   text-align: center;
   background: var(--color-red-intermediate);
@@ -40,17 +36,9 @@ const StyledTextPane = styled(motion.div)`
   }
 `;
 
-export const TextPane: FunctionComponent = ({ children }) => (
-  <StyledTextPane>{children}</StyledTextPane>
-);
-
-const StyledContentPane = styled.div`
+export const ContentPane = styled.div`
   padding: 3% 5%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
-
-export const ContentPane: FunctionComponent = ({ children }) => (
-  <StyledContentPane>{children}</StyledContentPane>
-);

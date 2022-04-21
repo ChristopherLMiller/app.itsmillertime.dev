@@ -1,13 +1,13 @@
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { FunctionComponent } from "react";
-import * as Yup from "yup";
-import { Formik, Form, ErrorMessage, Field } from "formik";
 import {
-  Fieldset,
-  Label,
-  FormErrorMessage,
   Button,
+  Fieldset,
+  FormErrorMessage,
+  Label,
   StyledForm,
 } from "src/components/inputs";
+import * as Yup from "yup";
 
 const FormValidation = Yup.object().shape({
   password: Yup.string().required(`We need your password please`),
@@ -44,7 +44,6 @@ const ResetPasswordForm: FunctionComponent = () => {
               </FormErrorMessage>
             </Fieldset>
             <Button
-              type="submit"
               isDisabled={!(isValid && dirty)}
               isSubmitting={isSubmitting}
             >

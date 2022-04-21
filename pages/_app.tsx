@@ -14,7 +14,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ToastProvider } from "react-toast-notifications";
 import TopBar from "src/layout/elements/TopBar";
-import * as gtag from "src/lib/gtag";
 import styled, { ThemeProvider } from "styled-components";
 import { defaultTheme, GlobalStyles } from "styles/default";
 import "../public/nprogress.css";
@@ -35,7 +34,7 @@ const App = ({ Component, pageProps: { session, ...pageProps }, err }) => {
 
   useEffect(() => {
     const handleRouteChange = (url) => {
-      gtag.pageview(url);
+      // TODO: implement my analytics here
     };
 
     router.events.on(`routeChangeComplete`, handleRouteChange);
@@ -75,45 +74,47 @@ const App = ({ Component, pageProps: { session, ...pageProps }, err }) => {
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen />
         <ThemeProvider theme={defaultTheme}>
-          <Head>
-            <meta
-              name="viewport"
-              content="width=device-width, initial-scale=1.0"
-            />
-            <meta charSet="utf-8" />
-            <meta name="theme-color" content="#982929" />
-          </Head>
-          <DefaultSeo {...SEO} />
-          {/*<Snowy />*/}
-          <CookieConsent buttonStyle={{ fontSize: `2rem` }}>
-            <CookieConsentText>
-              This website uses cookies to enhance the user experience.
-            </CookieConsentText>
-          </CookieConsent>
-          <TopBar />
+          <>
+            <Head>
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+              />
+              <meta charSet="utf-8" />
+              <meta name="theme-color" content="#982929" />
+            </Head>
+            <DefaultSeo {...SEO} />
+            {/*<Snowy />*/}
+            <CookieConsent buttonStyle={{ fontSize: `2rem` }}>
+              <CookieConsentText>
+                This website uses cookies to enhance the user experience.
+              </CookieConsentText>
+            </CookieConsent>
+            <TopBar />
 
-          <AnimatePresence exitBeforeEnter>
-            <ToastProvider
-              autoDismiss
-              autoDismissTimeout={6000}
-              placement="top-right"
-            >
-              <Fragment key={router.pathname}>
-                <Content>
-                  <motion.div
-                    key={router.pathname}
-                    initial="initial"
-                    animate="enter"
-                    exit="exit"
-                  >
-                    {true && <Component {...pageProps} err={err} />}
-                  </motion.div>
-                </Content>
-              </Fragment>
-              <ScrollTop />
-            </ToastProvider>
-          </AnimatePresence>
-          <GlobalStyles />
+            <AnimatePresence exitBeforeEnter>
+              <ToastProvider
+                autoDismiss
+                autoDismissTimeout={6000}
+                placement="top-right"
+              >
+                <Fragment key={router.pathname}>
+                  <Content>
+                    <motion.div
+                      key={router.pathname}
+                      initial="initial"
+                      animate="enter"
+                      exit="exit"
+                    >
+                      {true && <Component {...pageProps} err={err} />}
+                    </motion.div>
+                  </Content>
+                </Fragment>
+                <ScrollTop />
+              </ToastProvider>
+            </AnimatePresence>
+            <GlobalStyles />
+          </>
         </ThemeProvider>
       </QueryClientProvider>
     </SessionProvider>

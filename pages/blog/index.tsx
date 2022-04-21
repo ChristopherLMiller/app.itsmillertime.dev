@@ -85,8 +85,10 @@ const BlogIndexpage: NextPage = () => {
       />
       {error && false && (
         <Card heading="Uh Oh!">
-          <p>We were unable to fetch the data requested for whatever reason.</p>
-          <p>More specifically: {error}</p>
+          <p>
+            We were unable to fetch the data requested for whatever reason.
+            Check the console for error or try again later.
+          </p>
         </Card>
       )}
 

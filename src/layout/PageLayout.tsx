@@ -1,6 +1,6 @@
 import DesktopNav from "@components/Navigation/DesktopNav";
 import { motion } from "framer-motion";
-import { FunctionComponent } from "react";
+import { FC, ReactNode } from "react";
 import Header from "src/layout/elements/Header";
 import styled from "styled-components";
 import Footer from "./elements/Footer";
@@ -49,9 +49,10 @@ interface iPagelayout {
   description: string;
   padding?: boolean;
   boxed?: string;
+  children: ReactNode;
 }
 
-const PageLayout: FunctionComponent<iPagelayout> = ({
+const PageLayout: FC<iPagelayout> = ({
   title,
   description,
   padding = true,
