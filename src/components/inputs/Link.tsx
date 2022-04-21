@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { FunctionComponent } from "react";
+import { FunctionComponent, ReactNode } from "react";
 import styled from "styled-components";
 interface ButtonTypes {
   href: string;
-  text: string;
+  children: ReactNode;
 }
 
 export const LinkButton: FunctionComponent<ButtonTypes> = ({

@@ -6,7 +6,7 @@ export interface iStyledPanel {
   padding: boolean;
 }
 
-export const StyledPanel = styled<iStyledPanel>(motion.div)`
+export const StyledPanel = styled(motion.div)`
   :before {
     content: "";
     background: var(--color-grey-light);

@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { FunctionComponent } from 'react';
+import { FunctionComponent } from "react";
+import styled from "styled-components";
 
-const StyledButton = styled(motion.button)`
+const StyledButton = styled.button`
   background: var(--color-red);
   padding: 0 10px;
   text-align: center;
@@ -22,6 +21,7 @@ interface iCompactButton {
   isSubmitting?: boolean;
   type?: string;
   onClick?: () => unknown;
+  children: React.ReactNode;
 }
 
 const CompactButton: FunctionComponent<iCompactButton> = ({
@@ -29,9 +29,8 @@ const CompactButton: FunctionComponent<iCompactButton> = ({
   isSubmitting,
   children,
   onClick,
-  type = `button`,
 }) => (
-  <StyledButton onClick={onClick} type={type} disabled={isDisabled}>
+  <StyledButton onClick={onClick} type="button" disabled={isDisabled}>
     {isSubmitting ? `Sending...` : children}
   </StyledButton>
 );

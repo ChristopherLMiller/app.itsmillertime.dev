@@ -1,8 +1,8 @@
-import styled from "styled-components";
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { FunctionComponent } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { FunctionComponent, ReactNode } from "react";
+import styled from "styled-components";
 
 const StyledPolaroid = styled(motion.div)`
   padding: 15px;
@@ -39,6 +39,7 @@ interface iPolaroid {
     as: string;
     href: string;
   };
+  children: ReactNode;
 }
 
 const Polaroid: FunctionComponent<iPolaroid> = ({

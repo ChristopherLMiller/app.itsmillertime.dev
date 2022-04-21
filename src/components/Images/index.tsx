@@ -1,13 +1,10 @@
-import { ApiBaseUrl, CloudinaryBaseUrl } from "config";
+import { ApiEndpoint, CloudinaryBaseUrl } from "config";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, ReactNode, useEffect, useState } from "react";
 import styled from "styled-components";
 
-interface iImageContainer {
-  border: boolean;
-}
-const ImageContainer = styled<iImageContainer>(motion.div)`
+const ImageContainer = styled(motion.div)`
   border: ${(props) => props.border};
   position: relative;
   min-height: 75px;
@@ -91,6 +88,7 @@ interface iImage {
   caption?: string;
   border?: boolean;
   getExif?: boolean;
+  children?: ReactNode;
 }
 
 const customImageProps = {
@@ -114,15 +112,16 @@ const ImageDefault: FunctionComponent<iImage> = ({
   useEffect(() => {
     async function fetchExif() {
       try {
-        const response = await fetch(`${ApiBaseUrl}/images/exif`, {
+        const response = await fetch(`${ApiEndpoint}/images/exif`, {
           method: `POST`,
-          credentials: "same-origin",
           body: JSON.stringify({
             image: `${CloudinaryBaseUrl}/${public_id}.jpg`,
           }),
+          credentials: "omit",
           headers: {
             "Content-Type": `application/json`,
             Accept: `application/json`,
+            "x-api-key": process.env.API_KEY,
           },
         });
         const data = await response.json();

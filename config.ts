@@ -87,6 +87,7 @@ export const defaultImage = {
 export const CloudinaryBaseUrl =
   "https://res.cloudinary.com/christopherleemiller/image/upload";
 export const ApiBaseUrl = "http://localhost:3000";
+export const ApiEndpoint = "https://api.itsmillertime.dev";
 
 // SRL defaults
 export const lightboxOptions = {

@@ -63,10 +63,6 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  swcMinify: true,
-  experimental: {
-    outputStandalone: true,
-  },
 };
 
 const SentryWebpackPluginOptions = {

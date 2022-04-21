@@ -64,7 +64,6 @@ const LoginForm: FunctionComponent = () => {
               </FormErrorMessage>
             </Fieldset>
             <Button
-              type="submit"
               isDisabled={!(isValid && dirty)}
               isSubmitting={isSubmitting}
             >
