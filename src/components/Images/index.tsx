@@ -111,22 +111,30 @@ const ImageDefault: FunctionComponent<iImage> = ({
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function fetchExif() {
+      const imageURL = encodeURIComponent(
+        `${CloudinaryBaseUrl}/${public_id}.jpg`
+      );
+      console.log(imageURL);
       try {
-        const response = await fetch(`${ApiEndpoint}/images/exif`, {
-          method: `POST`,
-          body: JSON.stringify({
-            image: `${CloudinaryBaseUrl}/${public_id}.jpg`,
-          }),
-          credentials: "omit",
-          headers: {
-            "Content-Type": `application/json`,
-            Accept: `application/json`,
-            "x-api-key": process.env.API_KEY,
-          },
-        });
-        const data = await response.json();
-        setIsLoading(false);
-        setExifData(data.data);
+        const response = await fetch(
+          `${ApiEndpoint}/images/exif?url=${imageURL}`,
+          {
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": `application/json`,
+              Accept: `application/json`,
+              "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+            },
+          }
+        );
+        const { data, error, statusCode } = await response.json();
+
+        if (statusCode === 200) {
+          setIsLoading(false);
+          setExifData(data);
+        } else {
+          console.log(error);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -135,7 +143,7 @@ const ImageDefault: FunctionComponent<iImage> = ({
     if (getExif) {
       fetchExif();
     }
-  }, [public_id]);
+  }, [public_id, getExif]);
 
   return (
     <ImageContainer

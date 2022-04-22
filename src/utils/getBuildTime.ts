@@ -6,8 +6,7 @@ export const getBuildTime = async (id: string): Promise<any> => {
     method: `GET`,
     credentials: "omit",
     headers: {
-      "x-api-key":
-        "46c446ba8878e0fed3da1901828f9a5539989b567915d82e894a63207c1708be",
+      "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
     },
   });
 

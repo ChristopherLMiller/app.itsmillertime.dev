@@ -16,7 +16,7 @@ const MobileNav = () => {
     Router.events.on("routeChangeStart", handleRouteChange);
 
     return Router.events.off("routeChangeComplete", handleRouteChange);
-  }, [Router.events]);
+  }, []);
 
   return (
     <Fragment>
