@@ -131,7 +131,7 @@ const ImageDefault: FunctionComponent<iImage> = ({
 
         if (statusCode === 200) {
           setIsLoading(false);
-          setExifData(data);
+          setExifData(data.exif);
         } else {
           console.log(error);
         }

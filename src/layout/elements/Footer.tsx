@@ -195,7 +195,7 @@ const Footer: FunctionComponent = () => (
               </Link>
               . The material on this site may not be reproduced, distributed,
               transmitted, cached or otherwise used, except with prior written
-              permission of Christopher Lee Miller.
+              permission of <em>Its Miller Time Dev</em>.
             </p>
             <p>
               Copyright © {format(new Date(), `yyyy`)}
