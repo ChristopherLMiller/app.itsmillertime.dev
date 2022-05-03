@@ -113,7 +113,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
                 alt={`${image.caption}`}
                 caption={`${image.caption}`}
                 hoverable={true}
-                getExif={false}
+                getExif={true}
                 key={image.watermarked?.provider_metadata.public_id}
               />
             ))}

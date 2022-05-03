@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { FunctionComponent } from 'react';
-import styled from 'styled-components';
+import { motion } from "framer-motion";
+import { FunctionComponent } from "react";
+import styled from "styled-components";
 
 const StyledSiteTitle = styled(motion.span)`
   color: var(--color-white-100);
@@ -21,12 +21,12 @@ const OtherLetters = styled.span`
 
 const SiteTitle: FunctionComponent = () => (
   <StyledSiteTitle>
-    <FirstLetter>C</FirstLetter>
-    <OtherLetters>hristopher</OtherLetters>
-    <FirstLetter>L</FirstLetter>
-    <OtherLetters>ee</OtherLetters>
+    <FirstLetter>I</FirstLetter>
+    <OtherLetters>ts</OtherLetters>
     <FirstLetter>M</FirstLetter>
     <OtherLetters>iller</OtherLetters>
+    <FirstLetter>T</FirstLetter>
+    <OtherLetters>ime</OtherLetters>
   </StyledSiteTitle>
 );
 

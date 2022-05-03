@@ -42,7 +42,7 @@ const App = ({ Component, pageProps: { session, ...pageProps }, err }) => {
     return () => {
       router.events.off(`routeChangeComplete`, handleRouteChange);
     };
-  }, [router.events]);
+  }, [router]);
 
   useEffect(() => {
     const routeChangeStart = () => {

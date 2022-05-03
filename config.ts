@@ -4,7 +4,7 @@ export const cloudinary = {
 };
 
 export const SEO = {
-  title: "Christopher Lee Miller",
+  title: "Its Miller Time",
   separator: " - ",
 };
 
@@ -46,8 +46,6 @@ export const pageSettings = {
     description: `Programmer.  Amateur Designer.  Model Enthsiast.`,
   },
 };
-
-export const DISQUS_SHORTNAME = `christopherleemiller-me`;
 
 // ROLES
 export const roles = {

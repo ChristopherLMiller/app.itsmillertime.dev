@@ -1,5 +1,5 @@
 export default {
-  titleTemplate: `ChristopherLeeMiller | %s`,
+  titleTemplate: `Its Miller Time | %s`,
   facebook: {
     appId: process.env.FB_APP_ID,
   },
@@ -7,7 +7,7 @@ export default {
     type: `website`,
     locale: `en_US`,
     url: process.env.NEXT_PUBLIC_SITE_URL,
-    site_name: `ChristopherLeeMiller.me`,
+    site_name: `itsmillertime.dev`,
   },
   twitter: {
     handle: `@ChrisLMiller_me`,
@@ -43,11 +43,11 @@ export default {
     },
     {
       rel: `webmention`,
-      href: `https://webmention.io/christopherleemiller.me/webmention`,
+      href: `https://webmention.io/www.itsmillertime.dev/webmention`,
     },
     {
       rel: `pingback`,
-      href: `https://webmention.io/christopherleemiller.me/xmlrpc`,
+      href: `https://webmention.io/www.itsmillertime.dev/xmlrpc`,
     },
   ],
 };

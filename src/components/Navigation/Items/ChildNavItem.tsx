@@ -33,7 +33,7 @@ const ChildNavItem: FC<iNavItem> = ({ item }) => {
     return () => {
       router.events.off("routeChangeComplete", routeChange);
     };
-  });
+  }, [router]);
 
   // hook to auto close the menu after x seconds
   useEffect(() => {
@@ -41,7 +41,7 @@ const ChildNavItem: FC<iNavItem> = ({ item }) => {
       const timeout = setTimeout(() => setIsExpanded(false), 5000);
       return () => clearTimeout(timeout);
     }
-  });
+  }, [isExpanded]);
   return (
     <Fragment>
       <NavigationElement

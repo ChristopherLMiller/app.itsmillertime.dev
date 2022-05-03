@@ -27,7 +27,7 @@ const ModelsPageIndex: NextPage = () => {
   useEffect(() => {
     setPage(parseInt(router.query["page"] as string) || 1);
     setLimit(parseInt(router.query["limit"] as string) || 12);
-  }, [router.query]);
+  }, [router]);
 
   // query for the data
   const { data, isSuccess, error } = useModelsMinimalQuery(
