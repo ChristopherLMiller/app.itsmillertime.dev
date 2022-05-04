@@ -77,6 +77,7 @@ const ModelsPageIndex: NextPage = () => {
         setPage={setPage}
         totalRecords={data?.modelsConnection?.aggregate?.count}
         perPage={limit}
+        url="models"
       />
       <Grid columns={2} min="500px" gap="3rem">
         {isSuccess &&
@@ -91,6 +92,7 @@ const ModelsPageIndex: NextPage = () => {
         setPage={setPage}
         totalRecords={data?.modelsConnection?.aggregate?.count}
         perPage={limit}
+        url={`models`}
       />
     </PageLayout>
   );

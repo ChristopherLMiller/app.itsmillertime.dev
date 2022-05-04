@@ -7,7 +7,7 @@ export type ForgotPasswordMutationVariables = Types.Exact<{
 }>;
 
 
-export type ForgotPasswordMutation = { forgotPassword?: { ok: boolean } | null | undefined };
+export type ForgotPasswordMutation = { forgotPassword?: { ok: boolean } | null };
 
 
 export const ForgotPasswordDocument = `
@@ -22,7 +22,7 @@ export const useForgotPasswordMutation = <
       TContext = unknown
     >(options?: UseMutationOptions<ForgotPasswordMutation, TError, ForgotPasswordMutationVariables, TContext>) =>
     useMutation<ForgotPasswordMutation, TError, ForgotPasswordMutationVariables, TContext>(
-      'forgotPassword',
+      ['forgotPassword'],
       (variables?: ForgotPasswordMutationVariables) => fetcher<ForgotPasswordMutation, ForgotPasswordMutationVariables>(ForgotPasswordDocument, variables)(),
       options
     );
