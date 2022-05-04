@@ -8,7 +8,7 @@ export type LoginMutationVariables = Types.Exact<{
 }>;
 
 
-export type LoginMutation = { login: { jwt?: string | null | undefined, user: { id: string, username: string, email: string, confirmed?: boolean | null | undefined, blocked?: boolean | null | undefined, role?: { id: string, name: string, description?: string | null | undefined, type?: string | null | undefined } | null | undefined } } };
+export type LoginMutation = { login: { jwt?: string | null, user: { id: string, username: string, email: string, confirmed?: boolean | null, blocked?: boolean | null, role?: { id: string, name: string, description?: string | null, type?: string | null } | null } } };
 
 
 export const LoginDocument = `
@@ -36,7 +36,7 @@ export const useLoginMutation = <
       TContext = unknown
     >(options?: UseMutationOptions<LoginMutation, TError, LoginMutationVariables, TContext>) =>
     useMutation<LoginMutation, TError, LoginMutationVariables, TContext>(
-      'Login',
+      ['Login'],
       (variables?: LoginMutationVariables) => fetcher<LoginMutation, LoginMutationVariables>(LoginDocument, variables)(),
       options
     );

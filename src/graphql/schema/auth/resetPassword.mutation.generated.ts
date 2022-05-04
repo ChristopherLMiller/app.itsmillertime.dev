@@ -8,7 +8,7 @@ export type ResetPasswordMutationVariables = Types.Exact<{
 }>;
 
 
-export type ResetPasswordMutation = { resetPassword?: { jwt?: string | null | undefined } | null | undefined };
+export type ResetPasswordMutation = { resetPassword?: { jwt?: string | null } | null };
 
 
 export const ResetPasswordDocument = `
@@ -23,7 +23,7 @@ export const useResetPasswordMutation = <
       TContext = unknown
     >(options?: UseMutationOptions<ResetPasswordMutation, TError, ResetPasswordMutationVariables, TContext>) =>
     useMutation<ResetPasswordMutation, TError, ResetPasswordMutationVariables, TContext>(
-      'resetPassword',
+      ['resetPassword'],
       (variables?: ResetPasswordMutationVariables) => fetcher<ResetPasswordMutation, ResetPasswordMutationVariables>(ResetPasswordDocument, variables)(),
       options
     );

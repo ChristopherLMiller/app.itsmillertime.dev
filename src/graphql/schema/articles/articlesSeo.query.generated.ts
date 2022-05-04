@@ -1,6 +1,6 @@
 import * as Types from '../../types';
 
-import { useQuery, UseQueryOptions, useInfiniteQuery, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
+import { useQuery, useInfiniteQuery, UseQueryOptions, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type ArticlesSeoQueryVariables = Types.Exact<{
   sort?: Types.InputMaybe<Types.Scalars['String']>;
@@ -11,7 +11,7 @@ export type ArticlesSeoQueryVariables = Types.Exact<{
 }>;
 
 
-export type ArticlesSeoQuery = { articles?: Array<{ id: string, slug: string, seo?: { title: string, description?: string | null | undefined, featured_image?: { name: string, alternativeText?: string | null | undefined, caption?: string | null | undefined, width?: number | null | undefined, height?: number | null | undefined, url: string, previewUrl?: string | null | undefined, provider: string, provider_metadata?: any | null | undefined } | null | undefined } | null | undefined } | null | undefined> | null | undefined };
+export type ArticlesSeoQuery = { articles?: Array<{ id: string, slug: string, seo?: { title: string, description?: string | null, featured_image?: { name: string, alternativeText?: string | null, caption?: string | null, width?: number | null, height?: number | null, url: string, previewUrl?: string | null, provider: string, provider_metadata?: any | null } | null } | null } | null> | null };
 
 
 export const ArticlesSeoDocument = `
@@ -61,9 +61,10 @@ export const useInfiniteArticlesSeoQuery = <
     >(
       variables?: ArticlesSeoQueryVariables,
       options?: UseInfiniteQueryOptions<ArticlesSeoQuery, TError, TData>
-    ) =>
-    useInfiniteQuery<ArticlesSeoQuery, TError, TData>(
+    ) =>{
+    
+    return useInfiniteQuery<ArticlesSeoQuery, TError, TData>(
       variables === undefined ? ['ArticlesSeo.infinite'] : ['ArticlesSeo.infinite', variables],
       (metaData) => fetcher<ArticlesSeoQuery, ArticlesSeoQueryVariables>(ArticlesSeoDocument, {...variables, ...(metaData.pageParam ?? {})})(),
       options
-    );
+    )};

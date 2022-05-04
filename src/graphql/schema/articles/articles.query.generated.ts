@@ -1,6 +1,6 @@
 import * as Types from '../../types';
 
-import { useQuery, UseQueryOptions, useInfiniteQuery, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
+import { useQuery, useInfiniteQuery, UseQueryOptions, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type ArticlesQueryVariables = Types.Exact<{
   sort?: Types.InputMaybe<Types.Scalars['String']>;
@@ -11,7 +11,7 @@ export type ArticlesQueryVariables = Types.Exact<{
 }>;
 
 
-export type ArticlesQuery = { articles?: Array<{ id: string, _id: string, createdAt: any, updatedAt: any, title: string, content: string, slug: string, published_at?: any | null | undefined, seo?: { id: string, title: string, description?: string | null | undefined, featured_image?: { name: string, alternativeText?: string | null | undefined, caption?: string | null | undefined, width?: number | null | undefined, height?: number | null | undefined, url: string, previewUrl?: string | null | undefined, provider: string, provider_metadata?: any | null | undefined } | null | undefined } | null | undefined, article_tags?: Array<{ id: string, slug: string, title: string } | null | undefined> | null | undefined } | null | undefined> | null | undefined };
+export type ArticlesQuery = { articles?: Array<{ id: string, _id: string, createdAt: any, updatedAt: any, title: string, content: string, slug: string, published_at?: any | null, seo?: { id: string, title: string, description?: string | null, featured_image?: { name: string, alternativeText?: string | null, caption?: string | null, width?: number | null, height?: number | null, url: string, previewUrl?: string | null, provider: string, provider_metadata?: any | null } | null } | null, article_tags?: Array<{ id: string, slug: string, title: string } | null> | null } | null> | null, articlesConnection?: { aggregate?: { totalCount?: number | null, count?: number | null } | null } | null };
 
 
 export const ArticlesDocument = `
@@ -53,6 +53,12 @@ export const ArticlesDocument = `
       title
     }
   }
+  articlesConnection {
+    aggregate {
+      totalCount
+      count
+    }
+  }
 }
     `;
 export const useArticlesQuery = <
@@ -73,9 +79,10 @@ export const useInfiniteArticlesQuery = <
     >(
       variables?: ArticlesQueryVariables,
       options?: UseInfiniteQueryOptions<ArticlesQuery, TError, TData>
-    ) =>
-    useInfiniteQuery<ArticlesQuery, TError, TData>(
+    ) =>{
+    
+    return useInfiniteQuery<ArticlesQuery, TError, TData>(
       variables === undefined ? ['Articles.infinite'] : ['Articles.infinite', variables],
       (metaData) => fetcher<ArticlesQuery, ArticlesQueryVariables>(ArticlesDocument, {...variables, ...(metaData.pageParam ?? {})})(),
       options
-    );
+    )};

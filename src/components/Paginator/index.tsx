@@ -6,6 +6,7 @@ interface PaginatorProps {
   totalRecords: number;
   perPage: number;
   setPage: any;
+  url: string;
 }
 
 const Paginator: React.FC<PaginatorProps> = ({
@@ -13,10 +14,11 @@ const Paginator: React.FC<PaginatorProps> = ({
   totalRecords,
   perPage,
   setPage,
+  url,
 }) => {
   const router = useRouter();
 
-  const totalPages = Math.ceil(totalRecords / perPage);
+  const totalPages = Math.ceil(totalRecords / perPage) - 1;
 
   const clickHandler = (operation) => {
     let newPage = operation === "next" ? page + 1 : page - 1;
@@ -29,7 +31,7 @@ const Paginator: React.FC<PaginatorProps> = ({
     }
     setPage(newPage);
     window.scrollTo({ top: 0, behavior: `smooth` });
-    router.push("/models?page=" + newPage, undefined, {
+    router.push(`/${url}?page=${newPage}`, undefined, {
       shallow: true,
     });
   };

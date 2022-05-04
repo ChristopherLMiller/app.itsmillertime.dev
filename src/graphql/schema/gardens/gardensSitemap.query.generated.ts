@@ -1,11 +1,11 @@
 import * as Types from '../../types';
 
-import { useQuery, UseQueryOptions, useInfiniteQuery, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
+import { useQuery, useInfiniteQuery, UseQueryOptions, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type GardensSitemapQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GardensSitemapQuery = { gardens?: Array<{ slug: string, updatedAt: any } | null | undefined> | null | undefined };
+export type GardensSitemapQuery = { gardens?: Array<{ slug: string, updatedAt: any } | null> | null };
 
 
 export const GardensSitemapDocument = `
@@ -34,9 +34,10 @@ export const useInfiniteGardensSitemapQuery = <
     >(
       variables?: GardensSitemapQueryVariables,
       options?: UseInfiniteQueryOptions<GardensSitemapQuery, TError, TData>
-    ) =>
-    useInfiniteQuery<GardensSitemapQuery, TError, TData>(
+    ) =>{
+    
+    return useInfiniteQuery<GardensSitemapQuery, TError, TData>(
       variables === undefined ? ['gardensSitemap.infinite'] : ['gardensSitemap.infinite', variables],
       (metaData) => fetcher<GardensSitemapQuery, GardensSitemapQueryVariables>(GardensSitemapDocument, {...variables, ...(metaData.pageParam ?? {})})(),
       options
-    );
+    )};

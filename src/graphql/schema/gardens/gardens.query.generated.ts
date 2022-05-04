@@ -1,11 +1,11 @@
 import * as Types from '../../types';
 
-import { useQuery, UseQueryOptions, useInfiniteQuery, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
+import { useQuery, useInfiniteQuery, UseQueryOptions, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type GardensQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GardensQuery = { gardens?: Array<{ title: string, contents: string, slug: string, id: string, _id: string, createdAt: any } | null | undefined> | null | undefined };
+export type GardensQuery = { gardens?: Array<{ title: string, contents: string, slug: string, id: string, _id: string, createdAt: any } | null> | null };
 
 
 export const GardensDocument = `
@@ -38,9 +38,10 @@ export const useInfiniteGardensQuery = <
     >(
       variables?: GardensQueryVariables,
       options?: UseInfiniteQueryOptions<GardensQuery, TError, TData>
-    ) =>
-    useInfiniteQuery<GardensQuery, TError, TData>(
+    ) =>{
+    
+    return useInfiniteQuery<GardensQuery, TError, TData>(
       variables === undefined ? ['Gardens.infinite'] : ['Gardens.infinite', variables],
       (metaData) => fetcher<GardensQuery, GardensQueryVariables>(GardensDocument, {...variables, ...(metaData.pageParam ?? {})})(),
       options
-    );
+    )};

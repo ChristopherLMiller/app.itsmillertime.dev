@@ -42,4 +42,10 @@ query Articles(
       title
     }
   }
+  articlesConnection {
+    aggregate {
+      totalCount
+      count
+    }
+  }
 }

@@ -55,7 +55,7 @@ const Card: FC<CardProps> = ({
 
       <Panel padding={padding} align={align}>
         <StyledCardBody>{children}</StyledCardBody>
-        {actionLinks && (
+        {actionLinks.length > 0 && (
           <ActionLinks>
             {actionLinks?.map((link) => (
               <Link href={link.href} key={link.title}>
