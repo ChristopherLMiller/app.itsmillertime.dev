@@ -52,9 +52,7 @@ const nextConfig = {
     rootDir: __dirname,
   },
   images: {
-    loader: `cloudinary`,
-    path: `https://res.cloudinary.com/christopherleemiller/image/upload`,
-    domains: [`res.cloudinary.com`, `gravatar.com`],
+    domains: [`images.itsmillertime.dev`, `gravatar.com`],
   },
   pwa: {
     dest: "public",

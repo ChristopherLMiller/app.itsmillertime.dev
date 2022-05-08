@@ -6,7 +6,7 @@ import { FunctionComponent, useEffect, useState } from "react";
 import { Model, PublicationState } from "src/graphql/types";
 import { getBuildTime } from "src/utils";
 import makeDurationFriendly from "src/utils/makeDurationFriendly";
-import { defaultImage } from "../../../config";
+import { defaultImage, ImagesEndpoint } from "../../../config";
 import { ModelImage, ModelItem, ModelName, TagList, variants } from "./styles";
 
 interface iModelCard {
@@ -14,9 +14,10 @@ interface iModelCard {
 }
 
 const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
-  const imageUrl =
+  const imageUrl = `${ImagesEndpoint}/${
     model?.SEO?.featured_image?.provider_metadata["public_id"] ||
-    defaultImage.public_id;
+    defaultImage.public_id
+  }`;
   const imageWidth = 600;
   const imageHeight = 400;
   const imageAlt =
@@ -49,70 +50,70 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
   ));
 
   return (
-    <ModelItem
-      variants={variants}
-      initial="initial"
-      whileHover="hover"
-      color={
-        publicationState == PublicationState.Live
-          ? `var(--color-red-intermediate)`
-          : `var(--color-gold)`
-      }
-    >
-      <ModelName
-        background={
+    <Link href={`/models/model/${model?.slug}`}>
+      <ModelItem
+        variants={variants}
+        initial="initial"
+        whileHover="hover"
+        color={
           publicationState == PublicationState.Live
             ? `var(--color-red-intermediate)`
             : `var(--color-gold)`
         }
       >
-        <Link href={`/models/model/${model?.slug}`}>
+        <ModelName
+          background={
+            publicationState == PublicationState.Live
+              ? `var(--color-red-intermediate)`
+              : `var(--color-gold)`
+          }
+        >
           <a>{model.title}</a>
-        </Link>
-      </ModelName>
-      <Grid columns={2} padding={false} masonry>
-        <ModelImage>
-          <Image
-            src={imageUrl}
-            layout="intrinsic"
-            width={imageWidth}
-            height={imageHeight}
-            alt={imageAlt}
-            placeholder="blur"
-            blurDataURL={defaultImage.blurred}
+        </ModelName>
+        <Grid columns={2} padding={false} masonry>
+          <ModelImage>
+            <Image
+              src={imageUrl}
+              layout="intrinsic"
+              width={imageWidth}
+              height={imageHeight}
+              alt={imageAlt}
+              placeholder="blur"
+              blurDataURL={defaultImage.blurred}
+            />
+          </ModelImage>
+          <Table
+            rows={[
+              [
+                "Brand",
+                {
+                  label: model?.manufacturer?.name,
+                  url: `/models?manufacturer=${model?.manufacturer?.slug}`,
+                },
+              ],
+              [
+                "Scale",
+                {
+                  label: model?.scale?.name,
+                  url: `/models?scale=${model?.scale?.slug}`,
+                },
+              ],
+              ["Kit #", model?.kit_number],
+              ["Released", model?.year_released],
+              [
+                "Completed",
+                {
+                  label: model?.completed ? "Yes" : "No",
+                  url: `/models?completed=${model?.completed ? true : false}`,
+                },
+              ],
+              ["Build Time", buildTime],
+            ]}
           />
-        </ModelImage>
-        <Table
-          rows={[
-            [
-              "Brand",
-              {
-                label: model?.manufacturer?.name,
-                url: `/models?manufacturer=${model?.manufacturer?.slug}`,
-              },
-            ],
-            [
-              "Scale",
-              {
-                label: model?.scale?.name,
-                url: `/models?scale=${model?.scale?.slug}`,
-              },
-            ],
-            ["Kit #", model?.kit_number],
-            ["Released", model?.year_released],
-            [
-              "Completed",
-              {
-                label: model?.completed ? "Yes" : "No",
-                url: `/models?completed=${model?.completed ? true : false}`,
-              },
-            ],
-            ["Build Time", buildTime],
-          ]}
-        />
-      </Grid>
-      <TagList>Tags: {tags}</TagList>
-    </ModelItem>
+        </Grid>
+        <TagList>Tags: {tags}</TagList>
+      </ModelItem>
+    </Link>
   );
 };
 

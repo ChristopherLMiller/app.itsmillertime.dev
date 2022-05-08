@@ -16,6 +16,7 @@ const FirstLetter = styled.span`
 const OtherLetters = styled.span`
   @media (max-width: 400px) {
     display: none;
+    font-sise: 3rem;
   }
 `;
 

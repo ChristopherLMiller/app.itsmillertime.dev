@@ -1,7 +1,7 @@
 import Markdown from "@components/Markdown";
 import Panel from "@components/Panel";
 import ShareButtons from "@components/ShareButtons";
-import { defaultImage, pageSettings } from "config";
+import { defaultImage, ImagesEndpoint, pageSettings } from "config";
 import { formatRelative, parseISO } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
@@ -127,10 +127,10 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
         <ArticleHeader>
           {article?.seo?.featured_image && (
             <Image
-              src={
+              src={`${ImagesEndpoint}/${
                 article?.seo?.featured_image?.provider_metadata?.public_id ||
                 defaultImage.public_id
-              }
+              }`}
               alt={article?.seo?.featured_image?.alternativeText}
               width={1920}
               height={1080}

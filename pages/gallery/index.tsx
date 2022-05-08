@@ -85,7 +85,7 @@ const GalleriesIndexPage: NextPage = () => {
               alt: `Image of photo albums`,
               width: 800,
               height: 600,
-              url: `https://res.cloudinary.com/christopherleemiller/image/upload/w_800,f_auto,q_auto/clm-new/uploads/galleries_be8f339ef5.jpg`,
+              url: `https://images.itsmillertime.dev/w_800,f_auto,q_auto/clm-new/uploads/galleries_be8f339ef5.jpg`,
             },
           ],
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,

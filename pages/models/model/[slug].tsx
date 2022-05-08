@@ -4,7 +4,12 @@ import { Grid, GridItem } from "@components/Grid";
 import Markdown from "@components/Markdown";
 import Panel from "@components/Panel";
 import Table from "@components/Table";
-import { defaultImage, lightboxOptions, pageSettings } from "config";
+import {
+  defaultImage,
+  ImagesEndpoint,
+  lightboxOptions,
+  pageSettings,
+} from "config";
 import { format, formatRelative, parseISO } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
@@ -149,7 +154,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
         <Grid columns={3} gap="2rem">
           <GridItem start={1} end={3}>
             <Image
-              src={imageURL}
+              src={`${ImagesEndpoint}/${imageURL}`}
               width={imageWidth}
               height={imageHeight}
               alt={imageAlt}
@@ -187,7 +192,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                               key={image.provider_metadata?.public_id}
                             >
                               <Image
-                                src={image.provider_metadata?.public_id}
+                                src={`${ImagesEndpoint}/${image.provider_metadata?.public_id}`}
                                 alt={image.alternativeText}
                                 width={image.width}
                                 height={image.height}
@@ -208,7 +213,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
         <Grid columns={3} gap="2rem">
           <GridItem start={1} end={4}>
             <Image
-              src={imageURL}
+              src={`${ImagesEndpoint}/${imageURL}`}
               width={imageWidth}
               height={imageHeight}
               alt={imageAlt}
@@ -255,7 +260,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                               key={image.provider_metadata.public_id}
                             >
                               <Image
-                                src={image.provider_metadata.public_id}
+                                src={`${ImagesEndpoint}/${image.provider_metadata?.public_id}`}
                                 alt={image.alternativeText}
                                 width={image.width}
                                 height={image.height}
