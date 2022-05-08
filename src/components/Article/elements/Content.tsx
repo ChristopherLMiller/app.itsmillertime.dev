@@ -11,7 +11,7 @@ interface iCardBody {
 
 const StyledCardBody = styled.div<iCardBody>`
   background: var(--color-grey-light);
-  background-image: url("https://res.cloudinary.com/${cloudinary.cloudName}/image/upload/${cloudinary.folder}/assets/linen.jpg");
+  background-image: url("https://images.itsmillertime.dev/${cloudinary.folder}/assets/linen.jpg");
   padding: 0;
   position: relative;
   text-align: left;
@@ -62,7 +62,7 @@ const StyledCardBody = styled.div<iCardBody>`
 const ContentArea = styled.div`
   padding: 5%;
   background: var(--color-grey-light);
-  background-image: url("https://res.cloudinary.com/${cloudinary.cloudName}/image/upload/${cloudinary.folder}/assets/linen.jpg");
+  background-image: url("https://images.itsmillertime.dev/${cloudinary.folder}/assets/linen.jpg");
   transition: all 0.5s;
 `;
 

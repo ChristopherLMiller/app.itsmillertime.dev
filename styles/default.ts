@@ -79,7 +79,7 @@ export const GlobalStyles = createGlobalStyle`
     --h6-size: clamp(1.75rem, 5vw, 2.25rem);
     --p-size: clamp(1.75rem, 5vw, 2.25rem);
 
-    --linen-paper: url('https://res.cloudinary.com/${cloudinary.cloudName}/image/upload/${cloudinary.folder}/assets/linen.jpg');
+    --linen-paper: url('https://images.itsmillertime.dev/${cloudinary.folder}/assets/linen.jpg');
     --border-width: 2px;
     --border: var(--border-width) solid var(--color-red-intermediate);
   }
@@ -96,7 +96,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: var(--font-main);
-    background: var(--color-grey-intermediate) url('https://res.cloudinary.com/${cloudinary.cloudName}/image/upload/${cloudinary.folder}/assets/background.jpg') no-repeat;
+    background: var(--color-grey-intermediate) url('https://images.itsmillertime.dev/${cloudinary.folder}/assets/background.jpg') no-repeat;
     background-attachment: fixed;
     background-size: cover;
     color: var(--color-grey-dark);

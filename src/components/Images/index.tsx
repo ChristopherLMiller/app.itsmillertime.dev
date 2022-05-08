@@ -1,4 +1,4 @@
-import { ApiEndpoint, CloudinaryBaseUrl } from "config";
+import { ApiEndpoint, ImagesEndpoint } from "config";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { FunctionComponent, ReactNode, useEffect, useState } from "react";
@@ -111,9 +111,7 @@ const ImageDefault: FunctionComponent<iImage> = ({
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     async function fetchExif() {
-      const imageURL = encodeURIComponent(
-        `${CloudinaryBaseUrl}/${public_id}.jpg`
-      );
+      const imageURL = encodeURIComponent(`${ImagesEndpoint}/${public_id}.jpg`);
       console.log(imageURL);
       try {
         const response = await fetch(
@@ -145,6 +143,8 @@ const ImageDefault: FunctionComponent<iImage> = ({
     }
   }, [public_id, getExif]);
 
+  const imageSource = `${ImagesEndpoint}/${public_id}`;
+
   return (
     <ImageContainer
       variants={ImageContainerVariants}
@@ -153,7 +153,7 @@ const ImageDefault: FunctionComponent<iImage> = ({
       border={border ? `var(--border)` : `none`}
     >
       <Image
-        src={`${public_id}`}
+        src={imageSource}
         alt={alt}
         layout={layout}
         width={width}
@@ -164,6 +164,7 @@ const ImageDefault: FunctionComponent<iImage> = ({
         srl_gallery_image={`true`}
         {...customImageProps}
       />
+
       {caption && (
         <ImageOverlay variants={ImageOverlayVariants}>
           <Caption>{caption}</Caption>
