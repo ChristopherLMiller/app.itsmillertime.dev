@@ -4,12 +4,9 @@ import styled from "styled-components";
 export const ImageContainer = styled(motion.div)`
   border: ${(props) => props.border};
   position: relative;
-  height: ${(props) => props.height}px;
+  height: ${(props) => props.height};
+  min-height: max-content;
   cursor: ${(props) => props.pointer};
-
-  > div {
-    display: block !important;
-  }
 `;
 
 export const ImageContainerVariants = {

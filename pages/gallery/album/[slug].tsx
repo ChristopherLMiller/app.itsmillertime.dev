@@ -10,7 +10,7 @@ import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import Masonry from "react-responsive-masonry";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 import { GalleriesDocument } from "src/graphql/schema/galleries/galleries.query.generated";
 import { Enum_Gallery_Status, Gallery } from "src/graphql/types";
@@ -23,6 +23,7 @@ import styled from "styled-components";
 const Padding = styled.div`
   padding-inline: 2rem;
 `;
+
 interface iGalleryPage {
   album: Gallery;
 }
@@ -66,61 +67,62 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
 
       <SimpleReactLightbox>
         <SRLWrapper options={lightboxOptions}>
-          <Masonry gutter="3em" columnsCount={4}>
-            <Card heading="About This Gallery" align="left" padding={false}>
-              <Table
-                rows={[
-                  ["Album Name", album.title],
-                  [
-                    "Created",
-                    formatRelative(
-                      new Date(album.createdAt as string),
-                      new Date()
-                    ),
-                  ],
-                  [
-                    "Updated Last",
-                    formatRelative(
-                      new Date(album.updatedAt as string),
-                      new Date()
-                    ),
-                  ],
-                  ["Num Images", album.gallery_images?.length.toString()],
-                  [
-                    {
-                      label:
-                        !isSessionLoading(session) && isAdmin(session)
-                          ? "Edit"
-                          : "",
-                      url:
-                        !isSessionLoading(session) && isAdmin(session)
-                          ? `${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${album.id}`
-                          : ``,
-                    },
-                    "",
-                  ],
-                ]}
-              />
+          <ResponsiveMasonry>
+            <Masonry gutter="3em">
+              <Card heading="About This Gallery" align="left" padding={false}>
+                <Table
+                  rows={[
+                    ["Album Name", album.title],
+                    [
+                      "Created",
+                      formatRelative(
+                        new Date(album.createdAt as string),
+                        new Date()
+                      ),
+                    ],
+                    [
+                      "Updated Last",
+                      formatRelative(
+                        new Date(album.updatedAt as string),
+                        new Date()
+                      ),
+                    ],
+                    ["Num Images", album.gallery_images?.length.toString()],
+                    [
+                      {
+                        label:
+                          !isSessionLoading(session) && isAdmin(session)
+                            ? "Edit"
+                            : "",
+                        url:
+                          !isSessionLoading(session) && isAdmin(session)
+                            ? `${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${album.id}`
+                            : ``,
+                      },
+                      "",
+                    ],
+                  ]}
+                />
 
-              <Padding>
-                <Markdown source={album?.meta} />
-              </Padding>
-            </Card>
-            {album.gallery_images?.map((image) => (
-              <CloudinaryImage
-                layout={ImageLayouts.responsive}
-                public_id={image.watermarked.provider_metadata.public_id}
-                width={image.watermarked.width}
-                height={image.watermarked.height}
-                alt={`${image.caption}`}
-                caption={`${image.caption}`}
-                hoverable={true}
-                getExif={true}
-                key={image.watermarked?.provider_metadata.public_id}
-              />
-            ))}
-          </Masonry>
-          {/*</ResponsiveMasonry>*/}
+                <Padding>
+                  <Markdown source={album?.meta} />
+                </Padding>
+              </Card>
+              {album.gallery_images?.map((image) => (
+                <CloudinaryImage
+                  layout={ImageLayouts.responsive}
+                  public_id={image.watermarked.provider_metadata.public_id}
+                  width={600}
+                  height={400}
+                  alt={`${image.caption}`}
+                  caption={`${image.caption}`}
+                  hoverable={true}
+                  getExif={true}
+                  key={image.watermarked?.provider_metadata.public_id}
+                />
+              ))}
+            </Masonry>
+          </ResponsiveMasonry>
         </SRLWrapper>
       </SimpleReactLightbox>
     </PageLayout>

@@ -75,8 +75,8 @@ const Polaroid: FunctionComponent<iPolaroid> = ({
       <CloudinaryImage
         public_id={src}
         alt={alt}
-        width={width}
-        height={height}
+        width={600}
+        height={400}
         layout={ImageLayouts.responsive}
       />
       {caption && <PolaroidCaption>{caption}</PolaroidCaption>}

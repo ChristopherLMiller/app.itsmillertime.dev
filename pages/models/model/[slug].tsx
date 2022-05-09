@@ -76,8 +76,6 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
 
   // 1) We parse out the SEO stuff first so that we have it to get to SEO
   const imageURL = seo.SEO?.featured_image?.provider_metadata.public_id;
-  const imageWidth = seo?.SEO?.featured_image?.width;
-  const imageHeight = seo?.SEO?.featured_image?.height;
   const imageAlt = seo.SEO?.featured_image?.alternativeText;
 
   // 2) Now we load the data using hooks
@@ -148,8 +146,8 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
           <GridItem start={1} end={3}>
             <CloudinaryImage
               public_id={imageURL}
-              width={imageWidth}
-              height={imageHeight}
+              width={600}
+              height={400}
               alt={imageAlt}
               layout={ImageLayouts.responsive}
               priority={true}
@@ -187,8 +185,8 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                               <CloudinaryImage
                                 public_id={image.provider_metadata?.public_id}
                                 alt={image.alternativeText}
-                                width={image.width}
-                                height={image.height}
+                                width={300}
+                                height={200}
                                 layout={ImageLayouts.responsive}
                                 border={false}
                               />
@@ -208,8 +206,8 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
           <GridItem start={1} end={4}>
             <CloudinaryImage
               public_id={imageURL}
-              width={imageWidth}
-              height={imageHeight}
+              width={600}
+              height={400}
               alt={imageAlt}
               layout={ImageLayouts.responsive}
               priority={true}
@@ -256,8 +254,8 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                               <CloudinaryImage
                                 public_id={image.provider_metadata?.public_id}
                                 alt={image.alternativeText}
-                                width={image.width}
-                                height={image.height}
+                                width={300}
+                                height={200}
                                 layout={ImageLayouts.responsive}
                                 border={false}
                               />

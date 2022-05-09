@@ -47,8 +47,8 @@ const ArticleHead: FunctionComponent<iArticleHead> = ({
       {featuredImage !== null && (
         <CloudinaryImage
           public_id={featuredImage.provider_metadata[`public_id`]}
-          width={featuredImage.width}
-          height={featuredImage.height}
+          width={1920}
+          height={1080}
           alt={featuredImage.alternativeText}
           layout={ImageLayouts.responsive}
         />

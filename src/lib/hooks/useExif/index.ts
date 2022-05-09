@@ -38,7 +38,7 @@ export function useEXIF(public_id: string, enabled: boolean) {
     if (enabled) {
       fetchExif();
     }
-  }, [public_id]);
+  }, [public_id, enabled]);
 
   return { isLoading, exifData };
 }

@@ -3,6 +3,7 @@ import { defaultImage, pageSettings } from "config";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import Card from "src/components/Card";
 import PageLayout from "src/layout/PageLayout";
@@ -51,9 +52,12 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
         }}
       />
       <Grid columns={3}>
-        <img
+        <Image
           src={`https://www.gravatar.com/avatar/${emailHash}`}
           alt="Gravatar"
+          width={50}
+          height={50}
+          layout="fill"
         />
         <GridItem start={2} end={3}>
           <Card heading="My Information" align="left">

@@ -120,8 +120,8 @@ const GalleriesIndexPage: NextPage = () => {
                       public_id={
                         gallery?.featured_image?.provider_metadata?.public_id
                       }
-                      width={gallery?.featured_image?.width || 900}
-                      height={gallery?.featured_image?.height || 450}
+                      width={600}
+                      height={400}
                       alt={`${gallery.title}`}
                       caption={`${gallery.title}${
                         gallery.status === `PUBLIC`

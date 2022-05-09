@@ -131,8 +131,8 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
                 article?.seo?.featured_image?.provider_metadata?.public_id
               }
               alt={article?.seo?.featured_image?.alternativeText}
-              width={article?.seo?.featured_image?.width}
-              height={article?.seo?.featured_image?.height}
+              width={1920}
+              height={1080}
               layout={ImageLayouts.responsive}
               border={false}
             />

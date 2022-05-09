@@ -15,8 +15,6 @@ interface iModelCard {
 
 const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
   const imageUrl = model?.SEO?.featured_image?.provider_metadata["public_id"];
-  const imageWidth = 600;
-  const imageHeight = 400;
   const imageAlt = model?.SEO?.featured_image?.alternativeText;
   const publicationState = model.published_at
     ? PublicationState.Live
@@ -71,8 +69,8 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
             <CloudinaryImage
               public_id={imageUrl}
               layout={ImageLayouts.responsive}
-              width={imageWidth}
-              height={imageHeight}
+              width={600}
+              height={400}
               alt={imageAlt}
               border={false}
             />
