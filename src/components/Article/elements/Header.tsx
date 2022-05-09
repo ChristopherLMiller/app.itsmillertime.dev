@@ -1,6 +1,7 @@
+import { ImageLayouts } from "@components/Images";
+import CloudinaryImage from "@components/Images/CloudinaryImage";
 import { formatRelative, parseISO } from "date-fns";
 import { FunctionComponent } from "react";
-import Image from "src/components/Images";
 import { UploadFile } from "src/graphql/types";
 import styled from "styled-components";
 
@@ -44,11 +45,12 @@ const ArticleHead: FunctionComponent<iArticleHead> = ({
   return (
     <StyledArticleHead>
       {featuredImage !== null && (
-        <Image
-          public_id={`${featuredImage.provider_metadata[`public_id`]}`}
+        <CloudinaryImage
+          public_id={featuredImage.provider_metadata[`public_id`]}
           width={featuredImage.width}
           height={featuredImage.height}
           alt={featuredImage.alternativeText}
+          layout={ImageLayouts.responsive}
         />
       )}
       <StyledArticleHeaderInfo>

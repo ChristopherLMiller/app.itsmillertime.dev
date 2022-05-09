@@ -1,4 +1,6 @@
 import Card from "@components/Card";
+import { ImageLayouts } from "@components/Images";
+import CloudinaryImage from "@components/Images/CloudinaryImage";
 import Markdown from "@components/Markdown";
 import ShareButtons from "@components/ShareButtons";
 import Table from "@components/Table";
@@ -10,7 +12,6 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import Masonry from "react-responsive-masonry";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
-import Image from "src/components/Images";
 import { GalleriesDocument } from "src/graphql/schema/galleries/galleries.query.generated";
 import { Enum_Gallery_Status, Gallery } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
@@ -106,8 +107,9 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
               </Padding>
             </Card>
             {album.gallery_images?.map((image) => (
-              <Image
-                public_id={`${image.watermarked.provider_metadata.public_id}`}
+              <CloudinaryImage
+                layout={ImageLayouts.responsive}
+                public_id={image.watermarked.provider_metadata.public_id}
                 width={image.watermarked.width}
                 height={image.watermarked.height}
                 alt={`${image.caption}`}

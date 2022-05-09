@@ -21,7 +21,6 @@ export const TextPane = styled(motion.div)`
   }
 
   h3 {
-    font-family: var(--font-alt);
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-block-start: 0;

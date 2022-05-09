@@ -1,5 +1,7 @@
 import Card from "@components/Card";
-import { defaultImage, pageSettings } from "config";
+import { ImageLayouts } from "@components/Images";
+import CloudinaryImage from "@components/Images/CloudinaryImage";
+import { pageSettings } from "config";
 import { formatRelative, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 import { NextPage } from "next";
@@ -8,13 +10,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { ArrayList } from "src/components/arrayList";
-import Image from "src/components/Images";
 import Loader from "src/components/Loader";
 import { useGalleriesQuery } from "src/graphql/schema/galleries/galleries.query.generated";
 import PageLayout from "src/layout/PageLayout";
 import styled from "styled-components";
 
-// TODO: fix anchor tag on the main tag in system default, breaks this here
 const Anchor = styled.a`
   box-shadow: none;
   cursor: pointer;
@@ -24,6 +24,7 @@ const Anchor = styled.a`
 `;
 
 const SubText = styled.div`
+  font-family: var(--font-main);
   p {
     font-size: 0.75em;
 
@@ -114,11 +115,11 @@ const GalleriesIndexPage: NextPage = () => {
                   passHref
                 >
                   <Anchor>
-                    <Image
-                      public_id={`${
-                        gallery?.featured_image?.provider_metadata?.public_id ||
-                        defaultImage.public_id
-                      }`}
+                    <CloudinaryImage
+                      layout={ImageLayouts.responsive}
+                      public_id={
+                        gallery?.featured_image?.provider_metadata?.public_id
+                      }
                       width={gallery?.featured_image?.width || 900}
                       height={gallery?.featured_image?.height || 450}
                       alt={`${gallery.title}`}
@@ -152,7 +153,7 @@ const GalleriesIndexPage: NextPage = () => {
                           Tags: <ArrayList array={gallery.gallery_tags} />
                         </p>
                       </SubText>
-                    </Image>
+                    </CloudinaryImage>
                   </Anchor>
                 </Link>
               </Gallery>

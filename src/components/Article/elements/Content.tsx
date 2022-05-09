@@ -61,6 +61,7 @@ const StyledCardBody = styled.div<iCardBody>`
 `;
 const ContentArea = styled.div`
   padding: 5%;
+  padding-block-start: 2rem;
   background: var(--color-grey-light);
   background-image: url("https://images.itsmillertime.dev/${cloudinary.folder}/assets/linen.jpg");
   transition: all 0.5s;
