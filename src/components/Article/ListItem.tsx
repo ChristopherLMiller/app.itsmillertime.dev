@@ -1,9 +1,10 @@
+import { ImageLayouts } from "@components/Images";
+import CloudinaryImage from "@components/Images/CloudinaryImage";
 import { formatRelative, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { Fragment, FunctionComponent } from "react";
-import Image from "src/components/Images";
 import { Article, ArticleTags } from "src/graphql/types";
 import { countWords, isAdmin, timeToRead } from "src/utils";
 import styled from "styled-components";
@@ -25,7 +26,7 @@ const StyledArticleListItem = styled(motion.article)`
     transition: all 0.25s ease;
 
     :hover {
-      box-shadow: var(--box-shadow-inset-1);
+      box-shadow: var(--box-shadow-inset-2);
       scale: 1.05;
     }
   }
@@ -45,8 +46,14 @@ const ArticleHeader = styled.div`
 
   h3 {
     font-family: var(--font-alt);
+    color: var(--color-black-60);
     font-weight: 100;
     margin: 0;
+    transition: color 0.25s ease;
+
+    :hover {
+      color: var(--color-white-60);
+    }
   }
   h5,
   h6 {
@@ -54,7 +61,6 @@ const ArticleHeader = styled.div`
     margin: 0;
     font-size: var(--h6-size);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
   }
   h6 {
     font-size: 0.75em;
@@ -72,6 +78,7 @@ const MetaButton = styled.a`
   letter-spacing: 2px;
   cursor: pointer;
   border-radius: 20px;
+  border-width: 5px;
   color: var(--color-white-100);
 `;
 
@@ -114,11 +121,12 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
     <StyledArticleListItem>
       <ArticleListItemImage>
         {article?.seo?.featured_image && (
-          <Image
+          <CloudinaryImage
             public_id={`${article?.seo?.featured_image.provider_metadata.public_id}`}
-            width={parseInt(`${article?.seo?.featured_image.width}`) / 6}
-            height={parseInt(`${article?.seo?.featured_image.height}`) / 6}
+            width={parseInt(`${article?.seo?.featured_image.width}`)}
+            height={parseInt(`${article?.seo?.featured_image.height}`)}
             alt={article?.seo?.featured_image.alternativeText}
+            layout={ImageLayouts.responsive}
           />
         )}
       </ArticleListItemImage>

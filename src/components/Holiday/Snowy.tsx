@@ -1,10 +1,10 @@
-import dynamic from "next/dynamic";
-import { FunctionComponent, useEffect, useState } from "react";
-import styled from "styled-components";
-import Modal from "react-modal";
 import { getYear, isThisMonth } from "date-fns";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import ChristmasImage from "public/christmas.jpg";
+import { FunctionComponent, useEffect, useState } from "react";
+import Modal from "react-modal";
+import styled from "styled-components";
 
 const Snowfall = dynamic(() => import(`react-snowfall`), { ssr: false });
 

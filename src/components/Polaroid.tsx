@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { FunctionComponent, ReactNode } from "react";
 import styled from "styled-components";
+import { ImageLayouts } from "./Images";
+import CloudinaryImage from "./Images/CloudinaryImage";
 
 const StyledPolaroid = styled(motion.div)`
   padding: 15px;
@@ -55,12 +56,12 @@ const Polaroid: FunctionComponent<iPolaroid> = ({
     return (
       <Link as={link.as} href={link.href} passHref>
         <StyledPolaroid whileHover={hoverState}>
-          <Image
-            src={`/${src}`}
+          <CloudinaryImage
+            public_id={src}
             alt={alt}
             width={width}
             height={height}
-            layout="responsive"
+            layout={ImageLayouts.responsive}
           />
           {caption && <PolaroidCaption>{caption}</PolaroidCaption>}
           <PolaroidContent>{children}</PolaroidContent>
@@ -71,12 +72,12 @@ const Polaroid: FunctionComponent<iPolaroid> = ({
 
   return (
     <StyledPolaroid whileHover={hoverState}>
-      <Image
-        src={`/${src}`}
+      <CloudinaryImage
+        public_id={src}
         alt={alt}
         width={width}
         height={height}
-        layout="responsive"
+        layout={ImageLayouts.responsive}
       />
       {caption && <PolaroidCaption>{caption}</PolaroidCaption>}
       <PolaroidContent>{children}</PolaroidContent>

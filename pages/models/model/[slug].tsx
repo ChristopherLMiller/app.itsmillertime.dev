@@ -1,20 +1,16 @@
 import Card from "@components/Card";
 import ClockifyControls from "@components/ClockifyControls";
 import { Grid, GridItem } from "@components/Grid";
+import { ImageLayouts } from "@components/Images";
+import CloudinaryImage from "@components/Images/CloudinaryImage";
 import Markdown from "@components/Markdown";
 import Panel from "@components/Panel";
 import Table from "@components/Table";
-import {
-  defaultImage,
-  ImagesEndpoint,
-  lightboxOptions,
-  pageSettings,
-} from "config";
+import { lightboxOptions, pageSettings } from "config";
 import { format, formatRelative, parseISO } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Youtube from "react-youtube";
@@ -79,13 +75,10 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
   const session = useSession();
 
   // 1) We parse out the SEO stuff first so that we have it to get to SEO
-  const imageURL =
-    seo.SEO?.featured_image?.provider_metadata.public_id ||
-    defaultImage.public_id;
-  const imageWidth = seo?.SEO?.featured_image?.width || defaultImage.width;
-  const imageHeight = seo?.SEO?.featured_image?.height || defaultImage.height;
-  const imageAlt =
-    seo.SEO?.featured_image?.alternativeText || defaultImage.altText;
+  const imageURL = seo.SEO?.featured_image?.provider_metadata.public_id;
+  const imageWidth = seo?.SEO?.featured_image?.width;
+  const imageHeight = seo?.SEO?.featured_image?.height;
+  const imageAlt = seo.SEO?.featured_image?.alternativeText;
 
   // 2) Now we load the data using hooks
   const { data, isSuccess } = useModelsQuery({
@@ -153,12 +146,12 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
       {isSuccess && !hasContent && (
         <Grid columns={3} gap="2rem">
           <GridItem start={1} end={3}>
-            <Image
-              src={`${ImagesEndpoint}/${imageURL}`}
+            <CloudinaryImage
+              public_id={imageURL}
               width={imageWidth}
               height={imageHeight}
               alt={imageAlt}
-              layout="responsive"
+              layout={ImageLayouts.responsive}
               priority={true}
             />
           </GridItem>
@@ -191,12 +184,13 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                             <ImageWrapper
                               key={image.provider_metadata?.public_id}
                             >
-                              <Image
-                                src={`${ImagesEndpoint}/${image.provider_metadata?.public_id}`}
+                              <CloudinaryImage
+                                public_id={image.provider_metadata?.public_id}
                                 alt={image.alternativeText}
                                 width={image.width}
                                 height={image.height}
-                                layout="responsive"
+                                layout={ImageLayouts.responsive}
+                                border={false}
                               />
                             </ImageWrapper>
                           ))}
@@ -212,12 +206,12 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
       {isSuccess && hasContent && (
         <Grid columns={3} gap="2rem">
           <GridItem start={1} end={4}>
-            <Image
-              src={`${ImagesEndpoint}/${imageURL}`}
+            <CloudinaryImage
+              public_id={imageURL}
               width={imageWidth}
               height={imageHeight}
               alt={imageAlt}
-              layout="responsive"
+              layout={ImageLayouts.responsive}
               priority={true}
             />
           </GridItem>
@@ -259,12 +253,13 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                             <ImageWrapper
                               key={image.provider_metadata.public_id}
                             >
-                              <Image
-                                src={`${ImagesEndpoint}/${image.provider_metadata?.public_id}`}
+                              <CloudinaryImage
+                                public_id={image.provider_metadata?.public_id}
                                 alt={image.alternativeText}
                                 width={image.width}
                                 height={image.height}
-                                layout="responsive"
+                                layout={ImageLayouts.responsive}
+                                border={false}
                               />
                             </ImageWrapper>
                           ))}

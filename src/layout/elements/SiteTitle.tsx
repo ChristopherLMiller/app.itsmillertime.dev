@@ -10,13 +10,12 @@ const StyledSiteTitle = styled(motion.span)`
 
 const FirstLetter = styled.span`
   color: var(--color-red);
-  font-size: 3.5rem;
+  font-size: 3.25rem;
 `;
 
 const OtherLetters = styled.span`
   @media (max-width: 400px) {
     display: none;
-    font-sise: 3rem;
   }
 `;
 

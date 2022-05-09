@@ -1,12 +1,13 @@
+import { ImageLayouts } from "@components/Images";
+import CloudinaryImage from "@components/Images/CloudinaryImage";
 import Markdown from "@components/Markdown";
 import Panel from "@components/Panel";
 import ShareButtons from "@components/ShareButtons";
-import { defaultImage, ImagesEndpoint, pageSettings } from "config";
+import { pageSettings } from "config";
 import { formatRelative, parseISO } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { ArticlesDocument } from "src/graphql/schema/articles/articles.query.generated";
 import { Article, PublicationState } from "src/graphql/types";
@@ -19,7 +20,6 @@ import styled from "styled-components";
 export const ArticleListItemContent = styled.div`
   color: var(--color-black-80);
   padding: 0 5%;
-  font-family: var(--font-typewriter);
 
   p {
     break-inside: avoid;
@@ -126,17 +126,15 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
       <Panel padding={false} boxedSmall>
         <ArticleHeader>
           {article?.seo?.featured_image && (
-            <Image
-              src={`${ImagesEndpoint}/${
-                article?.seo?.featured_image?.provider_metadata?.public_id ||
-                defaultImage.public_id
-              }`}
+            <CloudinaryImage
+              public_id={
+                article?.seo?.featured_image?.provider_metadata?.public_id
+              }
               alt={article?.seo?.featured_image?.alternativeText}
-              width={1920}
-              height={1080}
-              layout="responsive"
-              placeholder="blur"
-              blurDataURL={defaultImage.blurred}
+              width={article?.seo?.featured_image?.width}
+              height={article?.seo?.featured_image?.height}
+              layout={ImageLayouts.responsive}
+              border={false}
             />
           )}
           <h2>{article?.title}</h2>

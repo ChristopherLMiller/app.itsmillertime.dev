@@ -95,7 +95,9 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: var(--font-main);
+    font-family: var(--font-typewriter);
+    font-weight: 100;
+    letter-spacing: 0.5px;
     background: var(--color-grey-intermediate) url('https://images.itsmillertime.dev/${cloudinary.folder}/assets/background.jpg') no-repeat;
     background-attachment: fixed;
     background-size: cover;

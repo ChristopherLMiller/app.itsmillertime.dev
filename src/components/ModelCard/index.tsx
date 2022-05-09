@@ -1,12 +1,12 @@
-import { Grid } from "@components/Grid";
+import { ImageLayouts } from "@components/Images";
+import CloudinaryImage from "@components/Images/CloudinaryImage";
 import Table from "@components/Table";
-import Image from "next/image";
 import Link from "next/link";
 import { FunctionComponent, useEffect, useState } from "react";
 import { Model, PublicationState } from "src/graphql/types";
 import { getBuildTime } from "src/utils";
 import makeDurationFriendly from "src/utils/makeDurationFriendly";
-import { defaultImage, ImagesEndpoint } from "../../../config";
+import { Grid } from "..";
 import { ModelImage, ModelItem, ModelName, TagList, variants } from "./styles";
 
 interface iModelCard {
@@ -14,14 +14,10 @@ interface iModelCard {
 }
 
 const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
-  const imageUrl = `${ImagesEndpoint}/${
-    model?.SEO?.featured_image?.provider_metadata["public_id"] ||
-    defaultImage.public_id
-  }`;
+  const imageUrl = model?.SEO?.featured_image?.provider_metadata["public_id"];
   const imageWidth = 600;
   const imageHeight = 400;
-  const imageAlt =
-    model?.SEO?.featured_image?.alternativeText || defaultImage.altText;
+  const imageAlt = model?.SEO?.featured_image?.alternativeText;
   const publicationState = model.published_at
     ? PublicationState.Live
     : PublicationState.Preview;
@@ -72,14 +68,13 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
         </ModelName>
         <Grid columns={2} padding={false} masonry>
           <ModelImage>
-            <Image
-              src={imageUrl}
-              layout="intrinsic"
+            <CloudinaryImage
+              public_id={imageUrl}
+              layout={ImageLayouts.responsive}
               width={imageWidth}
               height={imageHeight}
               alt={imageAlt}
-              placeholder="blur"
-              blurDataURL={defaultImage.blurred}
+              border={false}
             />
           </ModelImage>
           <Table

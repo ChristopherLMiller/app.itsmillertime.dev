@@ -23,7 +23,6 @@ export const CardVariants = {
 
 export const StyledCard = styled.div`
   color: var(--color-black);
-  font-family: var(--font-main);
   font-weight: 300;
   max-width: ${(props) => props.maxWidth};
   box-shadow: var(--box-shadow-elev-1);
