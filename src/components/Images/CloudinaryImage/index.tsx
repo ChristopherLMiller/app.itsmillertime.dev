@@ -30,7 +30,7 @@ export interface CloudinaryImageTypes {
 }
 
 const CloudinaryLoader = ({ src, width, quality }) => {
-  return `https://images.itsmillertime.dev/${src}`; //?width=${width}&quality=${quality}`;
+  return `https://images.itsmillertime.dev/f_auto,q_${quality},w_${width}/${src}`;
 };
 
 const CloudinaryImage = ({
@@ -56,7 +56,7 @@ const CloudinaryImage = ({
       whileHover={hoverable ? "hover" : "rest"}
       cursor={hoverable ? "pointer" : "default"}
       border={border ? "var(--border)" : "none"}
-      height={layout == ImageLayouts.fill ? "400" : "auto"}
+      height={layout == ImageLayouts.fill ? "400px" : "auto"}
     >
       <Image
         src={public_id}

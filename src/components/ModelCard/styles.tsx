@@ -27,6 +27,7 @@ export const ModelName = styled.div`
   a {
     color: var(--color-white-80);
     text-decoration: none;
+    cursor: pointer;
   }
   a:hover {
     color: var(--color-white-100);
