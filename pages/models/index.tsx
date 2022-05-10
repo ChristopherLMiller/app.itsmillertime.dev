@@ -1,4 +1,5 @@
 import { Grid } from "@components/Grid";
+import Loader from "@components/Loader";
 import ModelCard from "@components/ModelCard";
 import Paginator from "@components/Paginator";
 import { defaultImage, pageSettings } from "config";
@@ -30,7 +31,7 @@ const ModelsPageIndex: NextPage = () => {
   }, [router]);
 
   // query for the data
-  const { data, isSuccess, error } = useModelsMinimalQuery(
+  const { data, isSuccess, isLoading, error } = useModelsMinimalQuery(
     {
       sort: sort,
       where: null, //router.query ? router.query : null,
@@ -72,13 +73,16 @@ const ModelsPageIndex: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
-      <Paginator
-        page={page}
-        setPage={setPage}
-        totalRecords={data?.modelsConnection?.aggregate?.count}
-        perPage={limit}
-        url="models"
-      />
+      {isLoading && <Loader isLoading={isLoading} />}
+      {isSuccess && (
+        <Paginator
+          page={page}
+          setPage={setPage}
+          totalRecords={data?.modelsConnection?.aggregate?.count}
+          perPage={limit}
+          url="models"
+        />
+      )}
       <Grid columns={2} min="500px" gap="3rem">
         {isSuccess &&
           data.models?.map((model) => (
@@ -87,13 +91,15 @@ const ModelsPageIndex: NextPage = () => {
             <ModelCard key={model.slug} model={model} />
           ))}
       </Grid>
-      <Paginator
-        page={page}
-        setPage={setPage}
-        totalRecords={data?.modelsConnection?.aggregate?.count}
-        perPage={limit}
-        url={`models`}
-      />
+      {isSuccess && (
+        <Paginator
+          page={page}
+          setPage={setPage}
+          totalRecords={data?.modelsConnection?.aggregate?.count}
+          perPage={limit}
+          url={`models`}
+        />
+      )}
     </PageLayout>
   );
 };
