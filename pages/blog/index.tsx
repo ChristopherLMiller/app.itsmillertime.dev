@@ -116,13 +116,15 @@ const BlogIndexpage: NextPage = () => {
           ))}
         </ArticleList>
       )}
-      <Paginator
-        page={page}
-        totalRecords={data?.articlesConnection?.aggregate?.totalCount}
-        perPage={limit}
-        setPage={() => console.log("changing page")}
-        url="blog"
-      />
+      {isSuccess && (
+        <Paginator
+          page={page}
+          totalRecords={data?.articlesConnection?.aggregate?.totalCount}
+          perPage={limit}
+          setPage={() => console.log("changing page")}
+          url="blog"
+        />
+      )}
     </PageLayout>
   );
 };

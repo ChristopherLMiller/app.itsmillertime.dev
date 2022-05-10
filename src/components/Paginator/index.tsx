@@ -1,5 +1,6 @@
 import Button from "@components/inputs/Button";
 import { useRouter } from "next/router";
+import { PaginationBar, Separator } from "./styles";
 
 interface PaginatorProps {
   page: number;
@@ -8,6 +9,13 @@ interface PaginatorProps {
   setPage: any;
   url: string;
 }
+
+const Operations = {
+  NEXT: "next",
+  PREV: "prev",
+  FIRST: "first",
+  LAST: "last",
+};
 
 const Paginator: React.FC<PaginatorProps> = ({
   page,
@@ -21,7 +29,23 @@ const Paginator: React.FC<PaginatorProps> = ({
   const totalPages = Math.ceil(totalRecords / perPage) - 1;
 
   const clickHandler = (operation) => {
-    let newPage = operation === "next" ? page + 1 : page - 1;
+    let newPage = page;
+    switch (operation) {
+      case Operations.NEXT:
+        newPage++;
+        break;
+      case Operations.PREV:
+        newPage--;
+        break;
+      case Operations.FIRST:
+        newPage = 1;
+        break;
+      case Operations.LAST:
+        newPage = totalPages;
+        break;
+      default:
+        throw new Error("Unknown operation in paginator");
+    }
 
     // check for over/under flow
     if (newPage < 1) {
@@ -37,20 +61,37 @@ const Paginator: React.FC<PaginatorProps> = ({
   };
 
   return (
-    <div>
-      <Button isDisabled={page === 1} onClick={() => clickHandler("previous")}>
-        Previous
+    <PaginationBar>
+      <Button
+        isDisabled={page === 1}
+        onClick={() => clickHandler(Operations.FIRST)}
+      >
+        First
+      </Button>
+      <Separator />
+      <Button
+        isDisabled={page === 1}
+        onClick={() => clickHandler(Operations.PREV)}
+      >
+        &lt;Prev
       </Button>
       <Button>
         {page} of {totalPages}
       </Button>
       <Button
         isDisabled={page === totalPages}
-        onClick={() => clickHandler("next")}
+        onClick={() => clickHandler(Operations.NEXT)}
       >
-        Next
+        Next&gt;
       </Button>
-    </div>
+      <Separator />
+      <Button
+        isDisabled={page === totalPages}
+        onClick={() => clickHandler(Operations.LAST)}
+      >
+        Last
+      </Button>
+    </PaginationBar>
   );
 };
 
