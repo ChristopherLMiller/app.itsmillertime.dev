@@ -1,5 +1,5 @@
-query Gallery($id: ID!, $publicationState: PublicationState) {
-  gallery(id: $id, publicationState: $publicationState) {
+query Gallery($where: JSON) {
+  galleries(where: $where) {
     id
     _id
     createdAt
