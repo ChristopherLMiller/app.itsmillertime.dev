@@ -1,11 +1,11 @@
 {
   "name": "app.itsmillertime.dev",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Front End to www.itsmillertime.dev",
   "main": "index.js",
   "scripts": {
     "dev": "next dev -p 6006",
-    "build": "SENTRY_LOG_LEVEL='debug' next build",
+    "build": "SENTRY_LOG_LEVEL='debug' next build && next-sitemap",
     "postbuild": "next-sitemap",
     "lint": "next lint",
     "start": "NODE_OPTIONS='--max-old-space-size=1536' next start -p 6006",
