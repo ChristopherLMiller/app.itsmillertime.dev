@@ -1,5 +1,5 @@
-query modelsSitemap {
-  models {
+query modelsSitemap($start: Int, $limit: Int) {
+  models(start: $start, limit: $limit, publicationState: LIVE) {
     slug
     updatedAt
   }

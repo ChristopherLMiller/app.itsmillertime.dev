@@ -8,6 +8,9 @@ export const SEO = {
   separator: " - ",
 };
 
+// For paging with Strapi
+export const perPage = 100;
+
 export const pageSettings = {
   forgotPassword: {
     title: `Forgot Password?`,

@@ -2,15 +2,18 @@ import * as Types from '../../types';
 
 import { useQuery, useInfiniteQuery, UseQueryOptions, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
-export type ModelsSitemapQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type ModelsSitemapQueryVariables = Types.Exact<{
+  start?: Types.InputMaybe<Types.Scalars['Int']>;
+  limit?: Types.InputMaybe<Types.Scalars['Int']>;
+}>;
 
 
 export type ModelsSitemapQuery = { models?: Array<{ slug: string, updatedAt: any } | null> | null };
 
 
 export const ModelsSitemapDocument = `
-    query modelsSitemap {
-  models {
+    query modelsSitemap($start: Int, $limit: Int) {
+  models(start: $start, limit: $limit, publicationState: LIVE) {
     slug
     updatedAt
   }
