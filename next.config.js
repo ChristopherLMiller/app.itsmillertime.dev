@@ -61,7 +61,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  experimental: { images: { layoutRaw: true } }
+  experimental: { images: { layoutRaw: true } },
 };
 
 const SentryWebpackPluginOptions = {
