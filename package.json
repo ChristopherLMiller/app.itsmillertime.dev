@@ -11,6 +11,9 @@
     "start": "NODE_OPTIONS='--max-old-space-size=1536' next start -p 6006",
     "generate": "graphql-codegen"
   },
+  "engines": {
+    "node": ">=16"
+  },
   "author": "ChristopherLMiller",
   "license": "ISC",
   "dependencies": {
