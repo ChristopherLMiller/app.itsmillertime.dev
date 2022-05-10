@@ -13,6 +13,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     lastmod: gallery.updatedAt,
   }));
 
+  // Set caching
+  ctx.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=604800, stale-while-revalidate=86400"
+  );
+
   return getServerSideSitemap(context, galleries);
 };
 

@@ -13,6 +13,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     lastmod: article?.updatedAt,
   }));
 
+  // Set caching
+  ctx.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=604800, stale-while-revalidate=86400"
+  );
+
   return getServerSideSitemap(ctx, articles);
 };
 
