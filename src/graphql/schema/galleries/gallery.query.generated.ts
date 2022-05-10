@@ -3,17 +3,16 @@ import * as Types from '../../types';
 import { useQuery, useInfiniteQuery, UseQueryOptions, UseInfiniteQueryOptions, QueryFunctionContext } from 'react-query';
 import { fetcher } from 'src/lib/fetch';
 export type GalleryQueryVariables = Types.Exact<{
-  id: Types.Scalars['ID'];
-  publicationState?: Types.InputMaybe<Types.PublicationState>;
+  where?: Types.InputMaybe<Types.Scalars['JSON']>;
 }>;
 
 
-export type GalleryQuery = { gallery?: { id: string, _id: string, createdAt: any, updatedAt: any, title?: string | null, slug?: string | null, status: Types.Enum_Gallery_Status, nsfw?: boolean | null, meta?: string | null, description?: string | null, featured_image?: { id: string, _id: string, createdAt: any, updatedAt: any, name: string, alternativeText?: string | null, caption?: string | null, width?: number | null, height?: number | null, formats?: any | null, hash: string, ext?: string | null, mime: string, size: number, url: string, previewUrl?: string | null, provider: string, provider_metadata?: any | null } | null, gallery_categories?: Array<{ id: string, _id: string, slug?: string | null, title?: string | null } | null> | null, gallery_tags?: Array<{ id: string, _id: string, slug?: string | null, title?: string | null } | null> | null, gallery_images?: Array<{ id: string, _id: string, createdAt: any, updatedAt: any, caption?: string | null, slug?: string | null, watermarked?: { id: string, _id: string, createdAt: any, updatedAt: any, name: string, alternativeText?: string | null, caption?: string | null, width?: number | null, height?: number | null, formats?: any | null, hash: string, ext?: string | null, mime: string, size: number, url: string, previewUrl?: string | null, provider: string, provider_metadata?: any | null } | null, clean?: { id: string, _id: string, createdAt: any, updatedAt: any, name: string, alternativeText?: string | null, caption?: string | null, width?: number | null, height?: number | null, formats?: any | null, hash: string, ext?: string | null, mime: string, size: number, url: string, previewUrl?: string | null, provider: string, provider_metadata?: any | null } | null, share?: { id: string, _id: string, facebook?: boolean | null, twitter?: boolean | null, instagram?: boolean | null } | null, sell?: { id: string, _id: string, price: number } | null } | null> | null } | null };
+export type GalleryQuery = { galleries?: Array<{ id: string, _id: string, createdAt: any, updatedAt: any, title?: string | null, slug?: string | null, status: Types.Enum_Gallery_Status, nsfw?: boolean | null, meta?: string | null, description?: string | null, featured_image?: { id: string, _id: string, createdAt: any, updatedAt: any, name: string, alternativeText?: string | null, caption?: string | null, width?: number | null, height?: number | null, formats?: any | null, hash: string, ext?: string | null, mime: string, size: number, url: string, previewUrl?: string | null, provider: string, provider_metadata?: any | null } | null, gallery_categories?: Array<{ id: string, _id: string, slug?: string | null, title?: string | null } | null> | null, gallery_tags?: Array<{ id: string, _id: string, slug?: string | null, title?: string | null } | null> | null, gallery_images?: Array<{ id: string, _id: string, createdAt: any, updatedAt: any, caption?: string | null, slug?: string | null, watermarked?: { id: string, _id: string, createdAt: any, updatedAt: any, name: string, alternativeText?: string | null, caption?: string | null, width?: number | null, height?: number | null, formats?: any | null, hash: string, ext?: string | null, mime: string, size: number, url: string, previewUrl?: string | null, provider: string, provider_metadata?: any | null } | null, clean?: { id: string, _id: string, createdAt: any, updatedAt: any, name: string, alternativeText?: string | null, caption?: string | null, width?: number | null, height?: number | null, formats?: any | null, hash: string, ext?: string | null, mime: string, size: number, url: string, previewUrl?: string | null, provider: string, provider_metadata?: any | null } | null, share?: { id: string, _id: string, facebook?: boolean | null, twitter?: boolean | null, instagram?: boolean | null } | null, sell?: { id: string, _id: string, price: number } | null } | null> | null } | null> | null };
 
 
 export const GalleryDocument = `
-    query Gallery($id: ID!, $publicationState: PublicationState) {
-  gallery(id: $id, publicationState: $publicationState) {
+    query Gallery($where: JSON) {
+  galleries(where: $where) {
     id
     _id
     createdAt
@@ -123,11 +122,11 @@ export const useGalleryQuery = <
       TData = GalleryQuery,
       TError = unknown
     >(
-      variables: GalleryQueryVariables,
+      variables?: GalleryQueryVariables,
       options?: UseQueryOptions<GalleryQuery, TError, TData>
     ) =>
     useQuery<GalleryQuery, TError, TData>(
-      ['Gallery', variables],
+      variables === undefined ? ['Gallery'] : ['Gallery', variables],
       fetcher<GalleryQuery, GalleryQueryVariables>(GalleryDocument, variables),
       options
     );
@@ -135,12 +134,12 @@ export const useInfiniteGalleryQuery = <
       TData = GalleryQuery,
       TError = unknown
     >(
-      variables: GalleryQueryVariables,
+      variables?: GalleryQueryVariables,
       options?: UseInfiniteQueryOptions<GalleryQuery, TError, TData>
     ) =>{
     
     return useInfiniteQuery<GalleryQuery, TError, TData>(
-      ['Gallery.infinite', variables],
+      variables === undefined ? ['Gallery.infinite'] : ['Gallery.infinite', variables],
       (metaData) => fetcher<GalleryQuery, GalleryQueryVariables>(GalleryDocument, {...variables, ...(metaData.pageParam ?? {})})(),
       options
     )};
