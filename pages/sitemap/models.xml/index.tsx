@@ -12,6 +12,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     lastmod: model.updatedAt,
   }));
 
+  // Set caching
+  context.res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=604800, stale-while-revalidate=86400"
+  );
+
   return getServerSideSitemap(context, models);
 };
 
