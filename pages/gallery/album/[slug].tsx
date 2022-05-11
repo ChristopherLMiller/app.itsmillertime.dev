@@ -112,8 +112,8 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
                 <CloudinaryImage
                   layout={ImageLayouts.responsive}
                   public_id={image.watermarked.provider_metadata.public_id}
-                  width={600}
-                  height={400}
+                  width={image.watermarked.width}
+                  height={image.watermarked.height}
                   alt={`${image.caption}`}
                   caption={`${image.caption}`}
                   hoverable={true}

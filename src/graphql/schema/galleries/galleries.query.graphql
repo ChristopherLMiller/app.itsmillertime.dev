@@ -19,8 +19,5 @@ query Galleries($start: Int, $limit: Int, $where: JSON, $sort: String!) {
       slug
       title
     }
-    gallery_images {
-      id
-    }
   }
 }

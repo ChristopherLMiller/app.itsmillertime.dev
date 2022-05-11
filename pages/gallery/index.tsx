@@ -120,8 +120,8 @@ const GalleriesIndexPage: NextPage = () => {
                       public_id={
                         gallery?.featured_image?.provider_metadata?.public_id
                       }
-                      width={600}
-                      height={400}
+                      width={gallery?.featured_image.provider_metadata.width}
+                      height={gallery?.featured_image.provider_metadata.width}
                       alt={`${gallery.title}`}
                       caption={`${gallery.title}${
                         gallery.status === `PUBLIC`
@@ -143,7 +143,6 @@ const GalleriesIndexPage: NextPage = () => {
                             parseISO(gallery.updatedAt),
                             new Date()
                           )}
-                          {` - Image Count: ${gallery?.gallery_images?.length}`}
                         </p>
                         <p>
                           Categories:{` `}
