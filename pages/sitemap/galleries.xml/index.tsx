@@ -14,7 +14,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }));
 
   // Set caching
-  ctx.res.setHeader(
+  context.res.setHeader(
     "Cache-Control",
     "public, s-maxage=604800, stale-while-revalidate=86400"
   );
