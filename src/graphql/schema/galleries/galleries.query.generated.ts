@@ -10,7 +10,7 @@ export type GalleriesQueryVariables = Types.Exact<{
 }>;
 
 
-export type GalleriesQuery = { galleries?: Array<{ id: string, createdAt: any, updatedAt: any, title?: string | null, slug?: string | null, status: Types.Enum_Gallery_Status, featured_image?: { provider_metadata?: any | null } | null, gallery_categories?: Array<{ id: string, slug?: string | null, title?: string | null } | null> | null, gallery_tags?: Array<{ id: string, slug?: string | null, title?: string | null } | null> | null } | null> | null };
+export type GalleriesQuery = { galleries?: Array<{ id: string, createdAt: any, updatedAt: any, title?: string | null, slug?: string | null, status: Types.Enum_Gallery_Status, featured_image?: { provider_metadata?: any | null, width?: number | null, height?: number | null } | null, gallery_categories?: Array<{ id: string, slug?: string | null, title?: string | null } | null> | null, gallery_tags?: Array<{ id: string, slug?: string | null, title?: string | null } | null> | null } | null> | null };
 
 
 export const GalleriesDocument = `
@@ -23,6 +23,8 @@ export const GalleriesDocument = `
     slug
     featured_image {
       provider_metadata
+      width
+      height
     }
     status
     gallery_categories {

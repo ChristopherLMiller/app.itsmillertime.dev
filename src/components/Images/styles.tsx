@@ -6,7 +6,7 @@ export const ImageContainer = styled(motion.div)`
   position: relative;
   height: ${(props) => props.height};
   min-height: max-content;
-  cursor: ${(props) => props.pointer};
+  cursor: ${(props) => props.cursor};
 `;
 
 export const ImageContainerVariants = {
@@ -46,8 +46,17 @@ export const ImageOverlay = styled(motion.div)`
 `;
 
 export const Caption = styled.p``;
-export const SubText = styled.span`
-  font-size: 1em;
+export const SubText = styled.div`
+  ul,
+  ol {
+    list-style-type: none;
+    padding-inline-start: 0;
+
+    }
+  }
+  * {
+    font-size: 1.25rem;
+  }
 `;
 
 export const ImageOverlayVariants = {
