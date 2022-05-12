@@ -6,6 +6,7 @@ public/robots.txt
 public/sw.js
 public/sw.js.map
 public/workbox*
+public/sitemap-0.xml
 
 ## ENV Variables
 .env.local

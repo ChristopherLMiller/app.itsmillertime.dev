@@ -3,46 +3,14 @@ import { ImageLayouts } from "@components/Images";
 import CloudinaryImage from "@components/Images/CloudinaryImage";
 import { pageSettings } from "config";
 import { formatRelative, parseISO } from "date-fns";
-import { motion } from "framer-motion";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { ArrayList } from "src/components/arrayList";
 import Loader from "src/components/Loader";
 import { useGalleriesQuery } from "src/graphql/schema/galleries/galleries.query.generated";
 import PageLayout from "src/layout/PageLayout";
-import styled from "styled-components";
-
-const Anchor = styled.a`
-  box-shadow: none;
-  cursor: pointer;
-  &:hover {
-    box-shadow: none;
-  }
-`;
-
-const SubText = styled.div`
-  font-family: var(--font-main);
-  p {
-    font-size: 0.75em;
-
-    span {
-      font-size: 1em;
-    }
-  }
-`;
-
-const Gallery = styled(motion.article)``;
-const GalleryVariants = {
-  hover: {
-    scale: 1.05,
-  },
-  rest: {
-    scale: 1,
-  },
-};
 
 const GalleriesIndexPage: NextPage = () => {
   const router = useRouter();
@@ -101,61 +69,41 @@ const GalleriesIndexPage: NextPage = () => {
       )}
       {isSuccess && (
         <ResponsiveMasonry>
-          <Masonry gutter="3em">
-            {data?.galleries?.map((gallery) => (
-              <Gallery
-                variants={GalleryVariants}
-                initial="rest"
-                whileHover="hover"
+          <Masonry gutter="3rem">
+            {data?.galleries.map((gallery) => (
+              <CloudinaryImage
                 key={gallery.id}
+                layout={ImageLayouts.responsive}
+                width={gallery?.featured_image?.width}
+                height={gallery?.featured_image?.height}
+                public_id={
+                  gallery?.featured_image?.provider_metadata?.public_id
+                }
+                hoverable={true}
+                onClick={() => {
+                  router.push(`/gallery/album/${gallery.slug}`);
+                }}
+                caption={gallery.title}
               >
-                <Link
-                  href={`/gallery/album/${gallery.slug}`}
-                  key={gallery.slug}
-                  passHref
-                >
-                  <Anchor>
-                    <CloudinaryImage
-                      layout={ImageLayouts.responsive}
-                      public_id={
-                        gallery?.featured_image?.provider_metadata?.public_id
-                      }
-                      width={gallery?.featured_image.provider_metadata.width}
-                      height={gallery?.featured_image.provider_metadata.width}
-                      alt={`${gallery.title}`}
-                      caption={`${gallery.title}${
-                        gallery.status === `PUBLIC`
-                          ? ``
-                          : ` - ${gallery.status}`
-                      }`}
-                      hoverable
-                      key={gallery.slug}
-                    >
-                      <SubText>
-                        <p>
-                          Added:{` `}
-                          {formatRelative(
-                            parseISO(gallery.createdAt),
-                            new Date()
-                          )}
-                          {` - Updated: `}
-                          {formatRelative(
-                            parseISO(gallery.updatedAt),
-                            new Date()
-                          )}
-                        </p>
-                        <p>
-                          Categories:{` `}
-                          <ArrayList array={gallery.gallery_categories} />
-                        </p>
-                        <p>
-                          Tags: <ArrayList array={gallery.gallery_tags} />
-                        </p>
-                      </SubText>
-                    </CloudinaryImage>
-                  </Anchor>
-                </Link>
-              </Gallery>
+                <ul>
+                  <li>
+                    {`Added: ${formatRelative(
+                      parseISO(gallery.createdAt),
+                      new Date()
+                    )} - Updated: ${formatRelative(
+                      parseISO(gallery.updatedAt),
+                      new Date()
+                    )}`}
+                  </li>
+                  <li>
+                    Categories:{` `}
+                    <ArrayList array={gallery.gallery_categories} />
+                  </li>
+                  <li>
+                    Tags: <ArrayList array={gallery.gallery_tags} />
+                  </li>
+                </ul>
+              </CloudinaryImage>
             ))}
           </Masonry>
         </ResponsiveMasonry>

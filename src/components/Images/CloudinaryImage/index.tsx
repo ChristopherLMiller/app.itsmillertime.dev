@@ -27,6 +27,7 @@ export interface CloudinaryImageTypes {
   border?: boolean;
   getExif?: boolean;
   children?: ReactNode | null;
+  onClick?: () => void;
 }
 
 const CloudinaryLoader = ({ src, width, quality }) => {
@@ -46,6 +47,7 @@ const CloudinaryImage = ({
   border = true,
   getExif = false,
   children = null,
+  onClick = null,
 }) => {
   const { exifData, isLoading } = useEXIF(public_id, getExif);
 
@@ -54,9 +56,10 @@ const CloudinaryImage = ({
       variants={ImageContainerVariants}
       initial="rest"
       whileHover={hoverable ? "hover" : "rest"}
-      cursor={hoverable ? "pointer" : "default"}
+      cursor={hoverable === true ? "pointer" : "default"}
       border={border ? "var(--border)" : "none"}
       height={layout == ImageLayouts.fill ? "400px" : "auto"}
+      onClick={onClick}
     >
       <Image
         src={public_id}

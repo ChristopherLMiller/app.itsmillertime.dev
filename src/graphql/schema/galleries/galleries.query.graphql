@@ -7,6 +7,8 @@ query Galleries($start: Int, $limit: Int, $where: JSON, $sort: String!) {
     slug
     featured_image {
       provider_metadata
+      width
+      height
     }
     status
     gallery_categories {

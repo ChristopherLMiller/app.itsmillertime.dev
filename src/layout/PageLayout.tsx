@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Footer from "./elements/Footer";
 
 const Main = styled(motion.main)`
-  padding: 0 2%;
+  padding: 0 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
