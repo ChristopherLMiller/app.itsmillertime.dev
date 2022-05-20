@@ -56,7 +56,7 @@ const ParksPage: NextPage = () => {
         }}
       />
       {!isLoading && (
-        <Map center={[41.5090921, -85.6764342]} zoom={13} markers={markers} />
+        <Map center={[41.5976259, -85.9981081]} zoom={10} markers={markers} />
       )}
     </PageLayout>
   );
