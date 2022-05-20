@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const StyledNavigation = styled(motion.nav)`
   display: none;
-  z-index: 10;
+  z-index: 1200;
 
   @media (min-width: 500px) {
     display: flex;
