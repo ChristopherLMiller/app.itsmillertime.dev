@@ -33,6 +33,12 @@
             "activePaths": ["/uses"],
             "href": "/uses",
             "authState": "ANY"
+          },
+          {
+            "title": "Parks",
+            "activePaths": ["/parks"],
+            "href": "/parks",
+            "authState": "ANY"
           }
         ]
       }
@@ -52,7 +58,7 @@
       "icon": "paper-plane-1"
     },
     {
-      "title": "Galleries",
+      "title": "Gallery",
       "activePaths": ["/gallery", "/gallery/album/[slug]"],
       "href": "/gallery",
       "authState": "ANY",

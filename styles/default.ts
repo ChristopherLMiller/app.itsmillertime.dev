@@ -82,6 +82,7 @@ export const GlobalStyles = createGlobalStyle`
     --linen-paper: url('https://images.itsmillertime.dev/${cloudinary.folder}/assets/linen.jpg');
     --border-width: 2px;
     --border: var(--border-width) solid var(--color-red-intermediate);
+    --border-wide: calc(var(--border-width)*3) solid var(--color-red-intermediate);
   }
 
   html {
