@@ -46,10 +46,10 @@ const ParksPage: NextPage = () => {
           type: `website`,
           images: [
             {
-              alt: defaultImage.altText,
+              alt: pageSettings.parks.title,
               width: defaultImage.width,
               height: defaultImage.height,
-              url: defaultImage.path,
+              url: `https://images.itsmillertime.dev/w_800,f_auto,q_auto/clm-new/uploads/lukasz_szmigiel_j_FC_Vi_YF_Ycus_unsplash_7256aa8380.jpg`,
             },
           ],
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
