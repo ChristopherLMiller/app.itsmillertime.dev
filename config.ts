@@ -45,6 +45,10 @@ export const pageSettings = {
     title: `Home`,
     description: `Programmer.  Amateur Designer.  Model Enthsiast.`,
   },
+  parks: {
+    title: `Parks`,
+    description: `A collection of parks that I have visited`,
+  },
 };
 
 // ROLES
