@@ -67,10 +67,12 @@ const SentryWebpackPluginOptions = {
   silent: true,
 };
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 
 module.exports = withPWA(
-  withBundleAnalyzer(withMDX(withSentryConfig(nextConfig, SentryWebpackPluginOptions)))
+  withBundleAnalyzer(
+    withMDX(withSentryConfig(nextConfig, SentryWebpackPluginOptions))
+  )
 );
