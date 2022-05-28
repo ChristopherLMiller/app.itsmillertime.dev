@@ -1,5 +1,6 @@
+import Loader from "@components/Loader";
 import Paginator from "@components/Paginator";
-import { pageSettings } from "config";
+import { pageSettings } from "@fixtures/json/pages";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
@@ -7,7 +8,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import ArticleListItem from "src/components/Article/ListItem";
 import Card from "src/components/Card";
-import Loader from "src/components/Loader";
 import { useArticlesQuery } from "src/graphql/schema/articles/articles.query.generated";
 import { Article, PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";

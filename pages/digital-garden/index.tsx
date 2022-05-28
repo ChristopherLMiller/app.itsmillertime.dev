@@ -1,5 +1,5 @@
 import Card from "@components/Card";
-import { pageSettings } from "config";
+import { pageSettings } from "@fixtures/json/pages";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";

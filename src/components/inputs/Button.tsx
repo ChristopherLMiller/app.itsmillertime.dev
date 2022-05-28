@@ -34,6 +34,7 @@ interface iButton {
   isSubmitting?: boolean;
   onClick?: () => unknown;
   children: React.ReactNode;
+  type: "submit" | "button";
 }
 
 const Button: FunctionComponent<iButton> = ({
@@ -41,13 +42,14 @@ const Button: FunctionComponent<iButton> = ({
   isSubmitting,
   children,
   onClick,
+  type = "button",
 }) => (
   <StyledButton
     initial="initial"
     whileHover="hover"
     variants={ButtonVariants}
     onClick={onClick}
-    type="button"
+    type={type}
     disabled={isDisabled}
   >
     {isSubmitting ? `Sending...` : children}

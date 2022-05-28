@@ -1,8 +1,8 @@
-import ScrollTop from "@components/ScrollTop";
 import { AnimatePresence, motion } from "framer-motion";
 import { SessionProvider } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
 import SEO from "next-seo.config";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import "node_modules/normalize.css/normalize.css";
@@ -31,6 +31,9 @@ const queryClient = new QueryClient();
 
 const App = ({ Component, pageProps: { session, ...pageProps }, err }) => {
   const router = useRouter();
+  const ScrollTop = dynamic(() => import("@components/ScrollTop"), {
+    ssr: false,
+  });
 
   useEffect(() => {
     const handleRouteChange = (url) => {

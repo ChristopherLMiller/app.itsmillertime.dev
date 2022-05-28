@@ -100,6 +100,7 @@ const ForgotPasswordForm: FunctionComponent = () => {
             <Button
               isDisabled={!(isValid && dirty && (isDev() || token))}
               isSubmitting={isSubmitting}
+              type="submit"
             >
               Reset Password
             </Button>

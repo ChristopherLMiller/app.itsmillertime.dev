@@ -3,7 +3,6 @@ import Panel from "@components/Panel";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
 import PageLayout from "src/layout/PageLayout";
-import { ArticleListItemContent } from "./blog/post/[slug]";
 
 const Page = ({ page }) => {
   const { title, description, content, seo, slug } = page[0];
@@ -33,9 +32,7 @@ const Page = ({ page }) => {
         }}
       />
       <Panel>
-        <ArticleListItemContent>
-          <Markdown source={content} />
-        </ArticleListItemContent>
+        <Markdown source={content} />
       </Panel>
     </PageLayout>
   );

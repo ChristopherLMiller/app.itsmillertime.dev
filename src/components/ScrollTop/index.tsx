@@ -1,4 +1,3 @@
-import { isClient } from "src/utils";
 import { FunctionComponent, useEffect, useState } from "react";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { ScrollTopDiv, ScrollTopVariants } from "./styles";
@@ -8,7 +7,7 @@ const ScrollTop: FunctionComponent = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (isClient() && window.pageYOffset >= 400) {
+      if (window.pageYOffset >= 400) {
         setShowScrollTop(true);
       } else {
         setShowScrollTop(false);
@@ -16,18 +15,16 @@ const ScrollTop: FunctionComponent = () => {
     };
 
     // add event listener for scroll events
-    if (isClient()) window.addEventListener(`scroll`, handleScroll);
+    window.addEventListener(`scroll`, handleScroll);
 
     // cleanup
     return () => {
-      if (isClient()) window.removeEventListener(`scroll`, handleScroll);
+      window.removeEventListener(`scroll`, handleScroll);
     };
   });
 
   const scrollToTop = () => {
-    if (isClient()) {
-      window.scrollTo({ top: 0, behavior: `smooth` });
-    }
+    window.scrollTo({ top: 0, behavior: `smooth` });
   };
 
   return (

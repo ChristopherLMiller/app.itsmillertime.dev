@@ -2,10 +2,9 @@ import { ImageLayouts } from "@components/Images";
 import CloudinaryImage from "@components/Images/CloudinaryImage";
 import Table from "@components/Table";
 import Link from "next/link";
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent } from "react";
 import { Model, PublicationState } from "src/graphql/types";
-import { getBuildTime } from "src/utils";
-import makeDurationFriendly from "src/utils/makeDurationFriendly";
+import { useBuildTime } from "src/lib/hooks/useBuildTime";
 import { Grid } from "..";
 import { ModelImage, ModelItem, ModelName, TagList, variants } from "./styles";
 
@@ -14,25 +13,12 @@ interface iModelCard {
 }
 
 const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
+  const { buildTime } = useBuildTime(model?.clockify_project_id);
   const imageUrl = model?.SEO?.featured_image?.provider_metadata["public_id"];
   const imageAlt = model?.SEO?.featured_image?.alternativeText;
   const publicationState = model.published_at
     ? PublicationState.Live
     : PublicationState.Preview;
-  const [buildTime, setBuildTime] = useState<string>();
-
-  useEffect(() => {
-    async function fetchTime() {
-      if (model?.clockify_project_id) {
-        const duration = await getBuildTime(model?.clockify_project_id);
-        setBuildTime(makeDurationFriendly(duration, false, true));
-      } else {
-        setBuildTime("None");
-      }
-    }
-
-    fetchTime();
-  }, [model]);
 
   const tags = model?.model_tags?.map((tag, index) => (
     <Link href={`/models?tag=${tag.slug}`} key={tag.slug} passHref>

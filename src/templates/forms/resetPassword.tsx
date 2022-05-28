@@ -45,6 +45,7 @@ const ResetPasswordForm: FunctionComponent = () => {
             </Fieldset>
             <Button
               isDisabled={!(isValid && dirty)}
+              type="submit"
               isSubmitting={isSubmitting}
             >
               Reset

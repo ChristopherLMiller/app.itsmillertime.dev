@@ -3,7 +3,7 @@ import CloudinaryImage from "@components/Images/CloudinaryImage";
 import Markdown from "@components/Markdown";
 import Panel from "@components/Panel";
 import ShareButtons from "@components/ShareButtons";
-import { pageSettings } from "config";
+import { pageSettings } from "@fixtures/json/pages";
 import { formatRelative, parseISO } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
@@ -16,53 +16,6 @@ import { fetchData } from "src/lib/fetch";
 import { countWords, isAdmin, timeToRead } from "src/utils";
 import { isSessionLoading } from "src/utils/auth";
 import styled from "styled-components";
-
-export const ArticleListItemContent = styled.div`
-  color: var(--color-black-80);
-  padding: 0 5%;
-
-  p {
-    break-inside: avoid;
-    padding-block-end: 10px;
-    padding-block-start: 10px;
-    text-indent: 2em;
-  }
-
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-alt);
-    letter-spacing: normal;
-    text-transform: uppercase;
-    margin: 0;
-    padding-inline-start: 5px;
-    color: var(--color-red-dark);
-    border-bottom: 5px solid var(--color-gold-transparent);
-    border-left: 3px solid var(--color-grey-intermediate);
-    opacity: 0.7;
-  }
-
-  a {
-    color: var(--color-red-intermediate);
-    box-shadow: var(--box-shadow-inset-0);
-
-    :hover {
-      color: var(--color-gold-transparent);
-      box-shadow: var(--box-shadow-inset-2);
-    }
-    img {
-      width: 33%;
-      max-width: 33%;
-      display: inline-block;
-    }
-  }
-
-  img {
-    max-width: 100%;
-    display: inline-block;
-  }
-`;
 
 const ArticleHeader = styled.div`
   border-bottom: 5px solid var(--color-gold-transparent);
@@ -123,20 +76,18 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
         }}
         noindex={article.published_at == null}
       />
+      {article?.seo?.featured_image && (
+        <CloudinaryImage
+          public_id={article?.seo?.featured_image?.provider_metadata?.public_id}
+          alt={article?.seo?.featured_image?.alternativeText}
+          width={1920}
+          height={1080}
+          layout={ImageLayouts.responsive}
+          border={false}
+        />
+      )}
       <Panel padding={false} boxedSmall>
         <ArticleHeader>
-          {article?.seo?.featured_image && (
-            <CloudinaryImage
-              public_id={
-                article?.seo?.featured_image?.provider_metadata?.public_id
-              }
-              alt={article?.seo?.featured_image?.alternativeText}
-              width={1920}
-              height={1080}
-              layout={ImageLayouts.responsive}
-              border={false}
-            />
-          )}
           <h2>{article?.title}</h2>
           <h5>
             Published:{` `}
@@ -163,9 +114,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
           media={article?.seo.featured_image?.url}
           title={article?.title}
         />
-        <ArticleListItemContent>
-          <Markdown source={article.content} />
-        </ArticleListItemContent>
+        <Markdown source={article.content} />
       </Panel>
     </PageLayout>
   );
