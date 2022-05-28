@@ -1,6 +1,7 @@
 import { Grid } from "@components/Grid";
 import Panel from "@components/Panel";
-import { defaultImage, pageSettings } from "config";
+import { pageSettings } from "@fixtures/json/pages";
+import { defaultImage } from "config";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";

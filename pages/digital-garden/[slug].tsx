@@ -1,6 +1,6 @@
 import Card from "@components/Card";
 import Markdown from "@components/Markdown";
-import { pageSettings } from "config";
+import { pageSettings } from "@fixtures/json/pages";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";

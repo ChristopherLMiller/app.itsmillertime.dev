@@ -1,14 +1,14 @@
 import Card from "@components/Card";
 import { ImageLayouts } from "@components/Images";
 import CloudinaryImage from "@components/Images/CloudinaryImage";
-import { pageSettings } from "config";
+import Loader from "@components/Loader";
+import { pageSettings } from "@fixtures/json/pages";
 import { formatRelative, parseISO } from "date-fns";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { ArrayList } from "src/components/arrayList";
-import Loader from "src/components/Loader";
 import { useGalleriesQuery } from "src/graphql/schema/galleries/galleries.query.generated";
 import PageLayout from "src/layout/PageLayout";
 

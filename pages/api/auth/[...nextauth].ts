@@ -29,6 +29,7 @@ export default NextAuth({
               }),
             }
           );
+          console.log(response);
 
           if (response.status === 200) {
             const user = await response.json();

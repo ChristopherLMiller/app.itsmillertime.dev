@@ -1,4 +1,5 @@
-import { defaultImage, pageSettings } from "config";
+import { pageSettings } from "@fixtures/json/pages";
+import { defaultImage } from "config";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import { NextSeo } from "next-seo";

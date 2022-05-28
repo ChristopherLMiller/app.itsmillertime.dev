@@ -1,4 +1,5 @@
 import Button from "@components/inputs/Link";
+import { ApiEndpoint } from "config";
 import { FC, Fragment, useEffect } from "react";
 import { isAdmin } from "src/utils";
 
@@ -18,16 +19,13 @@ const ClockifyControls: FC<IClockifyControlsProps> = ({
   // get the current status of the project from clockify
   useEffect(() => {
     async function getData() {
-      const response = await fetch(
-        `https://api.clockify.me/api/workspaces/${process.env.CLOCKIFY_WORKSPACE_ID}/projects/${clockify_project_id}`,
-        {
-          headers: {
-            Accept: `application/json`,
-            "Content-Type": `application/json`,
-            "X-Api-Key": process.env.CLOCKIFY_API_KEY,
-          },
-        }
-      );
+      const response = await fetch(`${ApiEndpoint}/clockify/start-time`, {
+        method: "POST",
+        credentials: "omit",
+        headers: {
+          "X-Api-Key": process.env.NEXT_PUBLIC_API_KEY,
+        },
+      });
       const data = await response.json();
       console.log(data);
     }

@@ -9,8 +9,8 @@ export function useNav() {
 
   useEffect(() => {
     async function fetchNavData() {
-      const data = await import("fixtures/json/nav.json");
-      const filteredData = filterNavigation(data.items, session);
+      const data = await import("@fixtures/json/nav");
+      const filteredData = filterNavigation(data.nav.items, session);
       setNavLinks(filteredData);
       setIsLoading(false);
     }

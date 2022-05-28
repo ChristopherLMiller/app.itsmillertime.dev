@@ -1,4 +1,4 @@
-{
+export const nav = {
   "items": [
     {
       "title": "home",

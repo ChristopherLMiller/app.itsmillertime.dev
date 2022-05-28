@@ -61,13 +61,16 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  experimental: { images: { layoutRaw: true } },
 };
 
 const SentryWebpackPluginOptions = {
   silent: true,
 };
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
 module.exports = withPWA(
-  withMDX(withSentryConfig(nextConfig, SentryWebpackPluginOptions))
+  withBundleAnalyzer(withMDX(withSentryConfig(nextConfig, SentryWebpackPluginOptions)))
 );

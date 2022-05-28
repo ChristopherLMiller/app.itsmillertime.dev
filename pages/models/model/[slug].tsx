@@ -6,13 +6,13 @@ import CloudinaryImage from "@components/Images/CloudinaryImage";
 import Markdown from "@components/Markdown";
 import Panel from "@components/Panel";
 import Table from "@components/Table";
-import { lightboxOptions, pageSettings } from "config";
+import { pageSettings } from "@fixtures/json/pages";
+import { lightboxOptions } from "config";
 import { format, formatRelative, parseISO } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import Youtube from "react-youtube";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
 import {
@@ -22,8 +22,8 @@ import {
 import { Model, PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { fetchData } from "src/lib/fetch";
-import { getBuildTime, getYouTubeVideoId, isAdmin } from "src/utils";
-import makeDurationFriendly from "src/utils/makeDurationFriendly";
+import { useBuildTime } from "src/lib/hooks/useBuildTime";
+import { getYouTubeVideoId, isAdmin } from "src/utils";
 import styled from "styled-components";
 
 const YoutubeWrapper = styled.div`
@@ -37,35 +37,6 @@ const ImageWrapper = styled.div`
   cursor: pointer;
 `;
 
-const Contents = styled.div`
-  h4 {
-    margin-block: 1rem;
-    position: relative;
-    padding-inline-start: 2rem;
-    color: var(--color-black-60);
-    font-family: var(--font-block);
-    text-transform: uppercase;
-    font-style: italic;
-
-    :before {
-      content: "\\A";
-      position: absolute;
-      left: 5px;
-      width: 50%;
-      height: 100%;
-      border-inline-start: 3px solid var(--color-gold-transparent);
-      border-block-end: 5px solid var(--color-red-dark);
-      opacity: 0.7;
-      transform: skewX(-12deg);
-    }
-  }
-
-  img {
-    max-width: 50%;
-    display: inline-block;
-  }
-`;
-
 interface iModelPage {
   seo: Model;
 }
@@ -73,6 +44,7 @@ interface iModelPage {
 const ModelPage: NextPage<iModelPage> = ({ seo }) => {
   const router = useRouter();
   const session = useSession();
+  const { buildTime } = useBuildTime(seo?.clockify_project_id);
 
   // 1) We parse out the SEO stuff first so that we have it to get to SEO
   const imageURL = seo.SEO?.featured_image?.provider_metadata.public_id;
@@ -87,9 +59,6 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
 
   const model = isSuccess && data?.models[0];
 
-  // 3)  Then we set the rest of the variables and output
-  const [buildTime, setBuildTime] = useState<string>();
-
   // so for the sake of UI, if the completed_at field is null/undefined
   // we'll just set it to Yes, to reflect that it's done
   const completedAt = model.completed_at
@@ -101,19 +70,6 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
     : null;
 
   const hasContent = model.content?.length > 0;
-
-  useEffect(() => {
-    async function fetchTime() {
-      if (model.clockify_project_id) {
-        const duration = await getBuildTime(model.clockify_project_id);
-        setBuildTime(makeDurationFriendly(duration, false, true));
-      } else {
-        setBuildTime("None");
-      }
-    }
-
-    fetchTime();
-  }, [model]);
 
   return (
     <PageLayout
@@ -216,9 +172,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
           <GridItem start={1} end={3}>
             {model?.content && (
               <Card align="left">
-                <Contents>
-                  <Markdown source={model?.content} />
-                </Contents>
+                <Markdown source={model?.content} />
               </Card>
             )}
           </GridItem>

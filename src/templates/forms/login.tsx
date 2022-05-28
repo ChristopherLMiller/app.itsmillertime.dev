@@ -34,12 +34,13 @@ const LoginForm: FunctionComponent = () => {
         if (response.error) {
           addToast(`Unable to login: ${response.error}`, {
             appearance: `error`,
+            placement: `bottom-right`,
           });
         } else if (response.ok) {
           addToast(`Welcome back!  You've been logged in successfully`, {
             appearance: `success`,
           });
-          router.push(`/`);
+          //router.push(`/`);
         }
 
         setSubmitting(false);
@@ -66,6 +67,7 @@ const LoginForm: FunctionComponent = () => {
             <Button
               isDisabled={!(isValid && dirty)}
               isSubmitting={isSubmitting}
+              type="submit"
             >
               Login
             </Button>

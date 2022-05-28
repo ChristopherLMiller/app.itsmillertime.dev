@@ -1,4 +1,5 @@
-import { defaultImage, pageSettings } from "config";
+import { pageSettings } from "@fixtures/json/pages";
+import { defaultImage } from "config";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
