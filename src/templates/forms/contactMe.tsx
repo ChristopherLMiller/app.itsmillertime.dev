@@ -88,7 +88,9 @@ const ContactMeForm = () => {
                 </FormErrorMessage>
               </StyledContactFormFullWidth>
             </StyledContactForm>
-            <Button aria-disabled={isSubmitting}>Send It!</Button>
+            <Button type="submit" aria-disabled={isSubmitting}>
+              Send It!
+            </Button>
           </StyledForm>
         </Form>
       )}

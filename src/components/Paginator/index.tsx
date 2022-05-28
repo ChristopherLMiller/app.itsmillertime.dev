@@ -64,6 +64,7 @@ const Paginator: React.FC<PaginatorProps> = ({
     <PaginationBar>
       <Button
         isDisabled={page === 1}
+        type="button"
         onClick={() => clickHandler(Operations.FIRST)}
       >
         First
@@ -71,15 +72,17 @@ const Paginator: React.FC<PaginatorProps> = ({
       <Separator />
       <Button
         isDisabled={page === 1}
+        type="button"
         onClick={() => clickHandler(Operations.PREV)}
       >
         &lt;Prev
       </Button>
-      <Button>
+      <Button type="button">
         {page} of {totalPages}
       </Button>
       <Button
         isDisabled={page === totalPages}
+        type="button"
         onClick={() => clickHandler(Operations.NEXT)}
       >
         Next&gt;
@@ -87,6 +90,7 @@ const Paginator: React.FC<PaginatorProps> = ({
       <Separator />
       <Button
         isDisabled={page === totalPages}
+        type="button"
         onClick={() => clickHandler(Operations.LAST)}
       >
         Last
