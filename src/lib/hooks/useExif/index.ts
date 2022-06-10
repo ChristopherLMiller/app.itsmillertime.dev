@@ -9,6 +9,7 @@ export function useEXIF(public_id: string, enabled: boolean) {
     async function fetchExif() {
       const imageURL = encodeURIComponent(`${ImagesEndpoint}/${public_id}.jpg`);
       try {
+        console.log(ApiEndpoint);
         const response = await fetch(
           `${ApiEndpoint}/images/exif?url=${imageURL}`,
           {
