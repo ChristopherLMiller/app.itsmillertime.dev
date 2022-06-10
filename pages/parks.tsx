@@ -15,7 +15,7 @@ const ParksPage: NextPage = () => {
 
   useEffect(() => {
     async function fetchMarkers() {
-      const res = await fetch(`${ApiEndpoint}/map/markers`, {
+      const res = await fetch(`${ApiEndpoint}/maps/markers`, {
         headers: {
           "Content-Type": "application/json",
           "X-api-key": process.env.NEXT_PUBLIC_API_KEY,
