@@ -63,9 +63,9 @@ const nextConfig = {
   },
   experimental: {
     images: {
-      layoutRaw: true
-    }
-  }
+      layoutRaw: true,
+    },
+  },
 };
 
 const SentryWebpackPluginOptions = {
