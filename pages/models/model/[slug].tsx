@@ -1,7 +1,6 @@
 import Card from "@components/Card";
 import ClockifyControls from "@components/ClockifyControls";
 import { Grid, GridItem } from "@components/Grid";
-import { ImageLayouts } from "@components/Images";
 import CloudinaryImage from "@components/Images/CloudinaryImage";
 import Markdown from "@components/Markdown";
 import Panel from "@components/Panel";
@@ -105,7 +104,6 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
               width={600}
               height={400}
               alt={imageAlt}
-              layout={ImageLayouts.responsive}
               priority={true}
             />
           </GridItem>
@@ -143,7 +141,6 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                                 alt={image.alternativeText}
                                 width={300}
                                 height={200}
-                                layout={ImageLayouts.responsive}
                                 border={false}
                               />
                             </ImageWrapper>
@@ -165,7 +162,6 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
               width={600}
               height={400}
               alt={imageAlt}
-              layout={ImageLayouts.responsive}
               priority={true}
             />
           </GridItem>
@@ -210,7 +206,6 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                                 alt={image.alternativeText}
                                 width={300}
                                 height={200}
-                                layout={ImageLayouts.responsive}
                                 border={false}
                               />
                             </ImageWrapper>

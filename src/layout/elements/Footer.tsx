@@ -106,7 +106,7 @@ const Footer: FunctionComponent = () => (
             <FooterSubheading>
               Be sure to see the latest and greatest
             </FooterSubheading>
-            <Grid colums={5} min="60px" marginBottom={false} justify="center">
+            <Grid columns={5} min="60px" marginBottom={false} justify="center">
               <FooterIconLink
                 href="https://github.com/ChristopherLMiller"
                 target="_blank"

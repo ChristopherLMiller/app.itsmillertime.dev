@@ -1,4 +1,3 @@
-import { ImageLayouts } from "@components/Images";
 import CloudinaryImage from "@components/Images/CloudinaryImage";
 import Table from "@components/Table";
 import Link from "next/link";
@@ -54,9 +53,8 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
           <ModelImage>
             <CloudinaryImage
               public_id={imageUrl}
-              layout={ImageLayouts.responsive}
               width={600}
-              height={400}
+              height={"100%"}
               alt={imageAlt}
               border={false}
             />

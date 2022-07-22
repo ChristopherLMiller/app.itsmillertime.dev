@@ -2,11 +2,12 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export interface iStyledPanel {
-  align: string;
-  padding: boolean;
+  align?: string;
+  padding?: string;
+  boxed?: string;
 }
 
-export const StyledPanel = styled(motion.div)`
+export const StyledPanel = styled(motion.div)<iStyledPanel>`
   :before {
     content: "";
     background: var(--color-grey-light);

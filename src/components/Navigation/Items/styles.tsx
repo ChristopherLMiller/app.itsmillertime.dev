@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const StyledNavigationItem = styled(motion.div)`
+export interface iStyledNavigationItem {
+  background?: string;
+}
+export const StyledNavigationItem = styled(motion.div)<iStyledNavigationItem>`
   position: relative;
   display: flex;
   justify-content: center;

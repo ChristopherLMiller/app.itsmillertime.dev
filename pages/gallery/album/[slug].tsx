@@ -1,5 +1,4 @@
 import Card from "@components/Card";
-import { ImageLayouts } from "@components/Images";
 import CloudinaryImage from "@components/Images/CloudinaryImage";
 import Markdown from "@components/Markdown";
 import ShareButtons from "@components/ShareButtons";
@@ -111,7 +110,6 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
               </Card>
               {album.gallery_images?.map((image) => (
                 <CloudinaryImage
-                  layout={ImageLayouts.responsive}
                   public_id={image.watermarked.provider_metadata.public_id}
                   width={image.watermarked.width}
                   height={image.watermarked.height}

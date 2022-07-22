@@ -46,11 +46,13 @@ export const fetchData = async (
     requestHeaders["authorization"] = `Bearer ${jwt}`;
   }
 
+  console.log(
+    `GraphQL Endpoint: ${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`
+  );
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`,
     {
       method: "POST",
-      headers: requestHeaders,
       body: JSON.stringify({ query: query, variables: variables }),
     }
   );

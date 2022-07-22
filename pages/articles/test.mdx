@@ -1,0 +1,31 @@
++++
+title = "Test Article"
+description = "Fixing This"
++++
+
+import PageLayout from "src/layout/PageLayout";
+import { NextSeo } from "next-seo";
+import Panel from "@components/Panel";
+
+<PageLayout
+  title={title}
+  description="Fixing this"
+  boxed="var(--max-width-desktop"
+>
+  <NextSeo
+    title="Test Article"
+    canonical={`${process.env.NEXT_PUBLIC_SITE_URL}/articles/test`}
+    description="Fixing this"
+    openGraph={{
+      title: "Test Article",
+      description: "Fixing this",
+      type: `article`,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL}/articles/test`,
+      images: [],
+    }}
+    noindex={true}
+  />
+  <Panel padding={false} boxedSmall>
+    <h2>Test Article</h2>
+  </Panel>
+</PageLayout>

@@ -58,7 +58,6 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
           alt="Gravatar"
           width={50}
           height={50}
-          layout="fill"
         />
         <GridItem start={2} end={3}>
           <Card heading="My Information" align="left">

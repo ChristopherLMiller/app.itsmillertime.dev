@@ -40,10 +40,7 @@ const Card: FC<CardProps> = ({
   fullWidth = false, // false means we want
 }: CardProps) => (
   <motion.div variants={CardVariants}>
-    <StyledCard
-      borderTop={heading && subHeading ? "none" : "var(--border)"}
-      maxWidth={fullWidth ? "1000px" : "100%"}
-    >
+    <StyledCard maxWidth={fullWidth ? "1000px" : "100%"}>
       {(heading || subHeading) && (
         <CardHeading>
           {heading && <CardHeadingHeading>{heading}</CardHeadingHeading>}

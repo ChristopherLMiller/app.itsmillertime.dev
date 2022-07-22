@@ -1,4 +1,3 @@
-import { ImageLayouts } from "@components/Images";
 import CloudinaryImage from "@components/Images/CloudinaryImage";
 import { formatRelative, parseISO } from "date-fns";
 import { motion } from "framer-motion";
@@ -126,11 +125,10 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
             width={600}
             height={400}
             alt={article?.seo?.featured_image.alternativeText}
-            layout={ImageLayouts.responsive}
           />
         )}
       </ArticleListItemImage>
-      <ArticleListItemContent published={article.published_at}>
+      <ArticleListItemContent>
         <ArticleHeader>
           <Link href={`/blog/post/${article.slug}`}>
             <a>

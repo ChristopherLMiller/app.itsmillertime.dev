@@ -1,5 +1,4 @@
 import Card from "@components/Card";
-import { ImageLayouts } from "@components/Images";
 import CloudinaryImage from "@components/Images/CloudinaryImage";
 import Loader from "@components/Loader";
 import { pageSettings } from "@fixtures/json/pages";
@@ -73,7 +72,6 @@ const GalleriesIndexPage: NextPage = () => {
             {data?.galleries.map((gallery) => (
               <CloudinaryImage
                 key={gallery.id}
-                layout={ImageLayouts.responsive}
                 width={gallery?.featured_image?.width}
                 height={gallery?.featured_image?.height}
                 public_id={

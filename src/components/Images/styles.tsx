@@ -1,12 +1,25 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const ImageContainer = styled(motion.div)`
+export interface iImageContainer {
+  border?: string;
+  height?: string | number;
+  cursor?: string;
+}
+export const ImageContainer = styled(motion.div)<iImageContainer>`
   border: ${(props) => props.border};
   position: relative;
-  height: ${(props) => props.height};
+  height: ${(props) => props.height || "100%"};
   min-height: max-content;
   cursor: ${(props) => props.cursor};
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    object-position: center;
+    display: block;
+  }
 `;
 
 export const ImageContainerVariants = {

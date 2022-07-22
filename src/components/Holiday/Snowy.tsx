@@ -93,7 +93,6 @@ const Snowy: FunctionComponent = () => {
           <Image
             src={ChristmasImage}
             alt="Merry Christmas"
-            layout="responsive"
             placeholder="blur"
           />
           <button onClick={() => openModal()}>Open Modal</button>

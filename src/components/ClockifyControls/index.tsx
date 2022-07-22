@@ -37,7 +37,7 @@ const ClockifyControls: FC<IClockifyControlsProps> = ({
   if (isAdmin(session) && !completed) {
     return (
       <Fragment>
-        <Button href="#">Start Timer</Button>
+        <Button type="button">Start Timer</Button>
       </Fragment>
     );
   }

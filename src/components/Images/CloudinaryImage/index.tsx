@@ -1,8 +1,8 @@
 import { defaultImage } from "config";
-import Image from "next/image";
+import Image from "next/future/image";
 import { ReactNode } from "react";
 import { useEXIF } from "src/lib/hooks/useExif";
-import { customImageProps, ImageLayouts } from "..";
+import { customImageProps } from "..";
 import {
   Caption,
   ExifData,
@@ -15,10 +15,9 @@ import {
 
 export interface CloudinaryImageTypes {
   public_id: string;
-  width: number;
-  height?: number;
+  width: string | number;
+  height?: string | number;
   aspectRatio?: number;
-  layout: any;
   alt: string; // Displays when image can't load
   caption?: string; // Information to overlay onto the image
   quality?: number;
@@ -36,9 +35,8 @@ const CloudinaryLoader = ({ src, width, quality }) => {
 
 const CloudinaryImage = ({
   public_id = defaultImage.public_id,
-  width = defaultImage.width,
-  height = defaultImage.height,
-  layout,
+  width,
+  height,
   alt = defaultImage.altText,
   hoverable = false,
   caption = null,
@@ -58,7 +56,7 @@ const CloudinaryImage = ({
       whileHover={hoverable ? "hover" : "rest"}
       cursor={hoverable === true ? "pointer" : "default"}
       border={border ? "var(--border)" : "none"}
-      height={layout == ImageLayouts.fill ? "400px" : "auto"}
+      height={height || "auto"}
       onClick={onClick}
     >
       <Image
@@ -66,14 +64,11 @@ const CloudinaryImage = ({
         alt={alt}
         width={width}
         height={height}
-        layout={layout}
         quality={quality}
         priority={priority}
         placeholder={"blur"}
         blurDataURL={defaultImage.blurred}
         loading={priority ? "eager" : "lazy"}
-        objectFit="fill"
-        objectPosition="center"
         loader={CloudinaryLoader}
         srl_gallery_image={`true`}
         {...customImageProps}

@@ -1,6 +1,6 @@
-import { ImageLayouts } from "@components/Images";
 import CloudinaryImage from "@components/Images/CloudinaryImage";
 import Markdown from "@components/Markdown";
+import { Padding } from "@components/Padding";
 import Panel from "@components/Panel";
 import ShareButtons from "@components/ShareButtons";
 import { pageSettings } from "@fixtures/json/pages";
@@ -28,7 +28,7 @@ const ArticleHeader = styled.div`
     margin: 0;
     padding: 0 5%;
   }
-  h5 {
+  .publish {
     font-family: var(--font-block);
     margin: 0;
     font-size: var(--h6-size);
@@ -82,23 +82,22 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
           alt={article?.seo?.featured_image?.alternativeText}
           width={1920}
           height={1080}
-          layout={ImageLayouts.responsive}
           border={false}
         />
       )}
       <Panel padding={false} boxedSmall>
         <ArticleHeader>
           <h2>{article?.title}</h2>
-          <h5>
+          <div className="publish">
             Published:{` `}
             {article?.published_at
               ? formatRelative(parseISO(article?.published_at), new Date())
               : `DRAFT`}
             {` `}| Time To Read:
             {timeToRead(countWords(article.content))}
-          </h5>
+          </div>
           {!isSessionLoading(session) && isAdmin(session) && (
-            <h5>
+            <div className="publish">
               <a
                 href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
                 target="_blank"
@@ -106,7 +105,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
               >
                 Edit
               </a>
-            </h5>
+            </div>
           )}
         </ArticleHeader>
         <ShareButtons
@@ -114,7 +113,9 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
           media={article?.seo.featured_image?.url}
           title={article?.title}
         />
-        <Markdown source={article.content} />
+        <Padding padding={"5%"}>
+          <Markdown source={article.content} />
+        </Padding>
       </Panel>
     </PageLayout>
   );

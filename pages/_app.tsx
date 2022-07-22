@@ -78,6 +78,7 @@ const App = ({ Component, pageProps: { session, ...pageProps }, err }) => {
         <ReactQueryDevtools initialIsOpen />
         <ThemeProvider theme={defaultTheme}>
           <>
+            <GlobalStyles />
             <Head>
               <meta
                 name="viewport"
@@ -116,7 +117,6 @@ const App = ({ Component, pageProps: { session, ...pageProps }, err }) => {
                 <ScrollTop />
               </ToastProvider>
             </AnimatePresence>
-            <GlobalStyles />
           </>
         </ThemeProvider>
       </QueryClientProvider>
