@@ -46,6 +46,11 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Montserrat&family=Oswald&family=Permanent+Marker&family=Roboto:wght@300&family=Source+Code+Pro&family=Special+Elite&display=swap"
             rel="stylesheet"
           />
+          <script
+            defer
+            data-domain="itsmillertime.dev"
+            src="https://analytics.itsmillertime.dev/js/plausible.js"
+          ></script>
         </Head>
         <body>
           <Main />
