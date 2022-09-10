@@ -6,7 +6,6 @@ import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import React from "react";
 import PageLayout from "src/layout/PageLayout";
 import { getUsername } from "src/utils/auth";
 

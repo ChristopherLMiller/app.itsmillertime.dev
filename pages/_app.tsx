@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { SessionProvider } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
-import SEO from "next-seo.config";
+import { SEO } from "next-seo.config";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";

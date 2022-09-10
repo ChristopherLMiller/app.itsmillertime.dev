@@ -83,7 +83,7 @@ const BlogIndexpage: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
-      {error && false && (
+      {error && (
         <Card heading="Uh Oh!">
           <p>
             We were unable to fetch the data requested for whatever reason.
@@ -92,7 +92,7 @@ const BlogIndexpage: NextPage = () => {
         </Card>
       )}
 
-      {isSuccess && data?.articles.length === 0 && (
+      {isSuccess && data.data?.articles.length === 0 && (
         <Card heading="No posts Found">
           <p>
             Well this is awkward. We couldn&apos;t find any posts for the
@@ -111,15 +111,15 @@ const BlogIndexpage: NextPage = () => {
 
       {isSuccess && (
         <ArticleList>
-          {data?.articles?.map((article) => (
+          {data.data?.articles?.map((article) => (
             <ArticleListItem key={article.id} article={article as Article} />
           ))}
         </ArticleList>
       )}
-      {isSuccess && (
+      {isSuccess && false && (
         <Paginator
           page={page}
-          totalRecords={data?.articlesConnection?.aggregate?.totalCount}
+          totalRecords={data.data?.articlesConnection?.aggregate?.totalCount}
           perPage={limit}
           setPage={() => console.log("changing page")}
           url="blog"

@@ -1,7 +1,7 @@
 import { GraphQLClient } from "graphql-request";
 
 export const graphQLClient = new GraphQLClient(
-  `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`
+  "http://admin.itsmillertime.dev/graphql"
 );
 
 export function fetcher<TData, TVariables>(
@@ -9,54 +9,10 @@ export function fetcher<TData, TVariables>(
   variables?: TVariables
 ) {
   return async (): Promise<TData> => {
-    // if the jwt is supplied in the variables and isn't null/undefined
-    // then lets set the request header to include it
-    // @ts-ignore
-    const jwt = variables?.jwt;
-
-    // Filter out the JWt now so that we don't accidently send it along as a variable
-    const finalVariables = Object.keys(variables)
-      .filter((key) => key != "jwt")
-      .reduce((obj, key) => {
-        obj[key] = variables[key];
-        return obj;
-      }, {});
-
     const requestHeaders = {
-      authorization: `Bearer ${jwt}`,
+      //authorization: `Bearer ${jwt}`,
+      "x-api-key": `${process.env.NEXT_PUBLIC_API_KEY}`,
     };
-    return await graphQLClient.request(
-      query,
-      finalVariables,
-      jwt && requestHeaders
-    );
+    return await graphQLClient.request(query, variables, requestHeaders);
   };
 }
-
-export const fetchData = async (
-  query: string,
-  variables?: any | null,
-  jwt?: string
-) => {
-  const requestHeaders = {
-    "Content-Type": "application/json",
-  };
-
-  if (jwt) {
-    requestHeaders["authorization"] = `Bearer ${jwt}`;
-  }
-
-  console.log(
-    `GraphQL Endpoint: ${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`
-  );
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`,
-    {
-      method: "POST",
-      body: JSON.stringify({ query: query, variables: variables }),
-    }
-  );
-  const data = await response.json();
-  // TODO: handle errors and return them instead of just tryign to send back data
-  return data.data;
-};

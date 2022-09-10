@@ -2,9 +2,13 @@ import Markdown from "@components/Markdown";
 import Panel from "@components/Panel";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
+import { FC } from "react";
 import PageLayout from "src/layout/PageLayout";
 
-const Page = ({ page }) => {
+interface iPage {
+  page: any;
+}
+const Page: FC<iPage> = ({ page }) => {
   const { title, description, content, seo, slug } = page[0];
   return (
     <PageLayout
@@ -39,6 +43,8 @@ const Page = ({ page }) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  if (context.params?.slug === undefined) return { notFound: true };
+
   const slug = context.params["slug"];
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/pages?slug_eq=${slug}`
@@ -66,7 +72,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch(url);
   const data = await res.json();
 
-  const paths = data.map((item) => {
+  const paths = data.map((item: any) => {
     return { params: { slug: item.slug } };
   });
 
