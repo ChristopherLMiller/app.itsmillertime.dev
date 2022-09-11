@@ -1,11 +1,7 @@
 import { GraphQLClient } from "graphql-request";
 
 export const graphQLClient = new GraphQLClient(
-  `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`,
-  {
-    credentials: "include",
-    mode: "same-origin",
-  }
+  `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`
 );
 
 export function fetcher<TData, TVariables>(
