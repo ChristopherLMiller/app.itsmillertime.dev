@@ -2,9 +2,13 @@ export default function makeDurationFriendly(
   time: string,
   includeSeconds?: boolean,
   decimal = false
-): string {
+): string | null {
   const regex = new RegExp(/PT(\d+H)?(\d+M)?(\d+S)?/);
   const split = time.match(regex);
+
+  if (split === null || split === undefined) {
+    return null;
+  }
 
   // if we want the time returned in decimal hours we process that differently from if we want it worded
   if (decimal) {

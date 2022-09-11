@@ -8,7 +8,7 @@ import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useModelsMinimalQuery } from "src/graphql/schema/models/modelsMinimal.query.generated";
 import { PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
@@ -79,7 +79,7 @@ const ModelsPageIndex: NextPage = () => {
         <Paginator
           page={page}
           setPage={setPage}
-          totalRecords={data?.modelsConnection?.aggregate?.count}
+          totalRecords={data?.modelsConnection?.aggregate?.count || 0}
           perPage={limit}
           url="models"
         />
@@ -96,7 +96,7 @@ const ModelsPageIndex: NextPage = () => {
         <Paginator
           page={page}
           setPage={setPage}
-          totalRecords={data?.modelsConnection?.aggregate?.count}
+          totalRecords={data?.modelsConnection?.aggregate?.count || 0}
           perPage={limit}
           url={`models`}
         />

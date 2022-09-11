@@ -5,7 +5,10 @@ import Header from "src/layout/elements/Header";
 import styled from "styled-components";
 import Footer from "./elements/Footer";
 
-const Main = styled(motion.main)`
+export interface iMainProps {
+  padding: string;
+}
+const Main = styled(motion.main)<iMainProps>`
   padding: 0 5%;
   display: flex;
   flex-direction: column;
@@ -40,7 +43,10 @@ const contentVariants = {
   },
 };
 
-const Boxed = styled.div`
+interface iBoxed {
+  boxed: string;
+}
+const Boxed = styled.div<iBoxed>`
   width: 100%;
   max-width: ${(props) => props.boxed};
 `;
@@ -49,7 +55,7 @@ interface iPagelayout {
   description: string;
   padding?: boolean;
   boxed?: string;
-  children: ReactNode;
+  children: ReactNode | ReactNode[];
 }
 
 const PageLayout: FC<iPagelayout> = ({

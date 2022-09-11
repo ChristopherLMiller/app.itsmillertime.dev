@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { SessionProvider } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
-import SEO from "next-seo.config";
+import { SEO } from "next-seo.config";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -78,6 +78,7 @@ const App = ({ Component, pageProps: { session, ...pageProps }, err }) => {
         <ReactQueryDevtools initialIsOpen />
         <ThemeProvider theme={defaultTheme}>
           <>
+            <GlobalStyles />
             <Head>
               <meta
                 name="viewport"
@@ -116,7 +117,6 @@ const App = ({ Component, pageProps: { session, ...pageProps }, err }) => {
                 <ScrollTop />
               </ToastProvider>
             </AnimatePresence>
-            <GlobalStyles />
           </>
         </ThemeProvider>
       </QueryClientProvider>

@@ -3,6 +3,7 @@ const { withSentryConfig } = require(`@sentry/nextjs`);
 const withPWA = require("next-pwa");
 const rehypePrism = require(`@mapbox/rehype-prism`);
 const remarkTypograf = require("@mavrin/remark-typograf");
+const remarkHtml = require("next-transpile-modules")(["remark-html"]);
 const remarkEmoji = require("next-transpile-modules")(["remark-emoji"]);
 const remarkFootnotes = require("next-transpile-modules")(["remark-footnotes"]);
 const remarkSubSuper = require("next-transpile-modules")(["remark-sub-super"]);
@@ -18,21 +19,23 @@ const remarkFrontmatter = require("next-transpile-modules")([
 const remarkHeadingId = require("next-transpile-modules")([
   "remark-heading-id",
 ]);
+const rehypeRaw = require("next-transpile-modules")(["rehype-raw"]);
 
 // MDX
 const withMDX = require(`@next/mdx`)({
   extension: /\.mdx?$/,
   options: {
-    rehypePlugins: [rehypePrism],
+    rehypePlugins: [rehypePrism, rehypeRaw],
     remarkPlugins: [
       remarkEmoji,
       remarkFootnotes,
-      remarkTypograf,
-      remarkSubSuper,
-      remarkGuillemets,
-      remarkUnwrapImages,
       remarkFrontmatter,
+      remarkGuillemets,
       remarkHeadingId,
+      remarkHtml,
+      remarkSubSuper,
+      remarkTypograf,
+      remarkUnwrapImages,
     ],
   },
 });
@@ -63,7 +66,7 @@ const nextConfig = {
   },
   experimental: {
     images: {
-      layoutRaw: true,
+      allowFutureImage: true,
     },
   },
 };

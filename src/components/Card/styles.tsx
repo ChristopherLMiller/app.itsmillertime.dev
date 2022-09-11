@@ -21,7 +21,10 @@ export const CardVariants = {
   },
 };
 
-export const StyledCard = styled.div`
+interface iStyledCard {
+  maxWidth: string;
+}
+export const StyledCard = styled.div<iStyledCard>`
   color: var(--color-black);
   font-weight: 300;
   max-width: ${(props) => props.maxWidth};
@@ -54,7 +57,7 @@ export const ActionLinks = styled.div`
 `;
 
 export interface iCardBody {
-  align: string;
+  align?: string;
   padding?: boolean;
 }
 

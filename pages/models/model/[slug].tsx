@@ -1,13 +1,12 @@
 import Card from "@components/Card";
 import ClockifyControls from "@components/ClockifyControls";
 import { Grid, GridItem } from "@components/Grid";
-import { ImageLayouts } from "@components/Images";
 import CloudinaryImage from "@components/Images/CloudinaryImage";
 import Markdown from "@components/Markdown";
 import Panel from "@components/Panel";
 import Table from "@components/Table";
 import { pageSettings } from "@fixtures/json/pages";
-import { lightboxOptions } from "config";
+import { defaultImage, lightboxOptions } from "config";
 import { format, formatRelative, parseISO } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
@@ -42,6 +41,7 @@ interface iModelPage {
 }
 
 const ModelPage: NextPage<iModelPage> = ({ seo }) => {
+  let model;
   const router = useRouter();
   const session = useSession();
   const { buildTime } = useBuildTime(seo?.clockify_project_id);
@@ -57,19 +57,23 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
     },
   });
 
-  const model = isSuccess && data?.models[0];
+  if (!isSuccess) {
+    return null;
+  } else if (data?.models !== null && data?.models !== undefined) {
+    model = data?.models[0];
+  }
 
   // so for the sake of UI, if the completed_at field is null/undefined
   // we'll just set it to Yes, to reflect that it's done
-  const completedAt = model.completed_at
-    ? format(parseISO(model.completed_at), "PP")
+  const completedAt = model?.completed_at
+    ? format(parseISO(model?.completed_at), "PP")
     : "Yes";
 
-  const videoId = model.youtube_video
+  const videoId = model?.youtube_video
     ? getYouTubeVideoId(model.youtube_video)
     : null;
 
-  const hasContent = model.content?.length > 0;
+  const hasContent = model?.content !== undefined && model?.content !== null;
 
   return (
     <PageLayout
@@ -78,20 +82,22 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
       boxed={`var(--max-width-desktop)`}
     >
       <NextSeo
-        title={seo.SEO.title}
-        description={seo.SEO.description}
+        title={seo?.SEO?.title}
+        description={seo?.SEO?.description || seo?.SEO?.title}
         canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         openGraph={{
-          title: `${seo.SEO.title}`,
-          description: `${seo.SEO.description}`,
+          title: `${seo?.SEO?.title}`,
+          description: `${seo?.SEO?.description}`,
           type: `website`,
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
           images: [
             {
-              url: seo.SEO?.featured_image?.url,
-              width: seo.SEO?.featured_image?.width,
-              height: seo.SEO?.featured_image?.height,
-              alt: seo.SEO?.featured_image?.alternativeText,
+              url: seo?.SEO?.featured_image?.url || defaultImage.path,
+              width: seo?.SEO?.featured_image?.width || defaultImage.width,
+              height: seo?.SEO?.featured_image?.height || defaultImage.height,
+              alt:
+                seo?.SEO?.featured_image?.alternativeText ||
+                defaultImage.altText,
             },
           ],
         }}
@@ -104,8 +110,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
               public_id={imageURL}
               width={600}
               height={400}
-              alt={imageAlt}
-              layout={ImageLayouts.responsive}
+              alt={imageAlt || "Default Alt"}
               priority={true}
             />
           </GridItem>
@@ -118,8 +123,8 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
               />
               <ClockifyControls
                 session={session}
-                clockify_project_id={model?.clockify_project_id}
-                completed={model.completed}
+                clockify_project_id={model?.clockify_project_id || ""}
+                completed={model.completed || false}
               />
               {videoId && (
                 <Panel padding={false}>
@@ -128,7 +133,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                   </YoutubeWrapper>
                 </Panel>
               )}
-              {model?.images?.length > 0 && (
+              {model?.images !== undefined && model?.images !== null && (
                 <Panel padding={false}>
                   <SimpleReactLightbox>
                     <SRLWrapper options={lightboxOptions}>
@@ -136,14 +141,13 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                         {model?.images.length > 0 &&
                           model?.images.map((image) => (
                             <ImageWrapper
-                              key={image.provider_metadata?.public_id}
+                              key={image?.provider_metadata?.public_id}
                             >
                               <CloudinaryImage
-                                public_id={image.provider_metadata?.public_id}
-                                alt={image.alternativeText}
+                                public_id={image?.provider_metadata?.public_id}
+                                alt={image?.alternativeText || ""}
                                 width={300}
                                 height={200}
-                                layout={ImageLayouts.responsive}
                                 border={false}
                               />
                             </ImageWrapper>
@@ -164,8 +168,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
               public_id={imageURL}
               width={600}
               height={400}
-              alt={imageAlt}
-              layout={ImageLayouts.responsive}
+              alt={imageAlt || ""}
               priority={true}
             />
           </GridItem>
@@ -185,8 +188,8 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
               />
               <ClockifyControls
                 session={session}
-                completed={model.completed}
-                clockify_project_id={model.clockify_project_id}
+                completed={model?.completed || false}
+                clockify_project_id={model?.clockify_project_id || ""}
               />
               {videoId && (
                 <Panel padding={false}>
@@ -195,22 +198,21 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                   </YoutubeWrapper>
                 </Panel>
               )}
-              {model?.images?.length > 0 && (
+              {model?.images !== undefined && model?.images !== null && (
                 <Panel padding={false}>
                   <SimpleReactLightbox>
                     <SRLWrapper options={lightboxOptions}>
                       <Grid columns={3} masonry>
-                        {model?.images.length > 0 &&
-                          model?.images.map((image) => (
+                        {model?.images?.length > 0 &&
+                          model?.images?.map((image) => (
                             <ImageWrapper
-                              key={image.provider_metadata.public_id}
+                              key={image?.provider_metadata.public_id}
                             >
                               <CloudinaryImage
-                                public_id={image.provider_metadata?.public_id}
-                                alt={image.alternativeText}
+                                public_id={image?.provider_metadata?.public_id}
+                                alt={image?.alternativeText || ""}
                                 width={300}
                                 height={200}
-                                layout={ImageLayouts.responsive}
                                 border={false}
                               />
                             </ImageWrapper>
@@ -240,18 +242,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   // Fetch the data, the publication state depends on the user being an admin or not
-  const data = await fetchData(
-    ModelsDocument,
-    {
-      where: { slug_eq: slug },
-      publicationState: isAdmin(session, true)
-        ? PublicationState.Preview
-        : PublicationState.Live,
-    },
-    // TODO: Fix this, unknown and ignoring is shameful
-    //@ts-ignore
-    session?.jwt
-  );
+  const data = await fetchData(ModelsDocument, {
+    where: { slug_eq: slug },
+    publicationState: isAdmin(session, true)
+      ? PublicationState.Preview
+      : PublicationState.Live,
+  });
 
   if (data?.models.length) {
     return {

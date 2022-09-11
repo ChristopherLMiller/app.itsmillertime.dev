@@ -53,11 +53,9 @@ const ForgotPasswordForm: FunctionComponent = () => {
 
         // if there is an error with this let the user know
         if (mutation.isError) {
-          const message =
-            mutation.error[`response`]?.errors[0]?.extensions?.exception?.data
-              ?.message[0]?.messages[0];
-          console.error(`forgotPassword: ${message.id}`);
-          addToast(message.message, { appearance: `error` });
+          const message = "unable to submit form successfully";
+          console.error(`forgotPassword: ${message}`);
+          addToast(message, { appearance: `error` });
           setSubmitting(false);
         }
 
@@ -88,15 +86,7 @@ const ForgotPasswordForm: FunctionComponent = () => {
                 <ErrorMessage name="email" component="div" />
               </FormErrorMessage>
             </Fieldset>
-            {!isDev() && (
-              <HCaptcha
-                sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY}
-                onError={onError}
-                onVerify={setToken}
-                onExpire={onExpire}
-                ref={captchaRef}
-              />
-            )}
+
             <Button
               isDisabled={!(isValid && dirty && (isDev() || token))}
               isSubmitting={isSubmitting}

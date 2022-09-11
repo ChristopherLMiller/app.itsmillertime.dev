@@ -1,7 +1,7 @@
-export default {
+export const SEO = {
   titleTemplate: `Its Miller Time | %s`,
   facebook: {
-    appId: process.env.FB_APP_ID,
+    appId: process.env.FB_APP_ID || "",
   },
   openGraph: {
     type: `website`,

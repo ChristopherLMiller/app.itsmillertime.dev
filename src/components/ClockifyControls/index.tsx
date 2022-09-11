@@ -19,12 +19,15 @@ const ClockifyControls: FC<IClockifyControlsProps> = ({
   // get the current status of the project from clockify
   useEffect(() => {
     async function getData() {
+      const requestHeaders: HeadersInit = new Headers();
+      requestHeaders.set(
+        "X-Api-Key",
+        process.env.NEXT_PUBLIC_API_KEY as string
+      );
       const response = await fetch(`${ApiEndpoint}/clockify/start-time`, {
         method: "POST",
         credentials: "omit",
-        headers: {
-          "X-Api-Key": process.env.NEXT_PUBLIC_API_KEY,
-        },
+        headers: requestHeaders,
       });
       const data = await response.json();
       console.log(data);
@@ -37,7 +40,7 @@ const ClockifyControls: FC<IClockifyControlsProps> = ({
   if (isAdmin(session) && !completed) {
     return (
       <Fragment>
-        <Button href="#">Start Timer</Button>
+        <Button type="button">Start Timer</Button>
       </Fragment>
     );
   }

@@ -5,7 +5,7 @@ import { filterNavigation } from "src/utils";
 export function useNav() {
   const session = useSession();
   const [isLoading, setIsLoading] = useState(true);
-  const [navLinks, setNavLinks] = useState(null);
+  const [navLinks, setNavLinks] = useState<Array<any>>([]);
 
   useEffect(() => {
     async function fetchNavData() {

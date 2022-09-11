@@ -30,13 +30,12 @@ const LoginForm: FunctionComponent = () => {
           redirect: false,
           ...values,
         });
-        console.log(response);
-        if (response.error) {
+        if (response?.error) {
           addToast(`Unable to login: ${response.error}`, {
             appearance: `error`,
             placement: `bottom-right`,
           });
-        } else if (response.ok) {
+        } else if (response?.ok) {
           addToast(`Welcome back!  You've been logged in successfully`, {
             appearance: `success`,
           });

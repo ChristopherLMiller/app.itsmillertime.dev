@@ -1,9 +1,10 @@
-import { ImageLayouts } from "@components/Images";
 import CloudinaryImage from "@components/Images/CloudinaryImage";
 import Markdown from "@components/Markdown";
+import { Padding } from "@components/Padding";
 import Panel from "@components/Panel";
 import ShareButtons from "@components/ShareButtons";
 import { pageSettings } from "@fixtures/json/pages";
+import { defaultImage } from "config";
 import { formatRelative, parseISO } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
@@ -12,7 +13,7 @@ import { useRouter } from "next/router";
 import { ArticlesDocument } from "src/graphql/schema/articles/articles.query.generated";
 import { Article, PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
-import { fetchData } from "src/lib/fetch";
+import { fetcher } from "src/lib/fetch";
 import { countWords, isAdmin, timeToRead } from "src/utils";
 import { isSessionLoading } from "src/utils/auth";
 import styled from "styled-components";
@@ -28,7 +29,7 @@ const ArticleHeader = styled.div`
     margin: 0;
     padding: 0 5%;
   }
-  h5 {
+  .publish {
     font-family: var(--font-block);
     margin: 0;
     font-size: var(--h6-size);
@@ -49,7 +50,6 @@ interface iBlogPost {
 const BlogPost: NextPage<iBlogPost> = ({ article }) => {
   const session = useSession();
   const router = useRouter();
-
   return (
     <PageLayout
       title={pageSettings.blog.title}
@@ -59,7 +59,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
       <NextSeo
         title={article.title}
         canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
-        description={article?.seo?.description}
+        description={article?.seo?.description || article.seo?.title}
         openGraph={{
           title: `${article?.title}`,
           description: `${article?.seo?.description}`,
@@ -67,10 +67,13 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
           images: [
             {
-              url: article?.seo?.featured_image?.url,
-              width: article?.seo?.featured_image?.width,
-              height: article?.seo?.featured_image?.height,
-              alt: article?.seo?.featured_image?.alternativeText,
+              url: article?.seo?.featured_image?.url || defaultImage.path,
+              width: article?.seo?.featured_image?.width || defaultImage.width,
+              height:
+                article?.seo?.featured_image?.height || defaultImage.height,
+              alt:
+                article?.seo?.featured_image?.alternativeText ||
+                defaultImage.altText,
             },
           ],
         }}
@@ -79,26 +82,28 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
       {article?.seo?.featured_image && (
         <CloudinaryImage
           public_id={article?.seo?.featured_image?.provider_metadata?.public_id}
-          alt={article?.seo?.featured_image?.alternativeText}
+          alt={
+            article?.seo?.featured_image?.alternativeText ||
+            "Blog Post Default Image"
+          }
           width={1920}
           height={1080}
-          layout={ImageLayouts.responsive}
           border={false}
         />
       )}
       <Panel padding={false} boxedSmall>
         <ArticleHeader>
           <h2>{article?.title}</h2>
-          <h5>
+          <div className="publish">
             Published:{` `}
             {article?.published_at
               ? formatRelative(parseISO(article?.published_at), new Date())
               : `DRAFT`}
             {` `}| Time To Read:
             {timeToRead(countWords(article.content))}
-          </h5>
+          </div>
           {!isSessionLoading(session) && isAdmin(session) && (
-            <h5>
+            <div className="publish">
               <a
                 href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
                 target="_blank"
@@ -106,15 +111,17 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
               >
                 Edit
               </a>
-            </h5>
+            </div>
           )}
         </ArticleHeader>
         <ShareButtons
           url={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
-          media={article?.seo.featured_image?.url}
+          media={article?.seo?.featured_image?.url || defaultImage.path}
           title={article?.title}
         />
-        <Markdown source={article.content} />
+        <Padding padding={"5%"}>
+          <Markdown source={article.content} />
+        </Padding>
       </Panel>
     </PageLayout>
   );
@@ -132,20 +139,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   // Fetch the data, the publication state depends on the user being an admin or not
-  const data = await fetchData(
-    ArticlesDocument,
-    {
-      where: { slug_eq: slug },
-      publicationState: isAdmin(session, true)
-        ? PublicationState.Preview
-        : PublicationState.Live,
-    },
-    // TODO: Fix this, unknown and ignoring is shameful
-    //@ts-ignore
-    session?.jwt
-  );
+  const response = await fetcher(ArticlesDocument, {
+    where: { slug_eq: slug },
+    publicationState: isAdmin(session, true)
+      ? PublicationState.Preview
+      : PublicationState.Live,
+  });
+  const data = await response;
+  console.log(data);
 
-  if (data.articles.length) {
+  /*if (data.articles.length) {
     return {
       props: {
         article: data.articles[0],
@@ -159,6 +162,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         permanent: false,
       },
     };
-  }
+  }*/
+  return {
+    props: {
+      article: null,
+    },
+  };
 };
 export default BlogPost;

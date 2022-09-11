@@ -1,8 +1,8 @@
 import { defaultImage } from "config";
-import Image from "next/image";
-import { ReactNode } from "react";
+import Image from "next/future/image";
+import { FC, ReactNode } from "react";
 import { useEXIF } from "src/lib/hooks/useExif";
-import { customImageProps, ImageLayouts } from "..";
+import { customImageProps } from "..";
 import {
   Caption,
   ExifData,
@@ -14,40 +14,41 @@ import {
 } from "../styles";
 
 export interface CloudinaryImageTypes {
+  children?: ReactNode | null;
   public_id: string;
-  width: number;
-  height?: number;
+  width: string | number;
+  height?: string | number;
   aspectRatio?: number;
-  layout: any;
-  alt: string; // Displays when image can't load
+  alt?: string; // Displays when image can't load
   caption?: string; // Information to overlay onto the image
   quality?: number;
   priority?: boolean;
   hoverable?: boolean;
   border?: boolean;
   getExif?: boolean;
-  children?: ReactNode | null;
   onClick?: () => void;
 }
 
-const CloudinaryLoader = ({ src, width, quality }) => {
+const CloudinaryLoader = ({ src, width, quality }: any) => {
   return `https://images.itsmillertime.dev/f_auto,q_${quality},w_${width}/${src}`;
 };
 
-const CloudinaryImage = ({
+const CloudinaryImage: FC<CloudinaryImageTypes> = ({
+  children,
   public_id = defaultImage.public_id,
-  width = defaultImage.width,
-  height = defaultImage.height,
-  layout,
+  width,
+  height,
   alt = defaultImage.altText,
   hoverable = false,
-  caption = null,
+  caption = defaultImage.altText,
   quality = 75,
   priority = false,
   border = true,
   getExif = false,
-  children = null,
-  onClick = null,
+
+  onClick = () => {
+    console.log("clicked");
+  },
 }) => {
   const { exifData, isLoading } = useEXIF(public_id, getExif);
 
@@ -58,7 +59,7 @@ const CloudinaryImage = ({
       whileHover={hoverable ? "hover" : "rest"}
       cursor={hoverable === true ? "pointer" : "default"}
       border={border ? "var(--border)" : "none"}
-      height={layout == ImageLayouts.fill ? "400px" : "auto"}
+      height={height || "auto"}
       onClick={onClick}
     >
       <Image
@@ -66,16 +67,12 @@ const CloudinaryImage = ({
         alt={alt}
         width={width}
         height={height}
-        layout={layout}
         quality={quality}
         priority={priority}
         placeholder={"blur"}
         blurDataURL={defaultImage.blurred}
         loading={priority ? "eager" : "lazy"}
-        objectFit="fill"
-        objectPosition="center"
         loader={CloudinaryLoader}
-        srl_gallery_image={`true`}
         {...customImageProps}
       />
       {caption && (

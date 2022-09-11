@@ -16,7 +16,11 @@ export const variants = {
   },
 };
 
-export const ModelName = styled.div`
+export interface iModelName {
+  background?: string;
+}
+
+export const ModelName = styled.div<iModelName>`
   grid-column: 1 / -1;
   background: ${(props) => props.background};
   padding: 1rem 0.5rem;

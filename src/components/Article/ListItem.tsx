@@ -1,11 +1,10 @@
-import { ImageLayouts } from "@components/Images";
 import CloudinaryImage from "@components/Images/CloudinaryImage";
 import { formatRelative, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { Fragment, FunctionComponent } from "react";
-import { Article, ArticleTags } from "src/graphql/types";
+import { Article } from "src/graphql/types";
 import { countWords, isAdmin, timeToRead } from "src/utils";
 import styled from "styled-components";
 
@@ -125,12 +124,11 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
             public_id={`${article?.seo?.featured_image.provider_metadata.public_id}`}
             width={600}
             height={400}
-            alt={article?.seo?.featured_image.alternativeText}
-            layout={ImageLayouts.responsive}
+            alt={article?.seo?.featured_image.alternativeText || ""}
           />
         )}
       </ArticleListItemImage>
-      <ArticleListItemContent published={article.published_at}>
+      <ArticleListItemContent>
         <ArticleHeader>
           <Link href={`/blog/post/${article.slug}`}>
             <a>
@@ -158,13 +156,13 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
             Time To Read: {timeToRead(countWords(article.content))}
           </h5>
         </ArticleHeader>
-        <Excerpt>{article.seo.description}</Excerpt>
+        <Excerpt>{article.seo?.description}</Excerpt>
         <PostMeta>
           <List>
-            {article.article_tags.map((tag: ArticleTags) => (
-              <li key={tag.id}>
-                <Link href={`/blog?tag=${tag.slug}`} shallow passHref>
-                  <MetaButton>{tag.title}</MetaButton>
+            {article.article_tags?.map((tag) => (
+              <li key={tag?.id}>
+                <Link href={`/blog?tag=${tag?.slug}`} shallow passHref>
+                  <MetaButton>{tag?.title}</MetaButton>
                 </Link>
               </li>
             ))}
