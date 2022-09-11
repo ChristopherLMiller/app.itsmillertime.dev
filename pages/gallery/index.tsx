@@ -59,7 +59,7 @@ const GalleriesIndexPage: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
-      {isSuccess && data?.galleries.length === 0 && (
+      {isSuccess && data?.galleries?.length === 0 && (
         <Card heading="No Galleries Found">
           <p>
             We were unable to find any galleries matching your criteria. Sorry
@@ -69,36 +69,36 @@ const GalleriesIndexPage: NextPage = () => {
       {isSuccess && (
         <ResponsiveMasonry>
           <Masonry gutter="3rem">
-            {data?.galleries.map((gallery) => (
+            {data?.galleries?.map((gallery) => (
               <CloudinaryImage
-                key={gallery.id}
-                width={gallery?.featured_image?.width}
-                height={gallery?.featured_image?.height}
+                key={gallery?.id}
+                width={gallery?.featured_image?.width || 0}
+                height={gallery?.featured_image?.height || 0}
                 public_id={
                   gallery?.featured_image?.provider_metadata?.public_id
                 }
                 hoverable={true}
                 onClick={() => {
-                  router.push(`/gallery/album/${gallery.slug}`);
+                  router.push(`/gallery/album/${gallery?.slug}`);
                 }}
-                caption={gallery.title}
+                caption={gallery?.title || "Default Title"}
               >
                 <ul>
                   <li>
                     {`Added: ${formatRelative(
-                      parseISO(gallery.createdAt),
+                      parseISO(gallery?.createdAt),
                       new Date()
                     )} - Updated: ${formatRelative(
-                      parseISO(gallery.updatedAt),
+                      parseISO(gallery?.updatedAt),
                       new Date()
                     )}`}
                   </li>
                   <li>
                     Categories:{` `}
-                    <ArrayList array={gallery.gallery_categories} />
+                    <ArrayList array={gallery?.gallery_categories || []} />
                   </li>
                   <li>
-                    Tags: <ArrayList array={gallery.gallery_tags} />
+                    Tags: <ArrayList array={gallery?.gallery_tags || []} />
                   </li>
                 </ul>
               </CloudinaryImage>

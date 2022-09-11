@@ -5,7 +5,7 @@ import { fetchData } from "src/lib/fetch";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // Fetch all dynamic content here
-  const data = await fetchData(GalleriesSitemapDocument);
+  const data = await fetchData(GalleriesSitemapDocument, {});
 
   // Map the data
   const galleries = data.galleries.map((gallery) => ({

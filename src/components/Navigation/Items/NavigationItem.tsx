@@ -8,7 +8,7 @@ import { NavigationItemVariants, StyledNavigationItem } from "./styles";
 export const NavigationItem: FunctionComponent<iNavItem> = ({ item }) => {
   const router = useRouter();
   const isActive = item.activePaths.includes(router.pathname);
-  const hasChildren = item?.children?.items?.length > 0;
+  const hasChildren = item?.children && item?.children.items.length > 0;
 
   return (
     <StyledNavigationItem

@@ -1,6 +1,6 @@
 import { defaultImage } from "config";
 import Image from "next/future/image";
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { useEXIF } from "src/lib/hooks/useExif";
 import { customImageProps } from "..";
 import {
@@ -14,38 +14,41 @@ import {
 } from "../styles";
 
 export interface CloudinaryImageTypes {
+  children?: ReactNode | null;
   public_id: string;
   width: string | number;
   height?: string | number;
   aspectRatio?: number;
-  alt: string; // Displays when image can't load
+  alt?: string; // Displays when image can't load
   caption?: string; // Information to overlay onto the image
   quality?: number;
   priority?: boolean;
   hoverable?: boolean;
   border?: boolean;
   getExif?: boolean;
-  children?: ReactNode | null;
   onClick?: () => void;
 }
 
-const CloudinaryLoader = ({ src, width, quality }) => {
+const CloudinaryLoader = ({ src, width, quality }: any) => {
   return `https://images.itsmillertime.dev/f_auto,q_${quality},w_${width}/${src}`;
 };
 
-const CloudinaryImage = ({
+const CloudinaryImage: FC<CloudinaryImageTypes> = ({
+  children,
   public_id = defaultImage.public_id,
   width,
   height,
   alt = defaultImage.altText,
   hoverable = false,
-  caption = null,
+  caption = defaultImage.altText,
   quality = 75,
   priority = false,
   border = true,
   getExif = false,
-  children = null,
-  onClick = null,
+
+  onClick = () => {
+    console.log("clicked");
+  },
 }) => {
   const { exifData, isLoading } = useEXIF(public_id, getExif);
 
@@ -70,7 +73,6 @@ const CloudinaryImage = ({
         blurDataURL={defaultImage.blurred}
         loading={priority ? "eager" : "lazy"}
         loader={CloudinaryLoader}
-        srl_gallery_image={`true`}
         {...customImageProps}
       />
       {caption && (

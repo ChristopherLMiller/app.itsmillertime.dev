@@ -25,6 +25,7 @@ export const Grid = styled.div<iGrid>`
   padding: ${(props) => (props.padding ? "1rem" : "0")};
 
   ${(props) =>
+    props.columns &&
     props.columns > 0 &&
     `@media (min-width: 600px) {
       grid-template-columns: repeat(1, 1fr);

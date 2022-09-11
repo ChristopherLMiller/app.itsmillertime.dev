@@ -1,18 +1,35 @@
 import { GraphQLClient } from "graphql-request";
 
 export const graphQLClient = new GraphQLClient(
-  "http://admin.itsmillertime.dev/graphql"
+  `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`,
+  {
+    credentials: "include",
+    mode: "same-origin",
+  }
 );
 
 export function fetcher<TData, TVariables>(
   query: string,
-  variables?: TVariables
+  variables?: TVariables,
+  jwt?: string
 ) {
   return async (): Promise<TData> => {
-    const requestHeaders = {
-      //authorization: `Bearer ${jwt}`,
-      "x-api-key": `${process.env.NEXT_PUBLIC_API_KEY}`,
-    };
+    const requestHeaders: HeadersInit = new Headers();
+
+    if (jwt) {
+      requestHeaders.set("authorization", `Bearer ${jwt}`);
+    }
+
     return await graphQLClient.request(query, variables, requestHeaders);
   };
+}
+
+export async function fetchData(document, variables) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`, {
+    body: JSON.stringify({
+      query: document,
+      variables,
+    }),
+  });
+  return await res.json();
 }

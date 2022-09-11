@@ -7,18 +7,20 @@ export function useEXIF(public_id: string, enabled: boolean) {
 
   useEffect(() => {
     async function fetchExif() {
+      const requestHeaders: HeadersInit = new Headers();
+      requestHeaders.set("Content-Type", "application/json");
+      requestHeaders.set("Accept", "application/json");
+      requestHeaders.set(
+        "x-api-key",
+        process.env.NEXT_PUBLIC_API_KEY as string
+      );
       const imageURL = encodeURIComponent(`${ImagesEndpoint}/${public_id}.jpg`);
       try {
-        console.log(ApiEndpoint);
         const response = await fetch(
           `${ApiEndpoint}/images/exif?url=${imageURL}`,
           {
             credentials: "same-origin",
-            headers: {
-              "Content-Type": `application/json`,
-              Accept: `application/json`,
-              "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
-            },
+            headers: requestHeaders,
           }
         );
         const { data, error, statusCode } = await response.json();

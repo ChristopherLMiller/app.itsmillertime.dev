@@ -55,7 +55,7 @@ interface iPagelayout {
   description: string;
   padding?: boolean;
   boxed?: string;
-  children: ReactNode;
+  children: ReactNode | ReactNode[];
 }
 
 const PageLayout: FC<iPagelayout> = ({

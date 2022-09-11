@@ -4,7 +4,7 @@ import Markdown from "@components/Markdown";
 import ShareButtons from "@components/ShareButtons";
 import Table from "@components/Table";
 import { pageSettings } from "@fixtures/json/pages";
-import { lightboxOptions } from "config";
+import { defaultImage, lightboxOptions } from "config";
 import { formatRelative } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
@@ -45,8 +45,8 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
         title={album?.title}
       />
       <NextSeo
-        title={album.title}
-        description={album.description}
+        title={album.title || "Default Title"}
+        description={album.description || "Default Description"}
         canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         openGraph={{
           title: `${album.title}`,
@@ -55,10 +55,11 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
           images: [
             {
-              url: album.featured_image?.url,
-              width: album.featured_image?.width,
-              height: album.featured_image?.height,
-              alt: album.featured_image?.alternativeText,
+              url: album.featured_image?.url || defaultImage.path,
+              width: album.featured_image?.width || defaultImage.width,
+              height: album.featured_image?.height || defaultImage.height,
+              alt:
+                album.featured_image?.alternativeText || defaultImage.altText,
             },
           ],
         }}
@@ -72,7 +73,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
               <Card heading="About This Gallery" align="left" padding={false}>
                 <Table
                   rows={[
-                    ["Album Name", album.title],
+                    ["Album Name", album.title || "Album Title"],
                     [
                       "Created",
                       formatRelative(
@@ -87,7 +88,10 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
                         new Date()
                       ),
                     ],
-                    ["Num Images", album.gallery_images?.length.toString()],
+                    [
+                      "Num Images",
+                      album.gallery_images?.length.toString() || 0,
+                    ],
                     [
                       {
                         label:
@@ -105,19 +109,19 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
                 />
 
                 <Padding>
-                  <Markdown source={album?.meta} />
+                  <Markdown source={album?.meta || ""} />
                 </Padding>
               </Card>
               {album.gallery_images?.map((image) => (
                 <CloudinaryImage
-                  public_id={image.watermarked.provider_metadata.public_id}
-                  width={image.watermarked.width}
-                  height={image.watermarked.height}
-                  alt={`${image.caption}`}
-                  caption={`${image.caption}`}
+                  public_id={image?.watermarked?.provider_metadata.public_id}
+                  width={image?.watermarked?.width || 0}
+                  height={image?.watermarked?.height || 0}
+                  alt={`${image?.caption}`}
+                  caption={`${image?.caption}`}
                   hoverable={true}
                   getExif={true}
-                  key={image.watermarked?.provider_metadata.public_id}
+                  key={image?.watermarked?.provider_metadata.public_id}
                 />
               ))}
             </Masonry>

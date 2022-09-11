@@ -45,6 +45,8 @@ const DigitalGardenIndexPage: NextPage<iDigitalGarden> = ({ garden }) => {
   );
 };
 export const getStaticProps: GetStaticProps = async (context) => {
+  if (context?.params?.slug == undefined) return { notFound: true };
+
   const slug = context.params["slug"];
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_STRAPI_URL}/gardens?slug_eq=${slug}`

@@ -1,12 +1,12 @@
 import { getYear, isThisMonth } from "date-fns";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import ChristmasImage from "public/christmas.jpg";
 import { FunctionComponent, useEffect, useState } from "react";
 import Modal from "react-modal";
+import Snowfall from "react-snowfall";
 import styled from "styled-components";
 
-const Snowfall = dynamic(() => import(`react-snowfall`), { ssr: false });
+//const Snowfall = dynamic(() => import(`react-snowfall`), { ssr: false });
 
 // Bind the modal to the root of the app
 Modal.setAppElement(`#__next`);
@@ -80,7 +80,6 @@ const Snowy: FunctionComponent = () => {
     console.debug(`closing modal`);
     setIsOpen(false);
   };
-
   return (
     <SnowContainer>
       {enabled && <Snowfall snowflakeCount={snowFlakeCount} />}

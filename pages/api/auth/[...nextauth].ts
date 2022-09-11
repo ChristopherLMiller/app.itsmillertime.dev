@@ -14,7 +14,9 @@ export default NextAuth({
         username: { label: `Email`, type: `email`, placeholder: `jsmith` },
         password: { label: `Password`, type: `password` },
       },
-      authorize: async (credentials: iCredentials) => {
+      authorize: async (
+        credentials: Record<"username" | "password", string> | undefined
+      ) => {
         try {
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_STRAPI_URL}/auth/local`,
@@ -24,8 +26,8 @@ export default NextAuth({
                 "Content-Type": `application/json`,
               },
               body: JSON.stringify({
-                identifier: credentials.username,
-                password: credentials.password,
+                identifier: credentials?.username,
+                password: credentials?.password,
               }),
             }
           );
@@ -38,7 +40,8 @@ export default NextAuth({
             throw new Error(`Invalid credentials`);
           }
         } catch (error) {
-          throw new Error(error.message);
+          console.log(error);
+          throw new Error("Unable to validate your login information");
         }
       },
     }),
