@@ -156,8 +156,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     sort: "title:ASC",
   });
 
-  console.log(data);
-
   // next step is make sure we got at least one result
   if (data?.galleries?.length == 0) {
     return defaultReturn;

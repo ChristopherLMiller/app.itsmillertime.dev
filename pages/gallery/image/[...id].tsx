@@ -16,6 +16,7 @@ const GalleryImagePage: NextPage<GalleryImageProps> = ({ imageID }) => {
     >
       <CloudinaryImage
         public_id={imageID}
+        alt={imageID}
         width={1920}
         height={(1920 / 3) * 2}
       />

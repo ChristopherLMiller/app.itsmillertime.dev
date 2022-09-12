@@ -56,7 +56,7 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
               public_id={imageUrl}
               width={600}
               height={400}
-              alt={imageAlt}
+              alt={imageAlt as string}
               border={false}
             />
           </ModelImage>

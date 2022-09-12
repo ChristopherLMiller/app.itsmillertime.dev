@@ -110,7 +110,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
               public_id={imageURL}
               width={600}
               height={400}
-              alt={imageAlt}
+              alt={seo?.SEO?.featured_image?.alternativeText as string}
               priority={true}
             />
           </GridItem>
@@ -168,7 +168,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
               public_id={imageURL}
               width={600}
               height={400}
-              alt={imageAlt}
+              alt={imageAlt as string}
               priority={true}
             />
           </GridItem>

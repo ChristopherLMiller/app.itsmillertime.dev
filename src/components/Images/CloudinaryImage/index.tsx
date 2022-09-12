@@ -19,7 +19,7 @@ export interface CloudinaryImageTypes {
   width: string | number;
   height?: string | number;
   aspectRatio?: number;
-  alt?: string; // Displays when image can't load
+  alt: string; // Displays when image can't load
   caption?: string; // Information to overlay onto the image
   quality?: number;
   priority?: boolean;
