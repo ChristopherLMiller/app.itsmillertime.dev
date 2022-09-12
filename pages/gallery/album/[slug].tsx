@@ -151,10 +151,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   // Fetch the data at this point
-  const data = await fetchData(GalleryDocument, {
+  const { data } = await fetchData(GalleryDocument, {
     where: { slug_eq: slug },
     sort: "title:ASC",
   });
+
+  console.log(data);
 
   // next step is make sure we got at least one result
   if (data?.galleries?.length == 0) {

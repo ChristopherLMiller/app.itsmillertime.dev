@@ -55,8 +55,8 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
             <CloudinaryImage
               public_id={imageUrl}
               width={600}
-              height={"100%"}
-              alt={imageAlt || ""}
+              height={400}
+              alt={imageAlt}
               border={false}
             />
           </ModelImage>

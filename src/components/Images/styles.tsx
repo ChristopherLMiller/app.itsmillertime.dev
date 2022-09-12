@@ -9,7 +9,7 @@ export interface iImageContainer {
 export const ImageContainer = styled(motion.div)<iImageContainer>`
   border: ${(props) => props.border};
   position: relative;
-  height: ${(props) => props.height || "100%"};
+  height: ${(props) => props.height || "auto"};
   min-height: max-content;
   cursor: ${(props) => props.cursor};
 

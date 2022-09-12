@@ -110,7 +110,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
               public_id={imageURL}
               width={600}
               height={400}
-              alt={imageAlt || "Default Alt"}
+              alt={imageAlt}
               priority={true}
             />
           </GridItem>
@@ -168,7 +168,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
               public_id={imageURL}
               width={600}
               height={400}
-              alt={imageAlt || ""}
+              alt={imageAlt}
               priority={true}
             />
           </GridItem>
@@ -198,7 +198,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                   </YoutubeWrapper>
                 </Panel>
               )}
-              {model?.images !== undefined && model?.images !== null && (
+              {model?.images?.length > 0 && (
                 <Panel padding={false}>
                   <SimpleReactLightbox>
                     <SRLWrapper options={lightboxOptions}>
@@ -242,14 +242,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   // Fetch the data, the publication state depends on the user being an admin or not
-  const data = await fetchData(ModelsDocument, {
+  const { data } = await fetchData(ModelsDocument, {
     where: { slug_eq: slug },
     publicationState: isAdmin(session, true)
       ? PublicationState.Preview
       : PublicationState.Live,
   });
 
-  if (data?.models.length) {
+  if (data?.models) {
     return {
       props: {
         seo: data.models[0],

@@ -40,7 +40,7 @@ const CloudinaryImage: FC<CloudinaryImageTypes> = ({
   height,
   alt = defaultImage.altText,
   hoverable = false,
-  caption = defaultImage.altText,
+  caption,
   quality = 75,
   priority = false,
   border = true,

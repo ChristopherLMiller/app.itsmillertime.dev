@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 import { ArticlesDocument } from "src/graphql/schema/articles/articles.query.generated";
 import { Article, PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
-import { fetcher } from "src/lib/fetch";
+import { fetchData } from "src/lib/fetch";
 import { countWords, isAdmin, timeToRead } from "src/utils";
 import { isSessionLoading } from "src/utils/auth";
 import styled from "styled-components";
@@ -139,16 +139,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   // Fetch the data, the publication state depends on the user being an admin or not
-  const response = await fetcher(ArticlesDocument, {
+  const { data } = await fetchData(ArticlesDocument, {
     where: { slug_eq: slug },
     publicationState: isAdmin(session, true)
       ? PublicationState.Preview
       : PublicationState.Live,
   });
-  const data = await response;
-  console.log(data);
 
-  /*if (data.articles.length) {
+  if (data.articles) {
     return {
       props: {
         article: data.articles[0],
@@ -162,11 +160,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         permanent: false,
       },
     };
-  }*/
-  return {
-    props: {
-      article: null,
-    },
-  };
+  }
 };
 export default BlogPost;
