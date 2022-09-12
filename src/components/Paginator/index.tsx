@@ -26,7 +26,7 @@ const Paginator: React.FC<PaginatorProps> = ({
 }) => {
   const router = useRouter();
 
-  const totalPages = Math.ceil(totalRecords / perPage) - 1;
+  const totalPages = Math.ceil(totalRecords / perPage);
 
   const clickHandler = (operation) => {
     let newPage = page;

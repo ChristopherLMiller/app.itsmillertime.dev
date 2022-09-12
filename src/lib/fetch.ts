@@ -21,11 +21,14 @@ export function fetcher<TData, TVariables>(
 }
 
 export async function fetchData(document, variables) {
+  const body = JSON.stringify({ query: document, variables });
   const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`, {
-    body: JSON.stringify({
-      query: document,
-      variables,
-    }),
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body,
   });
   return await res.json();
 }

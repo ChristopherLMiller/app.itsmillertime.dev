@@ -74,6 +74,7 @@ const GalleriesIndexPage: NextPage = () => {
                 key={gallery?.id}
                 width={gallery?.featured_image?.width || 0}
                 height={gallery?.featured_image?.height || 0}
+                alt={gallery?.featured_image?.provider_metadata?.public_id}
                 public_id={
                   gallery?.featured_image?.provider_metadata?.public_id
                 }

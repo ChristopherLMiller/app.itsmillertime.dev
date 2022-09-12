@@ -55,7 +55,6 @@ const BlogIndexpage: NextPage = () => {
 
   if (error) {
     console.error(error);
-    console.log(data);
   }
 
   return (

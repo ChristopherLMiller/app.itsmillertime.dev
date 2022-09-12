@@ -10,7 +10,7 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useModelsMinimalQuery } from "src/graphql/schema/models/modelsMinimal.query.generated";
-import { PublicationState } from "src/graphql/types";
+import { Model, PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { isAdmin } from "src/utils";
 
@@ -87,9 +87,7 @@ const ModelsPageIndex: NextPage = () => {
       <Grid columns={2} min="500px" gap="3rem">
         {isSuccess &&
           data.models?.map((model) => (
-            // TODO: fix this, we gotta do some data type checking
-            // @ts-ignore
-            <ModelCard key={model.slug} model={model} />
+            <ModelCard key={model?.slug} model={model as Model} />
           ))}
       </Grid>
       {isSuccess && (
