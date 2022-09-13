@@ -1,6 +1,8 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const { withSentryConfig } = require(`@sentry/nextjs`);
-const withPWA = require("next-pwa");
+const withPWA = require("next-pwa")({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+});
 const rehypePrism = require(`@mapbox/rehype-prism`);
 const remarkTypograf = require("@mavrin/remark-typograf");
 const remarkHtml = require("next-transpile-modules")(["remark-html"]);
@@ -57,18 +59,14 @@ const nextConfig = {
   images: {
     domains: [`images.itsmillertime.dev`, `gravatar.com`],
   },
-  pwa: {
-    dest: "public",
-    disable: process.env.NODE_ENV === "development",
+  sentry: {
+    hideSourceMaps: false,
   },
   compiler: {
     styledComponents: true,
   },
-  experimental: {
-    images: {
-      allowFutureImage: true,
-    },
-  },
+  experimental: {},
+  swcMinify: true,
 };
 
 const SentryWebpackPluginOptions = {

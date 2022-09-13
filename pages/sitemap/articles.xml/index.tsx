@@ -5,7 +5,7 @@ import { fetchData } from "src/lib/fetch";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Fetch all dynamic content here
-  const data = await fetchData(ArticlesSitemapDocument, {});
+  const { data } = await fetchData(ArticlesSitemapDocument, {});
 
   // Map over the items to put into a final array with just the fields we need
   const articles = data.articles.map((article) => ({

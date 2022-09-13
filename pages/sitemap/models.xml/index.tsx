@@ -5,7 +5,7 @@ import { fetchData } from "src/lib/fetch";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   // Fetch all dynamic content
-  const data = await fetchData(ModelsSitemapDocument, {});
+  const { data } = await fetchData(ModelsSitemapDocument, {});
 
   const models = data.models.map((model) => ({
     loc: `${process.env.NEXT_PUBLIC_SITE_URL}/models/model/${model.slug}`,
