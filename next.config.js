@@ -1,7 +1,7 @@
 const { withSentryConfig } = require(`@sentry/nextjs`);
 const withPWA = require("next-pwa")({
   dest: "public",
-  disable: process.env.NODE_ENV === "development"
+  disable: process.env.NODE_ENV === "development",
 });
 const rehypePrism = require(`@mapbox/rehype-prism`);
 const remarkTypograf = require("@mavrin/remark-typograf");
@@ -42,7 +42,6 @@ const withMDX = require(`@next/mdx`)({
   },
 });
 
-
 // Config
 const nextConfig = {
   webpack: (config) => {
@@ -61,13 +60,13 @@ const nextConfig = {
     domains: [`images.itsmillertime.dev`, `gravatar.com`],
   },
   sentry: {
-    hideSourceMaps: false
+    hideSourceMaps: false,
   },
   compiler: {
     styledComponents: true,
   },
   experimental: {},
-  swcMinify: true
+  swcMinify: true,
 };
 
 const SentryWebpackPluginOptions = {
@@ -77,7 +76,6 @@ const SentryWebpackPluginOptions = {
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
-
 
 module.exports = withPWA(
   withBundleAnalyzer(
