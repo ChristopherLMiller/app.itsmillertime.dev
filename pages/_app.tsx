@@ -96,7 +96,7 @@ const App = ({ Component, pageProps: { session, ...pageProps }, err }) => {
             </CookieConsent>
             <TopBar />
 
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence mode="wait">
               <ToastProvider
                 autoDismiss
                 autoDismissTimeout={6000}
