@@ -27,6 +27,7 @@ export function useBuildTime(clockifyProjectId?: Maybe<string>) {
       if (statusCode === 200) {
         setBuildTime(makeDurationFriendly(data?.duration) || "");
       } else {
+        console.log(data, status, error);
         throw new Error(error);
       }
     }
