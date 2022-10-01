@@ -33,7 +33,7 @@ const ClockifyControls: FC<IClockifyControlsProps> = ({
       console.log(data);
     }
 
-    getData();
+    //getData();
   }, [clockify_project_id]);
 
   // TODO: check project itself to see if its archived, sign of it  being completed

@@ -46,7 +46,7 @@ export const defaultImage = {
 export const ImagesEndpoint = "https://images.itsmillertime.dev";
 
 export const ApiEndpoint =
-  process.env.NEXT_PUBLIC_API_ENDPOINT || "https://api.itsmillertime.dev";
+  process.env.NEXT_PUBLIC_API_ENDPOINT || "https://api.itsmillertime.dev/api";
 
 // SRL defaults
 export const lightboxOptions = {
