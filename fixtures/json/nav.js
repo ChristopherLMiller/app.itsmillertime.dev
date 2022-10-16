@@ -44,8 +44,8 @@ export const nav = {
             title: "Board Games",
             activePaths: ["/board-games"],
             href: "/board-games",
-            authState: "ANY"
-          }
+            authState: "ANY",
+          },
         ],
       },
     },
