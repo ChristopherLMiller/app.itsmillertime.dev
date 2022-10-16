@@ -58,12 +58,15 @@ export default NextAuth({
     async session({ session, token }) {
       // @ts-ignore
       session.user = token.user;
-      session.jwt = token.jwt;
-      return session;
+      // @ts-ignore
+      session.token = token.jwt;
+      return Promise.resolve(session);
     },
     async jwt({ token, user }) {
       if (user) {
+        // @ts-ignore
         token.jwt = user.jwt;
+        // @ts-ignore
         token.user = user.user;
       }
       return token;
