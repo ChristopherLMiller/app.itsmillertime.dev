@@ -41,6 +41,6 @@ export const pageSettings = {
   },
   games: {
     title: "Board Games",
-    description: "Collection of board games I own"
-  }
+    description: "Collection of board games I own",
+  },
 };
