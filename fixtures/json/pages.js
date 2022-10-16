@@ -39,4 +39,8 @@ export const pageSettings = {
     title: `Parks`,
     description: `A collection of parks that I have visited`,
   },
+  games: {
+    title: "Board Games",
+    description: "Collection of board games I own"
+  }
 };
