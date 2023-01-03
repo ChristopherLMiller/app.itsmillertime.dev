@@ -73,3 +73,9 @@ export default NextAuth({
     },
   },
 });
+
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+};

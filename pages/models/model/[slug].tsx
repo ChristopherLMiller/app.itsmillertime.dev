@@ -8,6 +8,7 @@ import Table from "@components/Table";
 import { pageSettings } from "@fixtures/json/pages";
 import { defaultImage, lightboxOptions } from "config";
 import { format, formatRelative, parseISO } from "date-fns";
+import { DiscussionEmbed } from "disqus-react";
 import { GetServerSideProps, NextPage } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
@@ -222,6 +223,16 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                   </SimpleReactLightbox>
                 </Panel>
               )}
+              <Panel>
+                <DiscussionEmbed
+                  shortname="itsmillertimedev"
+                  config={{
+                    url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
+                    identifier: model.id,
+                    title: model.title,
+                  }}
+                />
+              </Panel>
             </Grid>
           </GridItem>
         </Grid>

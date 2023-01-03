@@ -31,6 +31,7 @@ specifiers:
   assert: ^2.0.0
   cross-env: 7.0.3
   date-fns: ^2.29.3
+  disqus-react: ^1.1.5
   dotenv-flow: ^3.2.0
   eslint: 8.25.0
   eslint-config-airbnb: 19.0.4
@@ -66,6 +67,7 @@ specifiers:
   react-icons: ^4.6.0
   react-leaflet: ^4.1.0
   react-modal: ^3.15.1
+  react-portal: ^4.2.2
   react-query: ^3.39.2
   react-responsive-masonry: ^2.1.6
   react-share: ^4.4.1
@@ -106,6 +108,7 @@ dependencies:
   '@types/leaflet': 1.9.0
   assert: 2.0.0
   date-fns: 2.29.3
+  disqus-react: 1.1.5_biqbaboplfbrettd7655fr4n2y
   dotenv-flow: 3.2.0
   formik: 2.2.9_react@18.2.0
   framer-motion: 7.5.3_biqbaboplfbrettd7655fr4n2y
@@ -130,6 +133,7 @@ dependencies:
   react-icons: 4.6.0_react@18.2.0
   react-leaflet: 4.1.0_ck4vhzg7aizutrwygiu3aueify
   react-modal: 3.15.1_biqbaboplfbrettd7655fr4n2y
+  react-portal: 4.2.2_biqbaboplfbrettd7655fr4n2y
   react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
   react-responsive-masonry: 2.1.6
   react-share: 4.4.1_react@18.2.0
@@ -4840,6 +4844,16 @@ packages:
     dependencies:
       path-type: 4.0.0
 
+  /disqus-react/1.1.5_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-9fdG5m6c3wJzlCDLaMheuUagMVj3s5qgUSXdekpCsvzYOKG21AiuOoqyDzA0oXrpPnYzgpnsvPYqZ+i0hJPGZw==}
+    peerDependencies:
+      react: ^15.6.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^15.6.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /doctrine/2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
     engines: {node: '>=0.10.0'}
@@ -9542,6 +9556,17 @@ packages:
       react-dom: 18.2.0_react@18.2.0
       react-lifecycles-compat: 3.0.4
       warning: 4.0.3
+    dev: false
+
+  /react-portal/4.2.2_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-vS18idTmevQxyQpnde0Td6ZcUlv+pD8GTyR42n3CHUQq9OHi1C4jDE4ZWEbEsrbrLRhSECYiao58cvocwMtP7Q==}
+    peerDependencies:
+      react: ^16.0.0-0 || ^17.0.0-0 || ^18.0.0-0
+      react-dom: ^16.0.0-0 || ^17.0.0-0 || ^18.0.0-0
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react-query/3.39.2_biqbaboplfbrettd7655fr4n2y:

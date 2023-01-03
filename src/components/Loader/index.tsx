@@ -7,15 +7,20 @@ interface iLoader {
   isLoading: boolean;
 }
 
-const Loader: FunctionComponent<iLoader> = ({ isLoading }) => (
-  <LoaderContainer>
-    <SyncLoader
-      size={20}
-      margin={10}
-      loading={isLoading}
-      color={defaultTheme.colors.primary}
-    />
-  </LoaderContainer>
-);
+const Loader: FunctionComponent<iLoader> = ({ isLoading }) => {
+  if (isLoading) {
+    return (
+      <LoaderContainer>
+        <SyncLoader
+          size={20}
+          margin={10}
+          loading={isLoading}
+          color={defaultTheme.colors.primary}
+        />
+      </LoaderContainer>
+    );
+  }
+  return <></>;
+};
 
 export default Loader;

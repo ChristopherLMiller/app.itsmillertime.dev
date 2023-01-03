@@ -65,3 +65,8 @@ export const lightboxOptions = {
     thumbnailsPosition: "top",
   },
 };
+
+export const paginationSettings = {
+  perPage: process.env.NEXT_PUBLIC_PER_PAGE || 10,
+  defaultSort: "publishedAt:DESC",
+};

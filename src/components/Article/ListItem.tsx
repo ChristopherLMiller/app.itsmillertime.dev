@@ -3,9 +3,9 @@ import { formatRelative, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { Fragment, FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { Article } from "src/graphql/types";
-import { countWords, isAdmin, timeToRead } from "src/utils";
+import { countWords, timeToRead } from "src/utils";
 import styled from "styled-components";
 
 const StyledArticleListItem = styled(motion.article)`
@@ -41,9 +41,12 @@ const ArticleListItemContent = styled.div`
 `;
 
 const ArticleHeader = styled.div`
-  border-bottom: 5px solid var(--color-gold-transparent);
+  border-block-end: 5px solid var(--color-gold-transparent);
+  padding-block-end: 0.5rem;
 
   h3 {
+    font-size: 1.75em;
+    line-height: 1.5em;
     font-family: var(--font-alt);
     color: var(--color-black-60);
     font-weight: 100;
@@ -63,6 +66,7 @@ const ArticleHeader = styled.div`
   }
   h6 {
     font-size: 0.75em;
+    line-height: 1.25em;
   }
 `;
 
@@ -113,18 +117,21 @@ interface iArticleListItem {
   article: Article;
 }
 
-const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
+const ArticleListItem: FunctionComponent<iArticleListItem> = ({
+  article,
+  updateTag,
+}) => {
   const session = useSession();
 
   return (
     <StyledArticleListItem>
       <ArticleListItemImage>
-        {article?.seo?.featured_image && (
+        {article.featuredImage && (
           <CloudinaryImage
-            public_id={`${article?.seo?.featured_image.provider_metadata.public_id}`}
+            public_id={`${article.featuredImage.public_id}`}
             width={600}
             height={400}
-            alt={article?.seo?.featured_image.alternativeText || ""}
+            alt={article.featuredImage.alt || ""}
           />
         )}
       </ArticleListItemImage>
@@ -135,35 +142,31 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
               <h3>{article.title}</h3>
             </a>
           </Link>
-          <h5>
+          <h6>
             Published:{` `}
-            {article.published_at
-              ? formatRelative(parseISO(article.published_at), new Date())
+            {article.published
+              ? formatRelative(parseISO(article?.publishedAt), new Date())
               : `Draft`}
-            {` | `}
-            {isAdmin(session) && (
-              <Fragment>
-                <a
-                  href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Edit
-                </a>
-                {" | "}
-              </Fragment>
-            )}
-            Time To Read: {timeToRead(countWords(article.content))}
-          </h5>
+            {` | `}Updated:
+            {` ${formatRelative(parseISO(article.updatedAt), new Date())}`}
+          </h6>
+          <h6>
+            Posted to{" "}
+            <Link
+              href={`/blog?category=${article.category.slug}`}
+              shallow={true}
+            >
+              <a>{article.category.title}</a>
+            </Link>
+            {` | `} Time To Read: {timeToRead(countWords(article.content))}
+          </h6>
         </ArticleHeader>
-        <Excerpt>{article.seo?.description}</Excerpt>
+        <Excerpt>{article.summary}</Excerpt>
         <PostMeta>
           <List>
-            {article.article_tags?.map((tag) => (
-              <li key={tag?.id}>
-                <Link href={`/blog?tag=${tag?.slug}`} shallow passHref>
-                  <MetaButton>{tag?.title}</MetaButton>
-                </Link>
+            {article?.tags?.map((tag) => (
+              <li key={tag.slug}>
+                <MetaButton>{tag.title}</MetaButton>
               </li>
             ))}
           </List>
