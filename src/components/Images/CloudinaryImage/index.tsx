@@ -2,6 +2,7 @@ import { defaultImage } from "config";
 import Image from "next/future/image";
 import { FC, ReactNode } from "react";
 import { useEXIF } from "src/lib/hooks/useExif";
+import { CloudinaryLoader } from "src/utils/cloudinaryLoader";
 import { customImageProps } from "..";
 import {
   Caption,
@@ -20,18 +21,14 @@ export interface CloudinaryImageTypes {
   height?: string | number;
   aspectRatio?: number;
   alt: string; // Displays when image can't load
-  caption?: string; // Information to overlay onto the image
-  quality?: number;
+  caption?: string | undefined; // Information to overlay onto the image
+  quality?: number | undefined;
   priority?: boolean;
   hoverable?: boolean;
   border?: boolean;
   getExif?: boolean;
   onClick?: () => void;
 }
-
-const CloudinaryLoader = ({ src, width, quality }: any) => {
-  return `https://images.itsmillertime.dev/f_auto,q_${quality},w_${width}/${src}`;
-};
 
 const CloudinaryImage: FC<CloudinaryImageTypes> = ({
   children,

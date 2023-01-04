@@ -1,14 +1,7 @@
 import Button from "@components/inputs/Button";
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import useMooseContext from "src/lib/context/dynamicContent";
 import { PaginationBar, Separator } from "./styles";
-
-interface PaginatorProps {
-  page: number;
-  totalRecords: number;
-  perPage: number;
-  setPage: any;
-  url: string;
-}
 
 const Operations = {
   NEXT: "next",
@@ -17,16 +10,22 @@ const Operations = {
   LAST: "last",
 };
 
-const Paginator: React.FC<PaginatorProps> = ({
-  page,
-  totalRecords,
-  perPage,
-  setPage,
-  url,
-}) => {
-  const router = useRouter();
+export interface PaginatorTypes {
+  scrollTop?: boolean;
+}
 
-  const totalPages = Math.ceil(totalRecords / perPage);
+const Paginator: React.FC<PaginatorTypes> = ({ scrollTop }) => {
+  const { page, limit, data, setPage } = useMooseContext();
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+
+  // Set up the total number of records and pages
+  useEffect(() => {
+    if (data?.meta?.total) {
+      setTotalRecords(data?.meta?.total);
+      setTotalPages(Math.ceil(totalRecords / limit));
+    }
+  }, [data, limit, totalPages, totalRecords]);
 
   const clickHandler = (operation) => {
     let newPage = page;
@@ -54,10 +53,9 @@ const Paginator: React.FC<PaginatorProps> = ({
       newPage = totalPages;
     }
     setPage(newPage);
-    window.scrollTo({ top: 0, behavior: `smooth` });
-    router.push(`/${url}?page=${newPage}`, undefined, {
-      shallow: true,
-    });
+    if (scrollTop) {
+      window.scrollTo({ top: 0, behavior: `smooth` });
+    }
   };
 
   return (

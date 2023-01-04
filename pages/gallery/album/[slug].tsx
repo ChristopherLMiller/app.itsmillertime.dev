@@ -1,5 +1,5 @@
 import Card from "@components/Card";
-import CloudinaryImage from "@components/Images/CloudinaryImage";
+import { Polaroid } from "@components/Images/Polaroid";
 import Markdown from "@components/Markdown";
 import ShareButtons from "@components/ShareButtons";
 import Table from "@components/Table";
@@ -69,7 +69,7 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
       <SimpleReactLightbox>
         <SRLWrapper options={lightboxOptions}>
           <ResponsiveMasonry>
-            <Masonry gutter="3em">
+            <Masonry gutter="2rem" columnsCount={4}>
               <Card heading="About This Gallery" align="left" padding={false}>
                 <Table
                   rows={[
@@ -113,15 +113,15 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
                 </Padding>
               </Card>
               {album.gallery_images?.map((image) => (
-                <CloudinaryImage
+                <Polaroid
+                  key={image?.id}
                   public_id={image?.watermarked?.provider_metadata.public_id}
-                  width={image?.watermarked?.width || 0}
-                  height={image?.watermarked?.height || 0}
-                  alt={`${image?.caption}`}
-                  caption={`${image?.caption}`}
-                  hoverable={true}
-                  getExif={true}
-                  key={image?.watermarked?.provider_metadata.public_id}
+                  width={image?.watermarked?.width as number}
+                  height={image?.watermarked?.height as number}
+                  alt={image?.caption as string}
+                  caption={image?.caption as string}
+                  skewed
+                  hoverable
                 />
               ))}
             </Masonry>
