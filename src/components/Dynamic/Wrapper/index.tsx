@@ -30,8 +30,8 @@ export const DynamicContentWrapper: React.FC<DynamicContentProviderTypes> = ({
   const [start, setStart] = useState<number>(0);
   const [where, setWhere] = useState(initialProps.where || {});
   const [page, setPage] = useState(initialProps.page || 1);
-  const [tag, setTag] = useState(initialProps.tag);
-  const [category, setCategory] = useState(initialProps.category);
+  const [tag, setTag] = useState(initialProps.tag || null);
+  const [category, setCategory] = useState(initialProps.category || null);
 
   const { data, error, isLoading, isSuccess } = useQuery({
     queryKey: [
@@ -84,6 +84,7 @@ export const DynamicContentWrapper: React.FC<DynamicContentProviderTypes> = ({
         shallow: true,
       }
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, page, sort]); // we only want limit and page, screw eslint!
 
   const createURLParams = useCallback(() => {

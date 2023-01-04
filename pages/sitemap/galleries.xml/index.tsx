@@ -8,11 +8,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { data } = await fetchData(GalleriesSitemapDocument, {});
 
   // Map the data
-  const galleries = data.galleries.map((gallery) => ({
+  /*const galleries = data.galleries.map((gallery) => ({
     loc: `${process.env.NEXT_PUBLIC_SITE_URL}/gallery/album/${gallery.slug}`,
     lastmod: gallery.updatedAt,
   }));
-
+*/
+  const galleries = [];
   // Set caching
   context.res.setHeader(
     "Cache-Control",

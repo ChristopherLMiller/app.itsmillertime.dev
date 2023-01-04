@@ -24,7 +24,7 @@ export interface DynamicContentsTypes {
   pagination?: Pagination;
 }
 export const DynamicContents: FC<DynamicContentsTypes> = ({ pagination }) => {
-  const { isSuccess, error, data, isLoading } = useDynamicContent();
+  const { isSuccess, error, data, isLoading, tag } = useDynamicContent();
 
   return (
     <>

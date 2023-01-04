@@ -1,7 +1,7 @@
 import Card from "@components/Card";
 import Markdown from "@components/Markdown";
 import { pageSettings } from "@fixtures/json/pages";
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { Gardens } from "src/graphql/types";
@@ -44,7 +44,7 @@ const DigitalGardenIndexPage: NextPage<iDigitalGarden> = ({ garden }) => {
     </PageLayout>
   );
 };
-export const getStaticProps: GetStaticProps = async (context) => {
+/*export const getStaticProps: GetStaticProps = async (context) => {
   if (context?.params?.slug == undefined) return { notFound: true };
 
   const slug = context.params["slug"];
@@ -77,5 +77,5 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }));
   return { paths, fallback: "blocking" };
 };
-
+*/
 export default DigitalGardenIndexPage;
