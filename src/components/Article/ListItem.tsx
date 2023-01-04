@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FunctionComponent } from "react";
-import { Article } from "src/graphql/types";
 import { countWords, timeToRead } from "src/utils";
 import styled from "styled-components";
 
@@ -114,13 +113,10 @@ const Excerpt = styled.p`
   }
 `;
 interface iArticleListItem {
-  article: Article;
+  article: any;
 }
 
-const ArticleListItem: FunctionComponent<iArticleListItem> = ({
-  article,
-  updateTag,
-}) => {
+const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
   const session = useSession();
 
   return (

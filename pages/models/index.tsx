@@ -1,7 +1,7 @@
+import Card from "@components/Card";
 import { Grid } from "@components/Grid";
 import Loader from "@components/Loader";
 import ModelCard from "@components/ModelCard";
-import Paginator from "@components/Paginator";
 import { pageSettings } from "@fixtures/json/pages";
 import { defaultImage } from "config";
 import { NextPage } from "next";
@@ -75,30 +75,14 @@ const ModelsPageIndex: NextPage = () => {
         }}
       />
       {isLoading && <Loader isLoading={isLoading} />}
-      {isSuccess && (
-        <Paginator
-          page={page}
-          setPage={setPage}
-          totalRecords={data?.modelsConnection?.aggregate?.count || 0}
-          perPage={limit}
-          url="models"
-        />
-      )}
+
       <Grid columns={2} min="500px" gap="3rem">
         {isSuccess &&
           data.models?.map((model) => (
             <ModelCard key={model?.slug} model={model as Model} />
           ))}
+        <Card>This page is broken ATM</Card>
       </Grid>
-      {isSuccess && (
-        <Paginator
-          page={page}
-          setPage={setPage}
-          totalRecords={data?.modelsConnection?.aggregate?.count || 0}
-          perPage={limit}
-          url={`models`}
-        />
-      )}
     </PageLayout>
   );
 };

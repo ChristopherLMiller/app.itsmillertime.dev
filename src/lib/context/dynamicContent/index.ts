@@ -15,6 +15,10 @@ export interface DynamicContentContextTypes {
   setPage: Dispatch<SetStateAction<number>>;
   setWhere: Dispatch<SetStateAction<any>>;
   setStart: Dispatch<SetStateAction<number>>;
+  setTag: Dispatch<SetStateAction<string | null>>;
+  tag: string | null;
+  setCategory: Dispatch<SetStateAction<string | null>>;
+  category: string | null;
 }
 
 export const DynamicContentContext = createContext<DynamicContentContextTypes>(
