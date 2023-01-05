@@ -48,7 +48,7 @@ export const DynamicContentWrapper: React.FC<DynamicContentProviderTypes> = ({
 
       const url = `${
         process.env.NEXT_PUBLIC_API_ENDPOINT
-      }/post?${createURLParams()}`;
+      }/post/minimal?${createURLParams()}`;
       return fetch(url, {
         headers: {
           "x-api-key": process.env.NEXT_PUBLIC_API_KEY as string,
