@@ -12,7 +12,7 @@ import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import PageLayout from "src/layout/PageLayout";
-import { countWords, isAdmin, timeToRead } from "src/utils";
+import { isAdmin, timeToRead } from "src/utils";
 import { isSessionLoading } from "src/utils/auth";
 import styled from "styled-components";
 
@@ -46,7 +46,6 @@ interface iBlogPost {
 }
 
 const BlogPost: NextPage<iBlogPost> = ({ article }) => {
-  console.log(article);
   const session = useSession();
   const router = useRouter();
   return (
@@ -99,7 +98,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
               ? formatRelative(parseISO(article?.publishedAt), new Date())
               : `DRAFT`}
             {` `}| Time To Read:
-            {false && timeToRead(countWords(article.content))}
+            {timeToRead(article.wordCount)}
           </div>
           {!isSessionLoading(session) && isAdmin(session) && (
             <div className="publish">
@@ -165,7 +164,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const data = await response.json();
 
   if (data.statusCode === 200) {
-    console.log(data);
     return {
       props: {
         article: data.data,

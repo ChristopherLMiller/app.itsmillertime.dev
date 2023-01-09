@@ -1,5 +1,5 @@
 import Button from "@components/inputs/Link";
-import { ApiEndpoint } from "config";
+import { APIEndpoint } from "config";
 import { FC, Fragment, useEffect } from "react";
 import { isAdmin } from "src/utils";
 
@@ -24,7 +24,7 @@ const ClockifyControls: FC<IClockifyControlsProps> = ({
         "X-Api-Key",
         process.env.NEXT_PUBLIC_API_KEY as string
       );
-      const response = await fetch(`${ApiEndpoint}/clockify/start-time`, {
+      const response = await fetch(`${APIEndpoint.live}/clockify/start-time`, {
         method: "POST",
         credentials: "omit",
         headers: requestHeaders,

@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FunctionComponent } from "react";
-import { countWords, timeToRead } from "src/utils";
+import useDynamicContent from "src/lib/context/dynamicContent";
+import { timeToRead } from "src/utils";
 import styled from "styled-components";
 
 const StyledArticleListItem = styled(motion.article)`
@@ -118,6 +119,7 @@ interface iArticleListItem {
 
 const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
   const session = useSession();
+  const { setCategory, setTag } = useDynamicContent();
 
   return (
     <StyledArticleListItem>
@@ -148,13 +150,14 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
           </h6>
           <h6>
             Posted to{" "}
-            <Link
-              href={`/blog?category=${article.category.slug}`}
-              shallow={true}
+            <a
+              onClick={() => {
+                setCategory(article.category.slug);
+              }}
             >
-              <a>{article.category.title}</a>
-            </Link>
-            {` | `} Time To Read: {timeToRead(countWords(article.content))}
+              {article.category.title}
+            </a>
+            {` | `} Time To Read: {timeToRead(article.wordCount)}
           </h6>
         </ArticleHeader>
         <Excerpt>{article.summary}</Excerpt>
@@ -162,7 +165,13 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
           <List>
             {article?.tags?.map((tag) => (
               <li key={tag.slug}>
-                <MetaButton>{tag.title}</MetaButton>
+                <MetaButton
+                  onClick={() => {
+                    setTag(tag.slug);
+                  }}
+                >
+                  {tag.title}
+                </MetaButton>
               </li>
             ))}
           </List>

@@ -37,7 +37,7 @@ export const DynamicContents: FC<DynamicContentsTypes> = ({ pagination }) => {
         </Card>
       )}
 
-      {isSuccess && data.data.length === 0 && (
+      {isSuccess && data?.data?.length === 0 && (
         <Card heading="No posts Found">
           <p>
             Well this is awkward. We couldn&apos;t find any posts for the
@@ -53,9 +53,10 @@ export const DynamicContents: FC<DynamicContentsTypes> = ({ pagination }) => {
           </p>
         </Card>
       )}
-      {(pagination === Pagination.top || pagination === Pagination.both) && (
-        <Paginator />
-      )}
+      {!error &&
+        (pagination === Pagination.top || pagination === Pagination.both) && (
+          <Paginator />
+        )}
       <AnimatePresence mode="wait">
         <motion.span exit={{ opacity: 0 }}>
           {isLoading && (
@@ -68,7 +69,7 @@ export const DynamicContents: FC<DynamicContentsTypes> = ({ pagination }) => {
           )}
           {isSuccess && (
             <ArticleList>
-              {data.data.map((article) => (
+              {data?.data?.map((article) => (
                 <ArticleListItem
                   key={article?.id}
                   article={article as Article}
@@ -79,9 +80,9 @@ export const DynamicContents: FC<DynamicContentsTypes> = ({ pagination }) => {
         </motion.span>
       </AnimatePresence>
 
-      {(pagination === Pagination.bottom || pagination === Pagination.both) && (
-        <Paginator scrollTop={true} />
-      )}
+      {!error &&
+        (pagination === Pagination.bottom ||
+          pagination === Pagination.both) && <Paginator />}
     </>
   );
 };

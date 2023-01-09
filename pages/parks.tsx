@@ -1,5 +1,5 @@
 import { pageSettings } from "@fixtures/json/pages";
-import { ApiEndpoint, defaultImage } from "config";
+import { APIEndpoint, defaultImage } from "config";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
@@ -21,7 +21,7 @@ const ParksPage: NextPage = () => {
         process.env.NEXT_PUBLIC_API_KEY as string
       );
       requestHeaders.set("Content-Type", "application/json");
-      const res = await fetch(`${ApiEndpoint}/maps/markers`, {
+      const res = await fetch(`${APIEndpoint.live}/maps/markers`, {
         headers: requestHeaders,
       });
       const { statusCode, data } = await res.json();

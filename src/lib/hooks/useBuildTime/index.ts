@@ -1,4 +1,4 @@
-import { ApiEndpoint } from "config";
+import { APIEndpoint } from "config";
 import { useEffect, useState } from "react";
 import { Maybe } from "src/graphql/types";
 import makeDurationFriendly from "src/utils/makeDurationFriendly";
@@ -15,7 +15,7 @@ export function useBuildTime(clockifyProjectId?: Maybe<string>) {
       );
 
       const response = await fetch(
-        `${ApiEndpoint}/clockify/buildtime/${clockifyProjectId}`,
+        `${APIEndpoint.live}/clockify/buildtime/${clockifyProjectId}`,
         {
           method: `GET`,
           credentials: "omit",
