@@ -45,9 +45,6 @@ export const defaultImage = {
 
 export const ImagesEndpoint = "https://images.itsmillertime.dev";
 
-export const ApiEndpoint =
-  process.env.NEXT_PUBLIC_API_ENDPOINT || "https://api.itsmillertime.dev/api";
-
 // SRL defaults
 export const lightboxOptions = {
   settings: {
@@ -69,4 +66,10 @@ export const lightboxOptions = {
 export const paginationSettings = {
   perPage: process.env.NEXT_PUBLIC_PER_PAGE || 10,
   defaultSort: "publishedAt:DESC",
+};
+
+export const APIEndpoint = {
+  local: process.env.NEXT_PUBLIC_API_ENDPOINT_LOCAL as string,
+  live: process.env.NEXT_PUBLIC_API_ENDPOINT as string,
+  key: process.env.NEXT_PUBLIC_API_KEY as string,
 };

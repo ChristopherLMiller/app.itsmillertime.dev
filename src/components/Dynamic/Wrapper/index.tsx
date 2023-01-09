@@ -1,8 +1,9 @@
-import { paginationSettings } from "config";
+import { APIEndpoint, paginationSettings } from "config";
 import { useRouter } from "next/router";
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "react-query";
 import { DynamicContentContext } from "src/lib/context/dynamicContent";
+import { createURLParams } from "src/utils/createURLParams";
 
 export interface DynamicContentProviderTypes {
   initialProps: {
@@ -14,11 +15,13 @@ export interface DynamicContentProviderTypes {
     where?: any;
   };
   children: ReactNode;
+  contentPath: string;
 }
 
 export const DynamicContentWrapper: React.FC<DynamicContentProviderTypes> = ({
   children,
   initialProps,
+  contentPath,
 }) => {
   const router = useRouter();
   const [sort, setSort] = useState(
@@ -41,17 +44,21 @@ export const DynamicContentWrapper: React.FC<DynamicContentProviderTypes> = ({
         sort,
         start: (page - 1) * limit,
         where: where,
+        tag,
+        category,
       },
     ],
     queryFn: ({ queryKey }) => {
       const [_key] = queryKey;
-
-      const url = `${
-        process.env.NEXT_PUBLIC_API_ENDPOINT
-      }/post/minimal?${createURLParams()}`;
+      const url = `${APIEndpoint.live}/${contentPath}?${createURLParams({
+        limit,
+        sort,
+        page,
+        where,
+      })}`;
       return fetch(url, {
         headers: {
-          "x-api-key": process.env.NEXT_PUBLIC_API_KEY as string,
+          "x-api-key": APIEndpoint.key,
         },
       }).then((res) => res.json());
     },
@@ -75,6 +82,15 @@ export const DynamicContentWrapper: React.FC<DynamicContentProviderTypes> = ({
       params.append("sort", sort);
     }
 
+    // update category
+    if (category !== null) {
+      params.append("category", category);
+    }
+
+    if (tag !== null) {
+      params.append("tag", tag);
+    }
+
     router.push(
       `${router.route}${
         params.toString().length > 0 ? "?" : ""
@@ -84,25 +100,27 @@ export const DynamicContentWrapper: React.FC<DynamicContentProviderTypes> = ({
         shallow: true,
       }
     );
+    window.scrollTo({ top: 0 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [limit, page, sort]); // we only want limit and page, screw eslint!
+  }, [limit, page, sort, tag, category]); // we only want limit and page, screw eslint!
 
-  const createURLParams = useCallback(() => {
-    // create the params to pass
-    const params = new URLSearchParams({
-      limit: limit.toString(),
-      sort,
-      start: ((page - 1) * limit).toString(),
-      page: page.toString(),
-    });
+  // Use effect to run when tag or category changes, updates the where clause
+  // to the format needed for the backend to accept
+  useEffect(() => {
+    let newWhereClause = where;
 
-    // check where clause, if its not empty append it
-    if (Object.keys(where).length > 0) {
-      params.append("where", JSON.stringify(where));
+    if (category !== null) {
+      newWhereClause.category = { slug: category };
+      setWhere(newWhereClause);
+    }
+    if (tag !== null) {
+      newWhereClause.tags = { some: { slug: tag } };
+      setWhere(newWhereClause);
     }
 
-    return params.toString();
-  }, [limit, sort, page, where]);
+    // after we have set filtering options we need to go back to page one as well
+    setPage(1);
+  }, [category, tag, where]);
 
   // Runs on initial setup as well as when the page or limit changes
   useEffect(() => {

@@ -50,6 +50,7 @@ const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
       />
       <DynamicContentWrapper
         initialProps={{ limit, page, sort, tag, category }}
+        contentPath="post/minimal"
       >
         <DynamicContents pagination={Pagination.top} />
       </DynamicContentWrapper>
@@ -61,7 +62,7 @@ export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
       limit: context?.query?.limit || null,
-      page: context?.query?.start || null,
+      page: context?.query?.page || null,
       sort: context?.query?.sort || null,
       tag: context?.query?.tag || null,
       category: context?.query?.category || null,
