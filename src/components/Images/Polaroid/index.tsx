@@ -1,4 +1,4 @@
-import { ApiEndpoint, ImagesEndpoint } from "config";
+import { APIEndpoint, ImagesEndpoint } from "config";
 import Image from "next/future/image";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { useEXIF } from "src/lib/hooks/useExif";
@@ -55,7 +55,7 @@ const Polaroid: FC<PolaroidTypes> = ({
         `${ImagesEndpoint}/f_auto,q_60,w_10/${public_id}.jpg`
       );
       const response = await fetch(
-        `${ApiEndpoint}/images/encode?url=${imageURL}`,
+        `${APIEndpoint.live}/images/encode?url=${imageURL}`,
         {
           credentials: "same-origin",
           headers: requestHeaders,

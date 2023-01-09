@@ -46,7 +46,6 @@ interface iBlogPost {
 }
 
 const BlogPost: NextPage<iBlogPost> = ({ article }) => {
-  console.log(article);
   const session = useSession();
   const router = useRouter();
   return (
@@ -165,7 +164,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const data = await response.json();
 
   if (data.statusCode === 200) {
-    console.log(data);
     return {
       props: {
         article: data.data,

@@ -1,4 +1,4 @@
-import { ApiEndpoint, ImagesEndpoint } from "config";
+import { APIEndpoint, ImagesEndpoint } from "config";
 import { useEffect, useState } from "react";
 
 export function useEXIF(public_id: string, enabled: boolean) {
@@ -17,7 +17,7 @@ export function useEXIF(public_id: string, enabled: boolean) {
       const imageURL = encodeURIComponent(`${ImagesEndpoint}/${public_id}.jpg`);
       try {
         const response = await fetch(
-          `${ApiEndpoint}/images/exif?url=${imageURL}`,
+          `${APIEndpoint.live}/images/exif?url=${imageURL}`,
           {
             credentials: "same-origin",
             headers: requestHeaders,
