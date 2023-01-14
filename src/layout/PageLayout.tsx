@@ -1,3 +1,4 @@
+import { DevBorder } from "@components/DevBorder";
 import DesktopNav from "@components/Navigation/DesktopNav";
 import { motion } from "framer-motion";
 import { FC, ReactNode } from "react";
@@ -67,6 +68,7 @@ const PageLayout: FC<iPagelayout> = ({
 }) => {
   return (
     <ContentArea variants={contentVariants}>
+      <DevBorder />
       <Header title={title} description={description} />
 
       <Main padding={padding ? `0 10%` : `0 5%`}>
