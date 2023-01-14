@@ -5,6 +5,11 @@ import { useQuery } from "react-query";
 import { DynamicContentContext } from "src/lib/context/dynamicContent";
 import { createURLParams } from "src/utils/createURLParams";
 
+export enum Pagination {
+  top = "top",
+  bottom = "bottom",
+  both = "both",
+}
 export interface DynamicContentProviderTypes {
   initialProps: {
     limit?: number;
@@ -16,9 +21,11 @@ export interface DynamicContentProviderTypes {
   };
   children: ReactNode;
   contentPath: string;
+  tags?: [];
+  categories?: [];
 }
 
-export const DynamicContentWrapper: React.FC<DynamicContentProviderTypes> = ({
+export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
   children,
   initialProps,
   contentPath,
@@ -83,11 +90,11 @@ export const DynamicContentWrapper: React.FC<DynamicContentProviderTypes> = ({
     }
 
     // update category
-    if (category !== null) {
+    if (category !== null && category !== "NULL") {
       params.append("category", category);
     }
 
-    if (tag !== null) {
+    if (tag !== null && tag !== "NULL") {
       params.append("tag", tag);
     }
 
@@ -100,7 +107,7 @@ export const DynamicContentWrapper: React.FC<DynamicContentProviderTypes> = ({
         shallow: true,
       }
     );
-    window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: "smooth" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, page, sort, tag, category]); // we only want limit and page, screw eslint!
 
@@ -110,16 +117,25 @@ export const DynamicContentWrapper: React.FC<DynamicContentProviderTypes> = ({
     let newWhereClause = where;
 
     if (category !== null) {
-      newWhereClause.category = { slug: category };
+      newWhereClause.category = {
+        slug: category === "NULL" ? undefined : category,
+      };
       setWhere(newWhereClause);
     }
     if (tag !== null) {
-      newWhereClause.tags = { some: { slug: tag } };
+      if (tag === "NULL") {
+        newWhereClause.tags = undefined;
+      } else {
+        newWhereClause.tags = {
+          some: { slug: tag },
+        };
+      }
       setWhere(newWhereClause);
     }
 
     // after we have set filtering options we need to go back to page one as well
     setPage(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, tag, where]);
 
   // Runs on initial setup as well as when the page or limit changes

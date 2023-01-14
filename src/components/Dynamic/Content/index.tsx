@@ -1,33 +1,25 @@
-import ArticleListItem from "@components/Article/ListItem";
 import Card from "@components/Card";
 import Paginator from "@components/Paginator";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import SyncLoader from "react-spinners/SyncLoader";
-import { Article } from "src/graphql/types";
 import useDynamicContent from "src/lib/context/dynamicContent";
-import styled from "styled-components";
 import { defaultTheme } from "styles/default";
-
-const ArticleList = styled.ul`
-  padding-inline-start: 0;
-`;
-
-export enum Pagination {
-  top = "top",
-  bottom = "bottom",
-  both = "both",
-}
+import { Pagination } from "../Provider";
 
 export interface DynamicContentsTypes {
   pagination?: Pagination;
+  children: ReactNode;
 }
-export const DynamicContents: FC<DynamicContentsTypes> = ({ pagination }) => {
+export const DynamicContents: FC<DynamicContentsTypes> = ({
+  pagination,
+  children,
+}) => {
   const { isSuccess, error, data, isLoading, tag } = useDynamicContent();
 
   return (
-    <>
+    <div>
       {error !== null && (
         <Card heading="Uh Oh!">
           <p>
@@ -54,6 +46,7 @@ export const DynamicContents: FC<DynamicContentsTypes> = ({ pagination }) => {
         </Card>
       )}
       {!error &&
+        data?.data?.length > 0 &&
         (pagination === Pagination.top || pagination === Pagination.both) && (
           <Paginator />
         )}
@@ -67,22 +60,14 @@ export const DynamicContents: FC<DynamicContentsTypes> = ({ pagination }) => {
               color={defaultTheme.colors.primary}
             />
           )}
-          {isSuccess && (
-            <ArticleList>
-              {data?.data?.map((article) => (
-                <ArticleListItem
-                  key={article?.id}
-                  article={article as Article}
-                />
-              ))}
-            </ArticleList>
-          )}
+          {isSuccess && children}
         </motion.span>
       </AnimatePresence>
 
       {!error &&
+        data?.data?.length > 0 &&
         (pagination === Pagination.bottom ||
           pagination === Pagination.both) && <Paginator />}
-    </>
+    </div>
   );
 };
