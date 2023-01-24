@@ -32,7 +32,7 @@ const Table: FunctionComponent<iTable> = ({ rows }) => {
                     return (
                       <td key={cellIndex}>
                         <Link href={url} shallow={shallow}>
-                          <a>{label}</a>
+                          {label}
                         </Link>
                       </td>
                     );

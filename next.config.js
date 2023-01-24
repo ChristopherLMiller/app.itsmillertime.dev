@@ -44,13 +44,13 @@ const withMDX = require(`@next/mdx`)({
 
 // Config
 const nextConfig = {
-  webpack: (config) => {
+  /*webpack: (config) => {
     config.resolve.fallback = {
       fs: false,
       path: require.resolve("path-browserify"),
     };
     return config;
-  },
+  },*/
   reactStrictMode: true,
   pageExtensions: [`js`, `jsx`, `mdx`, `ts`, `tsx`],
   serverRuntimeConfig: {

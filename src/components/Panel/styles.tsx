@@ -40,6 +40,10 @@ export const StyledPanel = styled(motion.div)<iStyledPanel>`
     padding-block-end: 10px;
     padding-block-start: 10px;
     text-indent: 2em;
+
+    &:has(img) {
+      text-indent: 0;
+    }
   }
 
   h3,

@@ -136,9 +136,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
       <ArticleListItemContent>
         <ArticleHeader>
           <Link href={`/blog/post/${article.slug}`}>
-            <a>
-              <h3>{article.title}</h3>
-            </a>
+            <h3>{article.title}</h3>
           </Link>
           <h6>
             Published:{` `}

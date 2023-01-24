@@ -1,5 +1,5 @@
 import { APIEndpoint, ImagesEndpoint } from "config";
-import Image from "next/future/image";
+import Image from "next/image";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { useEXIF } from "src/lib/hooks/useExif";
 import { CloudinaryLoader } from "src/utils/cloudinaryLoader";

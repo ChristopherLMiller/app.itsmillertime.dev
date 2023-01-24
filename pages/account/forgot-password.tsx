@@ -44,9 +44,7 @@ const ForgotPasswordPage: NextPage = () => {
             Things happen, we get it. Enter your email and link will be sent to
             you to reset it.
           </p>
-          <Link href="/account/login">
-            <a>Login instead?</a>
-          </Link>
+          <Link href="/account/login">Login instead?</Link>
         </TextPane>
         <ContentPane>
           <ForgotPasswordForm />

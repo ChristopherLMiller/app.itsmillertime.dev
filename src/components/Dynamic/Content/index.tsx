@@ -1,11 +1,10 @@
 import Card from "@components/Card";
+import Loader from "@components/Loader";
 import Paginator from "@components/Paginator";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { FC, ReactNode } from "react";
-import SyncLoader from "react-spinners/SyncLoader";
 import useDynamicContent from "src/lib/context/dynamicContent";
-import { defaultTheme } from "styles/default";
 import { Pagination } from "../Provider";
 
 export interface DynamicContentsTypes {
@@ -52,14 +51,7 @@ export const DynamicContents: FC<DynamicContentsTypes> = ({
         )}
       <AnimatePresence mode="wait">
         <motion.span exit={{ opacity: 0 }}>
-          {isLoading && (
-            <SyncLoader
-              size={20}
-              margin={10}
-              loading={isLoading}
-              color={defaultTheme.colors.primary}
-            />
-          )}
+          {isLoading && <Loader isLoading={isLoading} />}
           {isSuccess && children}
         </motion.span>
       </AnimatePresence>

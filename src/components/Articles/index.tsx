@@ -15,18 +15,23 @@ const ArticleList = styled.ul`
 
 const Columns = styled.div`
   display: grid;
-  grid-template-columns: 25% auto;
+  grid-template-columns: 15% auto;
   gap: 2rem;
+  align-items: start;
 `;
 
 const Sidebar = styled.div`
   display: flex;
+  position: sticky;
+  align-self: start;
+  top: 0;
   gap: 2rem;
   flex-direction: column;
 
   ul {
     list-style-type: none;
     padding-inline-start: 0;
+    margin-block: 0;
   }
 `;
 

@@ -1,4 +1,4 @@
-import Image from "next/future/image";
+import Image from "next/image";
 import { Portal } from "react-portal";
 import { CloudinaryLoader } from "src/utils/cloudinaryLoader";
 import { customImageProps } from "..";

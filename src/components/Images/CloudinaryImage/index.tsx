@@ -1,5 +1,5 @@
 import { defaultImage } from "config";
-import Image from "next/future/image";
+import Image from "next/image";
 import { FC, ReactNode } from "react";
 import { useEXIF } from "src/lib/hooks/useExif";
 import { CloudinaryLoader } from "src/utils/cloudinaryLoader";
@@ -62,8 +62,8 @@ const CloudinaryImage: FC<CloudinaryImageTypes> = ({
       <Image
         src={public_id}
         alt={alt}
-        width={width}
-        height={height}
+        width={width as number}
+        height={height as number}
         quality={quality}
         priority={priority}
         placeholder={"blur"}

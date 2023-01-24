@@ -18,7 +18,7 @@ export interface iActionLink {
 }
 
 declare const VALID_ALIGNMENT: readonly [`left`, `center`, `right`];
-export declare type alignmentValue = typeof VALID_ALIGNMENT[number];
+export declare type alignmentValue = (typeof VALID_ALIGNMENT)[number];
 
 interface CardProps {
   align?: alignmentValue;
@@ -56,7 +56,7 @@ const Card: FC<CardProps> = ({
           <ActionLinks>
             {actionLinks?.map((link) => (
               <Link href={link.href} key={link.title}>
-                <a>{link.title}</a>
+                {link.title}
               </Link>
             ))}
           </ActionLinks>
