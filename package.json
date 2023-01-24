@@ -64,6 +64,7 @@
     "react-cookie-consent": "^8.0.1",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
+    "react-is": "^18.2.0",
     "react-leaflet": "^4.2.0",
     "react-modal": "^3.16.1",
     "react-portal": "^4.2.2",
