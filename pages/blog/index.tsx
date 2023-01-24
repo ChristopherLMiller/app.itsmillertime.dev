@@ -1,6 +1,10 @@
-import { DynamicContents, Pagination } from "@components/Dynamic/Content";
-import { DynamicContentWrapper } from "@components/Dynamic/Wrapper";
+import { ArticleLandingContent } from "@components/Articles";
+import { category } from "@components/Dynamic/Categories";
+
+import { DynamicContentProvider } from "@components/Dynamic/Provider";
+import { tag } from "@components/Dynamic/Tags";
 import { pageSettings } from "@fixtures/json/pages";
+import { APIEndpoint } from "config";
 import { NextPage, NextPageContext } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
@@ -12,6 +16,8 @@ interface BlogIndexPageTypes {
   sort: string;
   tag: string;
   category: string;
+  allTags: [tag];
+  allCategories: [category];
 }
 
 const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
@@ -20,6 +26,8 @@ const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
   sort,
   tag,
   category,
+  allTags,
+  allCategories,
 }) => {
   // Hooks we need for this route
   const router = useRouter();
@@ -48,17 +56,29 @@ const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
-      <DynamicContentWrapper
+      <DynamicContentProvider
         initialProps={{ limit, page, sort, tag, category }}
         contentPath="post/minimal"
       >
-        <DynamicContents pagination={Pagination.top} />
-      </DynamicContentWrapper>
+        <ArticleLandingContent tags={allTags} categories={allCategories} />
+      </DynamicContentProvider>
     </PageLayout>
   );
 };
 
 export async function getServerSideProps(context: NextPageContext) {
+  // fetch the tags
+  const tagsRequest = await fetch(`${APIEndpoint.live}/post-tag`, {
+    headers: { "x-api-key": APIEndpoint.key },
+  });
+  const tagsResponse = await tagsRequest.json();
+
+  // fetch the categories
+  const categoryRequest = await fetch(`${APIEndpoint.live}/post-category`, {
+    headers: { "x-api-key": APIEndpoint.key },
+  });
+  const categoryResponse = await categoryRequest.json();
+
   return {
     props: {
       limit: context?.query?.limit || null,
@@ -66,6 +86,9 @@ export async function getServerSideProps(context: NextPageContext) {
       sort: context?.query?.sort || null,
       tag: context?.query?.tag || null,
       category: context?.query?.category || null,
+      allTags: tagsResponse.statusCode === 200 ? tagsResponse.data : [],
+      allCategories:
+        categoryResponse.statusCode === 200 ? categoryResponse.data : [],
     },
   };
 }

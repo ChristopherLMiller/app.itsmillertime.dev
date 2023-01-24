@@ -190,12 +190,10 @@ const Footer: FunctionComponent = () => (
             </Grid>
             <p>
               Use of this site constitues acceptance of our{` `}
-              <Link href="/privacy-policy">
-                <a>Privacy Policy</a>
-              </Link>
-              . The material on this site may not be reproduced, distributed,
-              transmitted, cached or otherwise used, except with prior written
-              permission of <em>Its Miller Time Dev</em>.
+              <Link href="/privacy-policy">Privacy Policy</Link>. The material
+              on this site may not be reproduced, distributed, transmitted,
+              cached or otherwise used, except with prior written permission of{" "}
+              <em>Its Miller Time Dev</em>.
             </p>
             <p>
               Copyright © {format(new Date(), `yyyy`)}

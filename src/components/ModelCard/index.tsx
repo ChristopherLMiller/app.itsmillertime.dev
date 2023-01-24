@@ -23,7 +23,7 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
   const tags = model?.model_tags?.map((tag, index) => (
     <Link href={`/models?tag=${tag?.slug}`} key={tag?.slug} passHref>
       <span>
-        <a>{tag?.name}</a>
+        {tag?.name}
         {index !== numTags - 1 && ", "}
       </span>
     </Link>
@@ -48,7 +48,7 @@ const ModelCard: FunctionComponent<iModelCard> = ({ model }) => {
               : `var(--color-gold)`
           }
         >
-          <a>{model.title}</a>
+          {model.title}
         </ModelName>
         <Grid columns={2} padding={false} masonry>
           <ModelImage>

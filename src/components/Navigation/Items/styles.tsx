@@ -35,7 +35,7 @@ export const NavigationItemVariants = {
   },
 };
 
-export const NavigationElement = styled(motion.a)`
+export const NavigationElement = styled(motion.li)`
   display: flex;
   align-items: center;
   color: var(--color-white-80);

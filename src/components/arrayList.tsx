@@ -31,11 +31,7 @@ export const ArrayList: FunctionComponent<iArrayList> = ({
     {array.map((item, index) => (
       <ItemSpan key={item?.id}>
         {!!index && <Splitter>{separator}</Splitter>}
-        {asLinks && (
-          <Link href={item.slug}>
-            <a>{item.title || item.name}</a>
-          </Link>
-        )}
+        {asLinks && <Link href={item.slug}>{item.title || item.name}</Link>}
         {!asLinks && (item?.title || item?.name)}
       </ItemSpan>
     ))}

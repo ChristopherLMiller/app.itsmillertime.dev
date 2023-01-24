@@ -3,8 +3,6 @@ import { APIEndpoint } from "config";
 import { FC, Fragment, useEffect } from "react";
 import { isAdmin } from "src/utils";
 
-require("dotenv").config();
-
 interface IClockifyControlsProps {
   session: any;
   completed: boolean;

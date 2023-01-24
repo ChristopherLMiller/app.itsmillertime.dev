@@ -107,6 +107,7 @@ export const GlobalStyles = createGlobalStyle`
 
   p,a,code,ul,ol,pre,tr,td,span {
     font-size: var(--p-size);
+    text-decoration: none;
   }
 
   h1 {

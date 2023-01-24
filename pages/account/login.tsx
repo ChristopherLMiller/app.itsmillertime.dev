@@ -5,7 +5,6 @@ import { getSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
 import { ContentPane, SplitPane, TextPane } from "src/components/SplitPane";
 import PageLayout from "src/layout/PageLayout";
 import { LoginForm } from "src/templates/forms";
@@ -43,9 +42,7 @@ const LoginPage: NextPage = () => {
           <h3>Login</h3>
           <p>Please enter your login details to gain access to the site</p>
           <p>
-            <Link href="/account/forgot-password">
-              <a>Forgot your password?</a>
-            </Link>
+            <Link href="/account/forgot-password">Forgot your password?</Link>
           </p>
         </TextPane>
         <ContentPane>
