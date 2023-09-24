@@ -21,14 +21,14 @@ const ModelsPageIndex: NextPage = () => {
 
   // variables relating to the page
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(12);
-  const start = (page - 1) * limit;
+  const [take, setTake] = useState(12);
+  const skip = (page - 1) * take;
 
   const [sort, setSort] = useState(`title:ASC`);
 
   useEffect(() => {
     setPage(parseInt(router.query["page"] as string) || 1);
-    setLimit(parseInt(router.query["limit"] as string) || 12);
+    setTake(parseInt(router.query["take"] as string) || 12);
   }, [router]);
 
   // query for the data
@@ -39,10 +39,10 @@ const ModelsPageIndex: NextPage = () => {
       publicationState: isAdmin(session)
         ? PublicationState.Preview
         : PublicationState.Live,
-      limit,
-      start,
+      limit: take,
+      start: skip,
     },
-    { keepPreviousData: true }
+    { keepPreviousData: true, enabled: false }
   );
 
   if (error) {
@@ -75,13 +75,15 @@ const ModelsPageIndex: NextPage = () => {
         }}
       />
       {isLoading && <Loader isLoading={isLoading} />}
+      <Card heading="Models">
+        <p>The models page is currently broken. Check back later</p>
+      </Card>
 
       <Grid columns={2} min="500px" gap="3rem">
         {isSuccess &&
           data.models?.map((model) => (
             <ModelCard key={model?.slug} model={model as Model} />
           ))}
-        <Card>This page is broken ATM</Card>
       </Grid>
     </PageLayout>
   );

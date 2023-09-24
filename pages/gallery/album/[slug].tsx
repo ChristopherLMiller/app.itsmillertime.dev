@@ -12,10 +12,8 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
-import { GalleryDocument } from "src/graphql/schema/galleries/gallery.query.generated";
 import { Enum_Gallery_Status, Gallery } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
-import { fetchData } from "src/lib/fetch";
 import { isAdmin } from "src/utils";
 import { isSessionLoading } from "src/utils/auth";
 import styled from "styled-components";
@@ -143,6 +141,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   };
 
+  return defaultReturn;
+  /*
   // if the slug isn't provided, lets eject and 404
   if (!slug) {
     return {
@@ -202,7 +202,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       album: data?.galleries[0],
     },
-  };
+  };*/
 };
 
 export default GalleryPage;

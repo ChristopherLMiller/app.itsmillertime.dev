@@ -17,7 +17,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { ToastProvider } from "react-toast-notifications";
 import TopBar from "src/layout/elements/TopBar";
 import styled, { ThemeProvider } from "styled-components";
-import { defaultTheme, GlobalStyles } from "styles/default";
+import { GlobalStyles, defaultTheme } from "styles/default";
 import "../public/nprogress.css";
 
 const Content = styled(motion.div)`

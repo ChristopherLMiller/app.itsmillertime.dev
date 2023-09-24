@@ -140,7 +140,7 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
           </Link>
           <h6>
             Published:{` `}
-            {article.published
+            {article.publishedAt
               ? formatRelative(parseISO(article?.publishedAt), new Date())
               : `Draft`}
             {` | `}Updated:

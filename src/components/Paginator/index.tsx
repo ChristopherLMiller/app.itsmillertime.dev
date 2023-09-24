@@ -15,7 +15,7 @@ export interface PaginatorTypes {
 }
 
 const Paginator: React.FC<PaginatorTypes> = ({ scrollTop }) => {
-  const { page, limit, data, setPage } = useMooseContext();
+  const { page, take, data, setPage } = useMooseContext();
   const [totalRecords, setTotalRecords] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -23,9 +23,10 @@ const Paginator: React.FC<PaginatorTypes> = ({ scrollTop }) => {
   useEffect(() => {
     if (data?.meta?.total) {
       setTotalRecords(data?.meta?.total);
-      setTotalPages(Math.ceil(totalRecords / limit));
+      setTotalPages(Math.ceil(totalRecords / take));
     }
-  }, [data, limit, totalPages, totalRecords]);
+    console.log(data);
+  }, [data, take, totalPages, totalRecords]);
 
   const clickHandler = (operation) => {
     let newPage = page;

@@ -128,4 +128,8 @@ export const GlobalStyles = createGlobalStyle`
   h6 {
     font-size: var(--h6-size);
   }
+
+  .css-19n335a-ToastContainer {
+    top: 60px !important;
+  }
 `;

@@ -1,5 +1,6 @@
 import Markdown from "@components/Markdown";
 import Panel from "@components/Panel";
+import { APIEndpoint } from "config";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
 import { FC } from "react";
@@ -9,27 +10,27 @@ interface iPage {
   page: any;
 }
 const Page: FC<iPage> = ({ page }) => {
-  const { title, description, content, seo, slug } = page[0];
+  const { title, summary, content, slug, featuredImage } = page;
   return (
     <PageLayout
       title={title}
-      description={description}
+      description={summary}
       boxed="var(--max-width-desktop)"
     >
       <NextSeo
-        title={seo.title}
-        description={seo.description}
+        title={title}
+        description={summary}
         canonical={`${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`}
         openGraph={{
-          title: seo.title,
-          description: seo.description,
+          title: title,
+          description: summary,
           type: "website",
           images: [
             {
-              alt: seo?.featured_image?.alternativeText,
+              alt: featuredImage?.alternativeText,
               width: 800,
               height: 600,
-              url: seo?.featured_image?.url,
+              url: featuredImage?.url,
             },
           ],
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`,
@@ -46,16 +47,18 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (context.params?.slug === undefined) return { notFound: true };
 
   const slug = context.params["slug"];
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_STRAPI_URL}/pages?slug_eq=${slug}`
-  );
+  const res = await fetch(`${APIEndpoint.live}/page/${slug}`, {
+    headers: {
+      "x-api-key": APIEndpoint.key,
+    },
+  });
   const data = await res.json();
 
   // if we have no page, we should return a 404
-  if (data.length) {
+  if (data.data) {
     return {
       props: {
-        page: data,
+        page: data.data,
       },
       revalidate: 10,
     };
@@ -67,12 +70,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/pages`;
+  const res = await fetch(`${APIEndpoint.live}/page`, {
+    headers: {
+      "x-api-key": APIEndpoint.key,
+    },
+  });
 
-  const res = await fetch(url);
   const data = await res.json();
 
-  const paths = data.map((item: any) => {
+  const paths = data.data.map((item: any) => {
     return { params: { slug: item.slug } };
   });
 
