@@ -1,20 +1,20 @@
 import { createContext, Dispatch, SetStateAction, useContext } from "react";
 
 export interface DynamicContentContextTypes {
-  sort: string;
+  order: string;
   page: number;
-  limit: number;
-  start: number;
+  take: number;
+  skip: number;
   where: any;
   isLoading: boolean;
   error: any;
   data: any;
   isSuccess: boolean;
-  setSort: Dispatch<SetStateAction<string>>;
-  setLimit: Dispatch<SetStateAction<number>>;
+  setOrder: Dispatch<SetStateAction<string>>;
+  setTake: Dispatch<SetStateAction<number>>;
   setPage: Dispatch<SetStateAction<number>>;
   setWhere: Dispatch<SetStateAction<any>>;
-  setStart: Dispatch<SetStateAction<number>>;
+  setSkip: Dispatch<SetStateAction<number>>;
   setTag: Dispatch<SetStateAction<string | null>>;
   tag: string | null;
   setCategory: Dispatch<SetStateAction<string | null>>;

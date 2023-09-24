@@ -11,9 +11,9 @@ import { useRouter } from "next/router";
 import PageLayout from "src/layout/PageLayout";
 
 interface BlogIndexPageTypes {
-  limit: number;
+  take: number;
   page: number;
-  sort: string;
+  order: string;
   tag: string;
   category: string;
   allTags: [tag];
@@ -21,9 +21,9 @@ interface BlogIndexPageTypes {
 }
 
 const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
-  limit,
+  take,
   page,
-  sort,
+  order,
   tag,
   category,
   allTags,
@@ -57,8 +57,16 @@ const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
         }}
       />
       <DynamicContentProvider
-        initialProps={{ limit, page, sort, tag, category }}
-        contentPath="post/minimal"
+        initialProps={{
+          take,
+          page,
+          order,
+          tag,
+          category,
+          select:
+            "title,featuredImage,slug,publishedAt,updatedAt,category,tags,wordCount,summary",
+        }}
+        contentPath="post"
       >
         <ArticleLandingContent tags={allTags} categories={allCategories} />
       </DynamicContentProvider>
@@ -81,9 +89,9 @@ export async function getServerSideProps(context: NextPageContext) {
 
   return {
     props: {
-      limit: context?.query?.limit || null,
+      take: context?.query?.take || null,
       page: context?.query?.page || null,
-      sort: context?.query?.sort || null,
+      order: context?.query?.order || null,
       tag: context?.query?.tag || null,
       category: context?.query?.category || null,
       allTags: tagsResponse.statusCode === 200 ? tagsResponse.data : [],

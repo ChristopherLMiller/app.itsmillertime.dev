@@ -26,10 +26,12 @@ const LoginForm: FunctionComponent = () => {
       initialValues={{ username: ``, password: `` }}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
-        const response = await signIn(`credentials`, {
+        const response = await signIn("credentials", {
           redirect: false,
-          ...values,
+          username: values.username,
+          password: values.password,
         });
+        console.log(response);
         if (response?.error) {
           addToast(`Unable to login: ${response.error}`, {
             appearance: `error`,
@@ -39,7 +41,7 @@ const LoginForm: FunctionComponent = () => {
           addToast(`Welcome back!  You've been logged in successfully`, {
             appearance: `success`,
           });
-          //router.push(`/`);
+          router.push(`/`);
         }
 
         setSubmitting(false);

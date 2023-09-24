@@ -3,7 +3,7 @@ import Card from "@components/Card";
 import { CategoriesList, category } from "@components/Dynamic/Categories";
 import { DynamicContents } from "@components/Dynamic/Content";
 import { Pagination } from "@components/Dynamic/Provider";
-import { tag, TagsList } from "@components/Dynamic/Tags";
+import { TagsList, tag } from "@components/Dynamic/Tags";
 import { FC } from "react";
 import { Article } from "src/graphql/types";
 import useDynamicContent from "src/lib/context/dynamicContent";
@@ -58,7 +58,7 @@ export const ArticleLandingContent: FC<ArticleTypes> = ({
       <DynamicContents pagination={Pagination.top}>
         <ArticleList>
           {data?.data?.map((article) => (
-            <ArticleListItem key={article?.id} article={article as Article} />
+            <ArticleListItem key={article?.slug} article={article as Article} />
           ))}
         </ArticleList>
       </DynamicContents>

@@ -1,4 +1,5 @@
 import { APIEndpoint, paginationSettings } from "config";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "react-query";
@@ -12,12 +13,13 @@ export enum Pagination {
 }
 export interface DynamicContentProviderTypes {
   initialProps: {
-    limit?: number;
+    take?: number;
     page?: number;
-    sort?: string;
+    order?: string;
     tag?: string;
     category?: string;
     where?: any;
+    select?: string;
   };
   children: ReactNode;
   contentPath: string;
@@ -31,25 +33,27 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
   contentPath,
 }) => {
   const router = useRouter();
-  const [sort, setSort] = useState(
-    initialProps.sort || paginationSettings.defaultSort
+  const session = useSession();
+
+  const [queryEnabled, setQueryEnabled] = useState(false);
+  const [order, setOrder] = useState(
+    initialProps.order || paginationSettings.orderDefault
   );
-  const [limit, setLimit] = useState<number>(
-    initialProps.limit || (paginationSettings.perPage as number)
+  const [take, setTake] = useState<number>(
+    initialProps.take || (paginationSettings.perPage as number)
   );
-  const [start, setStart] = useState<number>(0);
+  const [skip, setSkip] = useState<number>(0);
   const [where, setWhere] = useState(initialProps.where || {});
   const [page, setPage] = useState(initialProps.page || 1);
   const [tag, setTag] = useState(initialProps.tag || null);
   const [category, setCategory] = useState(initialProps.category || null);
-
   const { data, error, isLoading, isSuccess } = useQuery({
     queryKey: [
       "posts",
       {
-        limit,
-        sort,
-        start: (page - 1) * limit,
+        take,
+        order,
+        skip: (page - 1) * take,
         where: where,
         tag,
         category,
@@ -57,18 +61,33 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
     ],
     queryFn: ({ queryKey }) => {
       const [_key] = queryKey;
-      const url = `${APIEndpoint.live}/${contentPath}?${createURLParams({
-        limit,
-        sort,
+      const url = `${APIEndpoint.local}/${contentPath}?${createURLParams({
+        take,
+        order,
         page,
         where,
+        select: initialProps.select,
       })}`;
+
+      console.log(url);
+
+      // setup the headers
+      const requestHeaders: HeadersInit = new Headers();
+      // @ts-ignore
+      const access_token = session.data?.user?.session?.access_token;
+
+      if (access_token) {
+        console.log("access_token: " + access_token);
+        requestHeaders.set("Authorization", "Bearer " + access_token);
+      } else {
+        console.log("no access token found");
+      }
+
       return fetch(url, {
-        headers: {
-          "x-api-key": APIEndpoint.key,
-        },
+        headers: requestHeaders,
       }).then((res) => res.json());
     },
+    enabled: queryEnabled,
   });
 
   // This function is used to update the URL in the browser based on user input
@@ -80,13 +99,14 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       params.append("page", page.toString());
     }
 
-    // only add the limit part if its othe than default
-    if (limit !== paginationSettings.perPage) {
-      params.append("limit", limit.toString());
+    // only add the take part if its othe than default
+    if (take !== paginationSettings.perPage) {
+      params.append("take", take.toString());
     }
 
-    if (sort !== paginationSettings.defaultSort) {
-      params.append("sort", sort);
+    if (order !== paginationSettings.orderDefault) {
+      // @ts-ignore
+      params.append("order", order);
     }
 
     // update category
@@ -109,7 +129,7 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
     );
     window.scrollTo({ top: 0, behavior: "smooth" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [limit, page, sort, tag, category]); // we only want limit and page, screw eslint!
+  }, [take, page, order, tag, category]); // we only want take and page, screw eslint!
 
   // Use effect to run when tag or category changes, updates the where clause
   // to the format needed for the backend to accept
@@ -138,18 +158,25 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, tag, where]);
 
-  // Runs on initial setup as well as when the page or limit changes
+  // Runs on initial setup as well as when the page or take changes
   useEffect(() => {
-    setStart((page - 1) * limit);
+    setSkip((page - 1) * take);
     updateURL();
-  }, [page, limit, updateURL]);
+  }, [page, take, updateURL]);
+
+  // Runs and waits for the user session to be populated, then enables the query
+  useEffect(() => {
+    if (session.status !== "loading") {
+      setQueryEnabled(true);
+    }
+  }, [session]);
 
   const memoedValue = useMemo(
     () => ({
-      setSort,
-      setLimit,
+      setOrder,
+      setTake,
       setPage,
-      setStart,
+      setSkip,
       setWhere,
       setCategory,
       setTag,
@@ -157,11 +184,11 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       error,
       isLoading,
       isSuccess,
-      sort,
+      order,
       page,
-      limit,
+      take,
       where,
-      start,
+      skip,
       category,
       tag,
     }),
@@ -171,16 +198,17 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       error,
       isLoading,
       isSuccess,
-      limit,
+      take,
       page,
-      sort,
-      start,
+      order,
+      skip,
       tag,
       where,
     ]
   );
 
   return (
+    // @ts-ignore
     <DynamicContentContext.Provider value={memoedValue}>
       {children}
     </DynamicContentContext.Provider>

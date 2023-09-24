@@ -4,7 +4,7 @@ import { Padding } from "@components/Padding";
 import Panel from "@components/Panel";
 import ShareButtons from "@components/ShareButtons";
 import { pageSettings } from "@fixtures/json/pages";
-import { defaultImage } from "config";
+import { APIEndpoint, defaultImage } from "config";
 import { formatRelative, parseISO } from "date-fns";
 import { DiscussionEmbed } from "disqus-react";
 import { GetServerSideProps, NextPage } from "next";
@@ -12,8 +12,7 @@ import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import PageLayout from "src/layout/PageLayout";
-import { isAdmin, timeToRead } from "src/utils";
-import { isSessionLoading } from "src/utils/auth";
+import { timeToRead } from "src/utils";
 import styled from "styled-components";
 
 const ArticleHeader = styled.div`
@@ -100,10 +99,10 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
             {` `}| Time To Read:
             {timeToRead(article.wordCount)}
           </div>
-          {!isSessionLoading(session) && isAdmin(session) && (
+          {true && (
             <div className="publish">
               <a
-                href={`${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::article.article/${article.id}`}
+                href={`${APIEndpoint.admin}/admin/resources/Post/records/${article.id}/edit`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -153,14 +152,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       ? PublicationState.Preview
       : PublicationState.Live,
   });*/
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/post/${slug}`,
-    {
-      headers: {
-        "x-api-key": process.env.NEXT_PUBLIC_API_KEY as string,
-      },
-    }
-  );
+  const response = await fetch(`${APIEndpoint.live}/post/${slug}`, {
+    headers: {
+      "x-api-key": APIEndpoint.key,
+    },
+  });
   const data = await response.json();
 
   if (data.statusCode === 200) {

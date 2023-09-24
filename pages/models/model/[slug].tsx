@@ -245,6 +245,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
   const { slug } = context.query;
 
+  return {
+    redirect: { destination: "/models", permanent: false },
+  };
+
   // if the slug isn't found lets eject right away for a 404 error
   if (!slug) {
     return {

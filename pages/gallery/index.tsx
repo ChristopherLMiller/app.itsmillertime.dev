@@ -16,10 +16,15 @@ const GalleriesIndexPage: NextPage = () => {
   const queryParams = router.query;
   const where = { nsfw: false, ...queryParams };
 
-  const { isLoading, error, data, isSuccess } = useGalleriesQuery({
-    sort: `createdAt:ASC`,
-    where: where,
-  });
+  const { isLoading, error, data, isSuccess } = useGalleriesQuery(
+    {
+      sort: `createdAt:ASC`,
+      where: where,
+    },
+    {
+      enabled: false,
+    }
+  );
 
   if (error) {
     console.error(error);
@@ -59,6 +64,9 @@ const GalleriesIndexPage: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
+      <Card heading="Galleries">
+        <p>The Galleries page is currently broken</p>
+      </Card>
       {isSuccess && data?.galleries?.length === 0 && (
         <Card heading="No Galleries Found">
           <p>

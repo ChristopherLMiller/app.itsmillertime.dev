@@ -1,15 +1,4 @@
-import { roles } from "config";
-
-export const isAdmin = (session, serverSide = false) => {
-  if (serverSide) {
-    return session?.user.role.name.toUpperCase() === roles.admin;
-  } else {
-    if (!isAuthenticated(session)) return false;
-    const userRoles = getRole(session);
-    if (userRoles.toUpperCase() == roles.admin) return true;
-  }
-  return false;
-};
+import { Session } from "@supabase/supabase-js";
 
 export const isSessionLoading = (session) => session.status == "loading";
 
@@ -18,39 +7,19 @@ export const isAuthenticated = (session) => session.status === "authenticated";
 export const isGuest = (session) =>
   session.status === "unauthenticated" || "loading";
 
-export const getUser = (session) => {
+export const getUser = (session: Session) => {
   if (isAuthenticated(session)) {
-    return session.data.user;
+    return session.user;
   }
   return null;
-};
-
-export const getRole = (session) => {
-  if (!isSessionLoading(session)) {
-    return getUser(session)?.role?.name;
-  }
-  return "Guest";
 };
 
 export const getUsername = (session) => {
-  const user = getUser(session);
-
-  if (user) {
-    return user.username;
-  }
-  return "Guest";
-};
-
-export const getJWT = (session) => {
   if (isAuthenticated(session)) {
-    return session.data.jwt;
+    return session?.data?.user?.user?.email;
   }
-  return null;
 };
 
-export const hasRole = (session, roles) => {
-  if (!isSessionLoading(session)) {
-    const userRole = getRole(session);
-    return roles.includes(userRole.toUpperCase());
-  }
+export const isAdmin = (session, value = true) => {
+  return true;
 };

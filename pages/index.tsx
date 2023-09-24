@@ -10,8 +10,10 @@ import PageLayout from "src/layout/PageLayout";
 import { getUsername } from "src/utils/auth";
 
 const IndexPage: NextPage = () => {
-  const session = useSession();
   const router = useRouter();
+  const session = useSession();
+
+  console.log(session);
 
   return (
     <PageLayout

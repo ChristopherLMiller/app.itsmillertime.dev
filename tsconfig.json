@@ -36,7 +36,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/[slug].tsxd", "pages/digital-garden/index.tsxd", "pages/digital-garden/[slug].tsxd", "src/components/Markdown/index.tsx"  ],
+, "pages/[slug].tsx", "pages/digital-garden/index.tsxd", "pages/digital-garden/[slug].tsxd", "src/components/Markdown/index.tsx", "pages/account/my-account.tsxd"  ],
   "exclude": [
     "node_modules"
   ]

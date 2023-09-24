@@ -16,6 +16,7 @@ const Markdown: FunctionComponent<iMarkdown> = ({ source }) => {
   // Extensions
   marked.use(customHeadingId(), extendedTables);
   const output = marked.parse(source);
+
   return <div dangerouslySetInnerHTML={{ __html: output }} />;
 };
 

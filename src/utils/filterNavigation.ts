@@ -1,5 +1,4 @@
 import { AUTH_STATE } from "config";
-import { hasRole } from ".";
 
 export const filterNavigation = (navArray, session) => {
   // start filtering
@@ -14,7 +13,7 @@ export const filterNavigation = (navArray, session) => {
         // if the item needs you to be logged in if they are anything but authenticated then thats not considered logged in
         if (session.status === "authenticated") {
           if (item?.requiredRole) {
-            return hasRole(session, item?.requiredRole);
+            return true; //hasRole(session, item?.requiredRole);
           }
 
           // not all items have a required role, so just return true
