@@ -13,8 +13,6 @@ const IndexPage: NextPage = () => {
   const router = useRouter();
   const session = useSession();
 
-  console.log(session);
-
   return (
     <PageLayout
       title={pageSettings.home.title}
