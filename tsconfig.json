@@ -36,7 +36,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/[slug].tsx", "pages/digital-garden/index.tsxd", "pages/digital-garden/[slug].tsxd", "src/components/Markdown/index.tsx", "pages/account/my-account.tsxd"  ],
+, "pages/[slug].tsx", "pages/digital-garden/index.tsxd", "pages/digital-garden/[slug].tsxd", "src/components/Markdown/index.tsx", "pages/account/my-account.tsxd", "src/templates/forms/forgotPassword.tsxd", "src/templates/forms/resetPassword.tsxd", "pages/sitemap/models.xml/index.tsxd", "pages/sitemap/galleries.xml/index.tsxd", "pages/sitemap/articles.xml/index.tsxd", "pages/account/forgot-password.tsxd", "pages/account/reset-password.tsxd"  ],
   "exclude": [
     "node_modules"
   ]
