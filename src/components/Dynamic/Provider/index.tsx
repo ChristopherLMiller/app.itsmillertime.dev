@@ -37,10 +37,10 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
 
   const [queryEnabled, setQueryEnabled] = useState(false);
   const [order, setOrder] = useState(
-    initialProps.order || paginationSettings.orderDefault
+    initialProps.order || paginationSettings.orderDefault,
   );
   const [take, setTake] = useState<number>(
-    initialProps.take || (paginationSettings.perPage as number)
+    initialProps.take || (paginationSettings.perPage as number),
   );
   const [skip, setSkip] = useState<number>(0);
   const [where, setWhere] = useState(initialProps.where || {});
@@ -61,7 +61,7 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
     ],
     queryFn: ({ queryKey }) => {
       const [_key] = queryKey;
-      const url = `${APIEndpoint.local}/${contentPath}?${createURLParams({
+      const url = `${APIEndpoint.live}/${contentPath}?${createURLParams({
         take,
         order,
         page,
@@ -69,18 +69,13 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
         select: initialProps.select,
       })}`;
 
-      console.log(url);
-
       // setup the headers
       const requestHeaders: HeadersInit = new Headers();
       // @ts-ignore
       const access_token = session.data?.user?.session?.access_token;
 
       if (access_token) {
-        console.log("access_token: " + access_token);
         requestHeaders.set("Authorization", "Bearer " + access_token);
-      } else {
-        console.log("no access token found");
       }
 
       return fetch(url, {
@@ -125,7 +120,7 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       undefined,
       {
         shallow: true,
-      }
+      },
     );
     window.scrollTo({ top: 0, behavior: "smooth" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -204,7 +199,7 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       skip,
       tag,
       where,
-    ]
+    ],
   );
 
   return (

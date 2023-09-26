@@ -28,6 +28,7 @@ export const StyledPanel = styled(motion.div)<iStyledPanel>`
   position: relative;
   text-align: ${(props) => props.align};
   border: var(--border);
+  background: var(--color-grey-light);
   ${(props) => props.boxed};
 
   img {

@@ -76,15 +76,11 @@ const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
 
 export async function getServerSideProps(context: NextPageContext) {
   // fetch the tags
-  const tagsRequest = await fetch(`${APIEndpoint.live}/post-tag`, {
-    headers: { "x-api-key": APIEndpoint.key },
-  });
+  const tagsRequest = await fetch(`${APIEndpoint.live}/post-tag`);
   const tagsResponse = await tagsRequest.json();
 
   // fetch the categories
-  const categoryRequest = await fetch(`${APIEndpoint.live}/post-category`, {
-    headers: { "x-api-key": APIEndpoint.key },
-  });
+  const categoryRequest = await fetch(`${APIEndpoint.live}/post-category`);
   const categoryResponse = await categoryRequest.json();
 
   return {

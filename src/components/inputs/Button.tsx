@@ -13,7 +13,7 @@ const StyledButton = styled(motion.button)`
   border: none;
   color: var(--color-white-100);
 
-  :disabled {
+  &:disabled {
     background: var(--color-grey-intermediate);
   }
 `;
