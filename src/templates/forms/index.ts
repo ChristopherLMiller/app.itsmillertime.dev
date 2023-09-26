@@ -1,4 +1,3 @@
-import LoginForm from './login';
-import ForgotPasswordForm from './forgotPassword';
+import LoginForm from "./login";
 
-export { LoginForm, ForgotPasswordForm };
+export { LoginForm };

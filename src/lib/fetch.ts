@@ -1,13 +1,13 @@
 import { GraphQLClient } from "graphql-request";
 
 export const graphQLClient = new GraphQLClient(
-  `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`
+  `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`,
 );
 
 export function fetcher<TData, TVariables>(
   query: string,
-  variables?: TVariables,
-  jwt?: string
+  variables?: any,
+  jwt?: string,
 ) {
   return async (): Promise<TData> => {
     const requestHeaders: HeadersInit = new Headers();
