@@ -1,6 +1,6 @@
 {
   "name": "app.itsmillertime.dev",
-  "version": "2.5.3",
+  "version": "2.5.4",
   "description": "Front End to www.itsmillertime.dev",
   "main": "index.js",
   "scripts": {
