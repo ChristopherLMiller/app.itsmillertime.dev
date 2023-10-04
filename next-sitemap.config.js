@@ -7,9 +7,9 @@ module.exports = {
   exclude: [`/api/*`, `/admin/*`, `/sitemap/*`, `/unauthorized`, `/account/*`],
   robotsTxtOptions: {
     additionalSitemaps: [
-      `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap/articles.xml`,
-      `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap/galleries.xml`,
-      `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap/models.xml`,
+      `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap/posts.xml`,
+      //`${process.env.NEXT_PUBLIC_SITE_URL}/sitemap/galleries.xml`,
+      //`${process.env.NEXT_PUBLIC_SITE_URL}/sitemap/models.xml`,
     ],
     policies: [
       {
