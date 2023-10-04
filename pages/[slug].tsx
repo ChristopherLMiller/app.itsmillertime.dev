@@ -70,14 +70,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch(`${APIEndpoint.live}/page`, {
-    headers: {
-      "x-api-key": APIEndpoint.key,
-    },
-  });
-
+  const res = await fetch(`${APIEndpoint.live}/page`);
   const data = await res.json();
-
   const paths = data.data.map((item: any) => {
     return { params: { slug: item.slug } };
   });

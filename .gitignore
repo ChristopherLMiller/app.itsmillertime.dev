@@ -10,7 +10,3 @@ public/sitemap-0.xml
 
 ## ENV Variables
 .env.local
-
-# Sentry
-.sentryclirc
-sentry.properties

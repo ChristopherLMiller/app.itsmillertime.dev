@@ -2,9 +2,11 @@ import { createClient } from "@supabase/supabase-js";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+console.log(process.env.NEXT_PUBLIC_SUPABASE_URL);
+
 const supabase = createClient(
-  "https://jvhdgskxlevrvqfzanen.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp2aGRnc2t4bGV2cnZxZnphbmVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODMwOTM2MzYsImV4cCI6MTk5ODY2OTYzNn0.ZpO3PI7u3O2DiXkyveF8dD9FGp1aBvl89qA5nLNXgNg",
+  process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string,
 );
 
 export default async function auth(req: any, res: any) {
