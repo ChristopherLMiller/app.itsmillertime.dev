@@ -64,7 +64,7 @@ export const lightboxOptions = {
 };
 
 export const paginationSettings = {
-  perPage: process.env.NEXT_PUBLIC_PER_PAGE || 10,
+  perPage: 10,
   orderDefault: { publishedAt: "desc" },
 };
 
@@ -72,5 +72,4 @@ export const APIEndpoint = {
   local: process.env.NEXT_PUBLIC_API_ENDPOINT_LOCAL as string,
   live: process.env.NEXT_PUBLIC_API_ENDPOINT as string,
   key: process.env.NEXT_PUBLIC_API_KEY as string,
-  admin: process.env.NEXT_PUBLIC_API_ADMIN as string,
 };

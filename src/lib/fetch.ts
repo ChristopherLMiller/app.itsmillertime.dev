@@ -1,10 +1,8 @@
-import { GraphQLClient } from "graphql-request";
-
-export const graphQLClient = new GraphQLClient(
+/*export const graphQLClient = new GraphQLClient(
   `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`,
-);
+);*/
 
-export function fetcher<TData, TVariables>(
+/*export function fetcher<TData, TVariables>(
   query: string,
   variables?: any,
   jwt?: string,
@@ -18,7 +16,7 @@ export function fetcher<TData, TVariables>(
 
     return await graphQLClient.request(query, variables, requestHeaders);
   };
-}
+}*/
 
 export async function fetchData(document, variables) {
   const body = JSON.stringify({ query: document, variables });

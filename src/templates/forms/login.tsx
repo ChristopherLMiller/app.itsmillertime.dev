@@ -1,28 +1,19 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { FunctionComponent } from "react";
 import { useToasts } from "react-toast-notifications";
-import {
-  Fieldset,
-  FormErrorMessage,
-  Label,
-  StyledForm,
-} from "src/components/inputs";
-import Button from "src/components/inputs/Button";
-import * as Yup from "yup";
+import { z } from "zod";
 
-const FormValidation = Yup.object().shape({
-  username: Yup.string().required(`Please enter your username or email`),
-  password: Yup.string().required(`We need your password please`),
+const FormValidation = z.object({
+  username: z.string(),
+  password: z.string(),
 });
 
 const LoginForm: FunctionComponent = () => {
   const { addToast } = useToasts();
   const router = useRouter();
 
-  return (
-    <Formik
+  return null;
+  /*<Formik
       initialValues={{ username: ``, password: `` }}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
@@ -76,7 +67,7 @@ const LoginForm: FunctionComponent = () => {
         </Form>
       )}
     </Formik>
-  );
+  );*/
 };
 
 export default LoginForm;

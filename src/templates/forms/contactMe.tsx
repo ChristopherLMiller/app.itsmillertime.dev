@@ -1,17 +1,14 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React from "react";
 import { useToasts } from "react-toast-notifications";
 import { Fieldset, FormErrorMessage, StyledForm } from "src/components/inputs";
 import Button from "src/components/inputs/Button";
 import styled from "styled-components";
-import * as Yup from "yup";
+import { z } from "zod";
 
-const ContactValidation = Yup.object().shape({
-  email: Yup.string()
-    .email(`I need a valid email to reach you at`)
-    .required(`Best Contact Email?`),
-  name: Yup.string().required(`What is your name?`),
-  message: Yup.string().required(`What do you need help with?`),
+const ContactValidation = z.object({
+  email: z.string(),
+  name: z.string(),
+  message: z.string(),
 });
 
 const StyledContactForm = styled.div`

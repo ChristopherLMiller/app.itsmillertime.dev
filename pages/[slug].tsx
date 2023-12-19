@@ -47,7 +47,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (context.params?.slug === undefined) return { notFound: true };
 
   const slug = context.params["slug"];
-  const res = await fetch(`${APIEndpoint.live}/page/${slug}`, {
+  const res = await fetch(`${APIEndpoint.live}/pages/${slug}`, {
     headers: {
       "x-api-key": APIEndpoint.key,
     },
@@ -70,7 +70,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch(`${APIEndpoint.live}/page`);
+  const res = await fetch(`${APIEndpoint.live}/pages`);
   const data = await res.json();
   const paths = data.data.map((item: any) => {
     return { params: { slug: item.slug } };

@@ -2,7 +2,6 @@ export * from "./Card";
 export * from "./Caret";
 export * from "./Grid";
 export * from "./Loader";
-export * from "./ModelCard";
 export * from "./Paginator";
 export * from "./Panel";
 export * from "./ScrollTop";

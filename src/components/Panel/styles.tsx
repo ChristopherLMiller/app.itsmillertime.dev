@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export interface iStyledPanel {
@@ -7,7 +6,7 @@ export interface iStyledPanel {
   boxed?: string;
 }
 
-export const StyledPanel = styled(motion.div)<iStyledPanel>`
+export const StyledPanel = styled.div<iStyledPanel>`
   :before {
     content: "";
     background: var(--color-grey-light);
@@ -29,7 +28,7 @@ export const StyledPanel = styled(motion.div)<iStyledPanel>`
   text-align: ${(props) => props.align};
   border: var(--border);
   background: var(--color-grey-light);
-  ${(props) => props.boxed};
+  max-width: ${(props) => props.boxed};
 
   img {
     max-width: 100%;

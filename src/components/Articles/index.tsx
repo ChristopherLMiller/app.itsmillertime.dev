@@ -1,11 +1,11 @@
+import { Accordian } from "@components/Accordian";
 import ArticleListItem from "@components/Article/ListItem";
-import Card from "@components/Card";
 import { CategoriesList, category } from "@components/Dynamic/Categories";
 import { DynamicContents } from "@components/Dynamic/Content";
 import { Pagination } from "@components/Dynamic/Provider";
 import { TagsList, tag } from "@components/Dynamic/Tags";
+import Panel from "@components/Panel";
 import { FC } from "react";
-import { Article } from "src/graphql/types";
 import useDynamicContent from "src/lib/context/dynamicContent";
 import styled from "styled-components";
 
@@ -27,6 +27,7 @@ const Sidebar = styled.div`
   top: 0;
   gap: 2rem;
   flex-direction: column;
+  height: 100vh;
 
   ul {
     list-style-type: none;
@@ -48,17 +49,21 @@ export const ArticleLandingContent: FC<ArticleTypes> = ({
   return (
     <Columns>
       <Sidebar>
-        <Card padding={false} subHeading="Tags">
-          <TagsList tags={tags} />
-        </Card>
-        <Card padding={false} subHeading="Categories">
-          <CategoriesList categories={categories} />
-        </Card>
+        <Panel padding={false}>
+          <Accordian title="Tags">
+            <TagsList tags={tags} />
+          </Accordian>
+        </Panel>
+        <Panel padding={false}>
+          <Accordian title="Categories">
+            <CategoriesList categories={categories} />
+          </Accordian>
+        </Panel>
       </Sidebar>
       <DynamicContents pagination={Pagination.top}>
         <ArticleList>
           {data?.data?.map((article) => (
-            <ArticleListItem key={article?.slug} article={article as Article} />
+            <ArticleListItem key={article?.slug} article={article} />
           ))}
         </ArticleList>
       </DynamicContents>

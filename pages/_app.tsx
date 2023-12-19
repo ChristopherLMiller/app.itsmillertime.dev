@@ -1,7 +1,6 @@
 import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { SessionProvider } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
 import { SEO } from "next-seo.config";
 import dynamic from "next/dynamic";
@@ -31,6 +30,11 @@ const CookieConsentText = styled.span`
 
 const queryClient = new QueryClient();
 
+const SnowyComponent = dynamic(
+  () => import("../src/components/Holiday/Snowy"),
+  { ssr: false },
+);
+
 const App = ({
   Component,
   pageProps: { session, initialSession, ...pageProps },
@@ -40,6 +44,7 @@ const App = ({
   const ScrollTop = dynamic(() => import("@components/ScrollTop"), {
     ssr: false,
   });
+  const [supabaseClient] = useState(() => createPagesBrowserClient());
 
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -78,63 +83,59 @@ const App = ({
     };
   });
 
-  const [supabaseClient] = useState(() => createPagesBrowserClient());
-
   return (
     <SessionContextProvider
       supabaseClient={supabaseClient}
       initialSession={pageProps.initialSession}
     >
-      <SessionProvider session={session}>
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen />
-          <StyleSheetManager>
-            <ThemeProvider theme={defaultTheme}>
-              <>
-                <GlobalStyles />
-                <Head>
-                  <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1.0"
-                  />
-                  <meta charSet="utf-8" />
-                  <meta name="theme-color" content="#982929" />
-                </Head>
-                <DefaultSeo {...SEO} />
-                {/*<Snowy />*/}
-                <CookieConsent buttonStyle={{ fontSize: `2rem` }}>
-                  <CookieConsentText>
-                    This website uses cookies to enhance the user experience.
-                  </CookieConsentText>
-                </CookieConsent>
-                <TopBar />
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen />
+        <StyleSheetManager>
+          <ThemeProvider theme={defaultTheme}>
+            <>
+              <GlobalStyles />
+              <Head>
+                <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1.0"
+                />
+                <meta charSet="utf-8" />
+                <meta name="theme-color" content="#982929" />
+              </Head>
+              <DefaultSeo {...SEO} />
+              <SnowyComponent />
+              <CookieConsent buttonStyle={{ fontSize: `2rem` }}>
+                <CookieConsentText>
+                  This website uses cookies to enhance the user experience.
+                </CookieConsentText>
+              </CookieConsent>
+              <TopBar />
 
-                <AnimatePresence mode="wait">
-                  <ToastProvider
-                    autoDismiss
-                    autoDismissTimeout={6000}
-                    placement="top-right"
-                  >
-                    <Fragment key={router.pathname}>
-                      <Content>
-                        <motion.div
-                          key={router.pathname}
-                          initial="initial"
-                          animate="enter"
-                          exit="exit"
-                        >
-                          {true && <Component {...pageProps} err={err} />}
-                        </motion.div>
-                      </Content>
-                    </Fragment>
-                    <ScrollTop />
-                  </ToastProvider>
-                </AnimatePresence>
-              </>
-            </ThemeProvider>
-          </StyleSheetManager>
-        </QueryClientProvider>
-      </SessionProvider>
+              <AnimatePresence mode="wait">
+                <ToastProvider
+                  autoDismiss
+                  autoDismissTimeout={6000}
+                  placement="top-right"
+                >
+                  <Fragment key={router.pathname}>
+                    <Content>
+                      <motion.div
+                        key={router.pathname}
+                        initial="initial"
+                        animate="enter"
+                        exit="exit"
+                      >
+                        <Component {...pageProps} err={err} />
+                      </motion.div>
+                    </Content>
+                  </Fragment>
+                  <ScrollTop />
+                </ToastProvider>
+              </AnimatePresence>
+            </>
+          </ThemeProvider>
+        </StyleSheetManager>
+      </QueryClientProvider>
     </SessionContextProvider>
   );
 };

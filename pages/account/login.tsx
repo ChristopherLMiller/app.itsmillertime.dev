@@ -1,16 +1,24 @@
 import { pageSettings } from "@fixtures/json/pages";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import { Auth } from "@supabase/auth-ui-react";
+import { ThemeMinimal } from "@supabase/auth-ui-shared";
 import { defaultImage } from "config";
-import { GetServerSideProps, NextPage } from "next";
-import { getSession } from "next-auth/react";
+import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ContentPane, SplitPane, TextPane } from "src/components/SplitPane";
 import PageLayout from "src/layout/PageLayout";
-import { LoginForm } from "src/templates/forms";
 
 const LoginPage: NextPage = () => {
   const router = useRouter();
+  const supabaseClient = useSupabaseClient();
+  const user = useUser();
+
+  // If the user is authenticated already, redirect to the account page
+  if (user) {
+    return router.push("/account/my-account");
+  }
 
   return (
     <PageLayout
@@ -46,15 +54,23 @@ const LoginPage: NextPage = () => {
           </p>
         </TextPane>
         <ContentPane>
-          <LoginForm />
+          {!user && (
+            <Auth
+              redirectTo={`/api/auth/callback`}
+              appearance={{ theme: ThemeMinimal }}
+              supabaseClient={supabaseClient}
+              providers={["github", "facebook"]}
+              socialLayout="horizontal"
+            />
+          )}
         </ContentPane>
       </SplitPane>
     </PageLayout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+/*export const getServerSideProps: GetServerSideProps = async (context) => {
+  /*const session = await getSession(context);
 
   // if the session exists redirect to the home page as the user shouldn't be able to login again.
   if (session?.user) {
@@ -67,6 +83,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: { session },
   };
-};
+  return {};
+};*/
 
 export default LoginPage;

@@ -1,22 +1,22 @@
-import { useSession } from "next-auth/react";
+import { useUser } from "@supabase/auth-helpers-react";
 import { useEffect, useState } from "react";
 import { filterNavigation } from "src/utils";
 
 export function useNav() {
-  const session = useSession();
   const [isLoading, setIsLoading] = useState(true);
   const [navLinks, setNavLinks] = useState<Array<any>>([]);
+  const user = useUser();
 
   useEffect(() => {
     async function fetchNavData() {
       const data = await import("@fixtures/json/nav");
-      const filteredData = filterNavigation(data.nav.items, session);
+      const filteredData = filterNavigation(data.nav.items, user?.role);
       setNavLinks(filteredData);
       setIsLoading(false);
     }
 
     fetchNavData();
-  }, [session, isLoading]);
+  }, [isLoading, user?.role]);
 
   return { isLoading, navLinks };
 }

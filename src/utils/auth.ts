@@ -1,5 +1,3 @@
-import { Session } from "@supabase/supabase-js";
-
 export const isSessionLoading = (session) => session.status == "loading";
 
 export const isAuthenticated = (session) => session.status === "authenticated";
@@ -7,7 +5,7 @@ export const isAuthenticated = (session) => session.status === "authenticated";
 export const isGuest = (session) =>
   session.status === "unauthenticated" || "loading";
 
-export const getUser = (session: Session) => {
+export const getUser = (session) => {
   if (isAuthenticated(session)) {
     return session.user;
   }
