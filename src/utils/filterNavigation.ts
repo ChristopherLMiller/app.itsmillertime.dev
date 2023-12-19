@@ -1,6 +1,6 @@
 import { AUTH_STATE } from "config";
 
-export const filterNavigation = (navArray, session) => {
+export const filterNavigation = (navArray, user) => {
   // start filtering
   const filteredNav = navArray.filter((item) => {
     // if the item is set to any return true as all can see
@@ -11,7 +11,7 @@ export const filterNavigation = (navArray, session) => {
         return false;
       case AUTH_STATE.LOGGED_IN:
         // if the item needs you to be logged in if they are anything but authenticated then thats not considered logged in
-        if (session.status === "authenticated") {
+        if (user !== undefined) {
           if (item?.requiredRole) {
             return true; //hasRole(session, item?.requiredRole);
           }
@@ -24,10 +24,7 @@ export const filterNavigation = (navArray, session) => {
       case AUTH_STATE.LOGGED_OUT:
         // if the items needs you to be logged out, if they are authenticated then thats not the case,
         // loading and unauthenticated are considered logged out
-        if (
-          session.status === "loading" ||
-          session.status === "unauthenticated"
-        ) {
+        if (user == undefined) {
           return true;
         } else {
           return false;

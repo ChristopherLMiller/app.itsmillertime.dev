@@ -1,9 +1,8 @@
 import { APIEndpoint } from "config";
 import { useEffect, useState } from "react";
-import { Maybe } from "src/graphql/types";
 import makeDurationFriendly from "src/utils/makeDurationFriendly";
 
-export function useBuildTime(clockifyProjectId?: Maybe<string>) {
+export function useBuildTime(clockifyProjectId?: string) {
   const [buildTime, setBuildTime] = useState<string>();
 
   useEffect(() => {
@@ -11,7 +10,7 @@ export function useBuildTime(clockifyProjectId?: Maybe<string>) {
       const requestHeaders: HeadersInit = new Headers();
       requestHeaders.set(
         "X-api-key",
-        process.env.NEXT_PUBLIC_API_KEY as string
+        process.env.NEXT_PUBLIC_API_KEY as string,
       );
 
       const response = await fetch(
@@ -20,7 +19,7 @@ export function useBuildTime(clockifyProjectId?: Maybe<string>) {
           method: `GET`,
           credentials: "omit",
           headers: requestHeaders,
-        }
+        },
       );
       const { data, statusCode, error } = await response.json();
 

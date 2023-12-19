@@ -80,14 +80,14 @@ export const nav = {
         items: [
           {
             title: "Login",
-            activePaths: ["/account/login"],
+            activePaths: [],
             href: "/account/login",
             authState: "LOGGED_OUT",
           },
           {
             title: "My Account",
             activePaths: ["/account/my-account"],
-            href: "/account/my-account",
+            href: "/account/me",
             authState: "LOGGED_IN",
           },
           {
@@ -99,8 +99,8 @@ export const nav = {
           },
           {
             title: "Logout",
-            activePaths: ["/account/logout"],
-            href: "/api/auth/signout",
+            activePaths: [],
+            href: "/account/logout",
             authState: "LOGGED_IN",
           },
         ],

@@ -1,5 +1,5 @@
+import { useSession } from "@supabase/auth-helpers-react";
 import { APIEndpoint, paginationSettings } from "config";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "react-query";
@@ -72,7 +72,7 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       // setup the headers
       const requestHeaders: HeadersInit = new Headers();
       // @ts-ignore
-      const access_token = session.data?.user?.session?.access_token;
+      const access_token = session?.access_token || null;
 
       if (access_token) {
         requestHeaders.set("Authorization", "Bearer " + access_token);
@@ -161,10 +161,10 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
 
   // Runs and waits for the user session to be populated, then enables the query
   useEffect(() => {
-    if (session.status !== "loading") {
-      setQueryEnabled(true);
-    }
-  }, [session]);
+    //if (session.status !== "loading") {
+    setQueryEnabled(true);
+    //}
+  }, []);
 
   const memoedValue = useMemo(
     () => ({

@@ -1,5 +1,5 @@
 import Caret from "@components/Caret";
-import { useSession } from "next-auth/react";
+import { useUser } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, Fragment, useEffect, useState } from "react";
@@ -19,8 +19,8 @@ import {
 
 const ChildNavItem: FC<iNavItem> = ({ item }) => {
   const router = useRouter();
+  const user = useUser();
 
-  const session = useSession();
   const [isExpanded, setIsExpanded] = useState(false);
 
   // hook to monitor route changes
@@ -67,14 +67,14 @@ const ChildNavItem: FC<iNavItem> = ({ item }) => {
           animate={isExpanded ? "visible" : "hidden"}
         >
           <ChildMenu>
-            {filterNavigation(item?.children?.items, session).map(
+            {filterNavigation(item?.children?.items, user?.role).map(
               (child, index) => (
                 <ChildMenuItem key={`${child.title}${index}`}>
                   <Link href={child.href} passHref>
                     <ChildMenuItemLink>{child.title}</ChildMenuItemLink>
                   </Link>
                 </ChildMenuItem>
-              )
+              ),
             )}
           </ChildMenu>
         </ChildNavManu>

@@ -7,12 +7,10 @@ import { pageSettings } from "@fixtures/json/pages";
 import { defaultImage, lightboxOptions } from "config";
 import { formatRelative } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
-import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
-import { Enum_Gallery_Status, Gallery } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
 import { isAdmin } from "src/utils";
 import { isSessionLoading } from "src/utils/auth";
@@ -23,13 +21,12 @@ const Padding = styled.div`
 `;
 
 interface iGalleryPage {
-  album: Gallery;
+  album: any;
 }
 const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
-  const session = useSession();
   const router = useRouter();
 
-  const isPublic = album.status === Enum_Gallery_Status.Public;
+  const isPublic = album.status === "PUBLIC";
 
   return (
     <PageLayout
@@ -76,14 +73,14 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
                       "Created",
                       formatRelative(
                         new Date(album.createdAt as string),
-                        new Date()
+                        new Date(),
                       ),
                     ],
                     [
                       "Updated Last",
                       formatRelative(
                         new Date(album.updatedAt as string),
-                        new Date()
+                        new Date(),
                       ),
                     ],
                     [
@@ -93,11 +90,11 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
                     [
                       {
                         label:
-                          !isSessionLoading(session) && isAdmin(session)
+                          !isSessionLoading(null) && isAdmin(null)
                             ? "Edit"
                             : "",
                         url:
-                          !isSessionLoading(session) && isAdmin(session)
+                          !isSessionLoading(null) && isAdmin(null)
                             ? `${process.env.NEXT_PUBLIC_STRAPI_URL}/admin/plugins/content-manager/collectionType/application::gallery.gallery/${album.id}`
                             : ``,
                       },
@@ -131,7 +128,6 @@ const GalleryPage: NextPage<iGalleryPage> = ({ album }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
   const { slug } = context.query;
 
   const defaultReturn = {

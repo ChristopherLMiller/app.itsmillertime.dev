@@ -1,5 +1,4 @@
 import Card from "@components/Card";
-import Loader from "@components/Loader";
 import Paginator from "@components/Paginator";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
@@ -15,7 +14,7 @@ export const DynamicContents: FC<DynamicContentsTypes> = ({
   pagination,
   children,
 }) => {
-  const { isSuccess, error, data, isLoading, tag } = useDynamicContent();
+  const { isSuccess, error, data, tag } = useDynamicContent();
 
   return (
     <div>
@@ -50,10 +49,7 @@ export const DynamicContents: FC<DynamicContentsTypes> = ({
           <Paginator />
         )}
       <AnimatePresence mode="wait">
-        <motion.span exit={{ opacity: 0 }}>
-          {isLoading && <Loader isLoading={isLoading} />}
-          {isSuccess && children}
-        </motion.span>
+        <motion.span exit={{ opacity: 0 }}>{isSuccess && children}</motion.span>
       </AnimatePresence>
 
       {!error &&

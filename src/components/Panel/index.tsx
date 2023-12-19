@@ -19,13 +19,14 @@ const Panel: FunctionComponent<iPanel> = ({
 }) => {
   const isBoxed = boxed || boxedSmall;
   const boxWidth =
-    isBoxed &&
-    (boxedSmall ? "var(--max-width-desktop)" : "var(--max-width-wide)");
+    isBoxed && boxedSmall
+      ? "var(--max-width-desktop)"
+      : "var(--max-width-wide)";
   return (
     <StyledPanel
       align={align}
       padding={padding ? `3% 5%` : `0`}
-      boxed={isBoxed ? `max-width: ${boxWidth}` : ""}
+      boxed={isBoxed ? boxWidth : ""}
     >
       {children}
     </StyledPanel>

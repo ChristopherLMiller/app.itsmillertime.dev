@@ -1,14 +1,16 @@
 import { Grid, GridItem } from "@components/Grid";
 import { pageSettings } from "@fixtures/json/pages";
+import {
+  useSession,
+  useSessionContext,
+  useUser,
+} from "@supabase/auth-helpers-react";
 import { defaultImage } from "config";
-import { GetServerSideProps, NextPage } from "next";
-import { getSession, useSession } from "next-auth/react";
+import { NextPage } from "next";
 import { NextSeo } from "next-seo";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import Card from "src/components/Card";
 import PageLayout from "src/layout/PageLayout";
-import { getRole, getUser } from "src/utils/auth";
 import styled from "styled-components";
 
 const crypto = require("crypto");
@@ -24,8 +26,10 @@ interface iMyAccountPage {
 }
 
 const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
-  const session = useSession();
   const router = useRouter();
+  const user = useUser();
+  const session = useSession();
+  const context = useSessionContext();
 
   return (
     <PageLayout
@@ -53,12 +57,7 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
         }}
       />
       <Grid columns={3}>
-        <Image
-          src={`https://www.gravatar.com/avatar/${emailHash}`}
-          alt="Gravatar"
-          width={50}
-          height={50}
-        />
+        <img src={user?.user_metadata.avatar_url} alt="Profile Pic" />
         <GridItem start={2} end={3}>
           <Card heading="My Information" align="left">
             <InformationPanel>
@@ -67,41 +66,33 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
                   <p>Username:</p>
                 </GridItem>
                 <GridItem>
-                  <p>{getUser(session).username}</p>
+                  <p>{user?.user_metadata.full_name}</p>
                 </GridItem>
                 <GridItem>
                   <p>Email:</p>
                 </GridItem>
                 <GridItem>
-                  <p>{getUser(session).email}</p>
+                  <p>{user?.email}</p>
                 </GridItem>
                 <GridItem>
                   <p>Account Confirmed:</p>
                 </GridItem>
                 <GridItem>
-                  <input
-                    type="checkbox"
-                    checked={getUser(session).confirmed}
-                    disabled
-                  />
+                  <input type="checkbox" checked={true} disabled />
                 </GridItem>
                 <GridItem>
                   <p>Account Blocked:</p>
                 </GridItem>
                 <GridItem>
                   <p>
-                    <input
-                      type="checkbox"
-                      checked={getUser(session).blocked}
-                      disabled
-                    />
+                    <input type="checkbox" checked={false} disabled />
                   </p>
                 </GridItem>
                 <GridItem>
                   <p>User Role:</p>
                 </GridItem>
                 <GridItem>
-                  <p>{getRole(session)}</p>
+                  <p>{user?.role}</p>
                 </GridItem>
               </Grid>
             </InformationPanel>
@@ -112,7 +103,7 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+/*export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
   const emailHash = crypto
@@ -125,6 +116,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       emailHash,
     },
   };
-};
+};*/
 
 export default MyAccountPage;

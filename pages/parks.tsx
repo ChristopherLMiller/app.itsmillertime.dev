@@ -15,18 +15,10 @@ const ParksPage: NextPage = () => {
 
   useEffect(() => {
     async function fetchMarkers() {
-      const requestHeaders: HeadersInit = new Headers();
-      requestHeaders.set(
-        "x-api-key",
-        process.env.NEXT_PUBLIC_API_KEY as string
-      );
-      requestHeaders.set("Content-Type", "application/json");
-      const res = await fetch(`${APIEndpoint.live}/maps/markers`, {
-        headers: requestHeaders,
-      });
+      const res = await fetch(`${APIEndpoint.live}/maps/markers`, {});
       const { statusCode, data } = await res.json();
       if (statusCode === 200) {
-        setMarkers(data.markers);
+        setMarkers(data);
         setIsLoading(false);
       }
     }

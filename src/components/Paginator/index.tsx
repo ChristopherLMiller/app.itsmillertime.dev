@@ -25,7 +25,6 @@ const Paginator: React.FC<PaginatorTypes> = ({ scrollTop }) => {
       setTotalRecords(data?.meta?.total);
       setTotalPages(Math.ceil(totalRecords / take));
     }
-    console.log(totalPages);
   }, [data, take, totalPages, totalRecords]);
 
   const clickHandler = (operation) => {

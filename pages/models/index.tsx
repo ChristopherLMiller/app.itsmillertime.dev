@@ -1,18 +1,12 @@
 import Card from "@components/Card";
-import { Grid } from "@components/Grid";
-import Loader from "@components/Loader";
-import ModelCard from "@components/ModelCard";
 import { pageSettings } from "@fixtures/json/pages";
+import { useSession } from "@supabase/auth-helpers-react";
 import { defaultImage } from "config";
 import { NextPage } from "next";
-import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useModelsMinimalQuery } from "src/graphql/schema/models/modelsMinimal.query.generated";
-import { Model, PublicationState } from "src/graphql/types";
 import PageLayout from "src/layout/PageLayout";
-import { isAdmin } from "src/utils";
 
 const ModelsPageIndex: NextPage = () => {
   // things we need for the page
@@ -32,7 +26,7 @@ const ModelsPageIndex: NextPage = () => {
   }, [router]);
 
   // query for the data
-  const { data, isSuccess, isLoading, error } = useModelsMinimalQuery(
+  /* const { data, isSuccess, isLoading, error } = useModelsMinimalQuery(
     {
       sort: sort,
       where: null, //router.query ? router.query : null,
@@ -42,12 +36,8 @@ const ModelsPageIndex: NextPage = () => {
       limit: take,
       start: skip,
     },
-    { keepPreviousData: true, enabled: false }
-  );
-
-  if (error) {
-    console.error(error);
-  }
+    { keepPreviousData: true, enabled: false },
+  );*/
 
   return (
     <PageLayout
@@ -74,17 +64,9 @@ const ModelsPageIndex: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
-      {isLoading && <Loader isLoading={isLoading} />}
       <Card heading="Models">
         <p>The models page is currently broken. Check back later</p>
       </Card>
-
-      <Grid columns={2} min="500px" gap="3rem">
-        {isSuccess &&
-          data.models?.map((model) => (
-            <ModelCard key={model?.slug} model={model as Model} />
-          ))}
-      </Grid>
     </PageLayout>
   );
 };

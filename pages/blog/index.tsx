@@ -36,6 +36,7 @@ const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
     <PageLayout
       title={pageSettings.blog.title}
       description={pageSettings.blog.description}
+      boxed="1600px"
     >
       <NextSeo
         title={pageSettings.blog.title}
@@ -76,11 +77,11 @@ const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
 
 export async function getServerSideProps(context: NextPageContext) {
   // fetch the tags
-  const tagsRequest = await fetch(`${APIEndpoint.live}/post-tag`);
+  const tagsRequest = await fetch(`${APIEndpoint.live}/posts/tags`);
   const tagsResponse = await tagsRequest.json();
 
   // fetch the categories
-  const categoryRequest = await fetch(`${APIEndpoint.live}/post-category`);
+  const categoryRequest = await fetch(`${APIEndpoint.live}/posts/categories`);
   const categoryResponse = await categoryRequest.json();
 
   return {
@@ -90,9 +91,9 @@ export async function getServerSideProps(context: NextPageContext) {
       order: context?.query?.order || null,
       tag: context?.query?.tag || null,
       category: context?.query?.category || null,
-      allTags: tagsResponse.statusCode === 200 ? tagsResponse.data : [],
+      allTags: tagsRequest.status === 200 ? tagsResponse.data : [],
       allCategories:
-        categoryResponse.statusCode === 200 ? categoryResponse.data : [],
+        categoryRequest.status === 200 ? categoryResponse.data : [],
     },
   };
 }

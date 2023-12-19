@@ -4,11 +4,11 @@ import { Padding } from "@components/Padding";
 import Panel from "@components/Panel";
 import ShareButtons from "@components/ShareButtons";
 import { pageSettings } from "@fixtures/json/pages";
+import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 import { APIEndpoint, defaultImage } from "config";
 import { formatRelative, parseISO } from "date-fns";
 import { DiscussionEmbed } from "disqus-react";
 import { GetServerSideProps, NextPage } from "next";
-import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import PageLayout from "src/layout/PageLayout";
@@ -45,8 +45,8 @@ interface iBlogPost {
 }
 
 const BlogPost: NextPage<iBlogPost> = ({ article }) => {
-  const session = useSession();
   const router = useRouter();
+  const session = null;
   return (
     <PageLayout
       title={pageSettings.blog.title}
@@ -99,10 +99,10 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
             {` `}| Time To Read:
             {timeToRead(article.wordCount)}
           </div>
-          {true && (
+          {false && (
             <div className="publish">
               <a
-                href={`${APIEndpoint.admin}/admin/resources/Post/records/${article.id}/edit`}
+                href={`${APIEndpoint.live}/admin/resources/Post/records/${article.id}/edit`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -135,7 +135,6 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
   const { slug } = context.query;
 
   // if the slug isn't found lets eject right away for a 404 error
@@ -145,24 +144,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  // Fetch the data, the publication state depends on the user being an admin or not
-  /*const { data } = await fetchData(ArticlesDocument, {
-    where: { slug_eq: slug },
-    publicationState: isAdmin(session, true)
-      ? PublicationState.Preview
-      : PublicationState.Live,
-  });*/
-  const response = await fetch(`${APIEndpoint.live}/post/${slug}`, {
-    headers: {
-      "x-api-key": APIEndpoint.key,
-    },
-  });
-  const data = await response.json();
+  const supabase = createPagesServerClient(context);
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  if (data.statusCode === 200) {
+  // Fetch the data, the publication state depends on the user being an admin or not
+  const response = await fetch(`${APIEndpoint.live}/post/${slug}`);
+  const APIResponse = await response.json();
+
+  if (response.status === 200) {
     return {
       props: {
-        article: data.data,
+        article: APIResponse.data,
       },
     };
   } else {

@@ -1,7 +1,6 @@
 import CloudinaryImage from "@components/Images/CloudinaryImage";
 import { formatRelative, parseISO } from "date-fns";
 import { motion } from "framer-motion";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FunctionComponent } from "react";
 import useDynamicContent from "src/lib/context/dynamicContent";
@@ -11,8 +10,8 @@ import styled from "styled-components";
 const StyledArticleListItem = styled(motion.article)`
   display: grid;
   grid-template-columns: 1fr;
-  margin-block-end: 30px;
-  grid-gap: 30px;
+  margin-block-end: 4rem;
+  grid-gap: 4rem;
 
   @media screen and (min-width: 800px) {
     grid-template-columns: 40% 1fr;
@@ -29,9 +28,17 @@ const StyledArticleListItem = styled(motion.article)`
       scale: 1.05;
     }
   }
+
+  &:not(:has(img)) {
+    grid-template-columns: 1fr;
+  }
 `;
 
-const ArticleListItemImage = styled.div``;
+const ArticleListItemImage = styled.div`
+  &:not(:has(img)) {
+    display: none;
+  }
+`;
 
 const ArticleListItemContent = styled.div`
   background: var(--color-white-60);
@@ -118,7 +125,6 @@ interface iArticleListItem {
 }
 
 const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
-  const session = useSession();
   const { setCategory, setTag } = useDynamicContent();
 
   return (

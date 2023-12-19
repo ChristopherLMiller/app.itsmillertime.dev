@@ -1,14 +1,8 @@
 import Card from "@components/Card";
-import CloudinaryImage from "@components/Images/CloudinaryImage";
-import Loader from "@components/Loader";
 import { pageSettings } from "@fixtures/json/pages";
-import { formatRelative, parseISO } from "date-fns";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { ArrayList } from "src/components/arrayList";
-import { useGalleriesQuery } from "src/graphql/schema/galleries/galleries.query.generated";
 import PageLayout from "src/layout/PageLayout";
 
 const GalleriesIndexPage: NextPage = () => {
@@ -16,35 +10,12 @@ const GalleriesIndexPage: NextPage = () => {
   const queryParams = router.query;
   const where = { nsfw: false, ...queryParams };
 
-  const { isLoading, error, data, isSuccess } = useGalleriesQuery(
-    {
-      sort: `createdAt:ASC`,
-      where: where,
-    },
-    {
-      enabled: false,
-    }
-  );
-
-  if (error) {
-    console.error(error);
-    return (
-      <Card heading="Uh Oh!">
-        <p>
-          We were unable to fetch the data requested for whatever reason. Check
-          the console for error or try again later.
-        </p>
-      </Card>
-    );
-  }
-
   return (
     <PageLayout
       title={pageSettings.gallery.title}
       description={pageSettings.gallery.description}
       boxed="var(--max-width-wide)"
     >
-      {isLoading && <Loader isLoading={isLoading} />}
       <NextSeo
         title={pageSettings.gallery.title}
         description={pageSettings.gallery.description}
@@ -67,14 +38,18 @@ const GalleriesIndexPage: NextPage = () => {
       <Card heading="Galleries">
         <p>The Galleries page is currently broken</p>
       </Card>
-      {isSuccess && data?.galleries?.length === 0 && (
+      {false && (
         <Card heading="No Galleries Found">
           <p>
             We were unable to find any galleries matching your criteria. Sorry
           </p>
         </Card>
       )}
-      {isSuccess && (
+    </PageLayout>
+  );
+
+  /*
+      {false && (
         <ResponsiveMasonry>
           <Masonry gutter="3rem">
             {data?.galleries?.map((gallery) => (
@@ -116,7 +91,7 @@ const GalleriesIndexPage: NextPage = () => {
         </ResponsiveMasonry>
       )}
     </PageLayout>
-  );
+  );*/
 };
 
 export default GalleriesIndexPage;
