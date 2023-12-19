@@ -18,7 +18,6 @@ const ParksPage: NextPage = () => {
       const res = await fetch(`${APIEndpoint.live}/maps/markers`, {});
       const { statusCode, data } = await res.json();
       if (statusCode === 200) {
-        console.log(data);
         setMarkers(data);
         setIsLoading(false);
       }

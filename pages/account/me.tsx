@@ -31,10 +31,6 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
   const session = useSession();
   const context = useSessionContext();
 
-  console.log(user);
-  console.log(session);
-  console.log(context);
-
   return (
     <PageLayout
       title={pageSettings.myAccount.title}

@@ -35,8 +35,6 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
   const router = useRouter();
   const session = useSession();
 
-  //console.log(session);
-
   const [queryEnabled, setQueryEnabled] = useState(false);
   const [order, setOrder] = useState(
     initialProps.order || paginationSettings.orderDefault,

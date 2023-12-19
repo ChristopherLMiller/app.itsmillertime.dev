@@ -11,7 +11,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   // Map over the items to put into a final array with just the fields we need
   const articles = data.data.map((article) => ({
-    loc: `${APIEndpoint.live}/blog/post/${article?.slug}`,
+    loc: `${process.env.NEXT_PUBLIC_SITE_URL}/blog/post/${article?.slug}`,
     lastmod: article?.updatedAt,
   }));
 
