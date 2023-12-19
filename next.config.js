@@ -2,6 +2,8 @@ const { withSentryConfig } = require(`@sentry/nextjs`);
 const withPWA = require("next-pwa")({
   dest: "public",
   disable: process.env.NODE_ENV === "development",
+  maximumFileSizeToCacheInBytes: 5*1024*1024,
+
 });
 const rehypePrism = require(`@mapbox/rehype-prism`);
 const remarkTypograf = require("@mavrin/remark-typograf");
@@ -44,13 +46,6 @@ const withMDX = require(`@next/mdx`)({
 
 // Config
 const nextConfig = {
-  /*webpack: (config) => {
-    config.resolve.fallback = {
-      fs: false,
-      path: require.resolve("path-browserify"),
-    };
-    return config;
-  },*/
   reactStrictMode: true,
   pageExtensions: [`js`, `jsx`, `mdx`, `ts`, `tsx`],
   serverRuntimeConfig: {
