@@ -56,7 +56,7 @@ const LoginPage: NextPage = () => {
         <ContentPane>
           {!user && (
             <Auth
-              redirectTo={`/api/auth/callback`}
+              redirectTo={`${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback`}
               appearance={{ theme: ThemeMinimal }}
               supabaseClient={supabaseClient}
               providers={["github", "facebook"]}
