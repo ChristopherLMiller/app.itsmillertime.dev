@@ -59,7 +59,7 @@ const LoginPage: NextPage = () => {
               redirectTo={`${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/callback`}
               appearance={{ theme: ThemeMinimal }}
               supabaseClient={supabaseClient}
-              providers={["github", "facebook"]}
+              providers={["github", "discord"]}
               socialLayout="horizontal"
             />
           )}
