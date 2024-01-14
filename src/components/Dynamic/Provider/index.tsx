@@ -1,9 +1,10 @@
 import { useSession } from "@supabase/auth-helpers-react";
-import { APIEndpoint, paginationSettings } from "config";
+import { paginationSettings } from "config";
 import { useRouter } from "next/router";
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "react-query";
 import { DynamicContentContext } from "src/lib/context/dynamicContent";
+import { fetchFromAPI } from "src/lib/fetch";
 import { createURLParams } from "src/utils/createURLParams";
 
 export enum Pagination {
@@ -59,9 +60,9 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
         category,
       },
     ],
-    queryFn: ({ queryKey }) => {
+    queryFn: async ({ queryKey }) => {
       const [_key] = queryKey;
-      const url = `${APIEndpoint.live}/${contentPath}?${createURLParams({
+      const url = `${contentPath}?${createURLParams({
         take,
         order,
         page,
@@ -70,17 +71,22 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       })}`;
 
       // setup the headers
-      const requestHeaders: HeadersInit = new Headers();
+      const requestHeaders = {};
       // @ts-ignore
       const access_token = session?.access_token || null;
 
       if (access_token) {
-        requestHeaders.set("Authorization", "Bearer " + access_token);
+        requestHeaders["Authorization"] = `Bearer ${access_token}`;
       }
 
-      return fetch(url, {
-        headers: requestHeaders,
-      }).then((res) => res.json());
+      // TODO this is a hack to get around the caching issue i'm having
+      const finalUrl =
+        session?.user?.id !== undefined
+          ? `${url}&user-id=${session?.user?.id}`
+          : url;
+
+      const { data } = await fetchFromAPI(finalUrl, requestHeaders);
+      return data;
     },
     enabled: queryEnabled,
   });

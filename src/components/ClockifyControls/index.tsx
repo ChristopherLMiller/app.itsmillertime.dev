@@ -20,15 +20,14 @@ const ClockifyControls: FC<IClockifyControlsProps> = ({
       const requestHeaders: HeadersInit = new Headers();
       requestHeaders.set(
         "X-Api-Key",
-        process.env.NEXT_PUBLIC_API_KEY as string
+        process.env.NEXT_PUBLIC_API_KEY as string,
       );
-      const response = await fetch(`${APIEndpoint.live}/clockify/start-time`, {
+      const response = await fetch(`${APIEndpoint.local}/clockify/start-time`, {
         method: "POST",
         credentials: "omit",
         headers: requestHeaders,
       });
       const data = await response.json();
-      console.log(data);
     }
 
     //getData();

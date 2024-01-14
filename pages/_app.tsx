@@ -103,7 +103,7 @@ const App = ({
                 <meta name="theme-color" content="#982929" />
               </Head>
               <DefaultSeo {...SEO} />
-              <SnowyComponent />
+              {false && <SnowyComponent />}
               <CookieConsent buttonStyle={{ fontSize: `2rem` }}>
                 <CookieConsentText>
                   This website uses cookies to enhance the user experience.

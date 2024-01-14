@@ -62,7 +62,7 @@ export const ArticleLandingContent: FC<ArticleTypes> = ({
       </Sidebar>
       <DynamicContents pagination={Pagination.top}>
         <ArticleList>
-          {data?.data?.map((article) => (
+          {data?.map((article) => (
             <ArticleListItem key={article?.slug} article={article} />
           ))}
         </ArticleList>

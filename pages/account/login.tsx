@@ -17,7 +17,7 @@ const LoginPage: NextPage = () => {
 
   // If the user is authenticated already, redirect to the account page
   if (user) {
-    return router.push("/account/my-account");
+    return router.push("/account/me");
   }
 
   return (

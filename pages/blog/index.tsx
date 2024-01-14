@@ -4,11 +4,11 @@ import { category } from "@components/Dynamic/Categories";
 import { DynamicContentProvider } from "@components/Dynamic/Provider";
 import { tag } from "@components/Dynamic/Tags";
 import { pageSettings } from "@fixtures/json/pages";
-import { APIEndpoint } from "config";
 import { NextPage, NextPageContext } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import PageLayout from "src/layout/PageLayout";
+import { fetchFromAPI } from "src/lib/fetch";
 
 interface BlogIndexPageTypes {
   take: number;
@@ -67,7 +67,7 @@ const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
           select:
             "title,featuredImage,slug,publishedAt,updatedAt,category,tags,wordCount,summary",
         }}
-        contentPath="post"
+        contentPath="v1/posts/posts"
       >
         <ArticleLandingContent tags={allTags} categories={allCategories} />
       </DynamicContentProvider>
@@ -77,12 +77,10 @@ const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
 
 export async function getServerSideProps(context: NextPageContext) {
   // fetch the tags
-  const tagsRequest = await fetch(`${APIEndpoint.live}/posts/tags`);
-  const tagsResponse = await tagsRequest.json();
+  const tagsData = await fetchFromAPI(`v1/posts/tags`);
 
   // fetch the categories
-  const categoryRequest = await fetch(`${APIEndpoint.live}/posts/categories`);
-  const categoryResponse = await categoryRequest.json();
+  const categoriesData = await fetchFromAPI(`v1/posts/categories`);
 
   return {
     props: {
@@ -91,9 +89,9 @@ export async function getServerSideProps(context: NextPageContext) {
       order: context?.query?.order || null,
       tag: context?.query?.tag || null,
       category: context?.query?.category || null,
-      allTags: tagsRequest.status === 200 ? tagsResponse.data : [],
+      allTags: tagsData.statusCode === 200 ? tagsData.data : [],
       allCategories:
-        categoryRequest.status === 200 ? categoryResponse.data : [],
+        categoriesData.statusCode === 200 ? categoriesData.data : [],
     },
   };
 }

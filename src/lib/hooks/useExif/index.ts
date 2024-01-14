@@ -12,16 +12,16 @@ export function useEXIF(public_id: string, enabled: boolean) {
       requestHeaders.set("Accept", "application/json");
       requestHeaders.set(
         "x-api-key",
-        process.env.NEXT_PUBLIC_API_KEY as string
+        process.env.NEXT_PUBLIC_API_KEY as string,
       );
       const imageURL = encodeURIComponent(`${ImagesEndpoint}/${public_id}.jpg`);
       try {
         const response = await fetch(
-          `${APIEndpoint.live}/images/exif?url=${imageURL}`,
+          `${APIEndpoint.local}/images/exif?url=${imageURL}`,
           {
             credentials: "same-origin",
             headers: requestHeaders,
-          }
+          },
         );
         const { data, error, statusCode } = await response.json();
 

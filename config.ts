@@ -73,3 +73,8 @@ export const APIEndpoint = {
   live: process.env.NEXT_PUBLIC_API_ENDPOINT as string,
   key: process.env.NEXT_PUBLIC_API_KEY as string,
 };
+
+export const EndpointAPI =
+  process.env.NEXT_PUBLIC_API_LIVE_LOCAL === "live"
+    ? process.env.NEXT_PUBLIC_API_ENDPOINT
+    : process.env.NEXT_PUBLIC_API_ENDPOINT_local;
