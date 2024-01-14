@@ -1,5 +1,5 @@
-import MobileNav from "@components/Navigation/MobileNav";
-import { FunctionComponent } from "react";
+import dynamic from "next/dynamic";
+import { FunctionComponent, useEffect, useState } from "react";
 import styled from "styled-components";
 import SiteTitle from "./SiteTitle";
 
@@ -19,13 +19,36 @@ const StyledTopBar = styled.div`
   padding-inline: 10px;
 `;
 
-const TopBar: FunctionComponent = () => (
-  <TopBarContainer>
-    <StyledTopBar>
-      <MobileNav />
-      <SiteTitle />
-    </StyledTopBar>
-  </TopBarContainer>
-);
+const TopBar: FunctionComponent = () => {
+  const [isMobileNavVisible, setMobileNavVisibility] = useState(false);
+
+  // Some logic to determine if the mobile navigation should be visible
+  useEffect(() => {
+    // For example, you can check the window width to decide when to show the mobile navigation
+    const handleResize = () => {
+      setMobileNavVisibility(window.innerWidth <= 500);
+    };
+
+    handleResize(); // Check initial window width
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const Nav = dynamic(() => import("@components/Navigation/MobileNav"), {
+    ssr: false,
+  });
+
+  return (
+    <TopBarContainer>
+      <StyledTopBar>
+        {isMobileNavVisible && <Nav />}
+        <SiteTitle />
+      </StyledTopBar>
+    </TopBarContainer>
+  );
+};
 
 export default TopBar;

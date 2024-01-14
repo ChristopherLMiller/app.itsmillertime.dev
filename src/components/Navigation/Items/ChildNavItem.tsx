@@ -1,8 +1,9 @@
 import Caret from "@components/Caret";
-import { useUser } from "@supabase/auth-helpers-react";
+import { useSession, useUser } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, Fragment, useEffect, useState } from "react";
+import { fetchFromAPI } from "src/lib/fetch";
 import { filterNavigation } from "src/utils";
 import { iNavItem } from ".";
 import {
@@ -20,6 +21,8 @@ import {
 const ChildNavItem: FC<iNavItem> = ({ item }) => {
   const router = useRouter();
   const user = useUser();
+  const session = useSession();
+  const [userPermissions, setUserPermissions] = useState([]);
 
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -42,6 +45,27 @@ const ChildNavItem: FC<iNavItem> = ({ item }) => {
       return () => clearTimeout(timeout);
     }
   }, [isExpanded]);
+
+  // Fetch the users permissions and role
+  useEffect(() => {
+    const fetchUserPermissions = async (headers) => {
+      const { data, statusCode } = await fetchFromAPI(
+        "auth/users/me?perms=true",
+        headers,
+      );
+
+      if (statusCode === 200 && data !== null) {
+        setUserPermissions(data.role.permissions);
+      }
+    };
+    // Only run when the session isn't null (aka loaded)
+    if (session) {
+      const headers = {};
+      headers["Authorization"] = `Bearer ${session.access_token}`;
+      fetchUserPermissions(headers);
+    }
+  }, [session]);
+
   return (
     <Fragment>
       <NavigationElement
@@ -67,7 +91,7 @@ const ChildNavItem: FC<iNavItem> = ({ item }) => {
           animate={isExpanded ? "visible" : "hidden"}
         >
           <ChildMenu>
-            {filterNavigation(item?.children?.items, user?.role).map(
+            {filterNavigation(item?.children?.items, user, userPermissions).map(
               (child, index) => (
                 <ChildMenuItem key={`${child.title}${index}`}>
                   <Link href={child.href} passHref>

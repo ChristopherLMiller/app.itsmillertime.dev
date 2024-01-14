@@ -1,22 +1,4 @@
-/*export const graphQLClient = new GraphQLClient(
-  `${process.env.NEXT_PUBLIC_STRAPI_URL}/graphql`,
-);*/
-
-/*export function fetcher<TData, TVariables>(
-  query: string,
-  variables?: any,
-  jwt?: string,
-) {
-  return async (): Promise<TData> => {
-    const requestHeaders: HeadersInit = new Headers();
-
-    if (jwt) {
-      requestHeaders.set("authorization", `Bearer ${jwt}`);
-    }
-
-    return await graphQLClient.request(query, variables, requestHeaders);
-  };
-}*/
+import { EndpointAPI } from "config";
 
 export async function fetchData(document, variables) {
   const body = JSON.stringify({ query: document, variables });
@@ -29,4 +11,20 @@ export async function fetchData(document, variables) {
     body,
   });
   return await res.json();
+}
+
+export async function fetchFromAPI(
+  path,
+  additionalHeaders?: { [key: string]: string },
+  data?: any,
+): Promise<any> {
+  // setup some basic headers
+  const headers = new Headers();
+
+  const response = await fetch(`${EndpointAPI}${path}`, {
+    headers: { ...headers, ...additionalHeaders },
+  });
+
+  const responseData = await response.json();
+  return responseData;
 }

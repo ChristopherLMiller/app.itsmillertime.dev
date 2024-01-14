@@ -14,7 +14,7 @@ export function useBuildTime(clockifyProjectId?: string) {
       );
 
       const response = await fetch(
-        `${APIEndpoint.live}/clockify/buildtime/${clockifyProjectId}`,
+        `${APIEndpoint.local}/clockify/buildtime/${clockifyProjectId}`,
         {
           method: `GET`,
           credentials: "omit",

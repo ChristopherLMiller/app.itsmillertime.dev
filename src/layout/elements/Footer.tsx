@@ -193,10 +193,13 @@ const Footer: FunctionComponent = () => (
               <Link href="/privacy-policy">Privacy Policy</Link>. The material
               on this site may not be reproduced, distributed, transmitted,
               cached or otherwise used, except with prior written permission of{" "}
-              <em>Its Miller Time Dev</em>.
+              <em>Its Miller Time Dev</em>.{" "}
+              <a href="https://stats.uptimerobot.com/3yMgxh4L1">
+                Service Status
+              </a>
             </p>
             <p>
-              Copyright © {format(new Date(), `yyyy`)}
+              Copyright © 2017-{format(new Date(), `yyyy`)}
               <Separator />v{packageJSON.version}
             </p>
           </GridItem>

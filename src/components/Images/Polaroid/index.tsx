@@ -49,17 +49,17 @@ const Polaroid: FC<PolaroidTypes> = ({
       requestHeaders.set("Accept", "application/json");
       requestHeaders.set(
         "x-api-key",
-        process.env.NEXT_PUBLIC_API_KEY as string
+        process.env.NEXT_PUBLIC_API_KEY as string,
       );
       const imageURL = encodeURIComponent(
-        `${ImagesEndpoint}/f_auto,q_60,w_10/${public_id}.jpg`
+        `${ImagesEndpoint}/f_auto,q_60,w_10/${public_id}.jpg`,
       );
       const response = await fetch(
-        `${APIEndpoint.live}/images/encode?url=${imageURL}`,
+        `${APIEndpoint.local}/images/encode?url=${imageURL}`,
         {
           credentials: "same-origin",
           headers: requestHeaders,
-        }
+        },
       );
       const { data, error, statusCode } = await response.json();
 

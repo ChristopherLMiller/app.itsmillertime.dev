@@ -1,11 +1,12 @@
 import { pageSettings } from "@fixtures/json/pages";
-import { APIEndpoint, defaultImage } from "config";
+import { defaultImage } from "config";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import PageLayout from "src/layout/PageLayout";
+import { fetchFromAPI } from "src/lib/fetch";
 
 const ParksPage: NextPage = () => {
   const router = useRouter();
@@ -15,8 +16,7 @@ const ParksPage: NextPage = () => {
 
   useEffect(() => {
     async function fetchMarkers() {
-      const res = await fetch(`${APIEndpoint.live}/maps/markers`, {});
-      const { statusCode, data } = await res.json();
+      const { data, statusCode } = await fetchFromAPI(`v1/maps/markers`, {});
       if (statusCode === 200) {
         setMarkers(data);
         setIsLoading(false);

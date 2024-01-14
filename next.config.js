@@ -52,7 +52,7 @@ const nextConfig = {
     rootDir: __dirname,
   },
   images: {
-    domains: [`images.itsmillertime.dev`, `www.gravatar.com`],
+    domains: [`images.itsmillertime.dev`, `www.gravatar.com`, 'avatars.githubusercontent.com'],
   },
   sentry: {
     hideSourceMaps: false,

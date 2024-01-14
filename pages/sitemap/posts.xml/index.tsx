@@ -1,13 +1,10 @@
-import { APIEndpoint } from "config";
 import { GetServerSideProps, NextPage } from "next";
 import { getServerSideSitemapLegacy } from "next-sitemap";
+import { fetchFromAPI } from "src/lib/fetch";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Fetch all dynamic content here
-  const response = await fetch(
-    `${APIEndpoint.live}/post?select=slug,updatedAt`,
-  );
-  const data = await response.json();
+  const { data } = await fetchFromAPI(`v1/posts/posts?select=slug,updatedAt`);
 
   // Map over the items to put into a final array with just the fields we need
   const articles = data.data.map((article) => ({

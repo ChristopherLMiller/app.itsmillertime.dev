@@ -12,6 +12,7 @@ import { GetServerSideProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import PageLayout from "src/layout/PageLayout";
+import { fetchFromAPI } from "src/lib/fetch";
 import { timeToRead } from "src/utils";
 import styled from "styled-components";
 
@@ -102,7 +103,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
           {false && (
             <div className="publish">
               <a
-                href={`${APIEndpoint.live}/admin/resources/Post/records/${article.id}/edit`}
+                href={`${APIEndpoint.local}/admin/resources/Post/records/${article.id}/edit`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -150,13 +151,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   } = await supabase.auth.getSession();
 
   // Fetch the data, the publication state depends on the user being an admin or not
-  const response = await fetch(`${APIEndpoint.live}/post/${slug}`);
-  const APIResponse = await response.json();
+  const data = await fetchFromAPI(`v1/posts/posts/${slug}`);
 
-  if (response.status === 200) {
+  if (data.statusCode === 200) {
     return {
       props: {
-        article: APIResponse.data,
+        article: data.data,
       },
     };
   } else {

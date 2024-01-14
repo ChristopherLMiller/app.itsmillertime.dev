@@ -1,10 +1,10 @@
 import Markdown from "@components/Markdown";
 import Panel from "@components/Panel";
-import { APIEndpoint } from "config";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
 import { FC } from "react";
 import PageLayout from "src/layout/PageLayout";
+import { fetchFromAPI } from "src/lib/fetch";
 
 interface iPage {
   page: any;
@@ -47,18 +47,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (context.params?.slug === undefined) return { notFound: true };
 
   const slug = context.params["slug"];
-  const res = await fetch(`${APIEndpoint.live}/pages/${slug}`, {
-    headers: {
-      "x-api-key": APIEndpoint.key,
-    },
-  });
-  const data = await res.json();
+  const { data } = await fetchFromAPI(`v1/pages/${slug}`);
 
   // if we have no page, we should return a 404
-  if (data.data) {
+  if (data) {
     return {
       props: {
-        page: data.data,
+        page: data,
       },
       revalidate: 10,
     };
@@ -70,8 +65,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch(`${APIEndpoint.live}/pages`);
-  const data = await res.json();
+  const data = await fetchFromAPI(`v1/pages`);
   const paths = data.data.map((item: any) => {
     return { params: { slug: item.slug } };
   });

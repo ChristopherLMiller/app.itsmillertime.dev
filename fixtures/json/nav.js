@@ -86,7 +86,7 @@ export const nav = {
           },
           {
             title: "My Account",
-            activePaths: ["/account/my-account"],
+            activePaths: ["/account/me"],
             href: "/account/me",
             authState: "LOGGED_IN",
           },
@@ -96,6 +96,15 @@ export const nav = {
             href: "https://admin.christopherleemiller.me",
             authState: "LOGGED_IN",
             requiredRole: ["ADMINISTRATOR"],
+            permissions: ["APP.ADMINISTRATOR"]
+          },
+          {
+            title: "Upload File",
+            activePaths: ["/cloudinary"],
+            href: "/cloudinary",
+            authState: "LOGGED_IN",
+            requiredRole: [],
+            permissions: ['CLOUDINARY.UPLOAD_FILE']
           },
           {
             title: "Logout",

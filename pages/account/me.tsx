@@ -8,6 +8,7 @@ import {
 import { defaultImage } from "config";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import Card from "src/components/Card";
 import PageLayout from "src/layout/PageLayout";
@@ -57,7 +58,12 @@ const MyAccountPage: NextPage<iMyAccountPage> = ({ emailHash }) => {
         }}
       />
       <Grid columns={3}>
-        <img src={user?.user_metadata.avatar_url} alt="Profile Pic" />
+        <Image
+          src={user?.user_metadata.avatar_url}
+          width={100}
+          height={100}
+          alt="Profile Pic"
+        />
         <GridItem start={2} end={3}>
           <Card heading="My Information" align="left">
             <InformationPanel>
