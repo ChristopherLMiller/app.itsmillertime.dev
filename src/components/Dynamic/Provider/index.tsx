@@ -37,9 +37,8 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
   const session = useSession();
 
   const [queryEnabled, setQueryEnabled] = useState(false);
-  const [order, setOrder] = useState(
-    initialProps.order || paginationSettings.orderDefault,
-  );
+  const [orderField, setOrderField] = useState("publishedAt");
+  const [orderDirection, setOrderDirection] = useState("desc");
   const [take, setTake] = useState<number>(
     initialProps.take || (paginationSettings.perPage as number),
   );
@@ -53,7 +52,8 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       "posts",
       {
         take,
-        order,
+        orderField,
+        orderDirection,
         skip: (page - 1) * take,
         where: where,
         tag,
@@ -64,7 +64,8 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       const [_key] = queryKey;
       const url = `${contentPath}?${createURLParams({
         take,
-        order,
+        orderField,
+        orderDirection,
         page,
         where,
         select: initialProps.select,
@@ -105,9 +106,12 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       params.append("take", take.toString());
     }
 
-    if (order !== paginationSettings.orderDefault) {
-      // @ts-ignore
-      params.append("order", order);
+    if (orderField !== "publishedAt") {
+      params.append("orderField", orderField);
+    }
+
+    if (orderDirection !== "desc") {
+      params.append("orderDirection", orderDirection);
     }
 
     // update category
@@ -130,7 +134,7 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
     );
     window.scrollTo({ top: 0, behavior: "smooth" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [take, page, order, tag, category]); // we only want take and page, screw eslint!
+  }, [take, page, orderField, orderDirection, tag, category]); // we only want take and page, screw eslint!
 
   // Use effect to run when tag or category changes, updates the where clause
   // to the format needed for the backend to accept
@@ -174,7 +178,8 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
 
   const memoedValue = useMemo(
     () => ({
-      setOrder,
+      setOrderField,
+      setOrderDirection,
       setTake,
       setPage,
       setSkip,
@@ -185,7 +190,8 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       error,
       isLoading,
       isSuccess,
-      order,
+      orderField,
+      orderDirection,
       page,
       take,
       where,
@@ -201,7 +207,8 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       isSuccess,
       take,
       page,
-      order,
+      orderField,
+      orderDirection,
       skip,
       tag,
       where,
