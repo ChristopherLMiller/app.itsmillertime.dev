@@ -8,7 +8,8 @@ export interface createURLParamsTypes {
 
 export const createURLParams = ({
   take,
-  order,
+  orderField,
+  orderDirection,
   page,
   where,
   select,
@@ -16,9 +17,11 @@ export const createURLParams = ({
   // create the params to pass
   const params = new URLSearchParams({
     take: take.toString(),
-    orderBy: JSON.stringify(order),
+    orderBy: orderField,
+    orderDirection: orderDirection,
     skip: ((page - 1) * take).toString(),
     page: page.toString(),
+    include: "tags,category",
   });
 
   // check where clause, if its not empty append it
