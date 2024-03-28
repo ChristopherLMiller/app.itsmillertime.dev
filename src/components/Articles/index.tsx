@@ -3,7 +3,6 @@ import ArticleListItem from "@components/Article/ListItem";
 import { CategoriesList, category } from "@components/Dynamic/Categories";
 import { DynamicContents } from "@components/Dynamic/Content";
 import { Pagination } from "@components/Dynamic/Provider";
-import { TagsList, tag } from "@components/Dynamic/Tags";
 import Panel from "@components/Panel";
 import { FC } from "react";
 import useDynamicContent from "src/lib/context/dynamicContent";
@@ -37,25 +36,14 @@ const Sidebar = styled.div`
 `;
 
 interface ArticleTypes {
-  tags: [tag];
   categories: [category];
 }
-export const ArticleLandingContent: FC<ArticleTypes> = ({
-  tags,
-  categories,
-}) => {
+export const ArticleLandingContent: FC<ArticleTypes> = ({ categories }) => {
   const { data } = useDynamicContent();
 
   return (
     <Columns>
       <Sidebar>
-        {false && (
-          <Panel padding={false}>
-            <Accordian title="Tags">
-              <TagsList tags={tags} />
-            </Accordian>
-          </Panel>
-        )}
         <Panel padding={false}>
           <Accordian title="Categories">
             <CategoriesList categories={categories} />

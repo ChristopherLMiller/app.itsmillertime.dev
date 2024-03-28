@@ -104,7 +104,7 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
           {false && (
             <div className="publish">
               <a
-                href={`${APIEndpoint.local}/admin/resources/Post/records/${article.id}/edit`}
+                href={`${APIEndpoint.live}/admin/resources/Post/records/${article.id}/edit`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
