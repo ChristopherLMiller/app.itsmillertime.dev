@@ -49,11 +49,13 @@ export const ArticleLandingContent: FC<ArticleTypes> = ({
   return (
     <Columns>
       <Sidebar>
-        <Panel padding={false}>
-          <Accordian title="Tags">
-            <TagsList tags={tags} />
-          </Accordian>
-        </Panel>
+        {false && (
+          <Panel padding={false}>
+            <Accordian title="Tags">
+              <TagsList tags={tags} />
+            </Accordian>
+          </Panel>
+        )}
         <Panel padding={false}>
           <Accordian title="Categories">
             <CategoriesList categories={categories} />
@@ -62,7 +64,7 @@ export const ArticleLandingContent: FC<ArticleTypes> = ({
       </Sidebar>
       <DynamicContents pagination={Pagination.top}>
         <ArticleList>
-          {data?.map((article) => (
+          {data?.data?.map((article) => (
             <ArticleListItem key={article?.slug} article={article} />
           ))}
         </ArticleList>

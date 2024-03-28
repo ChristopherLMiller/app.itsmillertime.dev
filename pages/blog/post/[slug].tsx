@@ -5,6 +5,7 @@ import Panel from "@components/Panel";
 import ShareButtons from "@components/ShareButtons";
 import { pageSettings } from "@fixtures/json/pages";
 import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
+import { useSession } from "@supabase/auth-helpers-react";
 import { APIEndpoint, defaultImage } from "config";
 import { formatRelative, parseISO } from "date-fns";
 import { DiscussionEmbed } from "disqus-react";
@@ -47,7 +48,7 @@ interface iBlogPost {
 
 const BlogPost: NextPage<iBlogPost> = ({ article }) => {
   const router = useRouter();
-  const session = null;
+  const session = useSession();
   return (
     <PageLayout
       title={pageSettings.blog.title}
