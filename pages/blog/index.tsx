@@ -2,7 +2,6 @@ import { ArticleLandingContent } from "@components/Articles";
 import { category } from "@components/Dynamic/Categories";
 
 import { DynamicContentProvider } from "@components/Dynamic/Provider";
-import { tag } from "@components/Dynamic/Tags";
 import { pageSettings } from "@fixtures/json/pages";
 import { NextPage, NextPageContext } from "next";
 import { NextSeo } from "next-seo";
@@ -14,9 +13,7 @@ interface BlogIndexPageTypes {
   take: number;
   page: number;
   order: string;
-  tag: string;
   category: string;
-  allTags: [tag];
   allCategories: [category];
 }
 
@@ -24,9 +21,7 @@ const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
   take,
   page,
   order,
-  tag,
   category,
-  allTags,
   allCategories,
 }) => {
   // Hooks we need for this route
@@ -62,23 +57,19 @@ const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
           take,
           page,
           order,
-          tag,
           category,
           select:
-            "title,featuredImage,slug,publishedAt,updatedAt,category,tags,wordCount,summary",
+            "title,featuredImage,slug,publishedAt,updatedAt,category,wordCount,summary",
         }}
         contentPath="v1/posts/posts"
       >
-        <ArticleLandingContent tags={allTags} categories={allCategories} />
+        <ArticleLandingContent categories={allCategories} />
       </DynamicContentProvider>
     </PageLayout>
   );
 };
 
 export async function getServerSideProps(context: NextPageContext) {
-  // fetch the tags
-  const tagsData = await fetchFromAPI(`v1/posts/tags`);
-
   // fetch the categories
   const categoriesData = await fetchFromAPI(`v1/posts/categories`);
 
@@ -87,9 +78,7 @@ export async function getServerSideProps(context: NextPageContext) {
       take: context?.query?.take || null,
       page: context?.query?.page || null,
       order: context?.query?.order || null,
-      tag: context?.query?.tag || null,
       category: context?.query?.category || null,
-      allTags: tagsData.statusCode === 200 ? tagsData.data : [],
       allCategories:
         categoriesData.statusCode === 200 ? categoriesData.data : [],
     },

@@ -5,7 +5,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const response = await fetch(`${APIEndpoint.local}/post-tag`, {
+  const response = await fetch(`${APIEndpoint.live}/post-tag`, {
     headers: { "x-api-key": APIEndpoint.key },
   });
 
