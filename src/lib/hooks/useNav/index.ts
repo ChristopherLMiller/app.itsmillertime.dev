@@ -28,12 +28,12 @@ export function useNav() {
   useEffect(() => {
     const fetchUserPermissions = async (headers) => {
       const { data, statusCode } = await fetchFromAPI(
-        "auth/users/me?perms=true",
+        "auth/users/me/permissions",
         headers,
       );
 
       if (statusCode === 200 && data !== null) {
-        setUserPermissions(data.nodes);
+        setUserPermissions(data);
       }
     };
     // Only run when the session isn't null (aka loaded)

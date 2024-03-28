@@ -21,7 +21,7 @@ const Paginator: React.FC<PaginatorTypes> = ({ scrollTop }) => {
 
   // Set up the total number of records and pages
   useEffect(() => {
-    if (data?.meta?.total) {
+    if (data?.meta) {
       setTotalRecords(data?.meta?.total);
       setTotalPages(Math.ceil(totalRecords / take));
     }

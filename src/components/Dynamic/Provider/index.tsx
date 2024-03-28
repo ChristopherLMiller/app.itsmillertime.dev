@@ -17,14 +17,12 @@ export interface DynamicContentProviderTypes {
     take?: number;
     page?: number;
     order?: string;
-    tag?: string;
     category?: string;
     where?: any;
     select?: string;
   };
   children: ReactNode;
   contentPath: string;
-  tags?: [];
   categories?: [];
 }
 
@@ -45,7 +43,6 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
   const [skip, setSkip] = useState<number>(0);
   const [where, setWhere] = useState(initialProps.where || {});
   const [page, setPage] = useState(initialProps.page || 1);
-  const [tag, setTag] = useState(initialProps.tag || null);
   const [category, setCategory] = useState(initialProps.category || null);
   const { data, error, isLoading, isSuccess } = useQuery({
     queryKey: [
@@ -56,7 +53,7 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
         orderDirection,
         skip: (page - 1) * take,
         where: where,
-        tag,
+
         category,
       },
     ],
@@ -86,8 +83,8 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
           ? `${url}&user-id=${session?.user?.id}`
           : url;
 
-      const { data } = await fetchFromAPI(finalUrl, requestHeaders);
-      return data;
+      const { data, meta } = await fetchFromAPI(finalUrl, requestHeaders);
+      return { data, meta };
     },
     enabled: queryEnabled,
   });
@@ -119,10 +116,6 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       params.append("category", category);
     }
 
-    if (tag !== null && tag !== "NULL") {
-      params.append("tag", tag);
-    }
-
     router.push(
       `${router.route}${
         params.toString().length > 0 ? "?" : ""
@@ -134,9 +127,9 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
     );
     window.scrollTo({ top: 0, behavior: "smooth" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [take, page, orderField, orderDirection, tag, category]); // we only want take and page, screw eslint!
+  }, [take, page, orderField, orderDirection, category]); // we only want take and page, screw eslint!
 
-  // Use effect to run when tag or category changes, updates the where clause
+  // Use effect to run when category changes, updates the where clause
   // to the format needed for the backend to accept
   useEffect(() => {
     let newWhereClause = where;
@@ -147,21 +140,11 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       };
       setWhere(newWhereClause);
     }
-    if (tag !== null) {
-      if (tag === "NULL") {
-        newWhereClause.tags = undefined;
-      } else {
-        newWhereClause.tags = {
-          some: { slug: tag },
-        };
-      }
-      setWhere(newWhereClause);
-    }
 
     // after we have set filtering options we need to go back to page one as well
     setPage(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, tag, where]);
+  }, [category, where]);
 
   // Runs on initial setup as well as when the page or take changes
   useEffect(() => {
@@ -185,7 +168,7 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       setSkip,
       setWhere,
       setCategory,
-      setTag,
+
       data,
       error,
       isLoading,
@@ -197,7 +180,6 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       where,
       skip,
       category,
-      tag,
     }),
     [
       category,
@@ -210,7 +192,6 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
       orderField,
       orderDirection,
       skip,
-      tag,
       where,
     ],
   );

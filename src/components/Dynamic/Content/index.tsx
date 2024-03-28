@@ -15,6 +15,7 @@ export const DynamicContents: FC<DynamicContentsTypes> = ({
   children,
 }) => {
   const { isSuccess, error, data, tag } = useDynamicContent();
+  console.log({ isSuccess, error, data, tag });
 
   return (
     <div>
@@ -44,7 +45,7 @@ export const DynamicContents: FC<DynamicContentsTypes> = ({
         </Card>
       )}
       {!error &&
-        data?.data?.length > 0 &&
+        data?.data.length > 0 &&
         (pagination === Pagination.top || pagination === Pagination.both) && (
           <Paginator />
         )}

@@ -14,7 +14,7 @@ export const filterNavigation = (navArray, user, userPermissions) => {
         if (userPermissions !== undefined && userPermissions.length > 0) {
           if (item?.permissions?.length > 0) {
             return userPermissions.some((node) =>
-              item.permissions.includes(node.permission.node),
+              item.permissions.includes(node.node),
             );
           }
           // not all items have a required role, so just return true
