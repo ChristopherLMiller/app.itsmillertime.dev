@@ -1,6 +1,8 @@
-import CloudinaryImage from "@components/Images/CloudinaryImage";
+import { ImageContainer } from "@components/Images/styles";
+import { blurhashToBase64 } from "blurhash-base64";
 import { formatRelative, parseISO } from "date-fns";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { FunctionComponent } from "react";
 import useDynamicContent from "src/lib/context/dynamicContent";
@@ -37,6 +39,11 @@ const StyledArticleListItem = styled(motion.article)`
 const ArticleListItemImage = styled.div`
   &:not(:has(img)) {
     display: none;
+  }
+  position: relative;
+
+  img {
+    position: relative;
   }
 `;
 
@@ -126,17 +133,24 @@ interface iArticleListItem {
 
 const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
   const { setCategory, setTag } = useDynamicContent();
-
+  const imageHeight = article?.seo?.metaImage?.data?.height;
+  const imageWidth = article?.seo?.metaImage?.data?.width;
+  const aspectRatio = imageWidth / imageHeight;
   return (
     <StyledArticleListItem>
       <ArticleListItemImage>
-        {article.featuredImage && (
-          <CloudinaryImage
-            public_id={`${article.featuredImage.public_id}`}
-            width={600}
-            height={400}
-            alt={article.featuredImage.alt || ""}
-          />
+        {article.seo.metaImage !== null && (
+          <ImageContainer>
+            <Image
+              src={article.seo.metaImage.formats.small.url}
+              alt={article.seo.metaImage.alternativeText}
+              width={article.seo.metaImage.formats.small.width}
+              height={article.seo.metaImage.formats.small.height}
+              placeholder="blur"
+              blurDataURL={blurhashToBase64(article.seo.metaImage.blurhash)}
+              loading="lazy"
+            />
+          </ImageContainer>
         )}
       </ArticleListItemImage>
       <ArticleListItemContent>
@@ -156,15 +170,15 @@ const ArticleListItem: FunctionComponent<iArticleListItem> = ({ article }) => {
             Posted to{" "}
             <a
               onClick={() => {
-                setCategory(article.category.slug);
+                setCategory(article.postCategory.slug);
               }}
             >
-              {article.category.title}
+              {article?.postCategory?.data?.title}
             </a>
             {` | `} Time To Read: {timeToRead(article.wordCount)}
           </h6>
         </ArticleHeader>
-        <Excerpt>{article.summary}</Excerpt>
+        <Excerpt>{article.seo.metaDescription}</Excerpt>
         <PostMeta>
           <List>
             {article?.tags?.map((tag) => (

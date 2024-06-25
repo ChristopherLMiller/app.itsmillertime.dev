@@ -42,8 +42,7 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/[slug].tsx",
-    ".next/types/**/*.ts"
-, "src/components/ModelCard/index.tsx-disabled", "pages/models/model/[slug].tsx-disabled"  ],
+    ".next/types/**/*.ts"  ],
   "exclude": [
     "node_modules"
   ]

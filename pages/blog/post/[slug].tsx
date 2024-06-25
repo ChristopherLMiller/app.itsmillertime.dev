@@ -1,17 +1,18 @@
-import CloudinaryImage from "@components/Images/CloudinaryImage";
+import { ImageContainer } from "@components/Images/styles";
 import Markdown from "@components/Markdown";
-import { Padding } from "@components/Padding";
 import Panel from "@components/Panel";
 import ShareButtons from "@components/ShareButtons";
 import { pageSettings } from "@fixtures/json/pages";
-import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 import { useSession } from "@supabase/auth-helpers-react";
+import { blurhashToBase64 } from "blurhash-base64";
 import { APIEndpoint, defaultImage } from "config";
 import { formatRelative, parseISO } from "date-fns";
 import { DiscussionEmbed } from "disqus-react";
-import { GetServerSideProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
+import Image from "next/image";
 import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
 import PageLayout from "src/layout/PageLayout";
 import { fetchFromAPI } from "src/lib/fetch";
 import { timeToRead } from "src/utils";
@@ -49,6 +50,12 @@ interface iBlogPost {
 const BlogPost: NextPage<iBlogPost> = ({ article }) => {
   const router = useRouter();
   const session = useSession();
+
+  // Extrapolate out somethings to make it easier to use later
+  const metaImage = article?.seo?.metaImage;
+  console.log(metaImage);
+
+  // Render it
   return (
     <PageLayout
       title={pageSettings.blog.title}
@@ -56,79 +63,75 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
       boxed="var(--max-width-desktop)"
     >
       <NextSeo
-        title={article.title}
+        title={article.seo.metaTitle}
         canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
-        description={article.summary || article.metaTitle}
+        description={article.seo.metaDescription}
         openGraph={{
-          title: `${article.metaTitle}`,
-          description: `${article.summary}`,
+          title: `${article.seo.metaTitle}`,
+          description: `${article.seo.metaDescription}`,
           type: `article`,
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
           images: [
             {
-              url: article?.seo?.featured_image?.url || defaultImage.path,
-              width: article?.seo?.featured_image?.width || defaultImage.width,
-              height:
-                article?.seo?.featured_image?.height || defaultImage.height,
-              alt:
-                article?.seo?.featured_image?.alternativeText ||
-                defaultImage.altText,
+              url: metaImage?.formats?.large?.url || defaultImage.path,
+              width: metaImage?.formats?.large?.width || defaultImage.width,
+              height: metaImage?.formats?.large?.height || defaultImage.height,
+              alt: metaImage?.alternativeText || defaultImage.altText,
             },
           ],
         }}
-        noindex={article.published_at == null}
+        noindex={article.publishedAt == null}
       />
-      {article.featuredImage && (
-        <CloudinaryImage
-          public_id={article.featuredImage.public_id}
-          alt={
-            article?.seo?.featured_image?.alternativeText ||
-            "Blog Post Default Image"
-          }
-          width={1920}
-          height={1080}
-          border={false}
-        />
+      {metaImage !== null && (
+        <ImageContainer>
+          <Image
+            src={metaImage.formats.large.url}
+            alt={metaImage.alternativeText}
+            width={metaImage.formats.large.width}
+            height={metaImage.formats.large.height}
+            placeholder="blur"
+            blurDataURL={blurhashToBase64(metaImage.blurhash)}
+          />
+        </ImageContainer>
       )}
-      <Panel padding={false} boxedSmall>
-        <ArticleHeader>
-          <h2>{article?.title}</h2>
+      <ArticleHeader>
+        <h2>{article.seo.metaTitle}</h2>
+        <div className="publish">
+          Published:{` `}
+          {article.publishedAt
+            ? formatRelative(parseISO(article?.publishedAt), new Date())
+            : `DRAFT`}
+          {` `}| Time To Read:
+          {timeToRead(article.wordCount)}
+        </div>
+        {false && (
           <div className="publish">
-            Published:{` `}
-            {article.published
-              ? formatRelative(parseISO(article?.publishedAt), new Date())
-              : `DRAFT`}
-            {` `}| Time To Read:
-            {timeToRead(article.wordCount)}
+            <a
+              href={`${APIEndpoint.live}/admin/resources/Post/records/${article.id}/edit`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Edit
+            </a>
           </div>
-          {false && (
-            <div className="publish">
-              <a
-                href={`${APIEndpoint.live}/admin/resources/Post/records/${article.id}/edit`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Edit
-              </a>
-            </div>
-          )}
-        </ArticleHeader>
-        <ShareButtons
-          url={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
-          media={article?.seo?.featured_image?.url || defaultImage.path}
-          title={article?.title}
-        />
-        <Padding padding={"5%"}>
-          <Markdown source={article.content} />
-        </Padding>
+        )}
+      </ArticleHeader>
+      <ShareButtons
+        url={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
+        media={metaImage?.formats?.large?.url || defaultImage.path}
+        title={article?.seo.metaTitle}
+      />
+      <Panel padding={true}>
+        <Markdown source={article.content} />
       </Panel>
+
       <Panel>
         <DiscussionEmbed
           shortname="itsmillertimedev"
           config={{
             url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
-            identifier: article.id.toString(),
-            title: article.title,
+            identifier: article.slug,
+            title: article.seo.metaTitle,
           }}
         />
       </Panel>
@@ -136,38 +139,62 @@ const BlogPost: NextPage<iBlogPost> = ({ article }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { slug } = context.query;
+interface Params extends ParsedUrlQuery {
+  slug?: string;
+}
 
-  // if the slug isn't found lets eject right away for a 404 error
-  if (!slug) {
+function hasSlug(params: ParsedUrlQuery | undefined): params is Params {
+  return params !== undefined && typeof params.slug === "string";
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  // Shortcircuit out of here if a slug wasn't provided
+  if (!hasSlug(context.params)) {
     return {
       notFound: true,
     };
   }
 
-  const supabase = createPagesServerClient(context);
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  // Build out the query parametets to fetch the slug
+  const queryParameters = {
+    filters: {
+      slug: {
+        $eq: context.params.slug,
+      },
+    },
+    populate: {
+      seo: {
+        populate: {
+          metaImage: {
+            populate: true,
+          },
+        },
+      },
+    },
+  };
+  const { data } = await fetchFromAPI(`api/posts`, queryParameters);
 
-  // Fetch the data, the publication state depends on the user being an admin or not
-  const data = await fetchFromAPI(`v1/posts/posts/${slug}`);
-
-  if (data.statusCode === 200) {
+  // An empty array means the slug wasn't found
+  if (data.length) {
     return {
       props: {
-        article: data.data,
+        article: data[0],
       },
+      revalidate: 10,
     };
   } else {
-    // If the article isn't found (0 length) we will just redirct to the landing page
     return {
-      redirect: {
-        destination: "/blog",
-        permanent: false,
-      },
+      notFound: true,
     };
   }
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data } = await fetchFromAPI(`api/posts`);
+  const paths = data.map((article: any) => {
+    return { params: { slug: article.slug } };
+  });
+
+  return { paths, fallback: "blocking" };
 };
 export default BlogPost;

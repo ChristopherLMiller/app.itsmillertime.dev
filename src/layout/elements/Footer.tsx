@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import packageJSON from "package.json";
 import { FunctionComponent } from "react";
-import ContactMeForm from "src/templates/forms/contactMe";
 import styled from "styled-components";
 
 const StyledFooter = styled.footer`
@@ -99,7 +98,6 @@ const Footer: FunctionComponent = () => (
             <FooterSubheading>
               Reach out today with any questions or concerns.
             </FooterSubheading>
-            <ContactMeForm />
           </GridItem>
           <GridItem>
             <FooterHeading>Follow Me</FooterHeading>

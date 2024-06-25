@@ -10,27 +10,28 @@ interface iPage {
   page: any;
 }
 const Page: FC<iPage> = ({ page }) => {
-  const { title, summary, content, slug, featuredImage } = page;
+  const { title, content, slug, seo } = page;
+
   return (
     <PageLayout
-      title={title}
-      description={summary}
+      title={seo.metaTitle}
+      description={seo.metaDescription}
       boxed="var(--max-width-desktop)"
     >
       <NextSeo
         title={title}
-        description={summary}
+        description={seo.metaDescription}
         canonical={`${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`}
         openGraph={{
           title: title,
-          description: summary,
+          description: seo.metaDescription,
           type: "website",
           images: [
             {
-              alt: featuredImage?.alternativeText,
+              alt: seo.metaImage?.alternativeText,
               width: 800,
               height: 600,
-              url: featuredImage?.url,
+              url: seo.metaImage?.url,
             },
           ],
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`,
@@ -47,13 +48,29 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (context.params?.slug === undefined) return { notFound: true };
 
   const slug = context.params["slug"];
-  const { data } = await fetchFromAPI(`v1/pages/${slug}`);
+
+  const data = await fetchFromAPI(`api/pages`, {
+    filters: {
+      slug: {
+        $eq: slug,
+      },
+    },
+    populate: {
+      seo: {
+        populate: {
+          metaImage: {
+            populate: true,
+          },
+        },
+      },
+    },
+  });
 
   // if we have no page, we should return a 404
-  if (data) {
+  if (data.data.length) {
     return {
       props: {
-        page: data,
+        page: data.data[0],
       },
       revalidate: 10,
     };
@@ -65,9 +82,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await fetchFromAPI(`v1/pages`);
-  const paths = data.data.map((item: any) => {
-    return { params: { slug: item.slug } };
+  const data = await fetchFromAPI(`api/pages`);
+  const paths = data.data.map((page: any) => {
+    return { params: { slug: page.slug } };
   });
 
   return { paths, fallback: "blocking" };

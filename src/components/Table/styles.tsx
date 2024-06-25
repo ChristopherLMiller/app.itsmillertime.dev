@@ -9,6 +9,7 @@ export const StyledTable = styled.table`
 
   td {
     padding-inline: 1rem;
+    text-transform: uppercase;
   }
 
   tr:nth-child(even) {

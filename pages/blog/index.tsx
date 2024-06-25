@@ -61,7 +61,7 @@ const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
           select:
             "title,featuredImage,slug,publishedAt,updatedAt,category,wordCount,summary",
         }}
-        contentPath="v1/posts/posts"
+        contentPath="api/posts"
       >
         <ArticleLandingContent categories={allCategories} />
       </DynamicContentProvider>
@@ -71,7 +71,7 @@ const BlogIndexpage: NextPage<BlogIndexPageTypes> = ({
 
 export async function getServerSideProps(context: NextPageContext) {
   // fetch the categories
-  const categoriesData = await fetchFromAPI(`v1/posts/categories`);
+  const categoriesData = await fetchFromAPI(`api/post-categories`);
 
   return {
     props: {
@@ -79,8 +79,7 @@ export async function getServerSideProps(context: NextPageContext) {
       page: context?.query?.page || null,
       order: context?.query?.order || null,
       category: context?.query?.category || null,
-      allCategories:
-        categoriesData.statusCode === 200 ? categoriesData.data : [],
+      allCategories: categoriesData.data ? categoriesData.data : [],
     },
   };
 }

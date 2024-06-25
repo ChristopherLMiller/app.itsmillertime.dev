@@ -1,17 +1,20 @@
 import Card from "@components/Card";
+import { Grid } from "@components/Grid";
+import ModelCard from "@components/ModelCard";
 import { pageSettings } from "@fixtures/json/pages";
-import { useSession } from "@supabase/auth-helpers-react";
 import { defaultImage } from "config";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import PageLayout from "src/layout/PageLayout";
+import { fetchFromAPI } from "src/lib/fetch";
+const qs = require("qs");
 
 const ModelsPageIndex: NextPage = () => {
   // things we need for the page
   const router = useRouter();
-  const session = useSession();
 
   // variables relating to the page
   const [page, setPage] = useState(1);
@@ -25,19 +28,53 @@ const ModelsPageIndex: NextPage = () => {
     setTake(parseInt(router.query["take"] as string) || 12);
   }, [router]);
 
-  // query for the data
-  /* const { data, isSuccess, isLoading, error } = useModelsMinimalQuery(
-    {
-      sort: sort,
-      where: null, //router.query ? router.query : null,
-      publicationState: isAdmin(session)
-        ? PublicationState.Preview
-        : PublicationState.Live,
-      limit: take,
-      start: skip,
+  const { data, isSuccess, isLoading, error, isError } = useQuery({
+    queryKey: ["models"],
+    queryFn: async () => {
+      const queryParameters = {
+        publicationState: "preview",
+        sort: [sort],
+        pagination: {
+          pageSize: take,
+          page: page,
+        },
+        populate: {
+          seo: {
+            fields: ["metaTitle"],
+            populate: {
+              metaImage: {
+                fields: ["url"],
+              },
+            },
+          },
+          modelKit: {
+            fields: [
+              "title",
+              "scale",
+              "kitNumber",
+              "scalematesLink",
+              "yearReleased",
+            ],
+            populate: {
+              manufacturer: {
+                fields: ["title", "slug"],
+              },
+              scale: {
+                fields: ["title", "slug"],
+              },
+            },
+          },
+          modelTags: {
+            fields: ["tag", "slug"],
+          },
+        },
+      };
+
+      return fetchFromAPI(`api/models`, queryParameters);
     },
-    { keepPreviousData: true, enabled: false },
-  );*/
+
+    keepPreviousData: true,
+  });
 
   return (
     <PageLayout
@@ -64,9 +101,18 @@ const ModelsPageIndex: NextPage = () => {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
         }}
       />
-      <Card heading="Models">
-        <p>The models page is currently broken. Check back later</p>
-      </Card>
+      {isError && (
+        <Card heading="Models">
+          <p>Holy crap its broken!</p>
+        </Card>
+      )}
+      {isSuccess && (
+        <Grid columns={2} gap="2rem">
+          {data.data.map((model) => (
+            <ModelCard key={model.id} model={model}></ModelCard>
+          ))}
+        </Grid>
+      )}
     </PageLayout>
   );
 };

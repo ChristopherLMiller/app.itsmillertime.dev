@@ -15,7 +15,6 @@ export const DynamicContents: FC<DynamicContentsTypes> = ({
   children,
 }) => {
   const { isSuccess, error, data, tag } = useDynamicContent();
-  console.log({ isSuccess, error, data, tag });
 
   return (
     <div>

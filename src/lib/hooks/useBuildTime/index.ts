@@ -1,4 +1,3 @@
-import { APIEndpoint } from "config";
 import { useEffect, useState } from "react";
 import makeDurationFriendly from "src/utils/makeDurationFriendly";
 
@@ -9,30 +8,35 @@ export function useBuildTime(clockifyProjectId?: string) {
     async function fetchBuildTime() {
       const requestHeaders: HeadersInit = new Headers();
       requestHeaders.set(
-        "X-api-key",
-        process.env.NEXT_PUBLIC_API_KEY as string,
+        "X-Api-Key",
+        process.env.NEXT_PUBLIC_CLOCKIFY_API_KEY as string,
       );
 
-      const response = await fetch(
-        `${APIEndpoint.live}/clockify/buildtime/${clockifyProjectId}`,
+      /*const response = await fetch(
+        `${APIEndpoint.live}clockify/buildtime/${clockifyProjectId}`,
         {
           method: `GET`,
           credentials: "omit",
           headers: requestHeaders,
         },
+      );*/
+      const response = await fetch(
+        `https://api.clockify.me/api/v1/workspaces/${process.env.NEXT_PUBLIC_CLOCKIFY_WORKSPACE}/projects/${clockifyProjectId}`,
+        {
+          headers: requestHeaders,
+        },
       );
-      const { data, statusCode, error } = await response.json();
 
-      if (statusCode === 200) {
-        setBuildTime(makeDurationFriendly(data?.duration) || "");
+      if (response.status === 200) {
+        const data = await response.json();
+        setBuildTime(makeDurationFriendly(data?.duration));
       } else {
-        console.log(data, status, error);
-        throw new Error(error);
+        setBuildTime("N/A");
       }
     }
 
     // check if there is a ID passed in, if not just set to none and return
-    if (clockifyProjectId) {
+    if (clockifyProjectId !== null) {
       fetchBuildTime();
     } else {
       setBuildTime(`N/A`);
