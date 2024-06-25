@@ -2,12 +2,9 @@ import { FC } from "react";
 import useDynamicContent from "src/lib/context/dynamicContent";
 
 export interface category {
-  attributes: {
-    title: string;
-    slug: string;
-  };
-
-  id: number;
+  title: string;
+  id: string;
+  slug: string;
 }
 
 export interface CategoriesListTypes {
