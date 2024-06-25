@@ -1,4 +1,5 @@
 import { EndpointAPI } from "config";
+import qs from "qs";
 
 export async function fetchData(document, variables) {
   const body = JSON.stringify({ query: document, variables });
@@ -14,17 +15,33 @@ export async function fetchData(document, variables) {
 }
 
 export async function fetchFromAPI(
-  path,
-  additionalHeaders?: { [key: string]: string },
-  data?: any,
+  path: string,
+  queryParams?: Record<string, unknown>,
+  options?: {
+    additionalHeaders?: { [key: string]: any };
+    method?: "POST" | "GET" | "PUT" | "DELETE";
+  },
 ): Promise<any> {
   // setup some basic headers
   const headers = new Headers();
+  headers.set("Content-Type", "application/json");
+  headers.set("Accept", "application/json");
 
-  const response = await fetch(`${EndpointAPI}${path}`, {
-    headers: { ...headers, ...additionalHeaders },
+  // Construct the URL
+  const url = `${EndpointAPI}${path}?${qs.stringify(queryParams)}`;
+  const response = await fetch(url, {
+    method: options?.method || "GET",
+    headers,
   });
 
-  const responseData = await response.json();
-  return responseData;
+  if (response.status === 200) {
+    const data = await response.json();
+    return {
+      ...data,
+      meta: { statusCode: response.status, ...data.meta },
+    };
+  } else {
+    console.log(response);
+    throw new Error(response.statusText);
+  }
 }

@@ -49,7 +49,7 @@ export default class MyDocument extends Document {
           <script
             defer
             data-domain="itsmillertime.dev"
-            src="https://analytics.itsmillertime.dev/js/script.js"
+            src="https://plausible.itsmillertime.dev/js/script.js"
           ></script>
         </Head>
         <body>

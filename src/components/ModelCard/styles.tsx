@@ -27,6 +27,7 @@ export const ModelName = styled.div<iModelName>`
   font-family: var(--font-alt);
   font-size: var(--p-size);
   letter-spacing: 2px;
+  color: var(--color-white-80);
 
   a {
     color: var(--color-white-80);
@@ -43,6 +44,13 @@ export const ModelImage = styled.div`
 
   span {
     min-height: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    display: inherit;
+    object-fit: cover;
   }
 `;
 

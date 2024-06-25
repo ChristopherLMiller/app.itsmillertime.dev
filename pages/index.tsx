@@ -1,10 +1,12 @@
 import { Grid } from "@components/Grid";
+import { ImageContainer } from "@components/Images/styles";
 import Panel from "@components/Panel";
 import { pageSettings } from "@fixtures/json/pages";
 import { useUser } from "@supabase/auth-helpers-react";
 import { defaultImage } from "config";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import PageLayout from "src/layout/PageLayout";
 
@@ -42,7 +44,9 @@ const IndexPage: NextPage = () => {
           <p>Hello, {user?.user_metadata?.full_name || "Guest"}</p>
           <p>
             Please excuse the mess while I&apos;m remodeling. Many great things
-            are in progress and will appear here as they are built.
+            are in progress and will appear here as they are built. As the site
+            currently sits many many things are broken, and probably throwing
+            errors, don't be alarmed, your just early to the show.
           </p>
 
           <p>
@@ -57,6 +61,14 @@ const IndexPage: NextPage = () => {
             left.
           </p>
         </Panel>
+        <ImageContainer>
+          <Image
+            src="https://images.itsmillertime.dev/f_auto,c_limit,w_1920,q_auto/clm-new/uploads/IMG_2173_c54415107f.jpg"
+            width="800"
+            height="600"
+            alt="Beautiful fall"
+          />
+        </ImageContainer>
       </Grid>
     </PageLayout>
   );

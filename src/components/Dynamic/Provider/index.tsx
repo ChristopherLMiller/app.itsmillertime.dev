@@ -5,7 +5,6 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "react-query";
 import { DynamicContentContext } from "src/lib/context/dynamicContent";
 import { fetchFromAPI } from "src/lib/fetch";
-import { createURLParams } from "src/utils/createURLParams";
 
 export enum Pagination {
   top = "top",
@@ -34,7 +33,7 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
   const router = useRouter();
   const session = useSession();
 
-  const [queryEnabled, setQueryEnabled] = useState(false);
+  const [queryEnabled, setQueryEnabled] = useState(true);
   const [orderField, setOrderField] = useState("publishedAt");
   const [orderDirection, setOrderDirection] = useState("desc");
   const [take, setTake] = useState<number>(
@@ -59,7 +58,7 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
     ],
     queryFn: async ({ queryKey }) => {
       const [_key] = queryKey;
-      const url = `${contentPath}?${createURLParams({
+      /*const url = `${contentPath}?${createURLParams({
         take,
         orderField,
         orderDirection,
@@ -82,9 +81,27 @@ export const DynamicContentProvider: React.FC<DynamicContentProviderTypes> = ({
         session?.user?.id !== undefined
           ? `${url}&user-id=${session?.user?.id}`
           : url;
+          */
 
-      const { data, meta } = await fetchFromAPI(finalUrl, requestHeaders);
-      return { data, meta };
+      return fetchFromAPI(contentPath, {
+        pagination: {
+          pageSize: take,
+          page: page,
+        },
+        sort: [`${orderField}:${orderDirection}`],
+        populate: {
+          seo: {
+            populate: {
+              metaImage: {
+                populate: true,
+              },
+            },
+          },
+          postCategory: {
+            populate: true,
+          },
+        },
+      });
     },
     enabled: queryEnabled,
   });

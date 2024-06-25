@@ -14,15 +14,8 @@ const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
   return <NextErrorComponent statusCode={statusCode} />
 }
 
-MyError.getInitialProps = async ({ res, err, asPath }) => {
-  const errorInitialProps = await NextErrorComponent.getInitialProps({
-    res,
-    err,
-  })
-
-  // Workaround for https://github.com/vercel/next.js/issues/8592, mark when
-  // getInitialProps has run
-  errorInitialProps.hasGetInitialPropsRun = true
+MyError.getInitialProps = async (contextData) => {
+  await Sentry.captureUnderscoreErrorException(contextData);
 
   // Running on the server, the response object (`res`) is available.
   //
@@ -37,14 +30,14 @@ MyError.getInitialProps = async ({ res, err, asPath }) => {
   //    Boundary. Read more about what types of exceptions are caught by Error
   //    Boundaries: https://reactjs.org/docs/error-boundaries.html
 
-  if (err) {
-    Sentry.captureException(err)
+  if (contextData.err) {
+    Sentry.captureException(contextData.err)
 
     // Flushing before returning is necessary if deploying to Vercel, see
     // https://vercel.com/docs/platform/limits#streaming-responses
     await Sentry.flush(2000)
 
-    return errorInitialProps
+    return contextData.errorInitialProps
   }
 
   // If this point is reached, getInitialProps was called without any

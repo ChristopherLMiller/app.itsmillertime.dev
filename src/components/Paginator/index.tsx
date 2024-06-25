@@ -15,20 +15,26 @@ export interface PaginatorTypes {
 }
 
 const Paginator: React.FC<PaginatorTypes> = ({ scrollTop }) => {
-  const { page, take, data, setPage } = useMooseContext();
+  const {
+    take,
+    data: {
+      meta: { pagination },
+    },
+    setPage,
+  } = useMooseContext();
   const [totalRecords, setTotalRecords] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
 
   // Set up the total number of records and pages
   useEffect(() => {
-    if (data?.meta) {
-      setTotalRecords(data?.meta?.total);
-      setTotalPages(Math.ceil(totalRecords / take));
+    if (pagination) {
+      setTotalRecords(pagination?.total);
+      setTotalPages(pagination?.pageCount);
     }
-  }, [data, take, totalPages, totalRecords]);
+  }, [pagination, take, totalPages, totalRecords]);
 
   const clickHandler = (operation) => {
-    let newPage = page;
+    let newPage = pagination.page;
     switch (operation) {
       case Operations.NEXT:
         newPage++;
@@ -61,7 +67,7 @@ const Paginator: React.FC<PaginatorTypes> = ({ scrollTop }) => {
   return (
     <PaginationBar>
       <Button
-        isDisabled={page === 1}
+        isDisabled={pagination.page === 1}
         type="button"
         onClick={() => clickHandler(Operations.FIRST)}
       >
@@ -69,17 +75,17 @@ const Paginator: React.FC<PaginatorTypes> = ({ scrollTop }) => {
       </Button>
       <Separator />
       <Button
-        isDisabled={page === 1}
+        isDisabled={pagination.page === 1}
         type="button"
         onClick={() => clickHandler(Operations.PREV)}
       >
         &lt;Prev
       </Button>
       <Button type="button">
-        {page} of {totalPages}
+        {pagination.page} of {pagination.pageCount}
       </Button>
       <Button
-        isDisabled={page === totalPages}
+        isDisabled={pagination.page === pagination.pageCount}
         type="button"
         onClick={() => clickHandler(Operations.NEXT)}
       >
@@ -87,7 +93,7 @@ const Paginator: React.FC<PaginatorTypes> = ({ scrollTop }) => {
       </Button>
       <Separator />
       <Button
-        isDisabled={page === totalPages}
+        isDisabled={pagination.page === pagination.pageCount}
         type="button"
         onClick={() => clickHandler(Operations.LAST)}
       >

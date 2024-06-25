@@ -2,28 +2,25 @@ import Card from "@components/Card";
 import ClockifyControls from "@components/ClockifyControls";
 import { Grid, GridItem } from "@components/Grid";
 import CloudinaryImage from "@components/Images/CloudinaryImage";
-import Markdown from "@components/Markdown";
 import Panel from "@components/Panel";
 import Table from "@components/Table";
 import { pageSettings } from "@fixtures/json/pages";
+import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 import { defaultImage, lightboxOptions } from "config";
-import { format, formatRelative, parseISO } from "date-fns";
-import { DiscussionEmbed } from "disqus-react";
+import { format, parseISO } from "date-fns";
 import { GetServerSideProps, NextPage } from "next";
-import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
+import Image from "next/image";
 import { useRouter } from "next/router";
-import Youtube from "react-youtube";
+import YouTube from "react-youtube";
 import SimpleReactLightbox, { SRLWrapper } from "simple-react-lightbox";
-import {
-  ModelsDocument,
-  useModelsQuery,
-} from "src/graphql/schema/models/models.query.generated";
-import { Model, PublicationState } from "src/graphql/types";
+
+import Markdown from "@components/Markdown";
+import { DiscussionEmbed } from "disqus-react";
 import PageLayout from "src/layout/PageLayout";
-import { fetchData } from "src/lib/fetch";
+import { fetchFromAPI } from "src/lib/fetch";
 import { useBuildTime } from "src/lib/hooks/useBuildTime";
-import { getYouTubeVideoId, isAdmin } from "src/utils";
+import { getYouTubeVideoId } from "src/utils";
 import styled from "styled-components";
 
 const YoutubeWrapper = styled.div`
@@ -35,46 +32,45 @@ const YoutubeWrapper = styled.div`
 
 const ImageWrapper = styled.div`
   cursor: pointer;
+  border: 2px solid var(--color-red-intermediate);
+
+  img {
+    object-fit: contain;
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
 `;
 
-interface iModelPage {
-  seo: Model;
-}
-
-const ModelPage: NextPage<iModelPage> = ({ seo }) => {
-  let model;
-  const router = useRouter();
-  const session = useSession();
-  const { buildTime } = useBuildTime(seo?.clockify_project_id);
-
-  // 1) We parse out the SEO stuff first so that we have it to get to SEO
-  const imageURL = seo.SEO?.featured_image?.provider_metadata.public_id;
-  const imageAlt = seo.SEO?.featured_image?.alternativeText;
-
-  // 2) Now we load the data using hooks
-  const { data, isSuccess } = useModelsQuery({
-    where: {
-      slug: seo.slug,
-    },
-  });
-
-  if (!isSuccess) {
-    return null;
-  } else if (data?.models !== null && data?.models !== undefined) {
-    model = data?.models[0];
+const FeaturedImage = styled.div`
+  img {
+    object-fit: contain;
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
   }
+`;
+
+const ModelPage: NextPage<{ model: any }> = ({ model }) => {
+  const router = useRouter();
+  const { buildTime } = useBuildTime(model?.projectId);
+
+  const metaImage = model.seo.metaImage;
+  const images = model?.images;
 
   // so for the sake of UI, if the completed_at field is null/undefined
   // we'll just set it to Yes, to reflect that it's done
-  const completedAt = model?.completed_at
-    ? format(parseISO(model?.completed_at), "PP")
+  const completedAt = model?.completionDate
+    ? format(parseISO(model?.completionDate), "PP")
     : "Yes";
 
   const videoId = model?.youtube_video
     ? getYouTubeVideoId(model.youtube_video)
     : null;
 
-  const hasContent = model?.content !== undefined && model?.content !== null;
+  const hasContent = model?.buildLog.length;
 
   return (
     <PageLayout
@@ -83,37 +79,36 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
       boxed={`var(--max-width-desktop)`}
     >
       <NextSeo
-        title={seo?.SEO?.title}
-        description={seo?.SEO?.description || seo?.SEO?.title}
+        title={model?.seo?.metaTitle}
+        description={model.seo.metaDescription}
         canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`}
         openGraph={{
-          title: `${seo?.SEO?.title}`,
-          description: `${seo?.SEO?.description}`,
+          title: `${model.seo.metaTitle}`,
+          description: `${model.seo.metaDescription}`,
           type: `website`,
           url: `${process.env.NEXT_PUBLIC_SITE_URL}${router.asPath}`,
           images: [
             {
-              url: seo?.SEO?.featured_image?.url || defaultImage.path,
-              width: seo?.SEO?.featured_image?.width || defaultImage.width,
-              height: seo?.SEO?.featured_image?.height || defaultImage.height,
-              alt:
-                seo?.SEO?.featured_image?.alternativeText ||
-                defaultImage.altText,
+              url: metaImage.url || defaultImage.path,
+              width: metaImage.width || defaultImage.width,
+              height: metaImage.height || defaultImage.height,
+              alt: metaImage.alternativeText || defaultImage.altText,
             },
           ],
         }}
-        noindex={seo.published_at == null}
+        noindex={model.publishedAt == null}
       />
-      {isSuccess && !hasContent && (
+      {!hasContent && (
         <Grid columns={3} gap="2rem">
           <GridItem start={1} end={3}>
-            <CloudinaryImage
-              public_id={imageURL}
-              width={600}
-              height={400}
-              alt={seo?.SEO?.featured_image?.alternativeText as string}
-              priority={true}
-            />
+            <FeaturedImage>
+              <Image
+                src={metaImage.url}
+                width={metaImage.width || 600}
+                height={metaImage.height || 400}
+                alt={metaImage.alternativeText}
+              />
+            </FeaturedImage>
           </GridItem>
           <GridItem>
             <Grid gap="2rem">
@@ -122,19 +117,15 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                 buildTime={buildTime}
                 completedAt={completedAt}
               />
-              <ClockifyControls
-                session={session}
-                clockify_project_id={model?.clockify_project_id || ""}
-                completed={model.completed || false}
-              />
+
               {videoId && (
                 <Panel padding={false}>
                   <YoutubeWrapper>
-                    <Youtube videoId={videoId} />
+                    <YouTube videoId={videoId} />
                   </YoutubeWrapper>
                 </Panel>
               )}
-              {model?.images !== undefined && model?.images !== null && (
+              {images !== undefined && images !== null && (
                 <Panel padding={false}>
                   <SimpleReactLightbox>
                     <SRLWrapper options={lightboxOptions}>
@@ -162,23 +153,28 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
           </GridItem>
         </Grid>
       )}
-      {isSuccess && hasContent && (
+      {hasContent && (
         <Grid columns={3} gap="2rem">
           <GridItem start={1} end={4}>
-            <CloudinaryImage
-              public_id={imageURL}
-              width={600}
-              height={400}
-              alt={imageAlt as string}
-              priority={true}
-            />
+            <FeaturedImage>
+              <Image
+                src={metaImage.url}
+                alt={metaImage.alternativeText}
+                width={metaImage.width || 600}
+                height={metaImage.height || 400}
+                priority={true}
+              />
+            </FeaturedImage>
           </GridItem>
           <GridItem start={1} end={3}>
-            {model?.content && (
-              <Card align="left">
-                <Markdown source={model?.content} />
-              </Card>
-            )}
+            <Card align="left">
+              {model.buildLog.map((element) => (
+                <>
+                  <h5 id={`#${element.section}`}>{element.section}</h5>
+                  <Markdown key={element.id} source={element.contents} />
+                </>
+              ))}
+            </Card>
           </GridItem>
           <GridItem>
             <Grid gap="3rem">
@@ -187,41 +183,45 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
                 buildTime={buildTime}
                 completedAt={completedAt}
               />
-              <ClockifyControls
-                session={session}
-                completed={model?.completed || false}
-                clockify_project_id={model?.clockify_project_id || ""}
-              />
+              {false && (
+                <ClockifyControls
+                  session={null}
+                  completed={model?.completed || false}
+                  clockify_project_id={model?.clockify_project_id || ""}
+                />
+              )}
               {videoId && (
                 <Panel padding={false}>
                   <YoutubeWrapper>
-                    <Youtube videoId={videoId} />
+                    <YouTube videoId={videoId} />
                   </YoutubeWrapper>
                 </Panel>
               )}
-              {model?.images?.length > 0 && (
-                <Panel padding={false}>
+              {images?.length > 0 && (
+                <>
                   <SimpleReactLightbox>
                     <SRLWrapper options={lightboxOptions}>
-                      <Grid columns={3} masonry>
-                        {model?.images?.length > 0 &&
-                          model?.images?.map((image) => (
-                            <ImageWrapper
-                              key={image?.provider_metadata.public_id}
-                            >
-                              <CloudinaryImage
-                                public_id={image?.provider_metadata?.public_id}
-                                alt={image?.alternativeText || ""}
-                                width={300}
-                                height={200}
-                                border={false}
+                      <Grid
+                        columns={images.length % 2 === 0 ? 2 : 3}
+                        masonry
+                        gap="1rem"
+                      >
+                        {images?.map((imageItem) => {
+                          return (
+                            <ImageWrapper key={imageItem?.id}>
+                              <Image
+                                src={imageItem.url}
+                                width={imageItem.width}
+                                height={imageItem.height}
+                                alt={imageItem.alternativeText}
                               />
                             </ImageWrapper>
-                          ))}
+                          );
+                        })}
                       </Grid>
                     </SRLWrapper>
                   </SimpleReactLightbox>
-                </Panel>
+                </>
               )}
               <Panel>
                 <DiscussionEmbed
@@ -242,12 +242,7 @@ const ModelPage: NextPage<iModelPage> = ({ seo }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
   const { slug } = context.query;
-
-  return {
-    redirect: { destination: "/models", permanent: false },
-  };
 
   // if the slug isn't found lets eject right away for a 404 error
   if (!slug) {
@@ -257,55 +252,93 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   // Fetch the data, the publication state depends on the user being an admin or not
-  const { data } = await fetchData(ModelsDocument, {
-    where: { slug_eq: slug },
-    publicationState: isAdmin(session, true)
-      ? PublicationState.Preview
-      : PublicationState.Live,
-  });
+  const supabase = createPagesServerClient(context);
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  if (data?.models) {
+  // Build the query
+  const queryParameters = {
+    publicationState: "preview",
+    populate: {
+      seo: {
+        populate: {
+          metaImage: {
+            populate: true,
+          },
+        },
+      },
+      modelKit: {
+        fields: [
+          "title",
+          "scale",
+          "kitNumber",
+          "scalematesLink",
+          "yearReleased",
+        ],
+        populate: {
+          manufacturer: {
+            fields: ["title", "slug"],
+          },
+          scale: {
+            fields: ["title", "slug"],
+          },
+        },
+      },
+      modelTags: {
+        fields: ["tag", "slug"],
+      },
+      buildLog: {
+        populate: true,
+      },
+      images: {
+        populate: true,
+      },
+    },
+    filters: {
+      slug: {
+        $eq: slug,
+      },
+    },
+  };
+
+  // Fetch the data
+  const data = await fetchFromAPI(`api/models`, queryParameters);
+  if (data.data.length) {
     return {
       props: {
-        seo: data.models[0],
+        model: data.data[0],
       },
     };
   } else {
-    // If the model isn't found (0 length) we will just redirct to the landing page
     return {
-      redirect: {
-        destination: "/models",
-        permanent: false,
-      },
+      notFound: true,
     };
   }
 };
 
 const InfoCard = ({ model, completedAt, buildTime }) => {
+  const modelKit = model.modelKit;
   return (
-    <Card padding={false} heading={model.title} fullWidth>
+    <Card padding={false} heading={modelKit.title} fullWidth>
       <Table
         rows={[
           [
-            `Started: ${formatRelative(parseISO(model.createdAt), new Date())}`,
-            `Updated: ${formatRelative(parseISO(model.updatedAt), new Date())}`,
-          ],
-          [
             "Brand",
             {
-              label: model?.manufacturer?.name,
-              url: `/models?manufacturer=${model?.manufacturer?.slug}`,
+              label: modelKit?.manufacturer?.title,
+              url: `/models?manufacturer=${modelKit?.manufacturer?.slug}`,
             },
           ],
           [
             "Scale",
             {
-              label: model?.scale?.name,
-              url: `/models?scale=${model?.scale?.slug}`,
+              label: modelKit?.scale?.title,
+              url: `/models?scale=${modelKit?.scale?.slug}`,
             },
           ],
-          ["Kit Number", model?.kit_number],
-          ["Year Released", model?.year_released],
+          ["Kit Number", modelKit?.kitNumber],
+          ["Year Released", modelKit?.yearReleased],
           [
             "Scalemates",
             {
@@ -314,7 +347,10 @@ const InfoCard = ({ model, completedAt, buildTime }) => {
               target: "new",
             },
           ],
-          ["Completed", model?.completed ? completedAt : "No"],
+          [
+            "Completed",
+            model?.buildStatus === "COMPLETED" ? completedAt : "No",
+          ],
           ["Build Time", buildTime],
         ]}
       />

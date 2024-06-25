@@ -10,3 +10,5 @@ public/sitemap-0.xml
 
 ## ENV Variables
 .env.local
+# Sentry Config File
+.env.sentry-build-plugin
